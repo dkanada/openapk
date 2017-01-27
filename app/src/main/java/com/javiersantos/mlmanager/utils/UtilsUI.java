@@ -25,8 +25,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import java.util.Calendar;
-
 public class UtilsUI {
 
     public static int darker (int color, double factor) {
@@ -43,12 +41,7 @@ public class UtilsUI {
         int header;
         AppPreferences appPreferences = MLManagerApplication.getAppPreferences();
         String apps, systemApps, favoriteApps, hiddenApps;
-
-        if (getDayOrNight() == 1) {
-            header = R.drawable.header_day;
-        } else {
-            header = R.drawable.header_night;
-        }
+        header = R.drawable.header_day;
 
         if (appAdapter != null) {
             apps = Integer.toString(appAdapter.getItemCount());
@@ -143,15 +136,4 @@ public class UtilsUI {
 
         return drawerBuilder.build();
     }
-
-    public static int getDayOrNight() {
-        int actualHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-
-        if (actualHour >= 8 && actualHour < 19) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
 }
