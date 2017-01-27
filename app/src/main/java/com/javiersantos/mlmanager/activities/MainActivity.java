@@ -44,9 +44,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-import xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller;
-
-
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
 
@@ -74,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private Drawer drawer;
     private MenuItem searchItem;
     private SearchView searchView;
-    private static VerticalRecyclerViewFastScroller fastScroller;
     private static LinearLayout noResults;
 
     @Override
@@ -91,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         recyclerView = (RecyclerView) findViewById(R.id.appList);
         pullToRefreshView = (PullToRefreshView) findViewById(R.id.pull_to_refresh);
-        fastScroller = (VerticalRecyclerViewFastScroller) findViewById(R.id.fast_scroller);
         progressWheel = (ProgressWheel) findViewById(R.id.progress);
         noResults = (LinearLayout) findViewById(R.id.noResults);
 
@@ -251,13 +246,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             appFavoriteAdapter = new AppAdapter(getFavoriteList(appList, appSystemList), context);
             appHiddenAdapter = new AppAdapter(appHiddenList, context);
 
-            fastScroller.setVisibility(View.VISIBLE);
             recyclerView.setAdapter(appAdapter);
             pullToRefreshView.setEnabled(true);
             progressWheel.setVisibility(View.GONE);
             searchItem.setVisible(true);
 
-            fastScroller.setRecyclerView(recyclerView);
             recyclerView.setOnScrollListener(fastScroller.getOnScrollListener());
 
             setPullToRefreshView(pullToRefreshView);
@@ -329,10 +322,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public static void setResultsMessage(Boolean result) {
         if (result) {
             noResults.setVisibility(View.VISIBLE);
-            fastScroller.setVisibility(View.GONE);
         } else {
             noResults.setVisibility(View.GONE);
-            fastScroller.setVisibility(View.VISIBLE);
         }
     }
 
