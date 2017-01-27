@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private MenuItem searchItem;
     private SearchView searchView;
     private static LinearLayout noResults;
+    private SwipeRefreshLayout refresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         recyclerView = (RecyclerView) findViewById(R.id.appList);
         progressWheel = (ProgressWheel) findViewById(R.id.progress);
+        refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         noResults = (LinearLayout) findViewById(R.id.noResults);
 
         recyclerView.setHasFixedSize(true);
@@ -98,6 +101,26 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         progressWheel.setVisibility(View.VISIBLE);
         new getInstalledApps().execute();
 
+        refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh.setRefreshing(true);
+
+                appAdapter.clear();
+                appSystemAdapter.clear();
+                appFavoriteAdapter.clear();
+                recyclerView.setAdapter(null);
+
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        new getInstalledApps().execute();
+                        refresh.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
     }
 
     private void setInitialConfiguration() {
