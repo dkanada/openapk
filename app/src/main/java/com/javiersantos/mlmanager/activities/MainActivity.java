@@ -35,7 +35,6 @@ import com.javiersantos.mlmanager.utils.UtilsApp;
 import com.javiersantos.mlmanager.utils.UtilsDialog;
 import com.javiersantos.mlmanager.utils.UtilsUI;
 import com.mikepenz.materialdrawer.Drawer;
-import com.pnikosis.materialishprogress.ProgressWheel;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private Activity activity;
     private Context context;
     private RecyclerView recyclerView;
-    private ProgressWheel progressWheel;
     private Drawer drawer;
     private MenuItem searchItem;
     private SearchView searchView;
@@ -86,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         setAppDir();
 
         recyclerView = (RecyclerView) findViewById(R.id.appList);
-        progressWheel = (ProgressWheel) findViewById(R.id.progress);
         refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         noResults = (LinearLayout) findViewById(R.id.noResults);
 
@@ -94,11 +91,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-
         drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, recyclerView);
 
-        progressWheel.setBarColor(appPreferences.getPrimaryColorPref());
-        progressWheel.setVisibility(View.VISIBLE);
         new getInstalledApps().execute();
 
         refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
@@ -250,12 +244,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         }
 
         @Override
-        protected void onProgressUpdate(String... progress) {
-            super.onProgressUpdate(progress);
-            progressWheel.setProgress(Float.parseFloat(progress[0]));
-        }
-
-        @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
@@ -265,7 +253,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             appHiddenAdapter = new AppAdapter(appHiddenList, context);
 
             recyclerView.setAdapter(appAdapter);
-            progressWheel.setVisibility(View.GONE);
             searchItem.setVisible(true);
 
             drawer.closeDrawer();
