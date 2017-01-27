@@ -35,7 +35,6 @@ import com.javiersantos.mlmanager.utils.UtilsDialog;
 import com.javiersantos.mlmanager.utils.UtilsUI;
 import com.mikepenz.materialdrawer.Drawer;
 import com.pnikosis.materialishprogress.ProgressWheel;
-import com.yalantis.phoenix.PullToRefreshView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private Activity activity;
     private Context context;
     private RecyclerView recyclerView;
-    private PullToRefreshView pullToRefreshView;
     private ProgressWheel progressWheel;
     private Drawer drawer;
     private MenuItem searchItem;
@@ -86,11 +84,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         setAppDir();
 
         recyclerView = (RecyclerView) findViewById(R.id.appList);
-        pullToRefreshView = (PullToRefreshView) findViewById(R.id.pull_to_refresh);
         progressWheel = (ProgressWheel) findViewById(R.id.progress);
         noResults = (LinearLayout) findViewById(R.id.noResults);
-
-        pullToRefreshView.setEnabled(false);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -247,37 +242,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             appHiddenAdapter = new AppAdapter(appHiddenList, context);
 
             recyclerView.setAdapter(appAdapter);
-            pullToRefreshView.setEnabled(true);
             progressWheel.setVisibility(View.GONE);
             searchItem.setVisible(true);
 
-            recyclerView.setOnScrollListener(fastScroller.getOnScrollListener());
-
-            setPullToRefreshView(pullToRefreshView);
             drawer.closeDrawer();
             drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, recyclerView);
         }
 
-    }
-
-    private void setPullToRefreshView(final PullToRefreshView pullToRefreshView) {
-        pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                appAdapter.clear();
-                appSystemAdapter.clear();
-                appFavoriteAdapter.clear();
-                recyclerView.setAdapter(null);
-                new getInstalledApps().execute();
-
-                pullToRefreshView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        pullToRefreshView.setRefreshing(false);
-                    }
-                }, 2000);
-            }
-        });
     }
 
     private void checkAndAddPermissions(Activity activity) {
