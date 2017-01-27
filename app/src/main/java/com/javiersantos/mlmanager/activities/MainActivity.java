@@ -101,11 +101,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             public void onRefresh() {
                 refresh.setRefreshing(true);
 
-                appAdapter.clear();
-                appSystemAdapter.clear();
-                appFavoriteAdapter.clear();
-                recyclerView.setAdapter(null);
-
                 (new Handler()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
