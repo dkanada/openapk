@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             recyclerView.setAdapter(appAdapter);
             searchItem.setVisible(true);
 
-            drawer.closeDrawer();
+            //drawer.closeDrawer();
             drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
         }
 
