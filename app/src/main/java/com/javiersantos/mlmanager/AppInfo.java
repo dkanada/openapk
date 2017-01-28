@@ -70,5 +70,4 @@ public class AppInfo implements Serializable {
   public String toString() {
     return getName() + "##" + getAPK() + "##" + getVersion() + "##" + getSource() + "##" + getData() + "##" + isSystem();
   }
-
 }

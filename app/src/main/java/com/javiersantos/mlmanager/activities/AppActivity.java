@@ -150,7 +150,6 @@ public class AppActivity extends AppCompatActivity {
           clipData = ClipData.newPlainText("text", appInfo.getAPK());
           clipboardManager.setPrimaryClip(clipData);
           UtilsDialog.showSnackbar(activity, context.getResources().getString(R.string.copied_clipboard), null, null, 2).show();
-
           return false;
         }
       });

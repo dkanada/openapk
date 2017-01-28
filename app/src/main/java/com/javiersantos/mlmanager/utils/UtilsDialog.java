@@ -99,48 +99,4 @@ public class UtilsDialog {
 
     return snackBar;
   }
-
-  public static MaterialDialog showProFeatures(final Context context) {
-    final MaterialSimpleListAdapter adapter = new MaterialSimpleListAdapter(context);
-    adapter.add(new MaterialSimpleListItem.Builder(context)
-        .content(context.getResources().getString(R.string.pro_feature_1))
-        .icon(new IconicsDrawable(context).icon(GoogleMaterial.Icon.gmd_visibility_off).color(Color.GRAY).sizeDp(18))
-        .backgroundColor(Color.WHITE)
-        .build());
-    adapter.add(new MaterialSimpleListItem.Builder(context)
-        .content(context.getResources().getString(R.string.pro_feature_2))
-        .icon(new IconicsDrawable(context).icon(GoogleMaterial.Icon.gmd_list).color(Color.GRAY).sizeDp(18))
-        .backgroundColor(Color.WHITE)
-        .build());
-    adapter.add(new MaterialSimpleListItem.Builder(context)
-        .content(context.getResources().getString(R.string.pro_feature_3))
-        .icon(new IconicsDrawable(context).icon(GoogleMaterial.Icon.gmd_phonelink_erase).color(Color.GRAY).sizeDp(18))
-        .backgroundColor(Color.WHITE)
-        .build());
-    adapter.add(new MaterialSimpleListItem.Builder(context)
-        .content(context.getResources().getString(R.string.pro_feature_4))
-        .icon(new IconicsDrawable(context).icon(GoogleMaterial.Icon.gmd_delete).color(Color.GRAY).sizeDp(18))
-        .backgroundColor(Color.WHITE)
-        .build());
-
-    MaterialDialog.Builder materialBuilder = new MaterialDialog.Builder(context)
-        .title(context.getResources().getString(R.string.action_buy) + " (" + context.getResources().getString(R.string.action_buy_description) + ")")
-        .icon(ContextCompat.getDrawable(context, R.mipmap.ic_launcher_pro))
-        .adapter(adapter, new MaterialDialog.ListCallback() {
-          @Override
-          public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-          }
-        })
-        .positiveText(context.getResources().getString(R.string.action_buy) + " ($1.43)")
-        .negativeText(context.getResources().getString(R.string.button_later))
-        .onPositive(new MaterialDialog.SingleButtonCallback() {
-          @Override
-          public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-            UtilsApp.goToGooglePlay(context, MLManagerApplication.getProPackage());
-          }
-        });
-
-    return materialBuilder.show();
-  }
-
 }
