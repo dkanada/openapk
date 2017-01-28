@@ -7,4 +7,4 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|right"
     android:layout_margin="@dimen/fab_margin"
-    app:fab_colorNormal="@color/fab" />
+    app:fab_colorNormal="@color/fab"/>

@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical">
-    <PreferenceCategory
-        android:title="@string/action_settings">
-        <Preference
-            android:key="prefDeleteAll"
-            android:title="@string/settings_delete_all"
-            android:summary="@string/settings_delete_all_description" />
-        <Preference
-            android:key="prefCustomPath"
-            android:title="@string/settings_custom_path" />
-        <ListPreference
-            android:key="prefCustomFilename"
-            android:title="@string/settings_custom_filename"
-            android:entries="@array/filenameEntries"
-            android:entryValues="@array/filenameValues"
-            android:defaultValue="1" />
-        <ListPreference
-            android:key="prefSortMode"
-            android:title="@string/settings_sort_mode"
-            android:entries="@array/sortEntries"
-            android:entryValues="@array/sortValues"
-            android:defaultValue="1" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/settings_customizations">
-        <yuku.ambilwarna.widget.AmbilWarnaPreference
-            android:key="prefPrimaryColor"
-            android:defaultValue="@color/primary"
-            android:title="@string/settings_primary_color"
-            android:summary="@string/settings_primary_color_description"/>
-        <yuku.ambilwarna.widget.AmbilWarnaPreference
-            android:key="prefFABColor"
-            android:defaultValue="@color/fab"
-            android:title="@string/settings_fab_color"
-            android:summary="@string/settings_fab_color_description"/>
-        <CheckBoxPreference
-            android:key="prefNavigationBlack"
-            android:title="@string/settings_navigation_black"
-            android:summary="@string/settings_navigation_black_description"
-            android:defaultValue="false" />
-        <Preference
-            android:key="prefDefaultValues"
-            android:title="@string/settings_default_customization"
-            android:summary="@string/settings_default_customization_description" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/action_about">
-        <Preference
-            android:key="prefLicense"
-            android:title="@string/settings_license" />
-        <Preference
-            android:key="prefVersion"
-            android:title="@string/app_name"
-            android:summary="@string/settings_about" />
-    </PreferenceCategory>
+  <PreferenceCategory
+      android:title="@string/action_settings">
+    <Preference
+        android:key="prefDeleteAll"
+        android:summary="@string/settings_delete_all_description"
+        android:title="@string/settings_delete_all"/>
+    <Preference
+        android:key="prefCustomPath"
+        android:title="@string/settings_custom_path"/>
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/filenameEntries"
+        android:entryValues="@array/filenameValues"
+        android:key="prefCustomFilename"
+        android:title="@string/settings_custom_filename"/>
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/sortEntries"
+        android:entryValues="@array/sortValues"
+        android:key="prefSortMode"
+        android:title="@string/settings_sort_mode"/>
+  </PreferenceCategory>
+  <PreferenceCategory
+      android:title="@string/settings_customizations">
+    <yuku.ambilwarna.widget.AmbilWarnaPreference
+        android:defaultValue="@color/primary"
+        android:key="prefPrimaryColor"
+        android:summary="@string/settings_primary_color_description"
+        android:title="@string/settings_primary_color"/>
+    <yuku.ambilwarna.widget.AmbilWarnaPreference
+        android:defaultValue="@color/fab"
+        android:key="prefFABColor"
+        android:summary="@string/settings_fab_color_description"
+        android:title="@string/settings_fab_color"/>
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="prefNavigationBlack"
+        android:summary="@string/settings_navigation_black_description"
+        android:title="@string/settings_navigation_black"/>
+    <Preference
+        android:key="prefDefaultValues"
+        android:summary="@string/settings_default_customization_description"
+        android:title="@string/settings_default_customization"/>
+  </PreferenceCategory>
+  <PreferenceCategory
+      android:title="@string/action_about">
+    <Preference
+        android:key="prefLicense"
+        android:title="@string/settings_license"/>
+    <Preference
+        android:key="prefVersion"
+        android:summary="@string/settings_about"
+        android:title="@string/app_name"/>
+  </PreferenceCategory>
 </PreferenceScreen>

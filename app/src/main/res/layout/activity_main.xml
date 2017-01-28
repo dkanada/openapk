@@ -1,42 +1,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
 
-    <RelativeLayout
+  <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar"/>
+
+  <RelativeLayout
+      android:id="@+id/main_content"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar">
+
+    <LinearLayout
+        android:id="@+id/noResults"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/main_content"
-        android:layout_below="@id/toolbar">
-        <LinearLayout
-            android:id="@+id/noResults"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_search" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/search_noresults"
-                android:lines="2"
-                android:gravity="center" />
-        </LinearLayout>
-        <android.support.v4.widget.SwipeRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/swipe_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/appList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
-    </RelativeLayout>
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/ic_search"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:lines="2"
+          android:text="@string/search_noresults"/>
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/appList"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+  </RelativeLayout>
 </RelativeLayout>

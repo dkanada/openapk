@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="filenameEntries">
-        <item>Source + Versión</item>
-        <item>Nombre + Versión</item>
-        <item>Source</item>
-        <item>Nombre</item>
-    </string-array>
+  <string-array name="filenameEntries">
+    <item>Source + Versión</item>
+    <item>Nombre + Versión</item>
+    <item>Source</item>
+    <item>Nombre</item>
+  </string-array>
 
-    <string-array name="sortEntries">
-        <item>Nombre</item>
-        <item>Tamaño</item>
-        <item>Fecha de instalación</item>
-        <item>Fecha de actualización</item>
-    </string-array>
+  <string-array name="sortEntries">
+    <item>Nombre</item>
+    <item>Tamaño</item>
+    <item>Fecha de instalación</item>
+    <item>Fecha de actualización</item>
+  </string-array>
 </resources>
