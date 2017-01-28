@@ -51,7 +51,6 @@ public class UtilsApp {
 
     public static Boolean copyFile(AppInfo appInfo) {
         Boolean res = false;
-
         File initialFile = new File(appInfo.getSource());
         File finalFile = getOutputFilename(appInfo);
 
@@ -61,7 +60,6 @@ public class UtilsApp {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return res;
     }
 
@@ -88,7 +86,6 @@ public class UtilsApp {
                 res = appInfo.getAPK();
                 break;
         }
-
         return res;
     }
 
@@ -154,7 +151,6 @@ public class UtilsApp {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return res;
     }
 
@@ -170,7 +166,6 @@ public class UtilsApp {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return res;
     }
 
@@ -180,7 +175,6 @@ public class UtilsApp {
         intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
         intent.setType("application/vnd.android.package-archive");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
         return intent;
     }
 
@@ -195,7 +189,6 @@ public class UtilsApp {
         if (appFavorites.contains(apk)) {
            res = true;
         }
-
         return res;
     }
 
@@ -224,16 +217,6 @@ public class UtilsApp {
         if (appHidden.contains(appInfo.toString())) {
             res = true;
         }
-
-        return res;
-    }
-
-    public static Boolean isAppDisabled(AppInfo appInfo, Set<String> appDisabled) {
-        Boolean res = false;
-        if (appDisabled.contains(appInfo.toString())) {
-            res = true;
-        }
-
         return res;
     }
 
@@ -251,6 +234,14 @@ public class UtilsApp {
             fabHide.setTitle(context.getResources().getString(R.string.action_hide));
             fabHide.setIcon(R.drawable.ic_visibility_off_white);
         }
+    }
+
+    public static Boolean isAppDisabled(AppInfo appInfo, Set<String> appDisabled) {
+        Boolean res = false;
+        if (appDisabled.contains(appInfo.toString())) {
+            res = true;
+        }
+        return res;
     }
 
     public static void setAppDisabled(Context context, FloatingActionButton fabDisable, Boolean isDisabled) {
@@ -271,7 +262,6 @@ public class UtilsApp {
      */
     public static Boolean saveIconToCache(Context context, AppInfo appInfo) {
         Boolean res = false;
-
         try {
             ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(appInfo.getAPK(), 0);
             File fileUri = new File(context.getCacheDir(), appInfo.getAPK());
@@ -285,7 +275,6 @@ public class UtilsApp {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         return res;
     }
 
@@ -308,7 +297,6 @@ public class UtilsApp {
      */
     public static Drawable getIconFromCache(Context context, AppInfo appInfo) {
         Drawable res;
-
         try {
             File fileUri = new File(context.getCacheDir(), appInfo.getAPK());
             Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath());
@@ -317,7 +305,6 @@ public class UtilsApp {
             e.printStackTrace();
             res = context.getResources().getDrawable(R.drawable.ic_android);
         }
-
         return res;
     }
 
@@ -328,7 +315,6 @@ public class UtilsApp {
         } else {
             res = true;
         }
-
         return res;
     }
 

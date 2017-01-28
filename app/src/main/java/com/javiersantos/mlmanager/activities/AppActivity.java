@@ -69,7 +69,6 @@ public class AppActivity extends AppCompatActivity {
         getInitialConfiguration();
         setInitialConfiguration();
         setScreenElements();
-
     }
 
     private void setInitialConfiguration() {
@@ -80,6 +79,7 @@ public class AppActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -326,10 +326,10 @@ public class AppActivity extends AppCompatActivity {
         Boolean appIsSystem = getIntent().getExtras().getBoolean("app_isSystem");
 
         appInfo = new AppInfo(appName, appApk, appVersion, appSource, appData, appIcon, appIsSystem);
+
         appsFavorite = appPreferences.getFavoriteApps();
         appsHidden = appPreferences.getHiddenApps();
         appsDisabled = appPreferences.getDisabledApps();
-
     }
 
     @Override
@@ -372,7 +372,6 @@ public class AppActivity extends AppCompatActivity {
                 UtilsApp.setAppFavorite(context, item_favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
