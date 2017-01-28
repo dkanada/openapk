@@ -291,7 +291,7 @@ public class AppActivity extends AppCompatActivity {
               appPreferences.setDisabledApps(appsDisabled);
             }
           }
-          UtilsApp.setAppHidden(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
+          UtilsApp.setAppDisabled(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
         }
       });
     }
