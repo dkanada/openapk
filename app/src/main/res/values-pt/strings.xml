@@ -10,8 +10,6 @@
   <string name="action_hidden_apps">Aplicações ocultas</string>
   <string name="action_hide">Ocultar</string>
   <string name="action_unhide">Mostrar</string>
-  <string name="action_buy">Comprar Pro</string>
-  <string name="action_buy_description">Com funções root</string>
   <string name="send_to">Enviar \"%s\" por</string>
   <string name="deleting">A apagar&#8230;</string>
   <string name="loading">A carregar&#8230;</string>

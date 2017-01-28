@@ -10,8 +10,6 @@
   <string name="action_hidden_apps">非表示にするアプリ</string>
   <string name="action_hide">非表示にする</string>
   <string name="action_unhide">表示する</string>
-  <string name="action_buy">Pro 版を購入する</string>
-  <string name="action_buy_description">root 機能も</string>
   <string name="send_to">次を使用して \"%s\" を送信</string>
   <string name="deleting">削除中&#8230;</string>
   <string name="loading">読み込み中&#8230;</string>

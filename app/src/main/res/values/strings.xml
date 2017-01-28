@@ -1,4 +1,5 @@
 <resources>
+  <string name="app_name" translatable="false">ML Manager</string>
   <string name="app_description">Modern, easy and customizable app manager for Android</string>
 
   <!-- Labels -->
@@ -7,28 +8,22 @@
   <string name="action_share">Share</string>
   <string name="action_apps">Installed Apps</string>
   <string name="action_system_apps">System Apps</string>
-  <string name="action_favorites">Favorites</string>
+  <string name="action_favorites">Favorite Apps</string>
   <string name="action_hidden_apps">Hidden Apps</string>
   <string name="action_hide">Hide</string>
   <string name="action_unhide">Unhide</string>
   <string name="action_disabled_apps">Disabled Apps</string>
   <string name="action_disable">Disable</string>
   <string name="action_enable">Enable</string>
-  <string name="action_buy">Buy Pro</string>
-  <string name="action_buy_description">With Root features</string>
   <string name="send_to">Send \"%s\" using</string>
   <string name="deleting">Deleting&#8230;</string>
   <string name="loading">Loading&#8230;</string>
   <string name="deleting_done">Files deleted!</string>
-  <string name="deleting_error">Something went wrong removing the files</string>
+  <string name="deleting_error">Something went wrong removing the files.</string>
   <string name="search">Search</string>
   <string name="search_hint">Search by name&#8230;</string>
-  <string name="search_noresults">No results were found for your search</string>
-  <string name="copied_clipboard">Copied to clipboard</string>
-  <string name="pro_feature_1">Hide apps from the device launcher</string>
-  <string name="pro_feature_2">Easily manage your hidden apps from the side panel</string>
-  <string name="pro_feature_3">Uninstall system apps</string>
-  <string name="pro_feature_4">Remove cache and clean data per app</string>
+  <string name="search_noresults">No results were found for your search.</string>
+  <string name="copied_clipboard">App name copied to clipboard.</string>
 
   <!-- Dialogs -->
   <string name="dialog_saved">\"%s\" APK saved</string>
@@ -110,5 +105,5 @@
   <string name="about_description_2">Icon Designer</string>
 
   <!-- Toasts -->
-  <string name="tap_exit">Tap again to close the app</string>
+  <string name="tap_exit">Tap again to close the app.</string>
 </resources>
