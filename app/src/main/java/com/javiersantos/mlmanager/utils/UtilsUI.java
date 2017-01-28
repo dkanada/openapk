@@ -22,7 +22,6 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 public class UtilsUI {
@@ -78,28 +77,14 @@ public class UtilsUI {
         drawerBuilder.withAccountHeader(headerResult);
         drawerBuilder.withStatusBarColor(UtilsUI.darker(appPreferences.getPrimaryColorPref(), 0.8));
 
-        if (MLManagerApplication.isPro()) {
-            drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(apps).withBadgeStyle(badgeStyle).withIdentifier(1),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withBadge(systemApps).withBadgeStyle(badgeStyle).withIdentifier(2),
-                    new DividerDrawerItem(),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_favorites)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(3),
-                    new DividerDrawerItem(),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_visibility_off).withBadge(hiddenApps).withBadgeStyle(badgeStyle).withIdentifier(4),
-                    new DividerDrawerItem(),
-                    new SecondaryDrawerItem().withName(context.getResources().getString(R.string.action_settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(6),
-                    new SecondaryDrawerItem().withName(context.getResources().getString(R.string.action_about)).withIcon(GoogleMaterial.Icon.gmd_info).withSelectable(false).withIdentifier(7));
-        } else {
-            drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(apps).withBadgeStyle(badgeStyle).withIdentifier(1),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withBadge(systemApps).withBadgeStyle(badgeStyle).withIdentifier(2),
-                    new DividerDrawerItem(),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_favorites)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(3),
-                    new DividerDrawerItem(),
-                    new SecondaryDrawerItem().withName(context.getResources().getString(R.string.action_buy)).withIcon(GoogleMaterial.Icon.gmd_shop).withBadge(context.getResources().getString(R.string.action_buy_description)).withSelectable(false).withIdentifier(5),
-                    new SecondaryDrawerItem().withName(context.getResources().getString(R.string.action_settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(6),
-                    new SecondaryDrawerItem().withName(context.getResources().getString(R.string.action_about)).withIcon(GoogleMaterial.Icon.gmd_info).withSelectable(false).withIdentifier(7));
-        }
+        drawerBuilder.addDrawerItems(
+            new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(apps).withBadgeStyle(badgeStyle).withIdentifier(1),
+            new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withBadge(systemApps).withBadgeStyle(badgeStyle).withIdentifier(2),
+            new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_favorites)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(3),
+            new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_visibility_off).withBadge(hiddenApps).withBadgeStyle(badgeStyle).withIdentifier(4),
+            new DividerDrawerItem(),
+            new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(6),
+            new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_about)).withIcon(GoogleMaterial.Icon.gmd_info).withSelectable(false).withIdentifier(7));
 
         drawerBuilder.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
             @Override
@@ -118,12 +103,9 @@ public class UtilsUI {
                         recyclerView.setAdapter(appHiddenAdapter);
                         break;
                     case 5:
-                        UtilsDialog.showProFeatures(context);
-                        break;
-                    case 6:
                         context.startActivity(new Intent(context, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         break;
-                    case 7:
+                    case 6:
                         context.startActivity(new Intent(context, AboutActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         break;
                     default:

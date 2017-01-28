@@ -187,7 +187,7 @@ public class AppActivity extends AppCompatActivity {
             }
         });
 
-        if(UtilsRoot.isRooted() && MLManagerApplication.isPro()) {
+        if(UtilsRoot.isRooted()) {
             if (appInfo.isSystem()) {
                 uninstall.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -245,7 +245,7 @@ public class AppActivity extends AppCompatActivity {
         });
 
         // FAB (Hide)
-        if (MLManagerApplication.isPro()) {
+        if (true) {
             fab_buy.setVisibility(View.GONE);
             if (UtilsRoot.isRooted()) {
                 UtilsApp.setAppHidden(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
@@ -279,7 +279,7 @@ public class AppActivity extends AppCompatActivity {
             fab_buy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    UtilsDialog.showProFeatures(context);
+                    //UtilsDialog.showProFeatures(context);
                 }
             });
         }
