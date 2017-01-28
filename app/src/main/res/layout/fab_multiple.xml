@@ -15,6 +15,7 @@
       android:id="@+id/fab_c"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:visibility="gone"
       app:fab_colorNormal="@color/fab"
       app:fab_icon="@drawable/ic_send_white"
       app:fab_title="@string/action_disable"/>
