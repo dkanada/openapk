@@ -252,10 +252,10 @@ public class UtilsApp {
   public static void setAppDisabled(Context context, FloatingActionButton fabDisable, Boolean isDisabled) {
     if (isDisabled) {
       fabDisable.setTitle(context.getResources().getString(R.string.action_enable));
-      fabDisable.setIcon(R.drawable.ic_visibility_white);
+      fabDisable.setIcon(R.drawable.ic_remove_circle_outline_white);
     } else {
       fabDisable.setTitle(context.getResources().getString(R.string.action_disable));
-      fabDisable.setIcon(R.drawable.ic_visibility_off_white);
+      fabDisable.setIcon(R.drawable.ic_remove_circle_white);
     }
   }
 

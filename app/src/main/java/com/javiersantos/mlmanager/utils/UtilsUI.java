@@ -31,7 +31,6 @@ public class UtilsUI {
     int r = Color.red(color);
     int g = Color.green(color);
     int b = Color.blue(color);
-
     return Color.argb(a, Math.max((int) (r * factor), 0), Math.max((int) (g * factor), 0), Math.max((int) (b * factor), 0));
   }
 
@@ -73,6 +72,7 @@ public class UtilsUI {
         .withHeaderBackground(header)
         .build();
 
+    // drawer item badges
     Integer badgeColor = ContextCompat.getColor(context, R.color.divider);
     BadgeStyle badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(Color.GRAY);
 
@@ -87,7 +87,7 @@ public class UtilsUI {
         new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withBadge(systemApps).withBadgeStyle(badgeStyle).withIdentifier(2),
         new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_favorites)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(3),
         new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_visibility_off).withBadge(hiddenApps).withBadgeStyle(badgeStyle).withIdentifier(4),
-        new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_disabled_apps)).withIcon(GoogleMaterial.Icon.gmd_clear).withBadge(disabledApps).withBadgeStyle(badgeStyle).withIdentifier(5),
+        new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_disabled_apps)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withBadge(disabledApps).withBadgeStyle(badgeStyle).withIdentifier(5),
         new DividerDrawerItem(),
         new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(6),
         new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_about)).withIcon(GoogleMaterial.Icon.gmd_info).withSelectable(false).withIdentifier(7));
@@ -120,11 +120,9 @@ public class UtilsUI {
           default:
             break;
         }
-
         return false;
       }
     });
-
     return drawerBuilder.build();
   }
 }
