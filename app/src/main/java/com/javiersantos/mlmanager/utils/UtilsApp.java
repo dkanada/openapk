@@ -228,6 +228,15 @@ public class UtilsApp {
         return res;
     }
 
+    public static Boolean isAppDisabled(AppInfo appInfo, Set<String> appDisabled) {
+        Boolean res = false;
+        if (appDisabled.contains(appInfo.toString())) {
+            res = true;
+        }
+
+        return res;
+    }
+
     /**
      * Save the app as hidden
      * @param context Context
@@ -241,6 +250,16 @@ public class UtilsApp {
         } else {
             fabHide.setTitle(context.getResources().getString(R.string.action_hide));
             fabHide.setIcon(R.drawable.ic_visibility_off_white);
+        }
+    }
+
+    public static void setAppDisabled(Context context, FloatingActionButton fabDisable, Boolean isDisabled) {
+        if (isDisabled) {
+            fabDisable.setTitle(context.getResources().getString(R.string.action_enable));
+            fabDisable.setIcon(R.drawable.ic_visibility_white);
+        } else {
+            fabDisable.setTitle(context.getResources().getString(R.string.action_disable));
+            fabDisable.setIcon(R.drawable.ic_visibility_off_white);
         }
     }
 

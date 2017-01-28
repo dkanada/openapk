@@ -12,6 +12,9 @@
     <string name="action_hidden_apps">Hidden Apps</string>
     <string name="action_hide">Hide</string>
     <string name="action_unhide">Unhide</string>
+    <string name="action_disabled_apps">Disabled Apps</string>
+    <string name="action_disable">Disable</string>
+    <string name="action_enable">Enable</string>
     <string name="action_buy">Buy Pro</string>
     <string name="action_buy_description">With Root features</string>
     <string name="send_to">Send \"%s\" using</string>

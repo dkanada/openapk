@@ -119,6 +119,29 @@ public class UtilsRoot {
         return status;
     }
 
+    public static boolean disableWithRootPermission(String app, Boolean disabled) {
+        boolean status = false;
+        try {
+            String [] command;
+            if (disabled) {
+                command = new String[]{"su", "-c", "pm enable " + app};
+            } else {
+                command = new String[]{"su", "-c", "pm disable " + app};
+            }
+
+            Process process = Runtime.getRuntime().exec(command);
+            process.waitFor();
+            int i = process.exitValue();
+            if (i == 0) {
+                status = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return status;
+    }
+
     public static boolean rebootSystem() {
         boolean status = false;
         try {

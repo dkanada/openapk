@@ -53,11 +53,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private List<AppInfo> appList;
     private List<AppInfo> appSystemList;
     private List<AppInfo> appHiddenList;
+    private List<AppInfo> appDisabledList;
 
     private AppAdapter appAdapter;
     private AppAdapter appSystemAdapter;
     private AppAdapter appFavoriteAdapter;
     private AppAdapter appHiddenAdapter;
+    private AppAdapter appDisabledAdapter;
 
     // Configuration variables
     private Boolean doubleBackToExitPressedOnce = false;
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, recyclerView);
+        drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
 
         new getInstalledApps().execute();
 
@@ -139,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             appList = new ArrayList<>();
             appSystemList = new ArrayList<>();
             appHiddenList = new ArrayList<>();
+            appDisabledList = new ArrayList<>();
         }
 
         @Override
@@ -146,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             final PackageManager packageManager = getPackageManager();
             List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
             Set<String> hiddenApps = appPreferences.getHiddenApps();
+            Set<String> disabledApps = appPreferences.getDisabledApps();
             totalApps = packages.size() + hiddenApps.size();
             // Get Sort Mode
             switch (appPreferences.getSortMode()) {
@@ -235,6 +239,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 publishProgress(Double.toString((actualApps * 100) / totalApps));
             }
 
+            for (String app : disabledApps) {
+                AppInfo tempApp = new AppInfo(app);
+                Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+                tempApp.setIcon(tempAppIcon);
+                appDisabledList.add(tempApp);
+
+                actualApps++;
+                publishProgress(Double.toString((actualApps * 100) / totalApps));
+            }
+
             return null;
         }
 
@@ -246,12 +260,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             appSystemAdapter = new AppAdapter(appSystemList, context);
             appFavoriteAdapter = new AppAdapter(getFavoriteList(appList, appSystemList), context);
             appHiddenAdapter = new AppAdapter(appHiddenList, context);
+            appDisabledAdapter = new AppAdapter(appDisabledList, context);
 
             recyclerView.setAdapter(appAdapter);
             searchItem.setVisible(true);
 
             drawer.closeDrawer();
-            drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, recyclerView);
+            drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
         }
 
     }

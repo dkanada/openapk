@@ -26,6 +26,7 @@ public class AppPreferences {
     // List
     public static final String KeyFavoriteApps = "prefFavoriteApps";
     public static final String KeyHiddenApps = "prefHiddenApps";
+    public static final String KeyDisabledApps = "prefDisabledApps";
 
     public AppPreferences(Context context) {
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -114,10 +115,21 @@ public class AppPreferences {
         return sharedPreferences.getStringSet(KeyHiddenApps, new HashSet<String>());
     }
 
+    public Set<String> getDisabledApps() {
+        return sharedPreferences.getStringSet(KeyDisabledApps, new HashSet<String>());
+    }
+
     public void setHiddenApps(Set<String> hiddenApps) {
         editor.remove(KeyHiddenApps);
         editor.commit();
         editor.putStringSet(KeyHiddenApps, hiddenApps);
+        editor.commit();
+    }
+
+    public void setDisabledApps(Set<String> disabledApps) {
+        editor.remove(KeyDisabledApps);
+        editor.commit();
+        editor.putStringSet(KeyDisabledApps, disabledApps);
         editor.commit();
     }
 

@@ -47,6 +47,7 @@ public class AppActivity extends AppCompatActivity {
     private AppInfo appInfo;
     private Set<String> appsFavorite;
     private Set<String> appsHidden;
+    private Set<String> appsDisabled;
 
     // Configuration variables
     private int UNINSTALL_REQUEST_CODE = 1;
@@ -112,6 +113,7 @@ public class AppActivity extends AppCompatActivity {
         fab = (FloatingActionsMenu) findViewById(R.id.fab);
         FloatingActionButton fab_share = (FloatingActionButton) findViewById(R.id.fab_a);
         final FloatingActionButton fab_hide = (FloatingActionButton) findViewById(R.id.fab_b);
+        final FloatingActionButton fab_disable = (FloatingActionButton) findViewById(R.id.fab_c);
         FloatingActionButton fab_buy = (FloatingActionButton) findViewById(R.id.fab_buy);
 
         icon.setImageDrawable(appInfo.getIcon());
@@ -125,6 +127,8 @@ public class AppActivity extends AppCompatActivity {
         fab_share.setColorPressed(UtilsUI.darker(appPreferences.getFABColorPref(), 0.8));
         fab_hide.setColorNormal(appPreferences.getFABColorPref());
         fab_hide.setColorPressed(UtilsUI.darker(appPreferences.getFABColorPref(), 0.8));
+        fab_disable.setColorNormal(appPreferences.getFABColorPref());
+        fab_disable.setColorPressed(UtilsUI.darker(appPreferences.getFABColorPref(), 0.8));
         fab_buy.setColorNormal(appPreferences.getFABColorPref());
         fab_buy.setColorPressed(UtilsUI.darker(appPreferences.getFABColorPref(), 0.8));
 
@@ -249,7 +253,9 @@ public class AppActivity extends AppCompatActivity {
             fab_buy.setVisibility(View.GONE);
             if (UtilsRoot.isRooted()) {
                 UtilsApp.setAppHidden(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
+                UtilsApp.setAppDisabled(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
                 fab_hide.setVisibility(View.VISIBLE);
+                fab_disable.setVisibility(View.VISIBLE);
                 fab_hide.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -270,6 +276,28 @@ public class AppActivity extends AppCompatActivity {
                             }
                         }
                         UtilsApp.setAppHidden(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
+                    }
+                });
+                fab_disable.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (UtilsApp.isAppDisabled(appInfo, appsDisabled)) {
+                            Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), true);
+                            if (disabled) {
+                                UtilsApp.removeIconFromCache(context, appInfo);
+                                appsDisabled.remove(appInfo.getAPK());
+                                appPreferences.setDisabledApps(appsDisabled);
+                                UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
+                            }
+                        } else {
+                            UtilsApp.saveIconToCache(context, appInfo);
+                            Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), false);
+                            if (disabled) {
+                                appsDisabled.add(appInfo.getAPK());
+                                appPreferences.setDisabledApps(appsDisabled);
+                            }
+                        }
+                        UtilsApp.setAppHidden(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
                     }
                 });
             }
@@ -315,6 +343,7 @@ public class AppActivity extends AppCompatActivity {
         appInfo = new AppInfo(appName, appApk, appVersion, appSource, appData, appIcon, appIsSystem);
         appsFavorite = appPreferences.getFavoriteApps();
         appsHidden = appPreferences.getHiddenApps();
+        appsDisabled = appPreferences.getDisabledApps();
 
     }
 
