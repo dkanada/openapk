@@ -249,65 +249,54 @@ public class AppActivity extends AppCompatActivity {
         });
 
         // FAB (Hide)
-        if (true) {
-            fab_buy.setVisibility(View.GONE);
-            if (UtilsRoot.isRooted()) {
-                UtilsApp.setAppHidden(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
-                UtilsApp.setAppDisabled(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
-                fab_hide.setVisibility(View.VISIBLE);
-                fab_disable.setVisibility(View.VISIBLE);
-                fab_hide.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (UtilsApp.isAppHidden(appInfo, appsHidden)) {
-                            Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), true);
-                            if (hidden) {
-                                UtilsApp.removeIconFromCache(context, appInfo);
-                                appsHidden.remove(appInfo.toString());
-                                appPreferences.setHiddenApps(appsHidden);
-                                UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
-                            }
-                        } else {
-                            UtilsApp.saveIconToCache(context, appInfo);
-                            Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), false);
-                            if (hidden) {
-                                appsHidden.add(appInfo.toString());
-                                appPreferences.setHiddenApps(appsHidden);
-                            }
-                        }
-                        UtilsApp.setAppHidden(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
-                    }
-                });
-                fab_disable.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (UtilsApp.isAppDisabled(appInfo, appsDisabled)) {
-                            Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), true);
-                            if (disabled) {
-                                UtilsApp.removeIconFromCache(context, appInfo);
-                                appsDisabled.remove(appInfo.getAPK());
-                                appPreferences.setDisabledApps(appsDisabled);
-                                UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
-                            }
-                        } else {
-                            UtilsApp.saveIconToCache(context, appInfo);
-                            Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), false);
-                            if (disabled) {
-                                appsDisabled.add(appInfo.getAPK());
-                                appPreferences.setDisabledApps(appsDisabled);
-                            }
-                        }
-                        UtilsApp.setAppHidden(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
-                    }
-                });
-            }
-        } else {
-            fab_buy.setVisibility(View.VISIBLE);
-            fab_buy.setTitle(context.getResources().getString(R.string.action_buy));
-            fab_buy.setOnClickListener(new View.OnClickListener() {
+        fab_buy.setVisibility(View.GONE);
+        if (UtilsRoot.isRooted()) {
+            UtilsApp.setAppHidden(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
+            UtilsApp.setAppDisabled(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
+            fab_hide.setVisibility(View.VISIBLE);
+            fab_disable.setVisibility(View.VISIBLE);
+            fab_hide.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //UtilsDialog.showProFeatures(context);
+                    if (UtilsApp.isAppHidden(appInfo, appsHidden)) {
+                        Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), true);
+                        if (hidden) {
+                            UtilsApp.removeIconFromCache(context, appInfo);
+                            appsHidden.remove(appInfo.toString());
+                            appPreferences.setHiddenApps(appsHidden);
+                            UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
+                        }
+                    } else {
+                        UtilsApp.saveIconToCache(context, appInfo);
+                        Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), false);
+                        if (hidden) {
+                            appsHidden.add(appInfo.toString());
+                            appPreferences.setHiddenApps(appsHidden);
+                        }
+                    }
+                    UtilsApp.setAppHidden(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
+                }
+            });
+            fab_disable.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (UtilsApp.isAppDisabled(appInfo, appsDisabled)) {
+                        Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), true);
+                        if (disabled) {
+                            UtilsApp.removeIconFromCache(context, appInfo);
+                            appsDisabled.remove(appInfo.getAPK());
+                            appPreferences.setDisabledApps(appsDisabled);
+                            UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
+                        }
+                    } else {
+                        UtilsApp.saveIconToCache(context, appInfo);
+                        Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), false);
+                        if (disabled) {
+                            appsDisabled.add(appInfo.getAPK());
+                            appPreferences.setDisabledApps(appsDisabled);
+                        }
+                    }
+                    UtilsApp.setAppHidden(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
                 }
             });
         }
