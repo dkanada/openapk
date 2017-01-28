@@ -321,26 +321,6 @@ public class UtilsApp {
         return res;
     }
 
-    public static Boolean extractMLManagerPro(Context context, AppInfo appInfo) {
-        Boolean res = false;
-        File finalFile = new File(getAppFolder().getPath(), getAPKFilename(appInfo) + ".png");
-
-        try {
-            File fileUri = new File(context.getCacheDir(), getAPKFilename(appInfo) + ".png");
-            FileOutputStream out = new FileOutputStream(fileUri);
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.banner_troll);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-            FileUtils.moveFile(fileUri, finalFile);
-            res = true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return res;
-    }
-
     public static Boolean checkPermissions(Activity activity) {
         Boolean res = false;
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
