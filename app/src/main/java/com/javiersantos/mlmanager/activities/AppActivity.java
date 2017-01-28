@@ -114,7 +114,6 @@ public class AppActivity extends AppCompatActivity {
         FloatingActionButton fab_share = (FloatingActionButton) findViewById(R.id.fab_a);
         final FloatingActionButton fab_hide = (FloatingActionButton) findViewById(R.id.fab_b);
         final FloatingActionButton fab_disable = (FloatingActionButton) findViewById(R.id.fab_c);
-        FloatingActionButton fab_buy = (FloatingActionButton) findViewById(R.id.fab_buy);
 
         icon.setImageDrawable(appInfo.getIcon());
         name.setText(appInfo.getName());
@@ -129,8 +128,6 @@ public class AppActivity extends AppCompatActivity {
         fab_hide.setColorPressed(UtilsUI.darker(appPreferences.getFABColorPref(), 0.8));
         fab_disable.setColorNormal(appPreferences.getFABColorPref());
         fab_disable.setColorPressed(UtilsUI.darker(appPreferences.getFABColorPref(), 0.8));
-        fab_buy.setColorNormal(appPreferences.getFABColorPref());
-        fab_buy.setColorPressed(UtilsUI.darker(appPreferences.getFABColorPref(), 0.8));
 
         // CardView
         if (appInfo.isSystem()) {
@@ -249,7 +246,6 @@ public class AppActivity extends AppCompatActivity {
         });
 
         // FAB (Hide)
-        fab_buy.setVisibility(View.GONE);
         if (UtilsRoot.isRooted()) {
             UtilsApp.setAppHidden(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
             UtilsApp.setAppDisabled(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
