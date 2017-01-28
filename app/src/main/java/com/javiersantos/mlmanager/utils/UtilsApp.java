@@ -32,18 +32,12 @@ import java.util.Set;
 public class UtilsApp {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
 
-    /**
-     * Default folder where APKs will be saved
-     * @return File with the path
-     */
+    // return default folder where apps will be saved
     public static File getDefaultAppFolder() {
         return new File(Environment.getExternalStorageDirectory() + "/MLManager");
     }
 
-    /**
-     * Custom folder where APKs will be saved
-     * @return File with the path
-     */
+    // return custom folder where apps will be saved
     public static File getAppFolder() {
         AppPreferences appPreferences = MLManagerApplication.getAppPreferences();
         return new File(appPreferences.getCustomPath());
