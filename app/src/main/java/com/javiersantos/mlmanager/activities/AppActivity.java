@@ -284,7 +284,7 @@ public class AppActivity extends AppCompatActivity {
                         Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), true);
                         if (disabled) {
                             UtilsApp.removeIconFromCache(context, appInfo);
-                            appsDisabled.remove(appInfo.getAPK());
+                            appsDisabled.remove(appInfo.toString());
                             appPreferences.setDisabledApps(appsDisabled);
                             UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
                         }
@@ -292,7 +292,7 @@ public class AppActivity extends AppCompatActivity {
                         UtilsApp.saveIconToCache(context, appInfo);
                         Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), false);
                         if (disabled) {
-                            appsDisabled.add(appInfo.getAPK());
+                            appsDisabled.add(appInfo.toString());
                             appPreferences.setDisabledApps(appsDisabled);
                         }
                     }
