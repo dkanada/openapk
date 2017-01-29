@@ -1,4 +1,4 @@
-package com.javiersantos.mlmanager.activities;
+package com.dkanada.openapk.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,11 +17,11 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.javiersantos.mlmanager.MLManagerApplication;
-import com.javiersantos.mlmanager.R;
-import com.javiersantos.mlmanager.utils.AppPreferences;
-import com.javiersantos.mlmanager.utils.UtilsApp;
-import com.javiersantos.mlmanager.utils.UtilsUI;
+import com.dkanada.openapk.MLManagerApplication;
+import com.dkanada.openapk.R;
+import com.dkanada.openapk.utils.AppPreferences;
+import com.dkanada.openapk.utils.UtilsApp;
+import com.dkanada.openapk.utils.UtilsUI;
 
 import net.rdrei.android.dirchooser.DirectoryChooserConfig;
 import net.rdrei.android.dirchooser.DirectoryChooserFragment;

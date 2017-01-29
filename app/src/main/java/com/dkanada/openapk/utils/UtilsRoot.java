@@ -1,8 +1,8 @@
-package com.javiersantos.mlmanager.utils;
+package com.dkanada.openapk.utils;
 
 import android.os.Build;
 
-import com.javiersantos.mlmanager.MLManagerApplication;
+import com.dkanada.openapk.MLManagerApplication;
 
 import java.io.File;
 

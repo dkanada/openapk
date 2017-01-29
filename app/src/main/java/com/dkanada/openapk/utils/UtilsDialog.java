@@ -1,23 +1,14 @@
-package com.javiersantos.mlmanager.utils;
+package com.dkanada.openapk.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.simplelist.MaterialSimpleListAdapter;
-import com.afollestad.materialdialogs.simplelist.MaterialSimpleListItem;
 import com.gc.materialdesign.widgets.SnackBar;
-import com.javiersantos.mlmanager.AppInfo;
-import com.javiersantos.mlmanager.MLManagerApplication;
-import com.javiersantos.mlmanager.R;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
+import com.dkanada.openapk.AppInfo;
+import com.dkanada.openapk.R;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package com.javiersantos.mlmanager;
+package com.dkanada.openapk;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

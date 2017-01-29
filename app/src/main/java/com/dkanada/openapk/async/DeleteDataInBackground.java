@@ -1,14 +1,14 @@
-package com.javiersantos.mlmanager.async;
+package com.dkanada.openapk.async;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.javiersantos.mlmanager.R;
-import com.javiersantos.mlmanager.utils.UtilsApp;
-import com.javiersantos.mlmanager.utils.UtilsDialog;
-import com.javiersantos.mlmanager.utils.UtilsRoot;
+import com.dkanada.openapk.R;
+import com.dkanada.openapk.utils.UtilsApp;
+import com.dkanada.openapk.utils.UtilsDialog;
+import com.dkanada.openapk.utils.UtilsRoot;
 
 public class DeleteDataInBackground extends AsyncTask<Void, String, Boolean> {
   private Context context;

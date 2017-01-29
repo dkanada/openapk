@@ -1,4 +1,4 @@
-package com.javiersantos.mlmanager.activities;
+package com.dkanada.openapk.activities;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -25,17 +25,17 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.javiersantos.mlmanager.AppInfo;
-import com.javiersantos.mlmanager.MLManagerApplication;
-import com.javiersantos.mlmanager.R;
-import com.javiersantos.mlmanager.async.DeleteDataInBackground;
-import com.javiersantos.mlmanager.async.ExtractFileInBackground;
-import com.javiersantos.mlmanager.async.UninstallInBackground;
-import com.javiersantos.mlmanager.utils.AppPreferences;
-import com.javiersantos.mlmanager.utils.UtilsRoot;
-import com.javiersantos.mlmanager.utils.UtilsApp;
-import com.javiersantos.mlmanager.utils.UtilsDialog;
-import com.javiersantos.mlmanager.utils.UtilsUI;
+import com.dkanada.openapk.AppInfo;
+import com.dkanada.openapk.MLManagerApplication;
+import com.dkanada.openapk.R;
+import com.dkanada.openapk.async.DeleteDataInBackground;
+import com.dkanada.openapk.async.ExtractFileInBackground;
+import com.dkanada.openapk.async.UninstallInBackground;
+import com.dkanada.openapk.utils.AppPreferences;
+import com.dkanada.openapk.utils.UtilsRoot;
+import com.dkanada.openapk.utils.UtilsApp;
+import com.dkanada.openapk.utils.UtilsDialog;
+import com.dkanada.openapk.utils.UtilsUI;
 
 import java.util.Set;
 

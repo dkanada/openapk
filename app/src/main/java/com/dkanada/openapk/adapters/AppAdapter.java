@@ -1,4 +1,4 @@
-package com.javiersantos.mlmanager.adapters;
+package com.dkanada.openapk.adapters;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -19,15 +19,15 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.gc.materialdesign.views.ButtonFlat;
-import com.javiersantos.mlmanager.MLManagerApplication;
-import com.javiersantos.mlmanager.activities.AppActivity;
-import com.javiersantos.mlmanager.AppInfo;
-import com.javiersantos.mlmanager.R;
-import com.javiersantos.mlmanager.activities.MainActivity;
-import com.javiersantos.mlmanager.async.ExtractFileInBackground;
-import com.javiersantos.mlmanager.utils.AppPreferences;
-import com.javiersantos.mlmanager.utils.UtilsApp;
-import com.javiersantos.mlmanager.utils.UtilsDialog;
+import com.dkanada.openapk.MLManagerApplication;
+import com.dkanada.openapk.activities.AppActivity;
+import com.dkanada.openapk.AppInfo;
+import com.dkanada.openapk.R;
+import com.dkanada.openapk.activities.MainActivity;
+import com.dkanada.openapk.async.ExtractFileInBackground;
+import com.dkanada.openapk.utils.AppPreferences;
+import com.dkanada.openapk.utils.UtilsApp;
+import com.dkanada.openapk.utils.UtilsDialog;
 
 import java.util.ArrayList;
 import java.util.List;

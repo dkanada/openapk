@@ -1,8 +1,8 @@
-package com.javiersantos.mlmanager.activities;
+package com.dkanada.openapk.activities;
 
 import android.os.Bundle;
 
-import com.javiersantos.mlmanager.R;
+import com.dkanada.openapk.R;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.ui.LibsActivity;

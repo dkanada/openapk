@@ -1,8 +1,8 @@
-package com.javiersantos.mlmanager;
+package com.dkanada.openapk;
 
 import android.app.Application;
 
-import com.javiersantos.mlmanager.utils.AppPreferences;
+import com.dkanada.openapk.utils.AppPreferences;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.Iconics;
 

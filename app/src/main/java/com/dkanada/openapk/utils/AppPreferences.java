@@ -1,10 +1,10 @@
-package com.javiersantos.mlmanager.utils;
+package com.dkanada.openapk.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.javiersantos.mlmanager.R;
+import com.dkanada.openapk.R;
 
 import java.util.HashSet;
 import java.util.Set;
