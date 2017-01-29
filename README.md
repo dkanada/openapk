@@ -1,7 +1,9 @@
-<h1 align="center">ML Manager 1.X</h1>
+<h1 align="center">OpenAPK</h1>
 
-<p align="center"><img src="https://github.com/javiersantos/MLManager/blob/master/app/src/main/ic_launcher-web.png" width="100" height="100"></p>
+<p align="center"><img src="https://github.com/dkanada/OpenAPK/blob/master/app/src/main/ic_launcher-web.png" width="100" height="100"></p>
 <p align="center">A modern, easy and customizable app manager for Android with root features and Material Design.</p>
+
+This is a fork of MLManager 1.X made by Javier Santos, which is now unmaintained. I wanted to add a few features, namely an option to disable apps, which is now implemented. I will work on other features listed in the changelog when I have time.
 
 ## Features
 * Extract installed & system apps and save locally as APK.
@@ -14,7 +16,8 @@
 
 ## Root features
 * Hide apps from the device launcher.
-* Easily manage your hidden apps from the side panel.
+* Disable apps entirely.
+* Easily manage your hidden and disabled apps from the side panel.
 * Remove cache per app.
 * Clean data per app.
 

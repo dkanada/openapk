@@ -94,14 +94,14 @@
   <string name="settings_googleplus">Join the community on Google+</string>
   <string name="settings_googleplus_description">Want to talk about APKs and keep abreast of developments in the application? Join to our community!</string>
   <string name="settings_license">Open Source licenses</string>
-  <string name="settings_about">Made with \u2665 from Spain</string>
+  <string name="settings_about">Made with \u2665</string>
 
   <!-- Transitions -->
   <string name="transition_app_icon"
       translatable="false">App Icon Transition</string>
 
   <!-- About -->
-  <string name="about_description_1">App Developer</string>
+  <string name="about_description_1">Original Developer</string>
   <string name="about_description_2">Icon Designer</string>
 
   <!-- Toasts -->
