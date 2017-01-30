@@ -140,29 +140,29 @@ public class UtilsUI {
 
   public static void updateAppFavoriteIcon(Context context, MenuItem menuItem, Boolean isFavorite) {
     if (isFavorite) {
-      menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star_white));
+      menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star));
     } else {
-      menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star_border_white));
+      menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star_border));
     }
   }
 
   public static void updateAppHiddenIcon(Context context, FloatingActionButton fabHide, Boolean isHidden) {
     if (isHidden) {
       fabHide.setTitle(context.getResources().getString(R.string.action_unhide));
-      fabHide.setIcon(R.drawable.ic_visibility_white);
+      fabHide.setIcon(R.drawable.ic_visibility);
     } else {
       fabHide.setTitle(context.getResources().getString(R.string.action_hide));
-      fabHide.setIcon(R.drawable.ic_visibility_off_white);
+      fabHide.setIcon(R.drawable.ic_visibility_off);
     }
   }
 
   public static void updateAppDisabledIcon(Context context, FloatingActionButton fabDisable, Boolean isDisabled) {
     if (isDisabled) {
       fabDisable.setTitle(context.getResources().getString(R.string.action_enable));
-      fabDisable.setIcon(R.drawable.ic_remove_circle_outline_white);
+      fabDisable.setIcon(R.drawable.ic_remove_circle_outline);
     } else {
       fabDisable.setTitle(context.getResources().getString(R.string.action_disable));
-      fabDisable.setIcon(R.drawable.ic_remove_circle_white);
+      fabDisable.setIcon(R.drawable.ic_remove_circle);
     }
   }
 }

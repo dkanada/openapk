@@ -17,7 +17,6 @@
       android:layout_height="wrap_content"
       android:visibility="gone"
       app:fab_colorNormal="@color/fab"
-      app:fab_icon="@drawable/ic_send_white"
       app:fab_title="@string/action_disable"/>
 
   <com.getbase.floatingactionbutton.FloatingActionButton
@@ -33,6 +32,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       app:fab_colorNormal="@color/fab"
-      app:fab_icon="@drawable/ic_send_white"
+      app:fab_icon="@drawable/ic_send"
       app:fab_title="@string/action_share"/>
 </com.getbase.floatingactionbutton.FloatingActionsMenu>
