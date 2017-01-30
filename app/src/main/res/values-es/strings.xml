@@ -61,7 +61,6 @@
   <string name="button_reboot">Reiniciar</string>
   <string name="button_later">Después</string>
   <string name="button_uninstall">Desinstalar</string>
-  <string name="button_default">Por defecto</string>
   <string name="settings_delete_all">Eliminar todos los APK extraídos</string>
   <string name="settings_delete_all_description">Eliminar los archivos APK extraídos en la carpeta de extracción</string>
   <string name="settings_custom_path">Carpeta personalizada para APK extraídos</string>

@@ -193,7 +193,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
   private void setCustomPathSummary() {
     String path = appPreferences.getCustomPath();
     if (path.equals(UtilsApp.getDefaultAppFolder().getPath())) {
-      prefCustomPath.setSummary(getResources().getString(R.string.button_default) + ": " + UtilsApp.getDefaultAppFolder().getPath());
+      prefCustomPath.setSummary(UtilsApp.getDefaultAppFolder().getPath());
     } else {
       prefCustomPath.setSummary(path);
     }

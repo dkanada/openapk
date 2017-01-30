@@ -61,7 +61,6 @@
   <string name="button_reboot">再起動</string>
   <string name="button_later">後で</string>
   <string name="button_uninstall">アンインストール</string>
-  <string name="button_default">デフォルト</string>
   <string name="settings_delete_all">抽出された APK をすべて削除</string>
   <string name="settings_delete_all_description">抽出フォルダーに格納されている抽出済の APK をすべて削除します</string>
   <string name="settings_custom_path">抽出された APK 用のユーザー設定フォルダー</string>

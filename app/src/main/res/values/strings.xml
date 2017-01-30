@@ -26,40 +26,40 @@
   <string name="copied_clipboard">App name copied to clipboard.</string>
 
   <!-- Dialogs -->
-  <string name="dialog_saved">\"%s\" APK saved</string>
-  <string name="dialog_saved_description">\"%1$s\" APK has been saved into \"MLManager\" folder with name: %2$s</string>
-  <string name="dialog_saving">Saving %s APK&#8230;</string>
-  <string name="dialog_saving_description">ML Manager is saving the APK into \"MLManager\" folder.</string>
+  <string name="dialog_saved">%s saved</string>
+  <string name="dialog_saved_description">%1$s has been saved into the specified folder with name: %2$s.</string>
+  <string name="dialog_saving">Saving %s&#8230;</string>
+  <string name="dialog_saving_description">Saving the APK into the specified folder.</string>
   <string name="dialog_about">About %s</string>
-  <string name="dialog_about_description">Developed by Javier Santos.\n\nOpen Source under GPLv3 license.</string>
+  <string name="dialog_about_description">Open source under GPLv3 license.</string>
   <string name="dialog_run">Open</string>
-  <string name="dialog_run_description">Run this app now</string>
+  <string name="dialog_run_description">Run this app now.</string>
   <string name="dialog_extract">Extract</string>
-  <string name="dialog_extract_description">Extract this app under \"MLManager\" directory</string>
+  <string name="dialog_extract_description">Extract this app under the specified directory.</string>
   <string name="dialog_extract_fail">Extract failed</string>
-  <string name="dialog_extract_fail_description">Unable to extract this APK. Please, try to restart your device.</string>
+  <string name="dialog_extract_fail_description">Unable to extract this APK.</string>
   <string name="dialog_uninstall">Uninstall</string>
-  <string name="dialog_uninstall_description">Uninstall this app right now</string>
-  <string name="dialog_uninstalling">Uninstalling %s APK&#8230;</string>
-  <string name="dialog_uninstalling_description">ML Manager is uninstalling this app. Please wait.</string>
+  <string name="dialog_uninstall_description">Uninstall this app right now.</string>
+  <string name="dialog_uninstalling">Uninstalling %s&#8230;</string>
+  <string name="dialog_uninstalling_description">Uninstalling this app. Please wait.</string>
   <string name="dialog_cache">Remove cache</string>
-  <string name="dialog_cache_description">Remove the cache for this app</string>
+  <string name="dialog_cache_description">Remove the cache for this app.</string>
   <string name="dialog_cache_success">Cache deleted</string>
-  <string name="dialog_cache_success_description">Cache for %s has been removed</string>
+  <string name="dialog_cache_success_description">The cache for %s has been removed.</string>
   <string name="dialog_cache_deleting">Deleting cache files&#8230;</string>
-  <string name="dialog_cache_deleting_description">Please wait while cache files are being deleted.</string>
+  <string name="dialog_cache_deleting_description">Please wait while cache files are deleted.</string>
   <string name="dialog_clear_data">Clear data</string>
-  <string name="dialog_clear_data_description">Remove all application data for this app</string>
+  <string name="dialog_clear_data_description">Remove all application data for this app.</string>
   <string name="dialog_clear_data_deleting">Deleting all files&#8230;</string>
-  <string name="dialog_clear_data_deleting_description">Please wait while all files are being deleted.</string>
+  <string name="dialog_clear_data_deleting_description">Please wait while all files are deleted.</string>
   <string name="dialog_clear_data_success">Data deleted</string>
-  <string name="dialog_clear_data_success_description">All data for %s has been removed</string>
+  <string name="dialog_clear_data_success_description">All data for %s has been removed.</string>
   <string name="dialog_root_required">Root required</string>
-  <string name="dialog_root_required_description">Your device must be rooted with root permission given. If you have denied access once: Go to SuperUser app to give access to ML Manager.</string>
-  <string name="dialog_reboot">Reboot is necessary to display the changes. Do you want to reboot now?</string>
-  <string name="dialog_cannot_open">%s can\'t be opened because it\'s hidden. Try to unhide before opening this app.</string>
+  <string name="dialog_root_required_description">Your device must be rooted for this feature to work.</string>
+  <string name="dialog_reboot">A reboot is necessary to display the changes. Do you want to reboot now?</string>
+  <string name="dialog_cannot_open">%s can\'t be opened because it\'s hidden. Try to unhide this app before opening.</string>
   <string name="dialog_uninstall_root">Are you sure you want to uninstall?</string>
-  <string name="dialog_uninstall_root_description">You are one step away of removing a system app. Do not delete it if you are unsure, it could cause malfunction of the device.</string>
+  <string name="dialog_uninstall_root_description">You are one step away of removing a system app. Do not delete it if you are unsure, it could cause a malfunction.</string>
   <string name="dialog_uninstalled_root">%s uninstalled</string>
   <string name="dialog_uninstalled_root_description">Some changes will not be applied until you restart your device. Do you want to restart now?</string>
   <string name="dialog_permissions">Permissions are required</string>
@@ -67,34 +67,33 @@
 
   <!-- Buttons -->
   <string name="button_extract">Extract</string>
-  <string name="button_share">Share APK</string>
+  <string name="button_share">Share</string>
   <string name="button_undo">Undo</string>
   <string name="button_reboot">Reboot</string>
   <string name="button_later">Later</string>
   <string name="button_uninstall">Uninstall</string>
-  <string name="button_default">Default</string>
 
   <!-- Settings -->
   <string name="settings_delete_all">Delete all extracted APKs</string>
-  <string name="settings_delete_all_description">Remove all the extracted APKs stored in the extraction folder</string>
+  <string name="settings_delete_all_description">Remove all the extracted APKs stored in the extraction folder.</string>
   <string name="settings_custom_path">Custom folder for extracted APKs</string>
   <string name="settings_custom_filename">Default filename for extracted APKs</string>
-  <string name="settings_sort_mode">Sort apps by</string>
+  <string name="settings_sort_mode">Sort apps by this metric</string>
   <string name="settings_customizations">Customizations</string>
   <string name="settings_primary_color">Primary color</string>
-  <string name="settings_primary_color_description">Set the primary color for the toolbar and navigation bar. Requires Android 5.0+</string>
+  <string name="settings_primary_color_description">Set the color for the toolbar and navigation bar.</string>
   <string name="settings_fab_color">Floating button color</string>
-  <string name="settings_fab_color_description">Set the color for the Floating Action Button (FAB)</string>
+  <string name="settings_fab_color_description">Set the color for the floating action button.</string>
   <string name="settings_navigation_black">Show navigation bar in black</string>
   <string name="settings_navigation_black_description">Don\'t use a custom color for the navigation bar.</string>
   <string name="settings_default_customization">Restore customizations</string>
-  <string name="settings_default_customization_description">Restore colors to the default values</string>
+  <string name="settings_default_customization_description">Restore colors to the default values.</string>
   <string name="settings_googleplay">Rate on Google Play</string>
-  <string name="settings_googleplay_description">Do you have a few seconds to rate this app? We want to hear your opinion</string>
+  <string name="settings_googleplay_description">Do you have a few seconds to rate this app? We want to hear your opinion.</string>
   <string name="settings_googleplus">Join the community on Google+</string>
-  <string name="settings_googleplus_description">Want to talk about APKs and keep abreast of developments in the application? Join to our community!</string>
-  <string name="settings_license">Open Source licenses</string>
-  <string name="settings_about">Made with \u2665</string>
+  <string name="settings_googleplus_description">Want to talk about APKs and keep abreast of developments for the application? Join our community!</string>
+  <string name="settings_license">Open source licenses</string>
+  <string name="settings_about">Made with \u2665 from Spain.</string>
 
   <!-- Transitions -->
   <string name="transition_app_icon"
@@ -103,6 +102,7 @@
   <!-- About -->
   <string name="about_description_1">Original Developer</string>
   <string name="about_description_2">Icon Designer</string>
+  <string name="about_description_3">App Maintainer</string>
 
   <!-- Toasts -->
   <string name="tap_exit">Tap again to close the app.</string>

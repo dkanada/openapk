@@ -61,7 +61,6 @@
   <string name="button_reboot">Riavvia</string>
   <string name="button_later">Piu\' tardi</string>
   <string name="button_uninstall">Disinstalla</string>
-  <string name="button_default">Default</string>
   <string name="settings_delete_all">Rimuovi tutti gli APK estratti</string>
   <string name="settings_delete_all_description">Rimuovi tutti gli APK estratti dalla cartella predefinita</string>
   <string name="settings_custom_path">Cartella personalizzata per gli APK</string>
