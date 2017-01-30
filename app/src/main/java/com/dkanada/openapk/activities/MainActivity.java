@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     this.context = this;
 
     setInitialConfiguration();
-    checkAndAddPermissions(activity);
+    UtilsApp.checkPermissions(activity);
     setAppDir();
 
     recyclerView = (RecyclerView) findViewById(R.id.appList);
@@ -253,10 +253,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       searchItem.setVisible(true);
       drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
     }
-  }
-
-  private void checkAndAddPermissions(Activity activity) {
-    UtilsApp.checkPermissions(activity);
   }
 
   private void setAppDir() {
