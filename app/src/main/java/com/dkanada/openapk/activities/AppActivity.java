@@ -246,8 +246,8 @@ public class AppActivity extends AppCompatActivity {
 
     // FAB (Hide)
     if (UtilsRoot.isRooted()) {
-      UtilsApp.setAppHidden(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
-      UtilsApp.setAppDisabled(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
+      UtilsUI.updateAppHiddenIcon(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
+      UtilsUI.updateAppDisabledIcon(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
       fab_hide.setVisibility(View.VISIBLE);
       fab_disable.setVisibility(View.VISIBLE);
       fab_hide.setOnClickListener(new View.OnClickListener() {
@@ -269,7 +269,7 @@ public class AppActivity extends AppCompatActivity {
               appPreferences.setHiddenApps(appsHidden);
             }
           }
-          UtilsApp.setAppHidden(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
+          UtilsUI.updateAppHiddenIcon(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
         }
       });
       fab_disable.setOnClickListener(new View.OnClickListener() {
@@ -291,7 +291,7 @@ public class AppActivity extends AppCompatActivity {
               appPreferences.setDisabledApps(appsDisabled);
             }
           }
-          UtilsApp.setAppDisabled(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
+          UtilsUI.updateAppDisabledIcon(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
         }
       });
     }
@@ -350,7 +350,7 @@ public class AppActivity extends AppCompatActivity {
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
     item_favorite = menu.findItem(R.id.action_favorite);
-    UtilsApp.setAppFavorite(context, item_favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
+    UtilsUI.updateAppFavoriteIcon(context, item_favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
     return super.onPrepareOptionsMenu(menu);
   }
 
@@ -368,7 +368,7 @@ public class AppActivity extends AppCompatActivity {
           appsFavorite.add(appInfo.getAPK());
           appPreferences.setFavoriteApps(appsFavorite);
         }
-        UtilsApp.setAppFavorite(context, item_favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
+        UtilsUI.updateAppFavoriteIcon(context, item_favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
         return true;
     }
     return super.onOptionsItemSelected(item);

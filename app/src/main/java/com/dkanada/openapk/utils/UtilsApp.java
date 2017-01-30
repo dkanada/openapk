@@ -154,21 +154,6 @@ public class UtilsApp {
     return res;
   }
 
-  /**
-   * Save the app as favorite
-   *
-   * @param context    Context
-   * @param menuItem   Item of the ActionBar
-   * @param isFavorite true if the app is favorite, false otherwise
-   */
-  public static void setAppFavorite(Context context, MenuItem menuItem, Boolean isFavorite) {
-    if (isFavorite) {
-      menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star_white));
-    } else {
-      menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star_border_white));
-    }
-  }
-
   // check if app has been hidden
   public static Boolean isAppHidden(AppInfo appInfo, Set<String> appHidden) {
     Boolean res = false;
@@ -178,23 +163,6 @@ public class UtilsApp {
     return res;
   }
 
-  /**
-   * Save the app as hidden
-   *
-   * @param context  Context
-   * @param fabHide  FAB button to change
-   * @param isHidden true if the app is hidden, false otherwise
-   */
-  public static void setAppHidden(Context context, FloatingActionButton fabHide, Boolean isHidden) {
-    if (isHidden) {
-      fabHide.setTitle(context.getResources().getString(R.string.action_unhide));
-      fabHide.setIcon(R.drawable.ic_visibility_white);
-    } else {
-      fabHide.setTitle(context.getResources().getString(R.string.action_hide));
-      fabHide.setIcon(R.drawable.ic_visibility_off_white);
-    }
-  }
-
   // check if app is disabled
   public static Boolean isAppDisabled(AppInfo appInfo, Set<String> appDisabled) {
     Boolean res = false;
@@ -202,16 +170,6 @@ public class UtilsApp {
       res = true;
     }
     return res;
-  }
-
-  public static void setAppDisabled(Context context, FloatingActionButton fabDisable, Boolean isDisabled) {
-    if (isDisabled) {
-      fabDisable.setTitle(context.getResources().getString(R.string.action_enable));
-      fabDisable.setIcon(R.drawable.ic_remove_circle_outline_white);
-    } else {
-      fabDisable.setTitle(context.getResources().getString(R.string.action_disable));
-      fabDisable.setIcon(R.drawable.ic_remove_circle_white);
-    }
   }
 
   // save app icon to cache folder

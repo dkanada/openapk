@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.dkanada.openapk.MLManagerApplication;
@@ -14,6 +15,7 @@ import com.dkanada.openapk.activities.AboutActivity;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.activities.SettingsActivity;
 import com.dkanada.openapk.adapters.AppAdapter;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -134,5 +136,33 @@ public class UtilsUI {
   public static void setToolbarTitle(Activity activity, String title) {
     Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
     toolbar.setTitle(title);
+  }
+
+  public static void updateAppFavoriteIcon(Context context, MenuItem menuItem, Boolean isFavorite) {
+    if (isFavorite) {
+      menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star_white));
+    } else {
+      menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star_border_white));
+    }
+  }
+
+  public static void updateAppHiddenIcon(Context context, FloatingActionButton fabHide, Boolean isHidden) {
+    if (isHidden) {
+      fabHide.setTitle(context.getResources().getString(R.string.action_unhide));
+      fabHide.setIcon(R.drawable.ic_visibility_white);
+    } else {
+      fabHide.setTitle(context.getResources().getString(R.string.action_hide));
+      fabHide.setIcon(R.drawable.ic_visibility_off_white);
+    }
+  }
+
+  public static void updateAppDisabledIcon(Context context, FloatingActionButton fabDisable, Boolean isDisabled) {
+    if (isDisabled) {
+      fabDisable.setTitle(context.getResources().getString(R.string.action_enable));
+      fabDisable.setIcon(R.drawable.ic_remove_circle_outline_white);
+    } else {
+      fabDisable.setTitle(context.getResources().getString(R.string.action_disable));
+      fabDisable.setIcon(R.drawable.ic_remove_circle_white);
+    }
   }
 }
