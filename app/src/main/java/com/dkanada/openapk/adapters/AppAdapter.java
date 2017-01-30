@@ -63,9 +63,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
     appViewHolder.vName.setText(appInfo.getName());
     appViewHolder.vApk.setText(appInfo.getAPK());
     appViewHolder.vIcon.setImageDrawable(appInfo.getIcon());
-
     setButtonEvents(appViewHolder, appInfo);
-
   }
 
   private void setButtonEvents(AppViewHolder appViewHolder, final AppInfo appInfo) {
@@ -121,7 +119,6 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
         }
       }
     });
-
   }
 
   public Filter getFilter() {
@@ -182,8 +179,6 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
       vExtract = (ButtonFlat) v.findViewById(R.id.btnExtract);
       vShare = (ButtonFlat) v.findViewById(R.id.btnShare);
       vCard = (CardView) v.findViewById(R.id.app_card);
-
     }
   }
-
 }

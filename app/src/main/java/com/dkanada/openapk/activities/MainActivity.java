@@ -196,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       // Installed & System Apps
       for (PackageInfo packageInfo : packages) {
         if (!(packageManager.getApplicationLabel(packageInfo.applicationInfo).equals("") || packageInfo.packageName.equals(""))) {
-
           if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
             try {
               // Non System Apps
@@ -228,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         publishProgress(Double.toString((actualApps * 100) / totalApps));
       }
 
-      // Hidden Apps
+      // list of hidden apps
       for (String app : hiddenApps) {
         AppInfo tempApp = new AppInfo(app);
         Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
@@ -239,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         publishProgress(Double.toString((actualApps * 100) / totalApps));
       }
 
+      // list of disabled apps
       for (String app : disabledApps) {
         AppInfo tempApp = new AppInfo(app);
         Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
@@ -248,7 +248,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         actualApps++;
         publishProgress(Double.toString((actualApps * 100) / totalApps));
       }
-
       return null;
     }
 
@@ -263,12 +262,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       appDisabledAdapter = new AppAdapter(appDisabledList, context);
 
       recyclerView.setAdapter(appAdapter);
-      searchItem.setVisible(true);
+      UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
 
-      //drawer.closeDrawer();
+      searchItem.setVisible(true);
       drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
     }
-
   }
 
   private void checkAndAddPermissions(Activity activity) {
@@ -295,7 +293,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         res.add(app);
       }
     }
-
     return res;
   }
 
