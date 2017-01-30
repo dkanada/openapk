@@ -134,6 +134,9 @@ public class AppActivity extends AppCompatActivity {
     updateUninstallButton(uninstall);
     updateCacheButton(cache);
     updateDataButton(data);
+    updateShareFAB(fab_share);
+    updateHideFAB(fab_hide);
+    updateDisableFAB(fab_disable);
 
     // google play icon
     if (appInfo.isSystem()) {
@@ -155,68 +158,6 @@ public class AppActivity extends AppCompatActivity {
           clipboardManager.setPrimaryClip(clipData);
           UtilsDialog.showSnackbar(activity, context.getResources().getString(R.string.copied_clipboard), null, null, 2).show();
           return false;
-        }
-      });
-    }
-
-    // FAB (Share)
-    fab_share.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        UtilsApp.copyFile(appInfo);
-        Intent shareIntent = UtilsApp.getShareIntent(UtilsApp.getOutputFilename(appInfo));
-        startActivity(Intent.createChooser(shareIntent, String.format(getResources().getString(R.string.send_to), appInfo.getName())));
-      }
-    });
-
-    // FAB (Hide)
-    if (UtilsRoot.isRooted()) {
-      UtilsUI.updateAppHiddenIcon(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
-      UtilsUI.updateAppDisabledIcon(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
-      fab_hide.setVisibility(View.VISIBLE);
-      fab_disable.setVisibility(View.VISIBLE);
-      fab_hide.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          if (UtilsApp.isAppHidden(appInfo, appsHidden)) {
-            Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), true);
-            if (hidden) {
-              UtilsApp.removeIconFromCache(context, appInfo);
-              appsHidden.remove(appInfo.toString());
-              appPreferences.setHiddenApps(appsHidden);
-              UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
-            }
-          } else {
-            UtilsApp.saveIconToCache(context, appInfo);
-            Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), false);
-            if (hidden) {
-              appsHidden.add(appInfo.toString());
-              appPreferences.setHiddenApps(appsHidden);
-            }
-          }
-          UtilsUI.updateAppHiddenIcon(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
-        }
-      });
-      fab_disable.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          if (UtilsApp.isAppDisabled(appInfo, appsDisabled)) {
-            Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), true);
-            if (disabled) {
-              UtilsApp.removeIconFromCache(context, appInfo);
-              appsDisabled.remove(appInfo.toString());
-              appPreferences.setDisabledApps(appsDisabled);
-              UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
-            }
-          } else {
-            UtilsApp.saveIconToCache(context, appInfo);
-            Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), false);
-            if (disabled) {
-              appsDisabled.add(appInfo.toString());
-              appPreferences.setDisabledApps(appsDisabled);
-            }
-          }
-          UtilsUI.updateAppDisabledIcon(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
         }
       });
     }
@@ -315,6 +256,75 @@ public class AppActivity extends AppCompatActivity {
               , getResources().getString(R.string.dialog_clear_data_deleting_description));
           new DeleteDataInBackground(context, dialog, appInfo.getData() + "/**"
               , getResources().getString(R.string.dialog_clear_data_success_description, appInfo.getName())).execute();
+        }
+      });
+    }
+  }
+
+  protected void updateShareFAB(FloatingActionButton fab_share) {
+    fab_share.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        UtilsApp.copyFile(appInfo);
+        Intent shareIntent = UtilsApp.getShareIntent(UtilsApp.getOutputFilename(appInfo));
+        startActivity(Intent.createChooser(shareIntent, String.format(getResources().getString(R.string.send_to), appInfo.getName())));
+      }
+    });
+  }
+
+  protected void updateHideFAB(final FloatingActionButton fab_hide) {
+    if (UtilsRoot.isRooted()) {
+      UtilsUI.updateAppHiddenIcon(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
+      fab_hide.setVisibility(View.VISIBLE);
+      fab_hide.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          if (UtilsApp.isAppHidden(appInfo, appsHidden)) {
+            Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), true);
+            if (hidden) {
+              UtilsApp.removeIconFromCache(context, appInfo);
+              appsHidden.remove(appInfo.toString());
+              appPreferences.setHiddenApps(appsHidden);
+              UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
+            }
+          } else {
+            UtilsApp.saveIconToCache(context, appInfo);
+            Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), false);
+            if (hidden) {
+              appsHidden.add(appInfo.toString());
+              appPreferences.setHiddenApps(appsHidden);
+            }
+          }
+          UtilsUI.updateAppHiddenIcon(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
+        }
+      });
+    }
+  }
+
+  protected void updateDisableFAB(final FloatingActionButton fab_disable) {
+    if (UtilsRoot.isRooted()) {
+      UtilsUI.updateAppDisabledIcon(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
+      fab_disable.setVisibility(View.VISIBLE);
+      fab_disable.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          if (UtilsApp.isAppDisabled(appInfo, appsDisabled)) {
+            Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), true);
+            if (disabled) {
+              UtilsApp.removeIconFromCache(context, appInfo);
+              appsDisabled.remove(appInfo.toString());
+              appPreferences.setDisabledApps(appsDisabled);
+              UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
+            }
+          } else {
+            UtilsApp.saveIconToCache(context, appInfo);
+            Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), false);
+            if (disabled) {
+              appsDisabled.add(appInfo.toString());
+              appPreferences.setDisabledApps(appsDisabled);
+            }
+          }
+          UtilsUI.updateAppDisabledIcon(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
         }
       });
     }
