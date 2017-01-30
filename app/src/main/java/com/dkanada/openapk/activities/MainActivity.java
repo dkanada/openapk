@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     if (getSupportActionBar() != null) {
-      getSupportActionBar().setTitle(R.string.app_name);
+      getSupportActionBar().setTitle(R.string.action_apps);
     }
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

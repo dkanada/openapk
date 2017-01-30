@@ -34,7 +34,7 @@ public class UtilsUI {
     return Color.argb(a, Math.max((int) (r * factor), 0), Math.max((int) (g * factor), 0), Math.max((int) (b * factor), 0));
   }
 
-  public static Drawer setNavigationDrawer(Activity activity, final Context context, Toolbar toolbar, final AppAdapter appAdapter, final AppAdapter appSystemAdapter, final AppAdapter appFavoriteAdapter, final AppAdapter appHiddenAdapter, final AppAdapter appDisabledAdapter, final RecyclerView recyclerView) {
+  public static Drawer setNavigationDrawer(final Activity activity, final Context context, Toolbar toolbar, final AppAdapter appAdapter, final AppAdapter appSystemAdapter, final AppAdapter appFavoriteAdapter, final AppAdapter appHiddenAdapter, final AppAdapter appDisabledAdapter, final RecyclerView recyclerView) {
     final String loadingLabel = "...";
     int header;
     AppPreferences appPreferences = MLManagerApplication.getAppPreferences();
@@ -98,18 +98,23 @@ public class UtilsUI {
         switch (iDrawerItem.getIdentifier()) {
           case 1:
             recyclerView.setAdapter(appAdapter);
+            setToolbarTitle(activity, context.getResources().getString(R.string.action_apps));
             break;
           case 2:
             recyclerView.setAdapter(appSystemAdapter);
+            setToolbarTitle(activity, context.getResources().getString(R.string.action_system_apps));
             break;
           case 3:
             recyclerView.setAdapter(appFavoriteAdapter);
+            setToolbarTitle(activity, context.getResources().getString(R.string.action_favorite_apps));
             break;
           case 4:
             recyclerView.setAdapter(appHiddenAdapter);
+            setToolbarTitle(activity, context.getResources().getString(R.string.action_hidden_apps));
             break;
           case 5:
             recyclerView.setAdapter(appDisabledAdapter);
+            setToolbarTitle(activity, context.getResources().getString(R.string.action_disabled_apps));
             break;
           case 6:
             context.startActivity(new Intent(context, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -124,5 +129,10 @@ public class UtilsUI {
       }
     });
     return drawerBuilder.build();
+  }
+
+  public static void setToolbarTitle(Activity activity, String title) {
+    Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+    toolbar.setTitle(title);
   }
 }
