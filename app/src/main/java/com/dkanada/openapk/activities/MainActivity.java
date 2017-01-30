@@ -255,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
   }
 
+  // edit this later
   private void setAppDir() {
     File appDir = UtilsApp.getAppFolder();
     if (!appDir.exists()) {

@@ -9,7 +9,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
+//import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,12 +23,12 @@ import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.UtilsApp;
 import com.dkanada.openapk.utils.UtilsUI;
 
-import net.rdrei.android.dirchooser.DirectoryChooserConfig;
-import net.rdrei.android.dirchooser.DirectoryChooserFragment;
+//import net.rdrei.android.dirchooser.DirectoryChooserConfig;
+//import net.rdrei.android.dirchooser.DirectoryChooserFragment;
 
 import yuku.ambilwarna.widget.AmbilWarnaPreference;
 
-public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener, DirectoryChooserFragment.OnFragmentInteractionListener {
+public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
   // Load Settings
   private AppPreferences appPreferences;
   private Toolbar toolbar;
@@ -37,7 +37,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
   private Preference prefVersion, prefLicense, prefDeleteAll, prefDefaultValues, prefNavigationBlack, prefCustomPath;
   private AmbilWarnaPreference prefPrimaryColor, prefFABColor;
   private ListPreference prefCustomFilename, prefSortMode;
-  private DirectoryChooserFragment chooserDialog;
+  //private DirectoryChooserFragment chooserDialog;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -121,7 +121,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     });
 
     // prefCustomPath
-    prefCustomPath.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+    /*prefCustomPath.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
       @Override
       public boolean onPreferenceClick(Preference preference) {
         final DirectoryChooserConfig chooserConfig = DirectoryChooserConfig.builder()
@@ -136,7 +136,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
         return false;
       }
-    });
+    });*/
 
   }
 
@@ -156,7 +156,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     ViewGroup contentWrapper = (ViewGroup) contentView.findViewById(R.id.content_wrapper);
     LayoutInflater.from(this).inflate(layoutResID, contentWrapper, true);
     getWindow().setContentView(contentView);
-
   }
 
   private void setInitialConfiguration() {
@@ -193,7 +192,8 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
   private void setCustomPathSummary() {
     String path = appPreferences.getCustomPath();
     if (path.equals(UtilsApp.getDefaultAppFolder().getPath())) {
-      prefCustomPath.setSummary(UtilsApp.getDefaultAppFolder().getPath());
+      prefCustomPath.setSummary("Not implemented yet due to non-free dependencies.");
+      //prefCustomPath.setSummary(UtilsApp.getDefaultAppFolder().getPath());
     } else {
       prefCustomPath.setSummary(path);
     }
@@ -212,7 +212,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     }
   }
 
-  @Override
+  /*@Override
   public void onSelectDirectory(@NonNull String path) {
     appPreferences.setCustomPath(path);
     setCustomPathSummary();
@@ -222,12 +222,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
   @Override
   public void onCancelChooser() {
     chooserDialog.dismiss();
-  }
+  }*/
 
   @Override
   public void onBackPressed() {
     super.onBackPressed();
     overridePendingTransition(R.anim.fade_forward, R.anim.slide_out_right);
   }
-
 }

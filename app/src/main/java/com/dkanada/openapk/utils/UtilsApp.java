@@ -14,9 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
-import android.view.MenuItem;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.dkanada.openapk.AppInfo;
 import com.dkanada.openapk.MLManagerApplication;
 import com.dkanada.openapk.R;
