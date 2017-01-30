@@ -6,7 +6,7 @@
   <string name="action_share">Udostępnij</string>
   <string name="action_apps">Zainstalowane aplikacje</string>
   <string name="action_system_apps">Aplikacje systemowe</string>
-  <string name="action_favorites">Ulubione</string>
+  <string name="action_favorite_apps">Ulubione</string>
   <string name="action_hidden_apps">Ukryte aplikacje</string>
   <string name="action_hide">Ukryj</string>
   <string name="action_unhide">Usuń z ukrytych</string>

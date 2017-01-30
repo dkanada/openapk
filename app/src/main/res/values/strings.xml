@@ -8,7 +8,7 @@
   <string name="action_share">Share</string>
   <string name="action_apps">Installed Apps</string>
   <string name="action_system_apps">System Apps</string>
-  <string name="action_favorites">Favorite Apps</string>
+  <string name="action_favorite_apps">Favorite Apps</string>
   <string name="action_hidden_apps">Hidden Apps</string>
   <string name="action_hide">Hide</string>
   <string name="action_unhide">Unhide</string>
@@ -18,7 +18,7 @@
   <string name="send_to">Send \"%s\" using</string>
   <string name="deleting">Deleting&#8230;</string>
   <string name="loading">Loading&#8230;</string>
-  <string name="deleting_done">Files deleted!</string>
+  <string name="deleting_done">Files deleted.</string>
   <string name="deleting_error">Something went wrong removing the files.</string>
   <string name="search">Search</string>
   <string name="search_hint">Search by name&#8230;</string>

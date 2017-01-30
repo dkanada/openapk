@@ -6,7 +6,7 @@
   <string name="action_share">共有</string>
   <string name="action_apps">インストール済みのアプリ</string>
   <string name="action_system_apps">システムアプリ</string>
-  <string name="action_favorites">お気に入り</string>
+  <string name="action_favorite_apps">お気に入り</string>
   <string name="action_hidden_apps">非表示にするアプリ</string>
   <string name="action_hide">非表示にする</string>
   <string name="action_unhide">表示する</string>
