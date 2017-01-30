@@ -57,12 +57,7 @@ public class UtilsApp {
     return res;
   }
 
-  /**
-   * Retrieve the name of the extracted APK
-   *
-   * @param appInfo AppInfo
-   * @return String with the output name
-   */
+  // get the name of the extracted app
   public static String getAPKFilename(AppInfo appInfo) {
     AppPreferences appPreferences = MLManagerApplication.getAppPreferences();
     String res;
@@ -84,21 +79,12 @@ public class UtilsApp {
     return res;
   }
 
-  /**
-   * Retrieve the name of the extracted APK with the path
-   *
-   * @param appInfo AppInfo
-   * @return File with the path and output name
-   */
+  // get the name of the extracted app with the path included
   public static File getOutputFilename(AppInfo appInfo) {
     return new File(getAppFolder().getPath() + "/" + getAPKFilename(appInfo) + ".apk");
   }
 
-  /**
-   * Delete all the extracted APKs
-   *
-   * @return true if all files have been deleted, false otherwise
-   */
+  // delete all extracted apps from folder
   public static Boolean deleteAppFiles() {
     Boolean res = false;
     File f = getAppFolder();
@@ -114,12 +100,7 @@ public class UtilsApp {
     return res;
   }
 
-  /**
-   * Opens Google Play if installed, if not opens browser
-   *
-   * @param context Context
-   * @param id      PackageName on Google Play
-   */
+  // open google play if installed otherwise open browser
   public static void goToGooglePlay(Context context, String id) {
     try {
       context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + id)));
@@ -128,22 +109,12 @@ public class UtilsApp {
     }
   }
 
-  /**
-   * Opens Google Plus
-   *
-   * @param context Context
-   * @param id      Name on Google Play
-   */
+  // open google plus in browser
   public static void goToGooglePlus(Context context, String id) {
     context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/" + id)));
   }
 
-  /**
-   * Retrieve your own app version
-   *
-   * @param context Context
-   * @return String with the app version
-   */
+  // get version for this app
   public static String getAppVersionName(Context context) {
     String res = "0.0.0.0";
     try {
@@ -154,12 +125,7 @@ public class UtilsApp {
     return res;
   }
 
-  /**
-   * Retrieve your own app version code
-   *
-   * @param context Context
-   * @return int with the app version code
-   */
+  // get version code for this app
   public static int getAppVersionCode(Context context) {
     int res = 0;
     try {
@@ -179,13 +145,7 @@ public class UtilsApp {
     return intent;
   }
 
-  /**
-   * Retrieve if an app has been marked as favorite
-   *
-   * @param apk          App to check
-   * @param appFavorites Set with apps
-   * @return true if the app is marked as favorite, false otherwise
-   */
+  // check if app is favorite
   public static Boolean isAppFavorite(String apk, Set<String> appFavorites) {
     Boolean res = false;
     if (appFavorites.contains(apk)) {
@@ -209,13 +169,7 @@ public class UtilsApp {
     }
   }
 
-  /**
-   * Retrieve if an app is hidden
-   *
-   * @param appInfo   App to check
-   * @param appHidden Set with apps
-   * @return true if the app is hidden, false otherwise
-   */
+  // check if app has been hidden
   public static Boolean isAppHidden(AppInfo appInfo, Set<String> appHidden) {
     Boolean res = false;
     if (appHidden.contains(appInfo.toString())) {
@@ -241,6 +195,7 @@ public class UtilsApp {
     }
   }
 
+  // check if app is disabled
   public static Boolean isAppDisabled(AppInfo appInfo, Set<String> appDisabled) {
     Boolean res = false;
     if (appDisabled.contains(appInfo.toString())) {
@@ -259,13 +214,7 @@ public class UtilsApp {
     }
   }
 
-  /**
-   * Save an app icon to cache folder
-   *
-   * @param context Context
-   * @param appInfo App to save icon
-   * @return true if the icon has been saved, false otherwise
-   */
+  // save app icon to cache folder
   public static Boolean saveIconToCache(Context context, AppInfo appInfo) {
     Boolean res = false;
     try {
@@ -284,25 +233,13 @@ public class UtilsApp {
     return res;
   }
 
-  /**
-   * Delelete an app icon from cache folder
-   *
-   * @param context Context
-   * @param appInfo App to remove icon
-   * @return true if the icon has been removed, false otherwise
-   */
+  // delete app icon from cache folder
   public static Boolean removeIconFromCache(Context context, AppInfo appInfo) {
     File file = new File(context.getCacheDir(), appInfo.getAPK());
     return file.delete();
   }
 
-  /**
-   * Get an app icon from cache folder
-   *
-   * @param context Context
-   * @param appInfo App to get icon
-   * @return Drawable with the app icon
-   */
+  // get app icon from cache folder
   public static Drawable getIconFromCache(Context context, AppInfo appInfo) {
     Drawable res;
     try {
@@ -316,6 +253,7 @@ public class UtilsApp {
     return res;
   }
 
+  // check app permissions
   public static Boolean checkPermissions(Activity activity) {
     Boolean res = false;
     if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
