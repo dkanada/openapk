@@ -46,10 +46,10 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
   private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
 
-  // Load Settings
+  // settings
   private AppPreferences appPreferences;
 
-  // General variables
+  // general variables
   private List<AppInfo> appList;
   private List<AppInfo> appSystemList;
   private List<AppInfo> appHiddenList;
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   private AppAdapter appHiddenAdapter;
   private AppAdapter appDisabledAdapter;
 
-  // Configuration variables
+  // configuration variables
   private Boolean doubleBackToExitPressedOnce = false;
   private Toolbar toolbar;
   private Activity activity;
@@ -132,12 +132,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   }
 
   class getInstalledApps extends AsyncTask<Void, String, Void> {
-    private Integer totalApps;
-    private Integer actualApps;
 
     public getInstalledApps() {
-      actualApps = 0;
-
       appList = new ArrayList<>();
       appSystemList = new ArrayList<>();
       appHiddenList = new ArrayList<>();
@@ -150,11 +146,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
       Set<String> hiddenApps = appPreferences.getHiddenApps();
       Set<String> disabledApps = appPreferences.getDisabledApps();
-      totalApps = packages.size() + hiddenApps.size();
-      // Get Sort Mode
+      // sort mode
       switch (appPreferences.getSortMode()) {
         default:
-          // Comparator by Name (default)
+          // compare by name
           Collections.sort(packages, new Comparator<PackageInfo>() {
             @Override
             public int compare(PackageInfo p1, PackageInfo p2) {
@@ -163,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           });
           break;
         case "2":
-          // Comparator by Size
+          // compare by size
           Collections.sort(packages, new Comparator<PackageInfo>() {
             @Override
             public int compare(PackageInfo p1, PackageInfo p2) {
@@ -174,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           });
           break;
         case "3":
-          // Comparator by Installation Date (default)
+          // compare by installation date
           Collections.sort(packages, new Comparator<PackageInfo>() {
             @Override
             public int compare(PackageInfo p1, PackageInfo p2) {
@@ -183,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           });
           break;
         case "4":
-          // Comparator by Last Update
+          // compare by last update
           Collections.sort(packages, new Comparator<PackageInfo>() {
             @Override
             public int compare(PackageInfo p1, PackageInfo p2) {
@@ -193,12 +188,28 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           break;
       }
 
-      // Installed & System Apps
+      // list of hidden apps
+      for (String app : hiddenApps) {
+        AppInfo tempApp = new AppInfo(app);
+        Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+        tempApp.setIcon(tempAppIcon);
+        appHiddenList.add(tempApp);
+      }
+
+      // list of disabled apps
+      for (String app : disabledApps) {
+        AppInfo tempApp = new AppInfo(app);
+        Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+        tempApp.setIcon(tempAppIcon);
+        appDisabledList.add(tempApp);
+      }
+
+      // installed and system apps
       for (PackageInfo packageInfo : packages) {
         if (!(packageManager.getApplicationLabel(packageInfo.applicationInfo).equals("") || packageInfo.packageName.equals(""))) {
           if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
             try {
-              // Non System Apps
+              // installed apps
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false);
               appList.add(tempApp);
             } catch (OutOfMemoryError e) {
@@ -210,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
           } else {
             try {
-              // System Apps
+              // system apps
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), true);
               appSystemList.add(tempApp);
             } catch (OutOfMemoryError e) {
@@ -222,31 +233,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
           }
         }
-
-        actualApps++;
-        publishProgress(Double.toString((actualApps * 100) / totalApps));
-      }
-
-      // list of hidden apps
-      for (String app : hiddenApps) {
-        AppInfo tempApp = new AppInfo(app);
-        Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
-        tempApp.setIcon(tempAppIcon);
-        appHiddenList.add(tempApp);
-
-        actualApps++;
-        publishProgress(Double.toString((actualApps * 100) / totalApps));
-      }
-
-      // list of disabled apps
-      for (String app : disabledApps) {
-        AppInfo tempApp = new AppInfo(app);
-        Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
-        tempApp.setIcon(tempAppIcon);
-        appDisabledList.add(tempApp);
-
-        actualApps++;
-        publishProgress(Double.toString((actualApps * 100) / totalApps));
       }
       return null;
     }
@@ -367,5 +353,4 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       }, 2000);
     }
   }
-
 }
