@@ -50,19 +50,8 @@ public class UtilsDialog {
         .cancelable(false);
   }
 
-  /**
-   * Show Snackbar
-   *
-   * @param activity   Activity
-   * @param text       Text of the Snackbar
-   * @param buttonText Button text of the Snackbar
-   * @param file       File to remove if style == 1
-   * @param style      1 for extracted APKs, 2 display without button and 3 for hidden apps
-   * @return Snackbar to show
-   */
-  public static SnackBar showSnackbar(Activity activity, String text, @Nullable String buttonText, @Nullable final File file, Integer style) {
+  public static SnackBar showSnackBar(Activity activity, String text, @Nullable String buttonText, @Nullable final File file, Integer style) {
     SnackBar snackBar;
-
     switch (style) {
       case 1:
         snackBar = new SnackBar(activity, text, buttonText, new View.OnClickListener() {
@@ -87,7 +76,6 @@ public class UtilsDialog {
         snackBar = new SnackBar(activity, text, null, null);
         break;
     }
-
     return snackBar;
   }
 }

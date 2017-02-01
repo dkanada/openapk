@@ -138,7 +138,6 @@ public class UtilsRoot {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     return status;
   }
 
@@ -156,7 +155,6 @@ public class UtilsRoot {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     return status;
   }
 
@@ -170,7 +168,6 @@ public class UtilsRoot {
     } else {
       size = f.length() / 1024 / 2024;
     }
-
     return size;
   }
 
@@ -182,7 +179,6 @@ public class UtilsRoot {
     } catch (Exception e) {
       isExecuted = false;
     }
-
     return isExecuted;
   }
 }

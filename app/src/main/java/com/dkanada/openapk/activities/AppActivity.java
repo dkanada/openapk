@@ -156,7 +156,7 @@ public class AppActivity extends AppCompatActivity {
           ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
           clipData = ClipData.newPlainText("text", appInfo.getAPK());
           clipboardManager.setPrimaryClip(clipData);
-          UtilsDialog.showSnackbar(activity, context.getResources().getString(R.string.copied_clipboard), null, null, 2).show();
+          UtilsDialog.showSnackBar(activity, context.getResources().getString(R.string.copied_clipboard), null, null, 2).show();
           return false;
         }
       });
@@ -175,7 +175,7 @@ public class AppActivity extends AppCompatActivity {
             startActivity(intent);
           } catch (NullPointerException e) {
             e.printStackTrace();
-            UtilsDialog.showSnackbar(activity, String.format(getResources().getString(R.string.dialog_cannot_open), appInfo.getName()), null, null, 2).show();
+            UtilsDialog.showSnackBar(activity, String.format(getResources().getString(R.string.dialog_cannot_open), appInfo.getName()), null, null, 2).show();
           }
         }
       });
@@ -314,7 +314,7 @@ public class AppActivity extends AppCompatActivity {
               UtilsApp.removeIconFromCache(context, appInfo);
               appsDisabled.remove(appInfo.toString());
               appPreferences.setDisabledApps(appsDisabled);
-              UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
+              UtilsDialog.showSnackBar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
             }
           } else {
             UtilsApp.saveIconToCache(context, appInfo);

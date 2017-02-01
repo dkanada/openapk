@@ -29,11 +29,9 @@ public class UninstallInBackground extends AsyncTask<Void, String, Boolean> {
   @Override
   protected Boolean doInBackground(Void... voids) {
     Boolean status = false;
-
     if (UtilsApp.checkPermissions(activity)) {
       status = UtilsRoot.uninstallWithRootPermission(appInfo.getSource());
     }
-
     return status;
   }
 
