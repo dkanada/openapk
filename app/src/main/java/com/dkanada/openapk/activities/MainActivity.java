@@ -83,15 +83,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     setInitialConfiguration();
     UtilsApp.checkPermissions(activity);
-    setAppDir();
 
     recyclerView = (RecyclerView) findViewById(R.id.appList);
     refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
     noResults = (LinearLayout) findViewById(R.id.noResults);
 
-    recyclerView.setHasFixedSize(true);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(linearLayoutManager);
     drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
 
@@ -102,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       @Override
       public void onRefresh() {
         refresh.setRefreshing(true);
-
         (new Handler()).postDelayed(new Runnable() {
           @Override
           public void run() {
@@ -132,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   }
 
   class getInstalledApps extends AsyncTask<Void, String, Void> {
-
     public getInstalledApps() {
       appList = new ArrayList<>();
       appSystemList = new ArrayList<>();
@@ -252,14 +249,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
       searchItem.setVisible(true);
       drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
-    }
-  }
-
-  // edit this later
-  private void setAppDir() {
-    File appDir = UtilsApp.getAppFolder();
-    if (!appDir.exists()) {
-      appDir.mkdir();
     }
   }
 

@@ -41,11 +41,18 @@ public class UtilsApp {
     return new File(appPreferences.getCustomPath());
   }
 
+  public static void setAppDir() {
+    File appDir = getAppFolder();
+    if (!appDir.exists()) {
+      appDir.mkdir();
+    }
+  }
+
   public static Boolean copyFile(AppInfo appInfo) {
     Boolean res = false;
     File initialFile = new File(appInfo.getSource());
     File finalFile = getOutputFilename(appInfo);
-
+    setAppDir();
     try {
       FileUtils.copyFile(initialFile, finalFile);
       res = true;
