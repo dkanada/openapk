@@ -1,20 +1,20 @@
 <h1 align="center">OpenAPK</h1>
 
 <p align="center"><img src="https://github.com/dkanada/OpenAPK/blob/master/app/src/main/ic_launcher-web.png" width="100" height="100"></p>
-<p align="center">A modern, easy and customizable app manager for Android with root features and Material Design.</p>
+<p align="center">A modern, easy and customizable app manager for Android with root features and material design.</p>
 
-This is a fork of MLManager 1.X made by Javier Santos, which is now unmaintained. I wanted to add a few features, namely an option to disable apps, which is now implemented. I will work on other features listed in the changelog when I have time.
+This is a fork of MLManager 1.X made by Javier Santos, which is now unmaintained. I wanted to add a few features, namely an option to disable apps, which is now implemented.
 
 ## Features
-* Extract installed & system apps and save locally as APK.
+* Extract installed or system apps and save locally as APK.
 * Organize your applications marking them as favorite.
-* Uninstall apps easily.
-* Customizations available in Settings.
+* Easily Uninstall apps.
+* Customizations available in the settings.
 * No root required.
 * Material Design.
 * Really easy to use.
 
-## Root features
+## Root Features
 * Hide apps from the device launcher.
 * Disable apps entirely.
 * Easily manage your hidden and disabled apps from the side panel.

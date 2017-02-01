@@ -33,5 +33,4 @@ gen-external-apklibs
 ## Directory-based project format:
 .idea/
 *.db
-
-app/src/main/java/com/javiersantos/mlmanager/Keys.java
+*.iml
