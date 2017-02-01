@@ -124,9 +124,9 @@ public class UtilsRoot {
     try {
       String[] command;
       if (disabled) {
-        command = new String[]{"su", "-c", "pm enable " + app};
+        command = new String[]{"su", "-c", "pm enable " + app + "\n"};
       } else {
-        command = new String[]{"su", "-c", "pm disable " + app};
+        command = new String[]{"su", "-c", "pm disable " + app + "\n"};
       }
 
       Process process = Runtime.getRuntime().exec(command);
