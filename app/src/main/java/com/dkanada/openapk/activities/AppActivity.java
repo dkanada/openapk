@@ -285,7 +285,7 @@ public class AppActivity extends AppCompatActivity {
               UtilsApp.removeIconFromCache(context, appInfo);
               appsHidden.remove(appInfo.toString());
               appPreferences.setHiddenApps(appsHidden);
-              UtilsDialog.showSnackbar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
+              UtilsDialog.showSnackBar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
             }
           } else {
             UtilsApp.saveIconToCache(context, appInfo);
