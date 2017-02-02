@@ -31,7 +31,7 @@ public class AppInfo implements Serializable {
       this.version = split[2];
       this.source = split[3];
       this.data = split[4];
-      this.system = Boolean.getBoolean(split[5]);
+      this.system = Boolean.parseBoolean(split[5]);
     }
   }
 
