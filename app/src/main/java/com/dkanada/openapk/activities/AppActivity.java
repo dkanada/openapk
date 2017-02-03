@@ -28,7 +28,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.dkanada.openapk.AppInfo;
 import com.dkanada.openapk.MLManagerApplication;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.async.DeleteDataInBackground;
+import com.dkanada.openapk.async.ClearDataInBackground;
 import com.dkanada.openapk.async.ExtractFileInBackground;
 import com.dkanada.openapk.async.UninstallInBackground;
 import com.dkanada.openapk.utils.AppPreferences;
@@ -238,7 +238,7 @@ public class AppActivity extends AppCompatActivity {
           MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
               , getResources().getString(R.string.dialog_cache_deleting)
               , getResources().getString(R.string.dialog_cache_deleting_description));
-          new DeleteDataInBackground(context, dialog, appInfo.getData() + "/cache/**"
+          new ClearDataInBackground(context, dialog, appInfo.getData() + "/cache/**"
               , getResources().getString(R.string.dialog_cache_success_description, appInfo.getName())).execute();
         }
       });
@@ -254,7 +254,7 @@ public class AppActivity extends AppCompatActivity {
           MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
               , getResources().getString(R.string.dialog_clear_data_deleting)
               , getResources().getString(R.string.dialog_clear_data_deleting_description));
-          new DeleteDataInBackground(context, dialog, appInfo.getData() + "/**"
+          new ClearDataInBackground(context, dialog, appInfo.getData() + "/**"
               , getResources().getString(R.string.dialog_clear_data_success_description, appInfo.getName())).execute();
         }
       });

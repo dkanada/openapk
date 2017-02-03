@@ -13,13 +13,12 @@ public class MLManagerApplication extends Application {
   public void onCreate() {
     super.onCreate();
 
-    // Load Shared Preference
+    // load shared preference
     sAppPreferences = new AppPreferences(this);
 
-    // Register custom fonts like this (or also provide a font definition file)
+    // register custom fonts
     Iconics.registerFont(new GoogleMaterial());
   }
-
   public static AppPreferences getAppPreferences() {
     return sAppPreferences;
   }

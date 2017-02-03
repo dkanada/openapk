@@ -49,46 +49,6 @@ public class UtilsRoot {
         || canExecuteCommand("which su");
   }
 
-  public static boolean removeWithRootPermission(String directory) {
-    boolean status = false;
-    try {
-      String[] command = new String[]{"su", "-c", "rm -rf " + directory};
-      Process process = Runtime.getRuntime().exec(command);
-      process.waitFor();
-      int i = process.exitValue();
-      if (i == 0) {
-        status = true;
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    return status;
-  }
-
-  public static boolean hideWithRootPermission(String apk, Boolean hidden) {
-    boolean status = false;
-    try {
-      String[] command;
-      if (hidden) {
-        command = new String[]{"su", "-c", "pm unhide " + apk + "\n"};
-      } else {
-        command = new String[]{"su", "-c", "pm hide " + apk + "\n"};
-      }
-
-      Process process = Runtime.getRuntime().exec(command);
-      process.waitFor();
-      int i = process.exitValue();
-      if (i == 0) {
-        status = true;
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    return status;
-  }
-
   public static boolean uninstallWithRootPermission(String source) {
     boolean status = false;
     try {
@@ -115,7 +75,44 @@ public class UtilsRoot {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return status;
+  }
 
+  public static boolean clearDataWithRootPermission(String directory) {
+    boolean status = false;
+    try {
+      String[] command = new String[]{"su", "-c", "rm -rf " + directory};
+      Process process = Runtime.getRuntime().exec(command);
+      process.waitFor();
+      int i = process.exitValue();
+      if (i == 0) {
+        status = true;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return status;
+  }
+
+  public static boolean hideWithRootPermission(String apk, Boolean hidden) {
+    boolean status = false;
+    try {
+      String[] command;
+      if (hidden) {
+        command = new String[]{"su", "-c", "pm unhide " + apk + "\n"};
+      } else {
+        command = new String[]{"su", "-c", "pm hide " + apk + "\n"};
+      }
+
+      Process process = Runtime.getRuntime().exec(command);
+      process.waitFor();
+      int i = process.exitValue();
+      if (i == 0) {
+        status = true;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     return status;
   }
 

@@ -138,5 +138,4 @@ public class AppPreferences {
     editor.putStringSet(KeyDisabledApps, disabledApps);
     editor.commit();
   }
-
 }

@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   private MenuItem searchItem;
   private SearchView searchView;
   private static LinearLayout noResults;
+  private static LinearLayout initialRefresh;
   private SwipeRefreshLayout refresh;
 
   @Override
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     recyclerView = (RecyclerView) findViewById(R.id.appList);
     refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
     noResults = (LinearLayout) findViewById(R.id.noResults);
+    initialRefresh = (LinearLayout) findViewById(R.id.initialRefresh);
 
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -94,8 +96,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     recyclerView.setLayoutManager(linearLayoutManager);
     drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
 
-    new getInstalledApps().execute();
-
+    initialRefresh.setVisibility(View.VISIBLE);
     refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
     refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           public void run() {
             new getInstalledApps().execute();
             refresh.setRefreshing(false);
+            initialRefresh.setVisibility(View.GONE);
           }
         }, 2000);
       }
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     if (getSupportActionBar() != null) {
-      getSupportActionBar().setTitle(R.string.action_apps);
+      getSupportActionBar().setTitle(R.string.app_name);
     }
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

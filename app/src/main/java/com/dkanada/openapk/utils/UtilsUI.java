@@ -36,6 +36,7 @@ public class UtilsUI {
     return Color.argb(a, Math.max((int) (r * factor), 0), Math.max((int) (g * factor), 0), Math.max((int) (b * factor), 0));
   }
 
+  // all the code for the navigation drawer
   public static Drawer setNavigationDrawer(final Activity activity, final Context context, Toolbar toolbar, final AppAdapter appAdapter, final AppAdapter appSystemAdapter, final AppAdapter appFavoriteAdapter, final AppAdapter appHiddenAdapter, final AppAdapter appDisabledAdapter, final RecyclerView recyclerView) {
     final String loadingLabel = "...";
     int header;
@@ -133,6 +134,7 @@ public class UtilsUI {
     return drawerBuilder.build();
   }
 
+  // set the toolbar title with any string
   public static void setToolbarTitle(Activity activity, String title) {
     Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
     toolbar.setTitle(title);
@@ -146,6 +148,7 @@ public class UtilsUI {
     }
   }
 
+  // update the state of the hidden fab
   public static void updateAppHiddenIcon(Context context, FloatingActionButton fabHide, Boolean isHidden) {
     if (isHidden) {
       fabHide.setTitle(context.getResources().getString(R.string.action_unhide));
@@ -156,6 +159,7 @@ public class UtilsUI {
     }
   }
 
+  // update the state of the disabled fab
   public static void updateAppDisabledIcon(Context context, FloatingActionButton fabDisable, Boolean isDisabled) {
     if (isDisabled) {
       fabDisable.setTitle(context.getResources().getString(R.string.action_enable));

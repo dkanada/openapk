@@ -84,7 +84,7 @@ public class UtilsApp {
     return res;
   }
 
-  // get the name of the extracted app with the path included
+  // get the name of the extracted app with the path
   public static File getOutputFilename(AppInfo appInfo) {
     return new File(getAppFolder().getPath() + "/" + getAPKFilename(appInfo) + ".apk");
   }
@@ -119,7 +119,7 @@ public class UtilsApp {
     context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/" + id)));
   }
 
-  // get version for this app
+  // get version number for this app
   public static String getAppVersionName(Context context) {
     String res = "0.0.0.0";
     try {
@@ -159,7 +159,7 @@ public class UtilsApp {
     return res;
   }
 
-  // check if app has been hidden
+  // check if app is hidden
   public static Boolean isAppHidden(AppInfo appInfo, Set<String> appHidden) {
     Boolean res = false;
     if (appHidden.contains(appInfo.toString())) {

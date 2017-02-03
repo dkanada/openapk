@@ -10,14 +10,14 @@ import com.dkanada.openapk.utils.UtilsApp;
 import com.dkanada.openapk.utils.UtilsDialog;
 import com.dkanada.openapk.utils.UtilsRoot;
 
-public class DeleteDataInBackground extends AsyncTask<Void, String, Boolean> {
+public class ClearDataInBackground extends AsyncTask<Void, String, Boolean> {
   private Context context;
   private Activity activity;
   private MaterialDialog dialog;
   private String directory;
   private String successDescription;
 
-  public DeleteDataInBackground(Context context, MaterialDialog dialog, String directory, String successDescription) {
+  public ClearDataInBackground(Context context, MaterialDialog dialog, String directory, String successDescription) {
     this.context = context;
     this.activity = (Activity) context;
     this.dialog = dialog;
@@ -28,11 +28,9 @@ public class DeleteDataInBackground extends AsyncTask<Void, String, Boolean> {
   @Override
   protected Boolean doInBackground(Void... voids) {
     Boolean status = false;
-
     if (UtilsApp.checkPermissions(activity)) {
-      status = UtilsRoot.removeWithRootPermission(directory);
+      status = UtilsRoot.clearDataWithRootPermission(directory);
     }
-
     return status;
   }
 
