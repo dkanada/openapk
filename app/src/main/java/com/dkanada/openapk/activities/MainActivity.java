@@ -96,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     recyclerView.setLayoutManager(linearLayoutManager);
     drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
 
+    new getInstalledApps().execute();
+
     initialRefresh.setVisibility(View.VISIBLE);
     refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
     refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
