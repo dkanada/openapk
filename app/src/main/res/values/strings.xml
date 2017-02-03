@@ -24,7 +24,7 @@
   <string name="search_hint">Search by name&#8230;</string>
   <string name="search_noresults">No results were found for your search.</string>
   <string name="copied_clipboard">App name copied to clipboard.</string>
-  <string name="swipe_refresh_text">Swipe down to refresh your app lists.</string>
+  <string name="swipe_refresh_text">Please wait while the app lists are refreshed.</string>
 
   <!-- Dialogs -->
   <string name="dialog_saved">%s saved</string>
