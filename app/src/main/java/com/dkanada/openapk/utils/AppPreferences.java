@@ -23,8 +23,6 @@ public class AppPreferences {
   public static final String KeyIsRooted = "prefIsRooted";
   public static final String KeyCustomPath = "prefCustomPath";
   public static final String KeyTheme = "prefTheme";
-
-  // List
   public static final String KeyFavoriteApps = "prefFavoriteApps";
   public static final String KeyHiddenApps = "prefHiddenApps";
   public static final String KeyDisabledApps = "prefDisabledApps";

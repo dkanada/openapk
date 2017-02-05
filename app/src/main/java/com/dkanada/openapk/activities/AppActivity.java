@@ -40,22 +40,22 @@ import com.dkanada.openapk.utils.UtilsUI;
 import java.util.Set;
 
 public class AppActivity extends AppCompatActivity {
-  // Load Settings
+  // load settings
   private AppPreferences appPreferences;
 
-  // General variables
+  // general variables
   private AppInfo appInfo;
   private Set<String> appsFavorite;
   private Set<String> appsHidden;
   private Set<String> appsDisabled;
 
-  // Configuration variables
+  // configuration variables
   private int UNINSTALL_REQUEST_CODE = 1;
   private Context context;
   private Activity activity;
   private MenuItem item_favorite;
 
-  // UI variables
+  // other variables
   private FloatingActionsMenu fab;
 
   @Override
@@ -125,7 +125,7 @@ public class AppActivity extends AppCompatActivity {
     apk.setText(appInfo.getAPK());
     version.setText(appInfo.getVersion());
 
-    // Configure Colors
+    // configure colors
     header.setBackgroundColor(appPreferences.getPrimaryColorPref());
     fab_share.setColorNormal(appPreferences.getFABColorPref());
     fab_share.setColorPressed(UtilsUI.darker(appPreferences.getFABColorPref(), 0.8));

@@ -64,10 +64,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
     setInitialConfiguration();
 
-    String versionName = UtilsApp.getAppVersionName(context);
-    int versionCode = UtilsApp.getAppVersionCode(context);
-
-    prefVersion.setTitle(getResources().getString(R.string.app_name) + " v" + versionName);
+    prefVersion.setTitle(getResources().getString(R.string.app_name) + " v" + UtilsApp.getAppVersionName(context));
     prefVersion.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
       @Override
       public boolean onPreferenceClick(Preference preference) {
@@ -145,7 +142,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
   private void setInitialConfiguration() {
     toolbar.setTitle(getResources().getString(R.string.action_settings));
 
-    // Android 5.0+ devices
+    // 5.0+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
       getWindow().setStatusBarColor(UtilsUI.darker(appPreferences.getPrimaryColorPref(), 0.8));
@@ -155,7 +152,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
       }
     }
 
-    // Pre-Lollipop devices
+    // 5.0-
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       prefPrimaryColor.setEnabled(false);
       prefNavigationBlack.setEnabled(false);
