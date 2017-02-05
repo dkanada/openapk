@@ -86,6 +86,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
         new ExtractFileInBackground(context, dialog, appInfo).execute();
       }
     });
+
     appShare.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
