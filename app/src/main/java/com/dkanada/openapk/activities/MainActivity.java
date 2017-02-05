@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       appHiddenAdapter = new AppAdapter(appHiddenList, context);
       appDisabledAdapter = new AppAdapter(appDisabledList, context);
 
-      recyclerView.setAdapter(appAdapter);
+      recyclerView.swapAdapter(appAdapter, false);
       UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
 
       searchItem.setVisible(true);
