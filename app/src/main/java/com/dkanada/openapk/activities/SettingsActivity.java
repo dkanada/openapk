@@ -67,7 +67,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     String versionName = UtilsApp.getAppVersionName(context);
     int versionCode = UtilsApp.getAppVersionCode(context);
 
-    prefVersion.setTitle(getResources().getString(R.string.app_name) + " v" + versionName + " (" + versionCode + ")");
+    prefVersion.setTitle(getResources().getString(R.string.app_name) + " v" + versionName);
     prefVersion.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
       @Override
       public boolean onPreferenceClick(Preference preference) {
