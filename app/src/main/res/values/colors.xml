@@ -9,16 +9,29 @@
   <color name="textPrimaryLight">#212121</color>
   <color name="textLight">#212121</color>
   <color name="badgeLight">#E0E0E0</color>
-  <color name="fabLabelLight">#B2212121</color>
+  <color name="fabLabelLight">#616161</color>
 
   <color name="accentDark">#448AFF</color>
   <color name="textPrimaryDark">#FAFAFA</color>
   <color name="textDark">#FAFAFA</color>
-  <color name="badgeDark">#E0E0E0</color>
-  <color name="fabLabelDark">#B2212121</color>
+  <color name="badgeDark">#424242</color>
+  <color name="fabLabelDark">#616161</color>
 
   <color name="cardBlue">#00BED4</color>
   <color name="cardGreen">#8CC24A</color>
   <color name="cardRed">#DE6262</color>
   <color name="cardOrange">#FF7043</color>
+
+  <!-- MaterialDrawer dark colors -->
+  <color name="material_drawer_dark_background">@color/md_dark_background</color>
+  <!-- MaterialDrawer text and item colors -->
+  <color name="material_drawer_dark_primary_text">@color/textDark</color>
+  <color name="material_drawer_dark_primary_icon">@color/textDark</color>
+  <color name="material_drawer_dark_secondary_text">@color/textDark</color>
+  <color name="material_drawer_dark_hint_text">@color/textDark</color>
+  <color name="material_drawer_dark_divider">#616161</color>
+  <!-- MaterialDrawer drawer colors -->
+  <color name="material_drawer_dark_selected">@color/md_dark_background</color>
+  <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
+  <color name="material_drawer_dark_header_selection_text">@color/md_dark_background</color>
 </resources>

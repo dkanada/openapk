@@ -77,8 +77,8 @@ public class UtilsUI {
       badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(context.getResources().getColor(R.color.textLight));
       header = R.drawable.header_day;
     } else {
-      badgeColor = ContextCompat.getColor(context, R.color.badgeLight);
-      badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(context.getResources().getColor(R.color.textLight));
+      badgeColor = ContextCompat.getColor(context, R.color.badgeDark);
+      badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(context.getResources().getColor(R.color.textDark));
       header = R.drawable.header_night;
     }
 
