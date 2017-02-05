@@ -52,8 +52,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   // general variables
   private List<AppInfo> appList;
   private List<AppInfo> appSystemList;
-  private List<AppInfo> appHiddenList;
-  private List<AppInfo> appDisabledList;
 
   private AppAdapter appAdapter;
   private AppAdapter appSystemAdapter;
@@ -138,16 +136,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public getInstalledApps() {
       appList = new ArrayList<>();
       appSystemList = new ArrayList<>();
-      appHiddenList = new ArrayList<>();
-      appDisabledList = new ArrayList<>();
     }
 
     @Override
     protected Void doInBackground(Void... params) {
       final PackageManager packageManager = getPackageManager();
       List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
-      Set<String> hiddenApps = appPreferences.getHiddenApps();
-      Set<String> disabledApps = appPreferences.getDisabledApps();
       Set<String> installedApps = appPreferences.getInstalledApps();
       Set<String> systemApps = appPreferences.getSystemApps();
 
@@ -193,22 +187,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           break;
       }
 
-      // list of hidden apps
-      for (String app : hiddenApps) {
-        AppInfo tempApp = new AppInfo(app);
-        Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
-        tempApp.setIcon(tempAppIcon);
-        appHiddenList.add(tempApp);
-      }
-
-      // list of disabled apps
-      for (String app : disabledApps) {
-        AppInfo tempApp = new AppInfo(app);
-        Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
-        tempApp.setIcon(tempAppIcon);
-        appDisabledList.add(tempApp);
-      }
-
       // installed and system apps
       for (PackageInfo packageInfo : packages) {
         if (!(packageManager.getApplicationLabel(packageInfo.applicationInfo).equals("") || packageInfo.packageName.equals(""))) {
@@ -243,7 +221,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           }
         }
       }
-
       appPreferences.setInstalledApps(installedApps);
       appPreferences.setSystemApps(systemApps);
       return null;
@@ -256,8 +233,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       appAdapter = new AppAdapter(appList, context);
       appSystemAdapter = new AppAdapter(appSystemList, context);
       appFavoriteAdapter = new AppAdapter(getFavoriteList(appList, appSystemList), context);
-      appHiddenAdapter = new AppAdapter(appHiddenList, context);
-      appDisabledAdapter = new AppAdapter(appDisabledList, context);
+      appHiddenAdapter = new AppAdapter(getHiddenList(appList, appSystemList), context);
+      appDisabledAdapter = new AppAdapter(getDisabledList(appList, appSystemList), context);
 
       recyclerView.swapAdapter(appAdapter, false);
       UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
@@ -269,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
   private List<AppInfo> getFavoriteList(List<AppInfo> appList, List<AppInfo> appSystemList) {
     List<AppInfo> res = new ArrayList<>();
-
     for (AppInfo app : appList) {
       if (UtilsApp.isAppFavorite(app.getAPK(), appPreferences.getFavoriteApps())) {
         res.add(app);
@@ -277,6 +253,37 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
     for (AppInfo app : appSystemList) {
       if (UtilsApp.isAppFavorite(app.getAPK(), appPreferences.getFavoriteApps())) {
+        res.add(app);
+      }
+    }
+    return res;
+  }
+
+  private List<AppInfo> getHiddenList(List<AppInfo> appList, List<AppInfo> appSystemList) {
+    List<AppInfo> res = new ArrayList<>();
+    // change isAppHidden to use string like isAppFavorite
+    for (AppInfo app : appList) {
+      if (UtilsApp.isAppHidden(app, appPreferences.getHiddenApps())) {
+        res.add(app);
+      }
+    }
+    for (AppInfo app : appSystemList) {
+      if (UtilsApp.isAppHidden(app, appPreferences.getHiddenApps())) {
+        res.add(app);
+      }
+    }
+    return res;
+  }
+
+  private List<AppInfo> getDisabledList(List<AppInfo> appList, List<AppInfo> appSystemList) {
+    List<AppInfo> res = new ArrayList<>();
+    for (AppInfo app : appList) {
+      if (UtilsApp.isAppDisabled(app, appPreferences.getDisabledApps())) {
+        res.add(app);
+      }
+    }
+    for (AppInfo app : appSystemList) {
+      if (UtilsApp.isAppDisabled(app, appPreferences.getDisabledApps())) {
         res.add(app);
       }
     }
