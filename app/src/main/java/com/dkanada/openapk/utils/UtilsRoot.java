@@ -2,7 +2,7 @@ package com.dkanada.openapk.utils;
 
 import android.os.Build;
 
-import com.dkanada.openapk.MLManagerApplication;
+import com.dkanada.openapk.OpenAPKApplication;
 
 import java.io.File;
 
@@ -16,11 +16,11 @@ public class UtilsRoot {
   }
 
   public static boolean isRooted() {
-    int rootStatus = MLManagerApplication.getAppPreferences().getRootStatus();
+    int rootStatus = OpenAPKApplication.getAppPreferences().getRootStatus();
     boolean isRooted = false;
     if (rootStatus == ROOT_STATUS_NOT_CHECKED) {
       isRooted = isRootByBuildTag() || isRootedByFileSU() || isRootedByExecutingCommand();
-      MLManagerApplication.getAppPreferences().setRootStatus(isRooted ? ROOT_STATUS_ROOTED : ROOT_STATUS_NOT_ROOTED);
+      OpenAPKApplication.getAppPreferences().setRootStatus(isRooted ? ROOT_STATUS_ROOTED : ROOT_STATUS_NOT_ROOTED);
     } else if (rootStatus == ROOT_STATUS_ROOTED) {
       isRooted = true;
     }

@@ -27,7 +27,7 @@ import android.widget.Toast;
 import android.content.pm.ApplicationInfo;
 
 import com.dkanada.openapk.AppInfo;
-import com.dkanada.openapk.MLManagerApplication;
+import com.dkanada.openapk.OpenAPKApplication;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.adapters.AppAdapter;
 import com.dkanada.openapk.utils.AppPreferences;
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    this.appPreferences = MLManagerApplication.getAppPreferences();
+    this.appPreferences = OpenAPKApplication.getAppPreferences();
     if (appPreferences.getTheme().equals("1")) {
       setTheme(R.style.Light);
     } else {

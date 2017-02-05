@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.dkanada.openapk.MLManagerApplication;
+import com.dkanada.openapk.OpenAPKApplication;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.UtilsApp;
@@ -25,7 +25,7 @@ public class AboutActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    this.appPreferences = MLManagerApplication.getAppPreferences();
+    this.appPreferences = OpenAPKApplication.getAppPreferences();
     if (appPreferences.getTheme().equals("1")) {
       setTheme(R.style.Light);
     } else {

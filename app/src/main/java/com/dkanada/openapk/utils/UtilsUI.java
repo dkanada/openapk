@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.dkanada.openapk.MLManagerApplication;
+import com.dkanada.openapk.OpenAPKApplication;
 import com.dkanada.openapk.activities.AboutActivity;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.activities.SettingsActivity;
@@ -40,7 +40,7 @@ public class UtilsUI {
   public static Drawer setNavigationDrawer(final Activity activity, final Context context, Toolbar toolbar, final AppAdapter appAdapter, final AppAdapter appSystemAdapter, final AppAdapter appFavoriteAdapter, final AppAdapter appHiddenAdapter, final AppAdapter appDisabledAdapter, final RecyclerView recyclerView) {
     final String loadingLabel = "...";
     int header;
-    AppPreferences appPreferences = MLManagerApplication.getAppPreferences();
+    AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
     String apps, systemApps, favoriteApps, hiddenApps, disabledApps;
     header = R.drawable.header_day;
 

@@ -26,7 +26,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.dkanada.openapk.AppInfo;
-import com.dkanada.openapk.MLManagerApplication;
+import com.dkanada.openapk.OpenAPKApplication;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.async.ClearDataInBackground;
 import com.dkanada.openapk.async.ExtractFileInBackground;
@@ -60,7 +60,7 @@ public class AppActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    this.appPreferences = MLManagerApplication.getAppPreferences();
+    this.appPreferences = OpenAPKApplication.getAppPreferences();
     if (appPreferences.getTheme().equals("1")) {
       setTheme(R.style.Light);
     } else {

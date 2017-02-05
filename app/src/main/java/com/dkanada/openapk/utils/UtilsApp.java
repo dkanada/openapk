@@ -16,7 +16,7 @@ import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 
 import com.dkanada.openapk.AppInfo;
-import com.dkanada.openapk.MLManagerApplication;
+import com.dkanada.openapk.OpenAPKApplication;
 import com.dkanada.openapk.R;
 
 import org.apache.commons.io.FileUtils;
@@ -37,7 +37,7 @@ public class UtilsApp {
 
   // return custom folder where apps will be saved
   public static File getAppFolder() {
-    AppPreferences appPreferences = MLManagerApplication.getAppPreferences();
+    AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
     return new File(appPreferences.getCustomPath());
   }
 
@@ -64,7 +64,7 @@ public class UtilsApp {
 
   // get the name of the extracted app
   public static String getAPKFilename(AppInfo appInfo) {
-    AppPreferences appPreferences = MLManagerApplication.getAppPreferences();
+    AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
     String res;
 
     switch (appPreferences.getCustomFilename()) {

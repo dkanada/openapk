@@ -6,20 +6,21 @@ import com.dkanada.openapk.utils.AppPreferences;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.Iconics;
 
-public class MLManagerApplication extends Application {
-  private static AppPreferences sAppPreferences;
+public class OpenAPKApplication extends Application {
+  private static AppPreferences appPreferences;
 
   @Override
   public void onCreate() {
     super.onCreate();
 
     // load shared preference
-    sAppPreferences = new AppPreferences(this);
+    appPreferences = new AppPreferences(this);
 
     // register custom fonts
     Iconics.registerFont(new GoogleMaterial());
   }
+
   public static AppPreferences getAppPreferences() {
-    return sAppPreferences;
+    return appPreferences;
   }
 }

@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.dkanada.openapk.MLManagerApplication;
+import com.dkanada.openapk.OpenAPKApplication;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.UtilsApp;
@@ -37,7 +37,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
-    this.appPreferences = MLManagerApplication.getAppPreferences();
+    this.appPreferences = OpenAPKApplication.getAppPreferences();
     if (appPreferences.getTheme().equals("1")) {
       setTheme(R.style.Light);
     } else {

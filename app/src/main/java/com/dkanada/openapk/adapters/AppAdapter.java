@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.gc.materialdesign.views.ButtonFlat;
-import com.dkanada.openapk.MLManagerApplication;
+import com.dkanada.openapk.OpenAPKApplication;
 import com.dkanada.openapk.activities.AppActivity;
 import com.dkanada.openapk.AppInfo;
 import com.dkanada.openapk.R;
@@ -45,7 +45,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
   public AppAdapter(List<AppInfo> appList, Context context) {
     this.appList = appList;
     this.context = context;
-    this.appPreferences = MLManagerApplication.getAppPreferences();
+    this.appPreferences = OpenAPKApplication.getAppPreferences();
   }
 
   @Override
