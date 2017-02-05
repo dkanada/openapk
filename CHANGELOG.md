@@ -1,3 +1,11 @@
+### 0.9
+###### Released: February 5, 2017
+* include a dark theme
+* change animations for navigating through the app
+* modify some of the icons
+* fix progress bar for initial app list refresh
+* lots of bug fixes
+
 ### 0.8.3
 ###### Released: February 3, 2017
 * add a small text view to show that initial scan is happening
