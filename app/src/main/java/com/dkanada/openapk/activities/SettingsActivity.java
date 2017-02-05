@@ -1,6 +1,5 @@
 package com.dkanada.openapk.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -123,7 +122,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.activity_settings, new LinearLayout(this), false);
     toolbar = (Toolbar) contentView.findViewById(R.id.toolbar);
     //TODO Toolbar should load the default style in XML (white title and back arrow), but doesn't happen
-    toolbar.setTitleTextColor(getResources().getColor(R.color.textLight));
+    toolbar.setTitleTextColor(getResources().getColor(R.color.textWhite));
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {

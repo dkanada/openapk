@@ -82,7 +82,7 @@
             android:adjustViewBounds="true"
             android:maxHeight="30dp"
             android:maxWidth="30dp"
-            android:src="@drawable/ic_person"/>
+            android:src="@drawable/ic_person_black"/>
 
         <TextView
             android:layout_width="wrap_content"
