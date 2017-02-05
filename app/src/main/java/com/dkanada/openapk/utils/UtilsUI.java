@@ -42,7 +42,6 @@ public class UtilsUI {
     int header;
     AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
     String apps, systemApps, favoriteApps, hiddenApps, disabledApps;
-    header = R.drawable.header_day;
 
     if (appAdapter != null) {
       apps = Integer.toString(appAdapter.getItemCount());
@@ -70,14 +69,23 @@ public class UtilsUI {
       disabledApps = loadingLabel;
     }
 
+    // check for dark theme
+    Integer badgeColor;
+    BadgeStyle badgeStyle;
+    if(appPreferences.getTheme().equals("1")) {
+      badgeColor = ContextCompat.getColor(context, R.color.badgeLight);
+      badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(context.getResources().getColor(R.color.textLight));
+      header = R.drawable.header_day;
+    } else {
+      badgeColor = ContextCompat.getColor(context, R.color.badgeLight);
+      badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(context.getResources().getColor(R.color.textLight));
+      header = R.drawable.header_night;
+    }
+
     AccountHeader headerResult = new AccountHeaderBuilder()
         .withActivity(activity)
         .withHeaderBackground(header)
         .build();
-
-    // drawer item badges
-    Integer badgeColor = ContextCompat.getColor(context, R.color.divider);
-    BadgeStyle badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(Color.GRAY);
 
     DrawerBuilder drawerBuilder = new DrawerBuilder();
     drawerBuilder.withActivity(activity);
@@ -140,6 +148,7 @@ public class UtilsUI {
     toolbar.setTitle(title);
   }
 
+  // update the state of the favorite icon
   public static void updateAppFavoriteIcon(Context context, MenuItem menuItem, Boolean isFavorite) {
     if (isFavorite) {
       menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star));

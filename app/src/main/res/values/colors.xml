@@ -3,16 +3,18 @@
   <color name="actionBar">#3F51B5</color>
   <color name="statusBar">#303F9F</color>
   <color name="fab">#E91E63</color>
+  <color name="textWhite">#FAFAFA</color>
 
   <color name="accentLight">#448AFF</color>
+  <color name="textPrimaryLight">#212121</color>
   <color name="textLight">#212121</color>
-  <color name="cardLight">#FAFAFA</color>
-  <color name="cardPressedLight">#F1F1F1</color>
   <color name="badgeLight">#E0E0E0</color>
   <color name="fabLabelLight">#B2212121</color>
 
   <color name="accentDark">#448AFF</color>
-  <color name="textDark">#BDBDBD</color>
+  <color name="textPrimaryDark">#FAFAFA</color>
+  <color name="textDark">#FAFAFA</color>
+  <color name="badgeDark">#E0E0E0</color>
   <color name="fabLabelDark">#B2212121</color>
 
   <color name="cardBlue">#00BED4</color>

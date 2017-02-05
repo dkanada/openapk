@@ -10,7 +10,7 @@
     <item name="colorPrimaryDark">@color/statusBar</item>
     <item name="colorAccent">@color/accentLight</item>
     <!-- text colors -->
-    <item name="android:textColorPrimary">@color/textLight</item>
+    <item name="android:textColorPrimary">@color/textPrimaryLight</item>
     <item name="android:textColor">@color/textLight</item>
   </style>
 
@@ -24,7 +24,7 @@
     <item name="colorPrimaryDark">@color/statusBar</item>
     <item name="colorAccent">@color/accentDark</item>
     <!-- text colors -->
-    <item name="android:textColorPrimary">@color/textDark</item>
+    <item name="android:textColorPrimary">@color/textPrimaryDark</item>
     <item name="android:textColor">@color/textDark</item>
   </style>
 
@@ -36,7 +36,6 @@
 
   <style name="LabelStyle">
     <item name="android:background">@drawable/fab_label_background</item>
-    <item name="android:textColor">@color/cardLight</item>
+    <item name="android:textColor">@color/textWhite</item>
   </style>
-
 </resources>
