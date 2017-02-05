@@ -194,4 +194,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
       setThemeSummary();
     }
   }
+
+  @Override
+  public void onBackPressed() {
+    Intent intent = new Intent(context, MainActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    context.startActivity(intent);
+  }
 }
