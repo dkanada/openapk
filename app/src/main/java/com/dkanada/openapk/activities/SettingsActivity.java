@@ -72,7 +72,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
       @Override
       public boolean onPreferenceClick(Preference preference) {
         startActivity(new Intent(context, AboutActivity.class));
-        overridePendingTransition(R.anim.slide_in_right, R.anim.fade_back);
         return false;
       }
     });
@@ -81,7 +80,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
       @Override
       public boolean onPreferenceClick(Preference preference) {
         startActivity(new Intent(context, LicenseActivity.class));
-        overridePendingTransition(R.anim.slide_in_right, R.anim.fade_back);
         return false;
       }
     });
@@ -202,11 +200,5 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     } else if (pref == prefTheme) {
       setThemeSummary();
     }
-  }
-
-  @Override
-  public void onBackPressed() {
-    super.onBackPressed();
-    overridePendingTransition(R.anim.fade_forward, R.anim.slide_out_right);
   }
 }

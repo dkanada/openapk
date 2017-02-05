@@ -374,7 +374,6 @@ public class AppActivity extends AppCompatActivity {
       fab.collapse();
     } else {
       super.onBackPressed();
-      overridePendingTransition(R.anim.fade_forward, R.anim.slide_out_right);
     }
   }
 

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -120,7 +119,6 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
           context.startActivity(intent, transitionActivityOptions.toBundle());
         } else {
           context.startActivity(intent);
-          activity.overridePendingTransition(R.anim.slide_in_right, R.anim.fade_back);
         }
       }
     });

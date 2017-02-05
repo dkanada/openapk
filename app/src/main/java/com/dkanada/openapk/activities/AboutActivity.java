@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
@@ -66,11 +65,5 @@ public class AboutActivity extends AppCompatActivity {
 
     header.setBackgroundColor(appPreferences.getPrimaryColorPref());
     appNameVersion.setText(getResources().getString(R.string.app_name) + " " + UtilsApp.getAppVersionName(getApplicationContext()));
-  }
-
-  @Override
-  public void onBackPressed() {
-    super.onBackPressed();
-    overridePendingTransition(R.anim.fade_forward, R.anim.slide_out_right);
   }
 }
