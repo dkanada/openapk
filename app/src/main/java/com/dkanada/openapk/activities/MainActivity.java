@@ -148,6 +148,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
       Set<String> hiddenApps = appPreferences.getHiddenApps();
       Set<String> disabledApps = appPreferences.getDisabledApps();
+      Set<String> installedApps = appPreferences.getInstalledApps();
+      Set<String> systemApps = appPreferences.getSystemApps();
+
       // sort mode
       switch (appPreferences.getSortMode()) {
         default:
@@ -214,10 +217,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
               // installed apps
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false);
               appList.add(tempApp);
+              installedApps.add(tempApp.toString());
             } catch (OutOfMemoryError e) {
               //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false);
               appList.add(tempApp);
+              installedApps.add(tempApp.toString());
             } catch (Exception e) {
               e.printStackTrace();
             }
@@ -226,16 +231,21 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
               // system apps
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), true);
               appSystemList.add(tempApp);
+              systemApps.add(tempApp.toString());
             } catch (OutOfMemoryError e) {
               //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false);
               appSystemList.add(tempApp);
+              systemApps.add(tempApp.toString());
             } catch (Exception e) {
               e.printStackTrace();
             }
           }
         }
       }
+
+      appPreferences.setInstalledApps(installedApps);
+      appPreferences.setSystemApps(systemApps);
       return null;
     }
 

@@ -26,6 +26,8 @@ public class AppPreferences {
   public static final String KeyFavoriteApps = "prefFavoriteApps";
   public static final String KeyHiddenApps = "prefHiddenApps";
   public static final String KeyDisabledApps = "prefDisabledApps";
+  public static final String KeyInstalledApps = "prefInstalledApps";
+  public static final String KeySystemApps = "prefSystemApps";
 
   public AppPreferences(Context context) {
     this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -144,6 +146,28 @@ public class AppPreferences {
     editor.remove(KeyDisabledApps);
     editor.commit();
     editor.putStringSet(KeyDisabledApps, disabledApps);
+    editor.commit();
+  }
+
+  public Set<String> getInstalledApps() {
+    return sharedPreferences.getStringSet(KeyInstalledApps, new HashSet<String>());
+  }
+
+  public void setInstalledApps(Set<String> installedApps) {
+    editor.remove(KeyInstalledApps);
+    editor.commit();
+    editor.putStringSet(KeyInstalledApps, installedApps);
+    editor.commit();
+  }
+
+  public Set<String> getSystemApps() {
+    return sharedPreferences.getStringSet(KeySystemApps, new HashSet<String>());
+  }
+
+  public void setSystemApps(Set<String> systemApps) {
+    editor.remove(KeySystemApps);
+    editor.commit();
+    editor.putStringSet(KeySystemApps, systemApps);
     editor.commit();
   }
 }
