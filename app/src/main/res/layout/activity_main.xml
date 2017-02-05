@@ -33,22 +33,6 @@
           android:text="@string/search_noresults"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/initialRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:lines="2"
-          android:text="@string/swipe_refresh_text"/>
-    </LinearLayout>
-
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipe_refresh"

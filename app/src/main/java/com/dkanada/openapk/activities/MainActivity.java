@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   private MenuItem searchItem;
   private SearchView searchView;
   private static LinearLayout noResults;
-  private static LinearLayout initialRefresh;
   private SwipeRefreshLayout refresh;
 
   @Override
@@ -93,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     recyclerView = (RecyclerView) findViewById(R.id.appList);
     refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
     noResults = (LinearLayout) findViewById(R.id.noResults);
-    initialRefresh = (LinearLayout) findViewById(R.id.initialRefresh);
 
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -103,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     new getInstalledApps().execute();
 
-    initialRefresh.setVisibility(View.VISIBLE);
     refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
     refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
@@ -114,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           public void run() {
             new getInstalledApps().execute();
             refresh.setRefreshing(false);
-            initialRefresh.setVisibility(View.GONE);
           }
         }, 2000);
       }
@@ -284,7 +280,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     } else {
       ((AppAdapter) recyclerView.getAdapter()).getFilter().filter(search.toLowerCase());
     }
-
     return false;
   }
 
@@ -308,11 +303,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     searchItem = menu.findItem(R.id.action_search);
     searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-    searchView.setOnQueryTextListener(this);
 
     SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
     searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
+    searchView.setOnQueryTextListener(this);
     return true;
   }
 

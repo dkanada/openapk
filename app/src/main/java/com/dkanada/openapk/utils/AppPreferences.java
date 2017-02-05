@@ -129,15 +129,15 @@ public class AppPreferences {
     return sharedPreferences.getStringSet(KeyHiddenApps, new HashSet<String>());
   }
 
-  public Set<String> getDisabledApps() {
-    return sharedPreferences.getStringSet(KeyDisabledApps, new HashSet<String>());
-  }
-
   public void setHiddenApps(Set<String> hiddenApps) {
     editor.remove(KeyHiddenApps);
     editor.commit();
     editor.putStringSet(KeyHiddenApps, hiddenApps);
     editor.commit();
+  }
+
+  public Set<String> getDisabledApps() {
+    return sharedPreferences.getStringSet(KeyDisabledApps, new HashSet<String>());
   }
 
   public void setDisabledApps(Set<String> disabledApps) {
