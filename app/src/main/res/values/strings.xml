@@ -81,6 +81,7 @@
   <string name="settings_custom_filename">Default filename for extracted APKs</string>
   <string name="settings_sort_mode">Sort apps by this metric</string>
   <string name="settings_customizations">Customizations</string>
+  <string name="settings_theme">Theme</string>
   <string name="settings_primary_color">Primary color</string>
   <string name="settings_primary_color_description">Set the color for the toolbar and navigation bar.</string>
   <string name="settings_fab_color">Floating button color</string>

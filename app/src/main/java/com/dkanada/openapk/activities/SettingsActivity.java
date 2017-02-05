@@ -33,14 +33,19 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
   private Preference prefVersion, prefLicense, prefDeleteAll, prefDefaultValues, prefNavigationBlack, prefCustomPath;
   private AmbilWarnaPreference prefPrimaryColor, prefFABColor;
-  private ListPreference prefCustomFilename, prefSortMode;
+  private ListPreference prefCustomFilename, prefSortMode, prefTheme;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
+    this.appPreferences = MLManagerApplication.getAppPreferences();
+    if (appPreferences.getTheme().equals("1")) {
+      setTheme(R.style.Light);
+    } else {
+      setTheme(R.style.Dark);
+    }
     super.onCreate(savedInstanceState);
     addPreferencesFromResource(R.xml.settings);
     this.context = this;
-    this.appPreferences = MLManagerApplication.getAppPreferences();
 
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
     prefs.registerOnSharedPreferenceChangeListener(this);
@@ -54,6 +59,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     prefNavigationBlack = findPreference("prefNavigationBlack");
     prefCustomFilename = (ListPreference) findPreference("prefCustomFilename");
     prefSortMode = (ListPreference) findPreference("prefSortMode");
+    prefTheme = (ListPreference) findPreference("prefTheme");
     prefCustomPath = findPreference("prefCustomPath");
 
     setInitialConfiguration();
@@ -89,6 +95,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     // prefCustomPath
     setCustomPathSummary();
 
+    // prefTheme
+    setThemeSummary();
+
     // prefDeleteAll
     prefDeleteAll.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
       @Override
@@ -110,7 +119,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     prefDefaultValues.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
       @Override
       public boolean onPreferenceClick(Preference preference) {
-        appPreferences.setPrimaryColorPref(getResources().getColor(R.color.primary));
+        appPreferences.setPrimaryColorPref(getResources().getColor(R.color.actionBar));
         appPreferences.setFABColorPref(getResources().getColor(R.color.fab));
         return true;
       }
@@ -122,7 +131,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.activity_settings, new LinearLayout(this), false);
     toolbar = (Toolbar) contentView.findViewById(R.id.toolbar);
     //TODO Toolbar should load the default style in XML (white title and back arrow), but doesn't happen
-    toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+    toolbar.setTitleTextColor(getResources().getColor(R.color.cardLight));
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -176,16 +185,22 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     }
   }
 
+  private void setThemeSummary(){
+    int sortValue = Integer.valueOf(appPreferences.getTheme()) - 1;
+    prefTheme.setSummary(getResources().getStringArray(R.array.themeEntries)[sortValue]);
+  }
+
   @Override
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
     Preference pref = findPreference(key);
-
     if (pref == prefCustomFilename) {
       setCustomFilenameSummary();
     } else if (pref == prefSortMode) {
       setSortModeSummary();
     } else if (pref == prefCustomPath) {
       setCustomPathSummary();
+    } else if (pref == prefTheme) {
+      setThemeSummary();
     }
   }
 

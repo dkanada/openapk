@@ -77,8 +77,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
     this.appPreferences = MLManagerApplication.getAppPreferences();
+    if (appPreferences.getTheme().equals("1")) {
+      setTheme(R.style.Light);
+    } else {
+      setTheme(R.style.Dark);
+    }
+    setContentView(R.layout.activity_main);
     this.activity = this;
     this.context = this;
 

@@ -60,11 +60,16 @@ public class AppActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    this.appPreferences = MLManagerApplication.getAppPreferences();
+    if (appPreferences.getTheme().equals("1")) {
+      setTheme(R.style.Light);
+    } else {
+      setTheme(R.style.Dark);
+    }
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_app);
     this.context = this;
     this.activity = (Activity) context;
-    this.appPreferences = MLManagerApplication.getAppPreferences();
 
     getInitialConfiguration();
     setInitialConfiguration();

@@ -17,7 +17,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@color/primary"
+        android:background="@color/actionBar"
         android:scaleType="centerCrop"/>
 
     <ImageView
@@ -41,7 +41,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:text="App"
-        android:textColor="@color/white"
+        android:textColor="@color/cardLight"
         android:textSize="22sp"/>
 
     <TextView
@@ -52,7 +52,7 @@
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif-thin"
         android:gravity="center_horizontal"
-        android:textColor="@color/white"
+        android:textColor="@color/cardLight"
         android:textSize="15sp"/>
   </RelativeLayout>
 
@@ -93,7 +93,7 @@
           android:fontFamily="sans-serif-thin"
           android:gravity="center"
           android:text="com.javiersantos"
-          android:textColor="@color/text_primary"/>
+          android:textColor="@color/textLight"/>
     </android.support.v7.widget.CardView>
   </RelativeLayout>
 

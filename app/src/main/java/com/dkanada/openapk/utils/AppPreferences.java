@@ -22,6 +22,7 @@ public class AppPreferences {
   public static final String KeySortMode = "prefSortMode";
   public static final String KeyIsRooted = "prefIsRooted";
   public static final String KeyCustomPath = "prefCustomPath";
+  public static final String KeyTheme = "prefTheme";
 
   // List
   public static final String KeyFavoriteApps = "prefFavoriteApps";
@@ -44,7 +45,7 @@ public class AppPreferences {
   }
 
   public int getPrimaryColorPref() {
-    return sharedPreferences.getInt(KeyPrimaryColor, context.getResources().getColor(R.color.primary));
+    return sharedPreferences.getInt(KeyPrimaryColor, context.getResources().getColor(R.color.actionBar));
   }
 
   public void setPrimaryColorPref(Integer res) {
@@ -94,6 +95,15 @@ public class AppPreferences {
 
   public void setSortMode(String res) {
     editor.putString(KeySortMode, res);
+    editor.commit();
+  }
+
+  public String getTheme() {
+    return sharedPreferences.getString(KeyTheme, "1");
+  }
+
+  public void setTheme(String res) {
+    editor.putString(KeyTheme, res);
     editor.commit();
   }
 

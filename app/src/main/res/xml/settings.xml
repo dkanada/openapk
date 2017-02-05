@@ -25,8 +25,14 @@
   </PreferenceCategory>
   <PreferenceCategory
       android:title="@string/settings_customizations">
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/themeEntries"
+        android:entryValues="@array/themeValues"
+        android:key="prefTheme"
+        android:title="@string/settings_theme"/>
     <yuku.ambilwarna.widget.AmbilWarnaPreference
-        android:defaultValue="@color/primary"
+        android:defaultValue="@color/actionBar"
         android:key="prefPrimaryColor"
         android:summary="@string/settings_primary_color_description"
         android:title="@string/settings_primary_color"/>

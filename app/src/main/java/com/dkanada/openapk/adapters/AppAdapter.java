@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -72,8 +73,13 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
     final ImageView appIcon = appViewHolder.vIcon;
     final CardView cardView = appViewHolder.vCard;
 
-    appExtract.setBackgroundColor(appPreferences.getPrimaryColorPref());
-    appShare.setBackgroundColor(appPreferences.getPrimaryColorPref());
+    if(appPreferences.getTheme().equals("1")) {
+      appExtract.setBackgroundColor(context.getResources().getColor(R.color.accentLight));
+      appShare.setBackgroundColor(context.getResources().getColor(R.color.accentLight));
+    } else {
+      appExtract.setBackgroundColor(context.getResources().getColor(R.color.accentDark));
+      appShare.setBackgroundColor(context.getResources().getColor(R.color.accentDark));
+    }
 
     appExtract.setOnClickListener(new View.OnClickListener() {
       @Override

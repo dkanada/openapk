@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="primary">#3F51B5</color>
-  <color name="primary_dark">#303F9F</color>
+  <color name="actionBar">#3F51B5</color>
+  <color name="statusBar">#303F9F</color>
   <color name="fab">#E91E63</color>
-  <color name="accent">#448AFF</color>
-  <color name="text_primary">#212121</color>
-  <color name="bkg_card">#8C9EFF</color>
-  <color name="background">#E3E3E3</color>
-  <color name="white">#FAFAFA</color>
-  <color name="white_pressed">#F1F1F1</color>
-  <color name="divider">#E0E0E0</color>
-  <color name="transparent">#00000000</color>
-  <color name="black_semi_transparent">#B2000000</color>
 
-  <color name="card_blue">#00BED4</color>
-  <color name="card_green">#8CC24A</color>
-  <color name="card_red">#DE6262</color>
-  <color name="card_orange">#FF7043</color>
+  <color name="accentLight">#448AFF</color>
+  <color name="textLight">#212121</color>
+  <color name="cardLight">#FAFAFA</color>
+  <color name="cardPressedLight">#F1F1F1</color>
+  <color name="badgeLight">#E0E0E0</color>
+  <color name="fabLabelLight">#B2212121</color>
+
+  <color name="accentDark">#448AFF</color>
+  <color name="textDark">#BDBDBD</color>
+  <color name="fabLabelDark">#B2212121</color>
+
+  <color name="cardBlue">#00BED4</color>
+  <color name="cardGreen">#8CC24A</color>
+  <color name="cardRed">#DE6262</color>
+  <color name="cardOrange">#FF7043</color>
 </resources>

@@ -17,22 +17,26 @@ import com.dkanada.openapk.utils.UtilsApp;
 import com.dkanada.openapk.utils.UtilsUI;
 
 public class AboutActivity extends AppCompatActivity {
-  // Load Settings
+  // load settings
   AppPreferences appPreferences;
 
-  // About variables
+  // about variables
   private Context context;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    this.appPreferences = MLManagerApplication.getAppPreferences();
+    if (appPreferences.getTheme().equals("1")) {
+      setTheme(R.style.Light);
+    } else {
+      setTheme(R.style.Dark);
+    }
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_about);
-    this.appPreferences = MLManagerApplication.getAppPreferences();
     this.context = this;
 
     setInitialConfiguration();
     setScreenElements();
-
   }
 
   private void setInitialConfiguration() {
@@ -54,43 +58,14 @@ public class AboutActivity extends AppCompatActivity {
         getWindow().setNavigationBarColor(appPreferences.getPrimaryColorPref());
       }
     }
-
   }
 
   private void setScreenElements() {
     TextView header = (TextView) findViewById(R.id.header);
     TextView appNameVersion = (TextView) findViewById(R.id.app_name);
-    CardView about_1 = (CardView) findViewById(R.id.about_1);
-    CardView about_2 = (CardView) findViewById(R.id.about_2);
-    CardView about_googleplay = (CardView) findViewById(R.id.about_googleplay);
-    CardView about_googleplus = (CardView) findViewById(R.id.about_googleplus);
 
     header.setBackgroundColor(appPreferences.getPrimaryColorPref());
     appNameVersion.setText(getResources().getString(R.string.app_name) + " " + UtilsApp.getAppVersionName(getApplicationContext()));
-    about_1.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        UtilsApp.goToGooglePlus(context, "+JavierSantos");
-      }
-    });
-    about_2.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        UtilsApp.goToGooglePlus(context, "+javitoro95");
-      }
-    });
-    about_googleplay.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        UtilsApp.goToGooglePlay(context, context.getPackageName());
-      }
-    });
-    about_googleplus.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        UtilsApp.goToGooglePlus(context, "communities/111960842500303983487");
-      }
-    });
   }
 
   @Override
@@ -98,5 +73,4 @@ public class AboutActivity extends AppCompatActivity {
     super.onBackPressed();
     overridePendingTransition(R.anim.fade_forward, R.anim.slide_out_right);
   }
-
 }

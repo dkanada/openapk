@@ -16,7 +16,6 @@ public class LicenseActivity extends LibsActivity {
         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
         .withAutoDetect(true)
         .intent(this));
-
     super.onCreate(savedInstanceState);
   }
 

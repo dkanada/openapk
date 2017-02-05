@@ -7,9 +7,9 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|right"
     android:layout_margin="@dimen/fab_margin"
-    app:fab_addButtonColorNormal="@color/primary"
-    app:fab_addButtonColorPressed="@color/primary_dark"
-    app:fab_labelStyle="@style/menu_labels_style">
+    app:fab_addButtonColorNormal="@color/actionBar"
+    app:fab_addButtonColorPressed="@color/statusBar"
+    app:fab_labelStyle="@style/LabelStyle">
 
   <com.getbase.floatingactionbutton.FloatingActionButton
       android:id="@+id/fab_c"
