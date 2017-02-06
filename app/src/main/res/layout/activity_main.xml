@@ -12,6 +12,14 @@
       android:layout_height="match_parent"
       android:layout_below="@id/toolbar">
 
+    <com.pnikosis.materialishprogress.ProgressWheel
+        android:id="@+id/progress"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:id="@+id/noResults"
         android:layout_width="match_parent"

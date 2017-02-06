@@ -35,6 +35,7 @@ import com.dkanada.openapk.utils.UtilsApp;
 import com.dkanada.openapk.utils.UtilsDialog;
 import com.dkanada.openapk.utils.UtilsUI;
 import com.mikepenz.materialdrawer.Drawer;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,8 +51,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   private AppPreferences appPreferences;
 
   // general variables
-  private List<AppInfo> appList;
+  private List<AppInfo> appInstalledList;
   private List<AppInfo> appSystemList;
+  private List<AppInfo> appHiddenList;
+  private List<AppInfo> appDisabledList;
 
   private AppAdapter appAdapter;
   private AppAdapter appSystemAdapter;
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   private Activity activity;
   private Context context;
   private RecyclerView recyclerView;
+  private ProgressWheel progressWheel;
   private Drawer drawer;
   private MenuItem searchItem;
   private SearchView searchView;
@@ -88,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     UtilsApp.checkPermissions(activity);
 
     recyclerView = (RecyclerView) findViewById(R.id.appList);
+    progressWheel = (ProgressWheel) findViewById(R.id.progress);
     refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
     noResults = (LinearLayout) findViewById(R.id.noResults);
 
@@ -97,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     recyclerView.setLayoutManager(linearLayoutManager);
     drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
 
+    progressWheel.setBarColor(appPreferences.getPrimaryColorPref());
+    progressWheel.setVisibility(View.VISIBLE);
     new getInstalledApps().execute();
 
     refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
@@ -133,9 +140,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   }
 
   class getInstalledApps extends AsyncTask<Void, String, Void> {
+    private Integer totalApps = 0;
+    private Integer actualApps = 0;
+
     public getInstalledApps() {
-      appList = new ArrayList<>();
+      appInstalledList = new ArrayList<>();
       appSystemList = new ArrayList<>();
+      appHiddenList = new ArrayList<>();
+      appDisabledList = new ArrayList<>();
     }
 
     @Override
@@ -144,6 +156,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
       Set<String> installedApps = appPreferences.getInstalledApps();
       Set<String> systemApps = appPreferences.getSystemApps();
+      Set<String> hiddenApps = appPreferences.getHiddenApps();
+      Set<String> disabledApps = appPreferences.getDisabledApps();
+
+      totalApps = packages.size() + hiddenApps.size() + disabledApps.size();
 
       // sort mode
       switch (appPreferences.getSortMode()) {
@@ -194,12 +210,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             try {
               // installed apps
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false);
-              appList.add(tempApp);
+              appInstalledList.add(tempApp);
               installedApps.add(tempApp.toString());
             } catch (OutOfMemoryError e) {
               //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false);
-              appList.add(tempApp);
+              appInstalledList.add(tempApp);
               installedApps.add(tempApp.toString());
             } catch (Exception e) {
               e.printStackTrace();
@@ -220,22 +236,51 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
           }
         }
+        actualApps++;
+        publishProgress(Double.toString((actualApps * 100) / totalApps));
       }
       appPreferences.setInstalledApps(installedApps);
       appPreferences.setSystemApps(systemApps);
+      // list of hidden apps
+      for (String app : hiddenApps) {
+        AppInfo tempApp = new AppInfo(app);
+        Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+        tempApp.setIcon(tempAppIcon);
+        appHiddenList.add(tempApp);
+
+        actualApps++;
+        publishProgress(Double.toString((actualApps * 100) / totalApps));
+      }
+
+      // list of disabled apps
+      for (String app : disabledApps) {
+        AppInfo tempApp = new AppInfo(app);
+        Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+        tempApp.setIcon(tempAppIcon);
+        appDisabledList.add(tempApp);
+
+        actualApps++;
+        publishProgress(Double.toString((actualApps * 100) / totalApps));
+      }
       return null;
+    }
+
+    protected void onProgressUpdate(String... progress) {
+      super.onProgressUpdate(progress);
+      progressWheel.setProgress(Float.parseFloat(progress[0]));
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
       super.onPostExecute(aVoid);
 
-      appAdapter = new AppAdapter(appList, context);
+      appAdapter = new AppAdapter(appInstalledList, context);
       appSystemAdapter = new AppAdapter(appSystemList, context);
-      appFavoriteAdapter = new AppAdapter(getFavoriteList(appList, appSystemList), context);
-      appHiddenAdapter = new AppAdapter(getHiddenList(appList, appSystemList), context);
-      appDisabledAdapter = new AppAdapter(getDisabledList(appList, appSystemList), context);
+      appFavoriteAdapter = new AppAdapter(getFavoriteList(appInstalledList, appSystemList), context);
+      appHiddenAdapter = new AppAdapter(appHiddenList, context);
+      appDisabledAdapter = new AppAdapter(appDisabledList, context);
 
+      progressWheel.setVisibility(View.GONE);
       recyclerView.swapAdapter(appAdapter, false);
       UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
 
@@ -253,37 +298,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
     for (AppInfo app : appSystemList) {
       if (UtilsApp.isAppFavorite(app.getAPK(), appPreferences.getFavoriteApps())) {
-        res.add(app);
-      }
-    }
-    return res;
-  }
-
-  private List<AppInfo> getHiddenList(List<AppInfo> appList, List<AppInfo> appSystemList) {
-    List<AppInfo> res = new ArrayList<>();
-    // change isAppHidden to use string like isAppFavorite
-    for (AppInfo app : appList) {
-      if (UtilsApp.isAppHidden(app, appPreferences.getHiddenApps())) {
-        res.add(app);
-      }
-    }
-    for (AppInfo app : appSystemList) {
-      if (UtilsApp.isAppHidden(app, appPreferences.getHiddenApps())) {
-        res.add(app);
-      }
-    }
-    return res;
-  }
-
-  private List<AppInfo> getDisabledList(List<AppInfo> appList, List<AppInfo> appSystemList) {
-    List<AppInfo> res = new ArrayList<>();
-    for (AppInfo app : appList) {
-      if (UtilsApp.isAppDisabled(app, appPreferences.getDisabledApps())) {
-        res.add(app);
-      }
-    }
-    for (AppInfo app : appSystemList) {
-      if (UtilsApp.isAppDisabled(app, appPreferences.getDisabledApps())) {
         res.add(app);
       }
     }
