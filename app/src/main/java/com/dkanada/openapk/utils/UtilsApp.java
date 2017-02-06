@@ -41,7 +41,7 @@ public class UtilsApp {
     return new File(appPreferences.getCustomPath());
   }
 
-  public static void setAppDir() {
+  public static void createAppDir() {
     File appDir = getAppFolder();
     if (!appDir.exists()) {
       appDir.mkdir();
@@ -52,7 +52,7 @@ public class UtilsApp {
     Boolean res = false;
     File initialFile = new File(appInfo.getSource());
     File finalFile = getOutputFilename(appInfo);
-    setAppDir();
+    createAppDir();
     try {
       FileUtils.copyFile(initialFile, finalFile);
       res = true;
