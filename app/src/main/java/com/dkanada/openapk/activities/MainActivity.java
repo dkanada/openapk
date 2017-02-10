@@ -105,20 +105,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     progressWheel.setBarColor(appPreferences.getPrimaryColorPref());
     progressWheel.setVisibility(View.VISIBLE);
-    new getInstalledApps().execute();
+    getInstalledAppsFast();
 
     refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
     refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
         refresh.setRefreshing(true);
-        (new Handler()).postDelayed(new Runnable() {
-          @Override
-          public void run() {
-            new getInstalledApps().execute();
-            refresh.setRefreshing(false);
-          }
-        }, 2000);
+        new getInstalledApps().execute();
       }
     });
   }
@@ -138,6 +132,62 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         getWindow().setNavigationBarColor(appPreferences.getPrimaryColorPref());
       }
     }
+  }
+
+  private void getInstalledAppsFast() {
+    Set<String> installedApps = appPreferences.getInstalledApps();
+    Set<String> systemApps = appPreferences.getSystemApps();
+    Set<String> hiddenApps = appPreferences.getHiddenApps();
+    Set<String> disabledApps = appPreferences.getDisabledApps();
+
+    appInstalledList = new ArrayList<>();
+    appSystemList = new ArrayList<>();
+    appHiddenList = new ArrayList<>();
+    appDisabledList = new ArrayList<>();
+
+    // list of installed apps
+    for (String app : installedApps) {
+      AppInfo tempApp = new AppInfo(app);
+      Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+      tempApp.setIcon(tempAppIcon);
+      appInstalledList.add(tempApp);
+    }
+
+    // list of system apps
+    for (String app : systemApps) {
+      AppInfo tempApp = new AppInfo(app);
+      Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+      tempApp.setIcon(tempAppIcon);
+      appSystemList.add(tempApp);
+    }
+
+    // list of hidden apps
+    for (String app : hiddenApps) {
+      AppInfo tempApp = new AppInfo(app);
+      Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+      tempApp.setIcon(tempAppIcon);
+      appHiddenList.add(tempApp);
+    }
+
+    // list of disabled apps
+    for (String app : disabledApps) {
+      AppInfo tempApp = new AppInfo(app);
+      Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+      tempApp.setIcon(tempAppIcon);
+      appDisabledList.add(tempApp);
+    }
+
+    appAdapter = new AppAdapter(appInstalledList, context);
+    appSystemAdapter = new AppAdapter(appSystemList, context);
+    appFavoriteAdapter = new AppAdapter(getFavoriteList(appInstalledList, appSystemList), context);
+    appHiddenAdapter = new AppAdapter(appHiddenList, context);
+    appDisabledAdapter = new AppAdapter(appDisabledList, context);
+
+    progressWheel.setVisibility(View.GONE);
+    recyclerView.swapAdapter(appAdapter, false);
+    UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
+
+    drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
   }
 
   class getInstalledApps extends AsyncTask<Void, String, Void> {
@@ -213,6 +263,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false);
               appInstalledList.add(tempApp);
               installedApps.add(tempApp.toString());
+              UtilsApp.saveIconToCache(context, tempApp);
             } catch (OutOfMemoryError e) {
               //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false);
@@ -227,6 +278,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), true);
               appSystemList.add(tempApp);
               systemApps.add(tempApp.toString());
+              UtilsApp.saveIconToCache(context, tempApp);
             } catch (OutOfMemoryError e) {
               //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false);
@@ -287,6 +339,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
       searchItem.setVisible(true);
       drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
+      refresh.setRefreshing(false);
     }
   }
 
