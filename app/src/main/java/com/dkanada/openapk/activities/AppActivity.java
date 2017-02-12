@@ -399,9 +399,11 @@ public class AppActivity extends AppCompatActivity {
       case R.id.action_favorite:
         if (UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite)) {
           appsFavorite.remove(appInfo.getAPK());
+          UtilsApp.removeIconFromCache(context, appInfo);
           appPreferences.setFavoriteApps(appsFavorite);
         } else {
           appsFavorite.add(appInfo.getAPK());
+          UtilsApp.saveIconToCache(context, appInfo);
           appPreferences.setFavoriteApps(appsFavorite);
         }
         UtilsUI.updateAppFavoriteIcon(context, item_favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
