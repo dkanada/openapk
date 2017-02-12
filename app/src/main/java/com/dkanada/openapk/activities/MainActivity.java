@@ -35,7 +35,6 @@ import com.dkanada.openapk.utils.UtilsApp;
 import com.dkanada.openapk.utils.UtilsDialog;
 import com.dkanada.openapk.utils.UtilsUI;
 import com.mikepenz.materialdrawer.Drawer;
-import com.pnikosis.materialishprogress.ProgressWheel;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   private Activity activity;
   private Context context;
   private RecyclerView recyclerView;
-  private ProgressWheel progressWheel;
   private Drawer drawer;
   private MenuItem searchItem;
   private SearchView searchView;
@@ -93,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     UtilsApp.checkPermissions(activity);
 
     recyclerView = (RecyclerView) findViewById(R.id.appList);
-    progressWheel = (ProgressWheel) findViewById(R.id.progress);
     refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
     noResults = (LinearLayout) findViewById(R.id.noResults);
 
@@ -103,8 +100,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     recyclerView.setLayoutManager(linearLayoutManager);
     drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
 
-    progressWheel.setBarColor(appPreferences.getPrimaryColorPref());
-    progressWheel.setVisibility(View.VISIBLE);
     getInstalledAppsFast();
 
     refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
@@ -183,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     appHiddenAdapter = new AppAdapter(appHiddenList, context);
     appDisabledAdapter = new AppAdapter(appDisabledList, context);
 
-    progressWheel.setVisibility(View.GONE);
     recyclerView.swapAdapter(appAdapter, false);
     UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
 
@@ -191,9 +185,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   }
 
   class getInstalledApps extends AsyncTask<Void, String, Void> {
-    private Integer totalApps = 0;
-    private Integer actualApps = 0;
-
     public getInstalledApps() {
       appInstalledList = new ArrayList<>();
       appSystemList = new ArrayList<>();
@@ -209,8 +200,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       Set<String> systemApps = appPreferences.getSystemApps();
       Set<String> hiddenApps = appPreferences.getHiddenApps();
       Set<String> disabledApps = appPreferences.getDisabledApps();
-
-      totalApps = packages.size() + hiddenApps.size() + disabledApps.size();
 
       // sort mode
       switch (appPreferences.getSortMode()) {
@@ -289,8 +278,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
           }
         }
-        actualApps++;
-        publishProgress(Double.toString((actualApps * 100) / totalApps));
       }
       appPreferences.setInstalledApps(installedApps);
       appPreferences.setSystemApps(systemApps);
@@ -300,9 +287,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
         tempApp.setIcon(tempAppIcon);
         appHiddenList.add(tempApp);
-
-        actualApps++;
-        publishProgress(Double.toString((actualApps * 100) / totalApps));
       }
 
       // list of disabled apps
@@ -311,16 +295,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
         tempApp.setIcon(tempAppIcon);
         appDisabledList.add(tempApp);
-
-        actualApps++;
-        publishProgress(Double.toString((actualApps * 100) / totalApps));
       }
       return null;
-    }
-
-    protected void onProgressUpdate(String... progress) {
-      super.onProgressUpdate(progress);
-      progressWheel.setProgress(Float.parseFloat(progress[0]));
     }
 
     @Override
@@ -333,7 +309,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       appHiddenAdapter = new AppAdapter(appHiddenList, context);
       appDisabledAdapter = new AppAdapter(appDisabledList, context);
 
-      progressWheel.setVisibility(View.GONE);
       recyclerView.swapAdapter(appAdapter, false);
       UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
 
