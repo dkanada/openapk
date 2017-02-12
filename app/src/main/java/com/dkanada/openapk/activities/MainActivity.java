@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   // general variables
   private List<AppInfo> appInstalledList;
   private List<AppInfo> appSystemList;
+  private List<AppInfo> appFavoriteList;
   private List<AppInfo> appHiddenList;
   private List<AppInfo> appDisabledList;
 
@@ -132,11 +133,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   private void getInstalledAppsFast() {
     Set<String> installedApps = appPreferences.getInstalledApps();
     Set<String> systemApps = appPreferences.getSystemApps();
+    Set<String> favoriteApps = appPreferences.getFavoriteApps();
     Set<String> hiddenApps = appPreferences.getHiddenApps();
     Set<String> disabledApps = appPreferences.getDisabledApps();
 
     appInstalledList = new ArrayList<>();
     appSystemList = new ArrayList<>();
+    appFavoriteList = new ArrayList<>();
     appHiddenList = new ArrayList<>();
     appDisabledList = new ArrayList<>();
 
@@ -156,6 +159,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       appSystemList.add(tempApp);
     }
 
+    // list of favorite apps
+    for (String app : favoriteApps) {
+      AppInfo tempApp = new AppInfo(app);
+      Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+      tempApp.setIcon(tempAppIcon);
+      appFavoriteList.add(tempApp);
+    }
+
     // list of hidden apps
     for (String app : hiddenApps) {
       AppInfo tempApp = new AppInfo(app);
@@ -172,9 +183,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       appDisabledList.add(tempApp);
     }
 
+    appInstalledList = sortAdapter(appInstalledList);
+    appSystemList = sortAdapter(appSystemList);
+    appFavoriteList = sortAdapter(appFavoriteList);
+    appHiddenList = sortAdapter(appHiddenList);
+    appDisabledList = sortAdapter(appDisabledList);
+
     appAdapter = new AppAdapter(appInstalledList, context);
     appSystemAdapter = new AppAdapter(appSystemList, context);
-    appFavoriteAdapter = new AppAdapter(getFavoriteList(appInstalledList, appSystemList), context);
+    appFavoriteAdapter = new AppAdapter(appFavoriteList, context);
     appHiddenAdapter = new AppAdapter(appHiddenList, context);
     appDisabledAdapter = new AppAdapter(appDisabledList, context);
 
@@ -185,63 +202,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   }
 
   class getInstalledApps extends AsyncTask<Void, String, Void> {
-    public getInstalledApps() {
-      appInstalledList = new ArrayList<>();
-      appSystemList = new ArrayList<>();
-      appHiddenList = new ArrayList<>();
-      appDisabledList = new ArrayList<>();
-    }
-
     @Override
     protected Void doInBackground(Void... params) {
       final PackageManager packageManager = getPackageManager();
       List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
       Set<String> installedApps = appPreferences.getInstalledApps();
       Set<String> systemApps = appPreferences.getSystemApps();
-      Set<String> hiddenApps = appPreferences.getHiddenApps();
-      Set<String> disabledApps = appPreferences.getDisabledApps();
 
-      // sort mode
-      switch (appPreferences.getSortMode()) {
-        default:
-          // compare by name
-          Collections.sort(packages, new Comparator<PackageInfo>() {
-            @Override
-            public int compare(PackageInfo p1, PackageInfo p2) {
-              return packageManager.getApplicationLabel(p1.applicationInfo).toString().toLowerCase().compareTo(packageManager.getApplicationLabel(p2.applicationInfo).toString().toLowerCase());
-            }
-          });
-          break;
-        case "2":
-          // compare by size
-          Collections.sort(packages, new Comparator<PackageInfo>() {
-            @Override
-            public int compare(PackageInfo p1, PackageInfo p2) {
-              Long size1 = new File(p1.applicationInfo.sourceDir).length();
-              Long size2 = new File(p2.applicationInfo.sourceDir).length();
-              return size2.compareTo(size1);
-            }
-          });
-          break;
-        case "3":
-          // compare by installation date
-          Collections.sort(packages, new Comparator<PackageInfo>() {
-            @Override
-            public int compare(PackageInfo p1, PackageInfo p2) {
-              return Long.toString(p2.firstInstallTime).compareTo(Long.toString(p1.firstInstallTime));
-            }
-          });
-          break;
-        case "4":
-          // compare by last update
-          Collections.sort(packages, new Comparator<PackageInfo>() {
-            @Override
-            public int compare(PackageInfo p1, PackageInfo p2) {
-              return Long.toString(p2.lastUpdateTime).compareTo(Long.toString(p1.lastUpdateTime));
-            }
-          });
-          break;
-      }
+      installedApps.clear();
+      systemApps.clear();
 
       // installed and system apps
       for (PackageInfo packageInfo : packages) {
@@ -250,13 +219,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             try {
               // installed apps
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false);
-              appInstalledList.add(tempApp);
               installedApps.add(tempApp.toString());
               UtilsApp.saveIconToCache(context, tempApp);
             } catch (OutOfMemoryError e) {
               //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false);
-              appInstalledList.add(tempApp);
               installedApps.add(tempApp.toString());
             } catch (Exception e) {
               e.printStackTrace();
@@ -265,13 +232,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             try {
               // system apps
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), true);
-              appSystemList.add(tempApp);
               systemApps.add(tempApp.toString());
               UtilsApp.saveIconToCache(context, tempApp);
             } catch (OutOfMemoryError e) {
               //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
               AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false);
-              appSystemList.add(tempApp);
               systemApps.add(tempApp.toString());
             } catch (Exception e) {
               e.printStackTrace();
@@ -281,56 +246,63 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       }
       appPreferences.setInstalledApps(installedApps);
       appPreferences.setSystemApps(systemApps);
-      // list of hidden apps
-      for (String app : hiddenApps) {
-        AppInfo tempApp = new AppInfo(app);
-        Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
-        tempApp.setIcon(tempAppIcon);
-        appHiddenList.add(tempApp);
-      }
-
-      // list of disabled apps
-      for (String app : disabledApps) {
-        AppInfo tempApp = new AppInfo(app);
-        Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
-        tempApp.setIcon(tempAppIcon);
-        appDisabledList.add(tempApp);
-      }
       return null;
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
       super.onPostExecute(aVoid);
-
-      appAdapter = new AppAdapter(appInstalledList, context);
-      appSystemAdapter = new AppAdapter(appSystemList, context);
-      appFavoriteAdapter = new AppAdapter(getFavoriteList(appInstalledList, appSystemList), context);
-      appHiddenAdapter = new AppAdapter(appHiddenList, context);
-      appDisabledAdapter = new AppAdapter(appDisabledList, context);
-
-      recyclerView.swapAdapter(appAdapter, false);
-      UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
-
-      searchItem.setVisible(true);
-      drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
+      getInstalledAppsFast();
       refresh.setRefreshing(false);
     }
   }
 
-  private List<AppInfo> getFavoriteList(List<AppInfo> appList, List<AppInfo> appSystemList) {
-    List<AppInfo> res = new ArrayList<>();
-    for (AppInfo app : appList) {
-      if (UtilsApp.isAppFavorite(app.getAPK(), appPreferences.getFavoriteApps())) {
-        res.add(app);
-      }
+  public List<AppInfo> sortAdapter(List<AppInfo> appList) {
+    switch (appPreferences.getSortMode()) {
+      default:
+        // compare by name
+        Collections.sort(appList, new Comparator<AppInfo>() {
+          @Override
+          public int compare(AppInfo appOne, AppInfo appTwo) {
+            return appOne.getName().toLowerCase().compareTo(appTwo.getName().toLowerCase());
+          }
+        });
+        break;
+      case "2":
+        // compare by size
+        Collections.sort(appList, new Comparator<AppInfo>() {
+          @Override
+          public int compare(AppInfo appOne, AppInfo appTwo) {
+            Long size1 = new File(appOne.getData()).length();
+            Long size2 = new File(appTwo.getData()).length();
+            return size2.compareTo(size1);
+          }
+        });
+        break;
+      case "3":
+        // compare by size
+        Collections.sort(appList, new Comparator<AppInfo>() {
+          @Override
+          public int compare(AppInfo appOne, AppInfo appTwo) {
+            Long size1 = new File(appOne.getData()).length();
+            Long size2 = new File(appTwo.getData()).length();
+            return size2.compareTo(size1);
+          }
+        });
+        break;
+      case "4":
+        // compare by size
+        Collections.sort(appList, new Comparator<AppInfo>() {
+          @Override
+          public int compare(AppInfo appOne, AppInfo appTwo) {
+            Long size1 = new File(appOne.getData()).length();
+            Long size2 = new File(appTwo.getData()).length();
+            return size2.compareTo(size1);
+          }
+        });
+        break;
     }
-    for (AppInfo app : appSystemList) {
-      if (UtilsApp.isAppFavorite(app.getAPK(), appPreferences.getFavoriteApps())) {
-        res.add(app);
-      }
-    }
-    return res;
+    return appList;
   }
 
   @Override
