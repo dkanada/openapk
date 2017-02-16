@@ -13,20 +13,21 @@ public class UtilsRoot {
   private static final int ROOT_STATUS_NOT_CHECKED = 0;
   private static final int ROOT_STATUS_ROOTED = 1;
   private static final int ROOT_STATUS_NOT_ROOTED = 2;
-  private static AppPreferences myPreferences;
 
   private UtilsRoot() {
-    myPreferences = OpenAPKApplication.getAppPreferences();
   }
 
   public static boolean isRooted() {
     int rootStatus = OpenAPKApplication.getAppPreferences().getRootStatus();
+    boolean rootEnabled = OpenAPKApplication.getAppPreferences().getRootEnabled();
     boolean isRooted = false;
-    if (rootStatus == ROOT_STATUS_NOT_CHECKED) {
-      isRooted = isRootByBuildTag() || isRootedByFileSU() || isRootedByExecutingCommand();
-      OpenAPKApplication.getAppPreferences().setRootStatus(isRooted ? ROOT_STATUS_ROOTED : ROOT_STATUS_NOT_ROOTED);
-    } else if (rootStatus == ROOT_STATUS_ROOTED) {
-      isRooted = true;
+    if (rootEnabled) {
+      if (rootStatus == ROOT_STATUS_NOT_CHECKED) {
+        isRooted = isRootByBuildTag() || isRootedByFileSU() || isRootedByExecutingCommand();
+        OpenAPKApplication.getAppPreferences().setRootStatus(isRooted ? ROOT_STATUS_ROOTED : ROOT_STATUS_NOT_ROOTED);
+      } else if (rootStatus == ROOT_STATUS_ROOTED) {
+        isRooted = true;
+      }
     }
     return isRooted;
   }
