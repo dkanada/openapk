@@ -8,10 +8,12 @@ import com.mikepenz.iconics.Iconics;
 
 public class OpenAPKApplication extends Application {
   private static AppPreferences appPreferences;
+  private static int currentAdapter;
 
   @Override
   public void onCreate() {
     super.onCreate();
+    currentAdapter = 0;
 
     // load shared preference
     appPreferences = new AppPreferences(this);
@@ -22,5 +24,13 @@ public class OpenAPKApplication extends Application {
 
   public static AppPreferences getAppPreferences() {
     return appPreferences;
+  }
+
+  public static int getCurrentAdapter() {
+    return currentAdapter;
+  }
+
+  public static void setCurrentAdapter(int value) {
+    currentAdapter = value;
   }
 }

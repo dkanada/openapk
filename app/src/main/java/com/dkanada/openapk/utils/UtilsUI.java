@@ -109,22 +109,27 @@ public class UtilsUI {
         switch (iDrawerItem.getIdentifier()) {
           case 1:
             recyclerView.setAdapter(appAdapter);
+            OpenAPKApplication.setCurrentAdapter(0);
             setToolbarTitle(activity, context.getResources().getString(R.string.action_apps));
             break;
           case 2:
             recyclerView.setAdapter(appSystemAdapter);
+            OpenAPKApplication.setCurrentAdapter(1);
             setToolbarTitle(activity, context.getResources().getString(R.string.action_system_apps));
             break;
           case 3:
             recyclerView.setAdapter(appFavoriteAdapter);
+            OpenAPKApplication.setCurrentAdapter(2);
             setToolbarTitle(activity, context.getResources().getString(R.string.action_favorite_apps));
             break;
           case 4:
             recyclerView.setAdapter(appHiddenAdapter);
+            OpenAPKApplication.setCurrentAdapter(3);
             setToolbarTitle(activity, context.getResources().getString(R.string.action_hidden_apps));
             break;
           case 5:
             recyclerView.setAdapter(appDisabledAdapter);
+            OpenAPKApplication.setCurrentAdapter(4);
             setToolbarTitle(activity, context.getResources().getString(R.string.action_disabled_apps));
             break;
           case 6:

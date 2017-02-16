@@ -195,9 +195,28 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     appHiddenAdapter = new AppAdapter(appHiddenList, context);
     appDisabledAdapter = new AppAdapter(appDisabledList, context);
 
-    recyclerView.swapAdapter(appAdapter, false);
-    UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
-
+    switch(OpenAPKApplication.getCurrentAdapter()) {
+      default:
+        recyclerView.swapAdapter(appAdapter, false);
+        UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
+        break;
+      case 1:
+        recyclerView.swapAdapter(appSystemAdapter, false);
+        UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_system_apps));
+        break;
+      case 2:
+        recyclerView.swapAdapter(appFavoriteAdapter, false);
+        UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_favorite_apps));
+        break;
+      case 3:
+        recyclerView.swapAdapter(appHiddenAdapter, false);
+        UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_hidden_apps));
+        break;
+      case 4:
+        recyclerView.swapAdapter(appDisabledAdapter, false);
+        UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_disabled_apps));
+        break;
+    }
     drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
   }
 
