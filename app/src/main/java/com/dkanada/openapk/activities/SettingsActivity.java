@@ -31,7 +31,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
   private Toolbar toolbar;
   private Context context;
 
-  private Preference prefDeleteAll, prefCustomPath, prefNavigationColor, prefDefaultValues, prefLicense, prefVersion;
+  private Preference prefDeleteAll, prefCustomPath, prefRootEnabled, prefNavigationColor, prefDefaultValues, prefLicense, prefVersion;
   private AmbilWarnaPreference prefPrimaryColor, prefFABColor;
   private ListPreference prefCustomFilename, prefSortMode, prefTheme;
 
@@ -54,6 +54,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     prefCustomPath = findPreference("prefCustomPath");
     prefCustomFilename = (ListPreference) findPreference("prefCustomFilename");
     prefSortMode = (ListPreference) findPreference("prefSortMode");
+    prefRootEnabled = findPreference("prefRootEnabled");
 
     prefTheme = (ListPreference) findPreference("prefTheme");
     prefPrimaryColor = (AmbilWarnaPreference) findPreference("prefPrimaryColor");

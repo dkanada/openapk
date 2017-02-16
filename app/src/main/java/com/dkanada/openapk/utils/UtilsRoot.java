@@ -1,18 +1,22 @@
 package com.dkanada.openapk.utils;
 
+import android.graphics.Path;
 import android.os.Build;
 
 import com.dkanada.openapk.OpenAPKApplication;
 
 import java.io.File;
+import java.util.prefs.Preferences;
 
 public class UtilsRoot {
 
   private static final int ROOT_STATUS_NOT_CHECKED = 0;
   private static final int ROOT_STATUS_ROOTED = 1;
   private static final int ROOT_STATUS_NOT_ROOTED = 2;
+  private static AppPreferences myPreferences;
 
   private UtilsRoot() {
+    myPreferences = OpenAPKApplication.getAppPreferences();
   }
 
   public static boolean isRooted() {

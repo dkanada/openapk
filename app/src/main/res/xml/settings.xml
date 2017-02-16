@@ -22,6 +22,11 @@
         android:entryValues="@array/sortValues"
         android:key="prefSortMode"
         android:title="@string/settings_sort_mode"/>
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="prefRootEnabled"
+        android:summary="@string/settings_root_enabled_description"
+        android:title="@string/settings_root_enabled"/>
   </PreferenceCategory>
   <PreferenceCategory
       android:title="@string/settings_customizations">

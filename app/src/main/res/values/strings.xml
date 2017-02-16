@@ -80,6 +80,8 @@
   <string name="settings_custom_path">Custom folder for extracted APKs</string>
   <string name="settings_custom_filename">Default filename for extracted APKs</string>
   <string name="settings_sort_mode">Sort apps by this metric</string>
+  <string name="settings_root_enabled">Enable root features</string>
+  <string name="settings_root_enabled_description">You must also have a rooted phone for this to work.</string>
   <string name="settings_customizations">Customizations</string>
   <string name="settings_theme">Theme</string>
   <string name="settings_primary_color">Primary color</string>

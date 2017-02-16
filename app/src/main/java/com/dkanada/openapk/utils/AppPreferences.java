@@ -17,6 +17,7 @@ public class AppPreferences {
   public static final String KeyCustomPath = "prefCustomPath";
   public static final String KeyCustomFilename = "prefCustomFilename";
   public static final String KeySortMode = "prefSortMode";
+  public static final String KeyRootEnabled = "prefRootEnabled";
   public static final String KeyTheme = "prefTheme";
   public static final String KeyPrimaryColor = "prefPrimaryColor";
   public static final String KeyFABColor = "prefFABColor";
@@ -61,6 +62,15 @@ public class AppPreferences {
 
   public void setSortMode(String res) {
     editor.putString(KeySortMode, res);
+    editor.commit();
+  }
+
+  public Boolean getRootEnabled() {
+    return sharedPreferences.getBoolean(KeyRootEnabled, false);
+  }
+
+  public void setRootEnabled(Boolean res) {
+    editor.putBoolean(KeyRootEnabled, res);
     editor.commit();
   }
 
