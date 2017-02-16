@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical">
   <PreferenceCategory
-      android:title="@string/action_settings">
+      android:title="@string/settings_title_applications">
     <Preference
         android:key="prefDeleteAll"
         android:summary="@string/settings_delete_all_description"
@@ -22,14 +22,9 @@
         android:entryValues="@array/sortValues"
         android:key="prefSortMode"
         android:title="@string/settings_sort_mode"/>
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="prefRootEnabled"
-        android:summary="@string/settings_root_enabled_description"
-        android:title="@string/settings_root_enabled"/>
   </PreferenceCategory>
   <PreferenceCategory
-      android:title="@string/settings_customizations">
+      android:title="@string/settings_title_colors">
     <ListPreference
         android:defaultValue="1"
         android:entries="@array/themeEntries"
@@ -57,7 +52,17 @@
         android:title="@string/settings_default_customization"/>
   </PreferenceCategory>
   <PreferenceCategory
-      android:title="@string/action_about">
+      android:title="@string/settings_title_miscellaneous">
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="prefDoubleTap"
+        android:summary="@string/settings_double_tap_description"
+        android:title="@string/settings_double_tap"/>
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="prefRootEnabled"
+        android:summary="@string/settings_root_enabled_description"
+        android:title="@string/settings_root_enabled"/>
     <Preference
         android:key="prefLicense"
         android:title="@string/settings_license"/>

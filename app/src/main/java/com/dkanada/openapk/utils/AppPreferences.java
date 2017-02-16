@@ -17,12 +17,13 @@ public class AppPreferences {
   public static final String KeyCustomPath = "prefCustomPath";
   public static final String KeyCustomFilename = "prefCustomFilename";
   public static final String KeySortMode = "prefSortMode";
-  public static final String KeyRootEnabled = "prefRootEnabled";
   public static final String KeyTheme = "prefTheme";
   public static final String KeyPrimaryColor = "prefPrimaryColor";
   public static final String KeyFABColor = "prefFABColor";
   public static final String KeyFABShow = "prefFABShow";
   public static final String KeyNavigationColor = "prefNavigationColor";
+  public static final String KeyDoubleTap = "prefDoubleTap";
+  public static final String KeyRootEnabled = "prefRootEnabled";
 
   // internal preferences
   public static final String KeyInstalledApps = "prefInstalledApps";
@@ -42,36 +43,12 @@ public class AppPreferences {
     return sharedPreferences.getString(KeyCustomPath, UtilsApp.getDefaultAppFolder().getPath());
   }
 
-  public void setCustomPath(String path) {
-    editor.putString(KeyCustomPath, path);
-    editor.commit();
-  }
-
   public String getCustomFilename() {
     return sharedPreferences.getString(KeyCustomFilename, "1");
   }
 
-  public void setCustomFilename(String res) {
-    editor.putString(KeyCustomFilename, res);
-    editor.commit();
-  }
-
   public String getSortMode() {
     return sharedPreferences.getString(KeySortMode, "1");
-  }
-
-  public void setSortMode(String res) {
-    editor.putString(KeySortMode, res);
-    editor.commit();
-  }
-
-  public Boolean getRootEnabled() {
-    return sharedPreferences.getBoolean(KeyRootEnabled, false);
-  }
-
-  public void setRootEnabled(Boolean res) {
-    editor.putBoolean(KeyRootEnabled, res);
-    editor.commit();
   }
 
   public String getTheme() {
@@ -105,18 +82,16 @@ public class AppPreferences {
     return sharedPreferences.getBoolean(KeyFABShow, false);
   }
 
-  public void setFABShowPref(Boolean res) {
-    editor.putBoolean(KeyFABShow, res);
-    editor.commit();
-  }
-
   public Boolean getNavigationColorPref() {
     return sharedPreferences.getBoolean(KeyNavigationColor, false);
   }
 
-  public void setNavigationBlackPref(Boolean res) {
-    editor.putBoolean(KeyNavigationColor, res);
-    editor.commit();
+  public Boolean getDoubleTap() {
+    return sharedPreferences.getBoolean(KeyDoubleTap, false);
+  }
+
+  public Boolean getRootEnabled() {
+    return sharedPreferences.getBoolean(KeyRootEnabled, false);
   }
 
   // every preference below here is for internal purposes only

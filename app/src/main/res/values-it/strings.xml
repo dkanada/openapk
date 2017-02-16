@@ -66,7 +66,7 @@
   <string name="settings_custom_path">Cartella personalizzata per gli APK</string>
   <string name="settings_custom_filename">Nome predefinito per gli APK estratti</string>
   <string name="settings_sort_mode">Ordina le app in per&#8230;</string>
-  <string name="settings_customizations">Personalizzazione</string>
+  <string name="settings_title_colors">Personalizzazione</string>
   <string name="settings_primary_color">Colore principale</string>
   <string name="settings_primary_color_description">Imposta il colore principale per la barra di navigazione e per quella degli strumenti. Richiede Android 5.0+</string>
   <string name="settings_fab_color">Colore del Floating Button</string>
@@ -75,10 +75,6 @@
   <string name="settings_navigation_color_description">Non utilizzare un colore personalizzato per la barra di navigazione.</string>
   <string name="settings_default_customization">Ripristina le personalizzazioni</string>
   <string name="settings_default_customization_description">Ripristina i colori predefiniti</string>
-  <string name="settings_googleplay">Vota su Google Play</string>
-  <string name="settings_googleplay_description">Hai qualche secondo per valutare questa app? Siamo curiosi di sentire la tua opinione</string>
-  <string name="settings_googleplus">Unisciti alla community su Google+</string>
-  <string name="settings_googleplus_description">Vuoi parlare di APK e tenere il passo con gli sviluppi dell\'applicazione ? Unisciti alla nostra community!</string>
   <string name="settings_about">Fatta con il \u2665 dalla Spagna</string>
   <string name="about_description_1">Sviluppatore App</string>
   <string name="about_description_2">Designer</string>

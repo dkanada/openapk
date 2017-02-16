@@ -66,7 +66,7 @@
   <string name="settings_custom_path">Pasta personalizada para as APK</string>
   <string name="settings_custom_filename">Nome de ficheiro para APK extraídas</string>
   <string name="settings_sort_mode">Ordenar aplicações por</string>
-  <string name="settings_customizations">Personalizações</string>
+  <string name="settings_title_colors">Personalizações</string>
   <string name="settings_primary_color">Cor primária</string>
   <string name="settings_primary_color_description">Define a cor primária da barra de navegação e da barra de ferramentas. Apenas Android 5.0+</string>
   <string name="settings_fab_color">Cor do botão flutuante</string>
@@ -75,10 +75,6 @@
   <string name="settings_navigation_color_description">Não utilizar cor personalizada na barra de nagevação</string>
   <string name="settings_default_customization">Restaurar predefinições</string>
   <string name="settings_default_customization_description">Restaurar as cores pré-definidas</string>
-  <string name="settings_googleplay">Avaliar na Google Play</string>
-  <string name="settings_googleplay_description">Dispõe de alguns segundos para avaliar esta aplicação? Gostaríamos de saber a sua opinião.</string>
-  <string name="settings_googleplus">Integrar a comunidade no Google+</string>
-  <string name="settings_googleplus_description">Gostaria de saber mais sobre o desenvolvimento da aplicação? Integre a nossa comunidade!</string>
   <string name="settings_about">Criado com \u2665 de Espanha</string>
   <string name="about_description_1">Programador da aplicação</string>
   <string name="about_description_2">Criador do ícone</string>

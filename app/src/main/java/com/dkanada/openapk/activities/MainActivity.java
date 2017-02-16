@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       drawer.closeDrawer();
     } else if (searchItem.isVisible() && !searchView.isIconified()) {
       searchView.onActionViewCollapsed();
-    } else {
+    } else if (!appPreferences.getDoubleTap()) {
       if (doubleBackToExitPressedOnce) {
         super.onBackPressed();
         return;
@@ -391,6 +391,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           doubleBackToExitPressedOnce = false;
         }
       }, 2000);
+    } else {
+      super.onBackPressed();
+      return;
     }
   }
 }

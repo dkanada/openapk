@@ -66,7 +66,7 @@
   <string name="settings_custom_path">抽出された APK 用のユーザー設定フォルダー</string>
   <string name="settings_custom_filename">抽出された APK のデフォルトのファイル名</string>
   <string name="settings_sort_mode">アプリを並び替え</string>
-  <string name="settings_customizations">カスタマイズ</string>
+  <string name="settings_title_colors">カスタマイズ</string>
   <string name="settings_primary_color">プライマリ色</string>
   <string name="settings_primary_color_description">ツールバー、ナビゲーション バーのプライマリ色を設定します。Android 5.0 以降が必要です</string>
   <string name="settings_fab_color">フローティング ボタンの色</string>
@@ -75,10 +75,6 @@
   <string name="settings_navigation_color_description">ナビゲーション バーにユーザー設定の色を使用しません。</string>
   <string name="settings_default_customization">カスタマイズを復元</string>
   <string name="settings_default_customization_description">色をデフォルト値に戻します</string>
-  <string name="settings_googleplay">Google Play で評価</string>
-  <string name="settings_googleplay_description">このアプリを評価する時間が少しありますか? あなたの意見を聞かせていただきたいです</string>
-  <string name="settings_googleplus">Google+ でコミュニティに参加</string>
-  <string name="settings_googleplus_description">APK に関する話や、アプリケーションの開発の情報を入手したいですか? 私たちのコミュニティに参加してください!</string>
   <string name="settings_about">スペインの \u2665 で作りました</string>
   <string name="about_description_1">アプリ開発者</string>
   <string name="about_description_2">アイコン デザイナー</string>

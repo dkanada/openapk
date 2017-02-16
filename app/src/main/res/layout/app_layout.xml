@@ -55,7 +55,7 @@
           android:maxHeight="50dp"
           android:maxWidth="50dp"
           android:src="@drawable/ic_android"
-          android:transitionName="@string/transition_app_icon"/>
+          android:transitionName="@string/app_icon_transition"/>
 
       <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
           android:layout_width="match_parent"

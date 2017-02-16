@@ -66,7 +66,7 @@
   <string name="settings_custom_path">Carpeta personalizada para APK extraídos</string>
   <string name="settings_custom_filename">Nombre de los archivos APK extraídos</string>
   <string name="settings_sort_mode">Ordenar aplicaciones por</string>
-  <string name="settings_customizations">Personalizaciones</string>
+  <string name="settings_title_colors">Personalizaciones</string>
   <string name="settings_primary_color">Color principal</string>
   <string name="settings_primary_color_description">Ajustar el color primario para la barra de herramientas y navegación. Requiere Android 5.0 o superior</string>
   <string name="settings_fab_color">Color del botón flotante</string>
@@ -75,10 +75,6 @@
   <string name="settings_navigation_color_description">No usar un color personalizado para la barra de navegación.</string>
   <string name="settings_default_customization">Restaurar personalizaciones</string>
   <string name="settings_default_customization_description">Restaurar colores a los valores por defecto</string>
-  <string name="settings_googleplay">Valorar en Google Play</string>
-  <string name="settings_googleplay_description">¿Tienes unos segundos para valorar esta aplicación? Queremos escuchar tu opinión</string>
-  <string name="settings_googleplus">Únete a la comunidad en Google+</string>
-  <string name="settings_googleplus_description">¿Quieres estar al tanto de las novedades de la aplicación? ¡Únete a nuestra comunidad!</string>
   <string name="settings_license">Licencias Open Source</string>
   <string name="settings_about">Hecho con \u2665 en España</string>
   <string name="about_description_1">Desarrollador</string>

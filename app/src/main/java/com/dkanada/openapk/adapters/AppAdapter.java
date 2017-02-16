@@ -112,7 +112,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
         intent.putExtra("app_isSystem", appInfo.isSystem());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-          String transitionName = context.getResources().getString(R.string.transition_app_icon);
+          String transitionName = context.getResources().getString(R.string.app_icon_transition);
           ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, appIcon, transitionName);
           context.startActivity(intent, transitionActivityOptions.toBundle());
         } else {

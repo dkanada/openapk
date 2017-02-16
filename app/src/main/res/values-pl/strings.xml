@@ -54,7 +54,7 @@
   <string name="settings_delete_all_description">Usuń wszystkie rozpakowane pliki APK przechowywane w folderze</string>
   <string name="settings_custom_filename">Domyślna nazwa pliku dla rozpakowanych APK</string>
   <string name="settings_sort_mode">Sortuj aplikacje według</string>
-  <string name="settings_customizations">Personalizacja</string>
+  <string name="settings_title_colors">Personalizacja</string>
   <string name="settings_primary_color">Kolor podstawowy</string>
   <string name="settings_primary_color_description">Ustal kolor podstawowy dla paska narzędzi i paska nawigacyjnego. Wymaga Androida 5.0+</string>
   <string name="settings_fab_color">Kolor pływającego przycisku</string>
@@ -63,10 +63,6 @@
   <string name="settings_navigation_color_description">Nie używaj własnego koloru dla paska nawigacyjnego.</string>
   <string name="settings_default_customization">Przywróć personalizację</string>
   <string name="settings_default_customization_description">Przywróć kolory do domyślnych</string>
-  <string name="settings_googleplay">Oceń aplikację w Google Play</string>
-  <string name="settings_googleplay_description">Masz kilka sekund na ocenę tej aplikacji? Bardzo chcemy usłyszeć Twoją opinię</string>
-  <string name="settings_googleplus">Dołącz do społeczności w Google+</string>
-  <string name="settings_googleplus_description">Chcesz porozmawiać o aplikacjach i chcesz uczestniczyć w rozwoju aplikacji? Dołącz do naszej społeczności!</string>
   <string name="settings_about">Utworzono z \u2665 w Hiszpanii</string>
   <string name="about_description_1">Deweloper aplikacji</string>
   <string name="about_description_2">Projektant ikon</string>

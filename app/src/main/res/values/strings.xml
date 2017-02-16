@@ -1,6 +1,7 @@
 <resources>
   <string name="app_name" translatable="false">OpenAPK</string>
   <string name="app_description">Modern, easy and customizable app manager for Android.</string>
+  <string name="app_icon_transition" translatable="false">appIconTransition</string>
 
   <!-- Labels -->
   <string name="action_settings">Settings</string>
@@ -75,14 +76,14 @@
   <string name="button_uninstall">Uninstall</string>
 
   <!-- Settings -->
+  <string name="settings_title_applications">Applications</string>
+  <string name="settings_title_colors">Colors</string>
+  <string name="settings_title_miscellaneous">Miscellaneous</string>
   <string name="settings_delete_all">Delete all extracted APKs</string>
   <string name="settings_delete_all_description">Remove all the extracted APKs stored in the extraction folder.</string>
   <string name="settings_custom_path">Custom folder for extracted APKs</string>
   <string name="settings_custom_filename">Default filename for extracted APKs</string>
   <string name="settings_sort_mode">Sort apps by this metric</string>
-  <string name="settings_root_enabled">Enable root features</string>
-  <string name="settings_root_enabled_description">You must also have a rooted phone for this to work.</string>
-  <string name="settings_customizations">Customizations</string>
   <string name="settings_theme">Theme</string>
   <string name="settings_primary_color">Primary color</string>
   <string name="settings_primary_color_description">Set the color for the toolbar and navigation bar.</string>
@@ -92,21 +93,17 @@
   <string name="settings_navigation_color_description">Use the primary color for the navigation bar.</string>
   <string name="settings_default_customization">Restore customizations</string>
   <string name="settings_default_customization_description">Restore colors to the default values.</string>
-  <string name="settings_googleplay">Rate on Google Play</string>
-  <string name="settings_googleplay_description">Do you have a few seconds to rate this app? We want to hear your opinion.</string>
-  <string name="settings_googleplus">Join the community on Google+</string>
-  <string name="settings_googleplus_description">Want to talk about APKs and keep abreast of developments for the application? Join our community!</string>
+  <string name="settings_double_tap">Press back to exit</string>
+  <string name="settings_double_tap_description">Press the back button twice to close the app.</string>
+  <string name="settings_root_enabled">Enable root features</string>
+  <string name="settings_root_enabled_description">You must also have a rooted phone for this to work.</string>
   <string name="settings_license">Open source licenses</string>
   <string name="settings_about">Made with \u2665 from Spain.</string>
 
-  <!-- Transitions -->
-  <string name="transition_app_icon"
-      translatable="false">App Icon Transition</string>
-
   <!-- About -->
-  <string name="about_description_1">Original Developer</string>
-  <string name="about_description_2">Icon Designer</string>
-  <string name="about_description_3">App Maintainer</string>
+  <string name="about_description_1">App Maintainer</string>
+  <string name="about_description_2">Original Developer</string>
+  <string name="about_description_3">Icon Designer</string>
 
   <!-- Toasts -->
   <string name="tap_exit">Tap again to close the app.</string>

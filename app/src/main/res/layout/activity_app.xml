@@ -30,7 +30,7 @@
         android:maxHeight="50dp"
         android:maxWidth="50dp"
         android:src="@drawable/ic_android"
-        android:transitionName="@string/transition_app_icon"/>
+        android:transitionName="@string/app_icon_transition"/>
 
     <TextView
         android:id="@+id/app_name"
