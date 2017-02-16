@@ -96,7 +96,7 @@ public class AppActivity extends AppCompatActivity {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
       getWindow().setStatusBarColor(UtilsUI.darker(appPreferences.getPrimaryColorPref(), 0.8));
       toolbar.setBackgroundColor(appPreferences.getPrimaryColorPref());
-      if (!appPreferences.getNavigationBlackPref()) {
+      if (appPreferences.getNavigationColorPref()) {
         getWindow().setNavigationBarColor(appPreferences.getPrimaryColorPref());
       }
     }

@@ -13,10 +13,10 @@ public class OpenAPKApplication extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
-    currentAdapter = 0;
 
-    // load shared preference
+    // set fields
     appPreferences = new AppPreferences(this);
+    currentAdapter = 0;
 
     // register custom fonts
     Iconics.registerFont(new GoogleMaterial());

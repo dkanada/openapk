@@ -31,7 +31,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
   private Toolbar toolbar;
   private Context context;
 
-  private Preference prefVersion, prefLicense, prefDeleteAll, prefDefaultValues, prefNavigationBlack, prefCustomPath;
+  private Preference prefDeleteAll, prefCustomPath, prefNavigationColor, prefDefaultValues, prefLicense, prefVersion;
   private AmbilWarnaPreference prefPrimaryColor, prefFABColor;
   private ListPreference prefCustomFilename, prefSortMode, prefTheme;
 
@@ -58,7 +58,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     prefTheme = (ListPreference) findPreference("prefTheme");
     prefPrimaryColor = (AmbilWarnaPreference) findPreference("prefPrimaryColor");
     prefFABColor = (AmbilWarnaPreference) findPreference("prefFABColor");
-    prefNavigationBlack = findPreference("prefNavigationBlack");
+    prefNavigationColor = findPreference("prefNavigationColor");
     prefDefaultValues = findPreference("prefDefaultValues");
 
     prefVersion = findPreference("prefVersion");
@@ -143,7 +143,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
       getWindow().setStatusBarColor(UtilsUI.darker(appPreferences.getPrimaryColorPref(), 0.8));
       toolbar.setBackgroundColor(appPreferences.getPrimaryColorPref());
-      if (!appPreferences.getNavigationBlackPref()) {
+      if (appPreferences.getNavigationColorPref()) {
         getWindow().setNavigationBarColor(appPreferences.getPrimaryColorPref());
       }
     }
@@ -151,8 +151,8 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     // 5.0-
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       prefPrimaryColor.setEnabled(false);
-      prefNavigationBlack.setEnabled(false);
-      prefNavigationBlack.setDefaultValue(true);
+      prefNavigationColor.setEnabled(false);
+      prefNavigationColor.setDefaultValue(false);
     }
   }
 

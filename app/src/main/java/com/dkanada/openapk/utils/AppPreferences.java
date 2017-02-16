@@ -21,7 +21,7 @@ public class AppPreferences {
   public static final String KeyPrimaryColor = "prefPrimaryColor";
   public static final String KeyFABColor = "prefFABColor";
   public static final String KeyFABShow = "prefFABShow";
-  public static final String KeyNavigationBlack = "prefNavigationBlack";
+  public static final String KeyNavigationColor = "prefNavigationColor";
 
   // internal preferences
   public static final String KeyInstalledApps = "prefInstalledApps";
@@ -100,12 +100,12 @@ public class AppPreferences {
     editor.commit();
   }
 
-  public Boolean getNavigationBlackPref() {
-    return sharedPreferences.getBoolean(KeyNavigationBlack, false);
+  public Boolean getNavigationColorPref() {
+    return sharedPreferences.getBoolean(KeyNavigationColor, false);
   }
 
   public void setNavigationBlackPref(Boolean res) {
-    editor.putBoolean(KeyNavigationBlack, res);
+    editor.putBoolean(KeyNavigationColor, res);
     editor.commit();
   }
 
