@@ -27,7 +27,7 @@ public class ExtractFileInBackground extends AsyncTask<Void, String, Boolean> {
   protected Boolean doInBackground(Void... voids) {
     Boolean status = false;
     if (UtilsApp.checkPermissions(activity)) {
-      status = UtilsApp.copyFile(appInfo);
+      status = UtilsApp.extractFile(appInfo);
     }
     return status;
   }

@@ -90,7 +90,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
     appShare.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        UtilsApp.copyFile(appInfo);
+        UtilsApp.extractFile(appInfo);
         Intent shareIntent = UtilsApp.getShareIntent(UtilsApp.getOutputFilename(appInfo));
         context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send_to), appInfo.getName())));
       }

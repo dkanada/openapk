@@ -268,7 +268,7 @@ public class AppActivity extends AppCompatActivity {
     fab_share.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        UtilsApp.copyFile(appInfo);
+        UtilsApp.extractFile(appInfo);
         Intent shareIntent = UtilsApp.getShareIntent(UtilsApp.getOutputFilename(appInfo));
         startActivity(Intent.createChooser(shareIntent, String.format(getResources().getString(R.string.send_to), appInfo.getName())));
       }

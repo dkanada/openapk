@@ -30,25 +30,8 @@ import java.util.Set;
 public class UtilsApp {
   private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
 
-  // return default folder where apps will be saved
-  public static File getDefaultAppFolder() {
-    return new File(Environment.getExternalStorageDirectory() + "/OpenAPK");
-  }
-
-  // return custom folder where apps will be saved
-  public static File getCustomAppFolder() {
-    AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
-    return new File(appPreferences.getCustomPath());
-  }
-
-  public static void createAppDir() {
-    File appDir = getCustomAppFolder();
-    if (!appDir.exists()) {
-      appDir.mkdir();
-    }
-  }
-
-  public static Boolean copyFile(AppInfo appInfo) {
+  // extract file to app directory
+  public static Boolean extractFile(AppInfo appInfo) {
     Boolean res = false;
     File initialFile = new File(appInfo.getSource());
     File finalFile = getOutputFilename(appInfo);
@@ -60,6 +43,25 @@ public class UtilsApp {
       e.printStackTrace();
     }
     return res;
+  }
+
+  // return default folder where apps will be saved
+  public static File getDefaultAppFolder() {
+    return new File(Environment.getExternalStorageDirectory() + "/OpenAPK");
+  }
+
+  // return custom folder where apps will be saved
+  public static File getCustomAppFolder() {
+    AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
+    return new File(appPreferences.getCustomPath());
+  }
+
+  // create app directory
+  public static void createAppDir() {
+    File appDir = getCustomAppFolder();
+    if (!appDir.exists()) {
+      appDir.mkdir();
+    }
   }
 
   // get the name of the extracted app
@@ -114,11 +116,6 @@ public class UtilsApp {
     }
   }
 
-  // open google plus in browser
-  public static void goToGooglePlus(Context context, String id) {
-    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/" + id)));
-  }
-
   // get version number for this app
   public static String getAppVersionName(Context context) {
     String res = "0.0.0.0";
@@ -141,6 +138,7 @@ public class UtilsApp {
     return res;
   }
 
+  // intent to share app
   public static Intent getShareIntent(File file) {
     Intent intent = new Intent();
     intent.setAction(Intent.ACTION_SEND);
