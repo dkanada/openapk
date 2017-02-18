@@ -33,7 +33,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
   private Preference prefDeleteAll, prefCustomPath, prefNavigationColor, prefDefaultValues, prefDoubleTap, prefRootEnabled, prefVersion;
   private AmbilWarnaPreference prefPrimaryColor, prefFABColor;
-  private ListPreference prefCustomFilename, prefSortMode, prefTheme;
+  private ListPreference prefFilename, prefSortMode, prefTheme;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
     prefDeleteAll = findPreference("prefDeleteAll");
     prefCustomPath = findPreference("prefCustomPath");
-    prefCustomFilename = (ListPreference) findPreference("prefCustomFilename");
+    prefFilename = (ListPreference) findPreference("prefFilename");
     prefSortMode = (ListPreference) findPreference("prefSortMode");
 
     prefTheme = (ListPreference) findPreference("prefTheme");
@@ -78,7 +78,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
     // set a few preference summaries
     setCustomPathSummary();
-    setCustomFilenameSummary();
+    setFilenameSummary();
     setSortModeSummary();
     setThemeSummary();
 
@@ -159,9 +159,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     }
   }
 
-  private void setCustomFilenameSummary() {
-    int filenameValue = Integer.valueOf(appPreferences.getCustomFilename()) - 1;
-    prefCustomFilename.setSummary(getResources().getStringArray(R.array.filenameEntries)[filenameValue]);
+  private void setFilenameSummary() {
+    int filenameValue = Integer.valueOf(appPreferences.getFilename()) - 1;
+    prefFilename.setSummary(getResources().getStringArray(R.array.filenameEntries)[filenameValue]);
   }
 
   private void setSortModeSummary() {
@@ -179,8 +179,8 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     Preference pref = findPreference(key);
     if (pref == prefCustomPath) {
       setCustomPathSummary();
-    } else if (pref == prefCustomFilename) {
-      setCustomFilenameSummary();
+    } else if (pref == prefFilename) {
+      setFilenameSummary();
     } else if (pref == prefSortMode) {
       setSortModeSummary();
     } else if (pref == prefTheme) {

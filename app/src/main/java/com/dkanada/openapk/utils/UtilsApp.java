@@ -67,7 +67,7 @@ public class UtilsApp {
     AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
     String res;
 
-    switch (appPreferences.getCustomFilename()) {
+    switch (appPreferences.getFilename()) {
       case "1":
         res = appInfo.getAPK() + "_" + appInfo.getVersion();
         break;

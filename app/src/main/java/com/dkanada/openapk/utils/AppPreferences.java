@@ -15,7 +15,7 @@ public class AppPreferences {
   private Context context;
 
   public static final String KeyCustomPath = "prefCustomPath";
-  public static final String KeyCustomFilename = "prefCustomFilename";
+  public static final String KeyFilename = "prefFilename";
   public static final String KeySortMode = "prefSortMode";
   public static final String KeyTheme = "prefTheme";
   public static final String KeyPrimaryColor = "prefPrimaryColor";
@@ -43,8 +43,8 @@ public class AppPreferences {
     return sharedPreferences.getString(KeyCustomPath, UtilsApp.getDefaultAppFolder().getPath());
   }
 
-  public String getCustomFilename() {
-    return sharedPreferences.getString(KeyCustomFilename, "1");
+  public String getFilename() {
+    return sharedPreferences.getString(KeyFilename, "1");
   }
 
   public String getSortMode() {

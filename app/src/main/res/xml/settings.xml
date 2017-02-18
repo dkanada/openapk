@@ -14,7 +14,7 @@
         android:defaultValue="1"
         android:entries="@array/filenameEntries"
         android:entryValues="@array/filenameValues"
-        android:key="prefCustomFilename"
+        android:key="prefFilename"
         android:title="@string/settings_custom_filename"/>
     <ListPreference
         android:defaultValue="1"
