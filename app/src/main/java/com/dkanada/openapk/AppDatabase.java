@@ -5,16 +5,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class AppDatabase extends SQLiteOpenHelper {
-  public static final String TABLE_NAME = "apps";
-  public static final String COLUMN_NAME_APK = "apk";
-  public static final String COLUMN_NAME_NAME = "name";
-  public static final String COLUMN_NAME_VERSION = "version";
-  public static final String COLUMN_NAME_SOURCE = "source";
-  public static final String COLUMN_NAME_DATA = "data";
-  public static final String COLUMN_NAME_SYSTEM = "system";
-  public static final String COLUMN_NAME_FAVORITE = "favorite";
-  public static final String COLUMN_NAME_HIDDEN = "hidden";
-  public static final String COLUMN_NAME_DISABLED = "disabled";
+  private static final String TABLE_NAME = "apps";
+  private static final String COLUMN_NAME_APK = "apk";
+  private static final String COLUMN_NAME_NAME = "name";
+  private static final String COLUMN_NAME_VERSION = "version";
+  private static final String COLUMN_NAME_SOURCE = "source";
+  private static final String COLUMN_NAME_DATA = "data";
+  private static final String COLUMN_NAME_SYSTEM = "system";
+  private static final String COLUMN_NAME_FAVORITE = "favorite";
+  private static final String COLUMN_NAME_HIDDEN = "hidden";
+  private static final String COLUMN_NAME_DISABLED = "disabled";
 
   private static final String SQL_CREATE_ENTRIES =
       "CREATE TABLE " + AppDatabase.TABLE_NAME + " (" +
