@@ -243,8 +243,7 @@ public class AppActivity extends AppCompatActivity {
           MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
               , getResources().getString(R.string.dialog_cache_deleting)
               , getResources().getString(R.string.dialog_cache_deleting_description));
-          new ClearDataInBackground(context, dialog, appInfo.getData() + "/cache/**"
-              , getResources().getString(R.string.dialog_cache_success_description, appInfo.getName())).execute();
+          new ClearDataInBackground(context, dialog, appInfo).execute();
         }
       });
     }
@@ -259,8 +258,7 @@ public class AppActivity extends AppCompatActivity {
           MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
               , getResources().getString(R.string.dialog_clear_data_deleting)
               , getResources().getString(R.string.dialog_clear_data_deleting_description));
-          new ClearDataInBackground(context, dialog, appInfo.getData() + "/**"
-              , getResources().getString(R.string.dialog_clear_data_success_description, appInfo.getName())).execute();
+          new ClearDataInBackground(context, dialog, appInfo).execute();
         }
       });
     }
