@@ -31,6 +31,5 @@
         <activity android:name="com.dkanada.openapk.activities.AppActivity" />
         <activity android:name="com.dkanada.openapk.activities.SettingsActivity" />
         <activity android:name="com.dkanada.openapk.activities.AboutActivity" />
-        <activity android:name="com.dkanada.openapk.activities.LicenseActivity" />
     </application>
 </manifest>

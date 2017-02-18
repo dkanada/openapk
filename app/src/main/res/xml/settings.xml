@@ -64,9 +64,6 @@
         android:summary="@string/settings_root_enabled_description"
         android:title="@string/settings_root_enabled"/>
     <Preference
-        android:key="prefLicense"
-        android:title="@string/settings_license"/>
-    <Preference
         android:key="prefVersion"
         android:summary="@string/settings_about"
         android:title="@string/app_name"/>

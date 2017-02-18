@@ -31,7 +31,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
   private Toolbar toolbar;
   private Context context;
 
-  private Preference prefDeleteAll, prefCustomPath, prefNavigationColor, prefDefaultValues, prefDoubleTap, prefRootEnabled, prefLicense, prefVersion;
+  private Preference prefDeleteAll, prefCustomPath, prefNavigationColor, prefDefaultValues, prefDoubleTap, prefRootEnabled, prefVersion;
   private AmbilWarnaPreference prefPrimaryColor, prefFABColor;
   private ListPreference prefCustomFilename, prefSortMode, prefTheme;
 
@@ -64,7 +64,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     prefDoubleTap = findPreference("prefDoubleTap");
     prefRootEnabled = findPreference("prefRootEnabled");
     prefVersion = findPreference("prefVersion");
-    prefLicense = findPreference("prefLicense");
 
     setInitialConfiguration();
 
@@ -73,14 +72,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
       @Override
       public boolean onPreferenceClick(Preference preference) {
         startActivity(new Intent(context, AboutActivity.class));
-        return false;
-      }
-    });
-
-    prefLicense.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-      @Override
-      public boolean onPreferenceClick(Preference preference) {
-        startActivity(new Intent(context, LicenseActivity.class));
         return false;
       }
     });

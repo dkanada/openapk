@@ -75,7 +75,6 @@
   <string name="settings_navigation_color_description">No usar un color personalizado para la barra de navegación.</string>
   <string name="settings_default_customization">Restaurar personalizaciones</string>
   <string name="settings_default_customization_description">Restaurar colores a los valores por defecto</string>
-  <string name="settings_license">Licencias Open Source</string>
   <string name="settings_about">Hecho con \u2665 en España</string>
   <string name="about_description_1">Desarrollador</string>
   <string name="about_description_2">Icono</string>

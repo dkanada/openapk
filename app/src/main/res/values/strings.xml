@@ -97,7 +97,6 @@
   <string name="settings_double_tap_description">Press the back button twice to close the app.</string>
   <string name="settings_root_enabled">Enable root features</string>
   <string name="settings_root_enabled_description">You must also have a rooted phone for this to work.</string>
-  <string name="settings_license">Open source licenses</string>
   <string name="settings_about">Made with \u2665 from Spain.</string>
 
   <!-- About -->
