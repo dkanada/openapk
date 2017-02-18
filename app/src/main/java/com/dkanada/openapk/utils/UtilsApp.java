@@ -32,17 +32,17 @@ public class UtilsApp {
 
   // return default folder where apps will be saved
   public static File getDefaultAppFolder() {
-    return new File(Environment.getExternalStorageDirectory() + "/MLManager");
+    return new File(Environment.getExternalStorageDirectory() + "/OpenAPK");
   }
 
   // return custom folder where apps will be saved
-  public static File getAppFolder() {
+  public static File getCustomAppFolder() {
     AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
     return new File(appPreferences.getCustomPath());
   }
 
   public static void createAppDir() {
-    File appDir = getAppFolder();
+    File appDir = getCustomAppFolder();
     if (!appDir.exists()) {
       appDir.mkdir();
     }
@@ -86,13 +86,13 @@ public class UtilsApp {
 
   // get the name of the extracted app with the path
   public static File getOutputFilename(AppInfo appInfo) {
-    return new File(getAppFolder().getPath() + "/" + getAPKFilename(appInfo) + ".apk");
+    return new File(getCustomAppFolder().getPath() + "/" + getAPKFilename(appInfo) + ".apk");
   }
 
   // delete all extracted apps from folder
   public static Boolean deleteAppFiles() {
     Boolean res = false;
-    File f = getAppFolder();
+    File f = getCustomAppFolder();
     if (f.exists() && f.isDirectory()) {
       File[] files = f.listFiles();
       for (File file : files) {
