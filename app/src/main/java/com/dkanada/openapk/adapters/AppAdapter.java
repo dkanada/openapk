@@ -109,7 +109,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
         intent.putExtra("app_data", appInfo.getData());
         Bitmap bitmap = ((BitmapDrawable) appInfo.getIcon()).getBitmap();
         intent.putExtra("app_icon", bitmap);
-        intent.putExtra("app_isSystem", appInfo.isSystem());
+        intent.putExtra("app_isSystem", appInfo.getSystem());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
           String transitionName = context.getResources().getString(R.string.app_icon_transition);

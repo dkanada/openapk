@@ -12,6 +12,9 @@ public class AppInfo implements Serializable {
   private String data;
   private Drawable icon;
   private Boolean system;
+  private Boolean favorite;
+  private Boolean hidden;
+  private Boolean disabled;
 
   public AppInfo(String name, String apk, String version, String source, String data, Drawable icon, Boolean isSystem) {
     this.name = name;
@@ -63,11 +66,23 @@ public class AppInfo implements Serializable {
     this.icon = icon;
   }
 
-  public Boolean isSystem() {
+  public Boolean getSystem() {
     return system;
   }
 
+  public Boolean getFavorite() {
+    return favorite;
+  }
+
+  public Boolean getHidden() {
+    return hidden;
+  }
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
   public String toString() {
-    return getName() + "##" + getAPK() + "##" + getVersion() + "##" + getSource() + "##" + getData() + "##" + isSystem();
+    return getName() + "##" + getAPK() + "##" + getVersion() + "##" + getSource() + "##" + getData() + "##" + getSystem();
   }
 }

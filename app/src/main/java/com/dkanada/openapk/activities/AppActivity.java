@@ -144,7 +144,7 @@ public class AppActivity extends AppCompatActivity {
     updateDisableFAB(fab_disable);
 
     // google play icon
-    if (appInfo.isSystem()) {
+    if (appInfo.getSystem()) {
       icon_googleplay.setVisibility(View.GONE);
     } else {
       googleplay.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +169,7 @@ public class AppActivity extends AppCompatActivity {
   }
 
   protected void updateOpenButton(CardView open) {
-    if (appInfo.isSystem()) {
+    if (appInfo.getSystem()) {
       open.setVisibility(View.GONE);
     } else {
       open.setOnClickListener(new View.OnClickListener() {
@@ -200,7 +200,7 @@ public class AppActivity extends AppCompatActivity {
   }
 
   protected void updateUninstallButton(CardView uninstall) {
-    if (appInfo.isSystem() && UtilsRoot.isRooted()) {
+    if (appInfo.getSystem() && UtilsRoot.isRooted()) {
       uninstall.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -218,7 +218,7 @@ public class AppActivity extends AppCompatActivity {
           materialBuilder.show();
         }
       });
-    } else if(appInfo.isSystem()) {
+    } else if(appInfo.getSystem()) {
       uninstall.setVisibility(View.GONE);
       uninstall.setForeground(null);
     } else {
