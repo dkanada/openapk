@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.drawable.Drawable;
 
 import com.dkanada.openapk.utils.UtilsApp;
 
@@ -100,7 +101,7 @@ public class AppDatabase extends SQLiteOpenHelper {
             // installed apps
             AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false);
             addAppInfo(tempApp);
-            //UtilsApp.saveIconToCache(context, tempApp);
+            UtilsApp.saveIconToCache(context, tempApp);
           } catch (OutOfMemoryError e) {
             //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
             AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, context.getResources().getDrawable(R.drawable.ic_android), false);
@@ -113,7 +114,7 @@ public class AppDatabase extends SQLiteOpenHelper {
             // system apps
             AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), true);
             addAppInfo(tempApp);
-            //UtilsApp.saveIconToCache(context, tempApp);
+            UtilsApp.saveIconToCache(context, tempApp);
           } catch (OutOfMemoryError e) {
             //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
             AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, context.getResources().getDrawable(R.drawable.ic_android), false);
@@ -126,7 +127,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
   }
 
-  public ArrayList<AppInfo> returnAppList(int data) {
+  public ArrayList<AppInfo> returnAppList(Context context, int data) {
     ArrayList<AppInfo> appList = new ArrayList<AppInfo>();
     String query = "SELECT * FROM " + TABLE_NAME;
     SQLiteDatabase db = getWritableDatabase();
@@ -137,31 +138,31 @@ public class AppDatabase extends SQLiteOpenHelper {
           // installed
           default:
             if (cursor.getString(5).equals(false)) {
-              appList.add(returnAppInfo(cursor));
+              appList.add(returnAppInfo(context, cursor));
             }
             break;
           // system
           case 1:
             if (cursor.getString(5).equals(true)) {
-              appList.add(returnAppInfo(cursor));
+              appList.add(returnAppInfo(context, cursor));
             }
             break;
           // favorite
           case 2:
             if (cursor.getString(6).equals(true)) {
-              appList.add(returnAppInfo(cursor));
+              appList.add(returnAppInfo(context, cursor));
             }
             break;
           // hidden
           case 3:
             if (cursor.getString(7).equals(true)) {
-              appList.add(returnAppInfo(cursor));
+              appList.add(returnAppInfo(context, cursor));
             }
             break;
           // disabled
           case 4:
             if (cursor.getString(8).equals(true)) {
-              appList.add(returnAppInfo(cursor));
+              appList.add(returnAppInfo(context, cursor));
             }
             break;
         }
@@ -170,7 +171,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     return appList;
   }
 
-  public AppInfo returnAppInfo(Cursor cursor) {
+  public AppInfo returnAppInfo(Context context, Cursor cursor) {
     String name = cursor.getString(0);
     String apk = cursor.getString(1);
     String version = cursor.getString(2);
@@ -180,7 +181,9 @@ public class AppDatabase extends SQLiteOpenHelper {
     Boolean favorite = Boolean.parseBoolean(cursor.getString(6));
     Boolean hidden = Boolean.parseBoolean(cursor.getString(7));
     Boolean disabled = Boolean.parseBoolean(cursor.getString(8));
-    AppInfo app = new AppInfo(name + "##" + apk + "##" + version + "##" + source + "##" + data + "##" + system + "##" + favorite + "##" + hidden + "##" + disabled);
-    return app;
+    AppInfo tempApp = new AppInfo(name + "##" + apk + "##" + version + "##" + source + "##" + data + "##" + system + "##" + favorite + "##" + hidden + "##" + disabled);
+    Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+    tempApp.setIcon(tempAppIcon);
+    return tempApp;
   }
 }
