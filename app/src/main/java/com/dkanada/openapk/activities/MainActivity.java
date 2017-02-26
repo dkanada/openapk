@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.content.pm.ApplicationInfo;
 
+import com.dkanada.openapk.AppDatabase;
 import com.dkanada.openapk.AppInfo;
 import com.dkanada.openapk.OpenAPKApplication;
 import com.dkanada.openapk.R;
@@ -143,8 +144,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     appHiddenList = new ArrayList<>();
     appDisabledList = new ArrayList<>();
 
+    AppDatabase db = new AppDatabase(context);
+
+    appInstalledList = db.returnAppList(context, 0);
+    appSystemList = db.returnAppList(context, 1);
+    appFavoriteList = db.returnAppList(context, 2);
+    appHiddenList = db.returnAppList(context, 3);
+    appDisabledList = db.returnAppList(context, 4);
+
     // list of installed apps
-    for (String app : installedApps) {
+    /*for (String app : installedApps) {
       AppInfo tempApp = new AppInfo(app);
       Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
       tempApp.setIcon(tempAppIcon);
@@ -181,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
       tempApp.setIcon(tempAppIcon);
       appDisabledList.add(tempApp);
-    }
+    }*/
 
     appInstalledList = sortAdapter(appInstalledList);
     appSystemList = sortAdapter(appSystemList);
@@ -223,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   class getInstalledApps extends AsyncTask<Void, String, Void> {
     @Override
     protected Void doInBackground(Void... params) {
-      final PackageManager packageManager = getPackageManager();
+      /*final PackageManager packageManager = getPackageManager();
       List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
       Set<String> installedApps = appPreferences.getInstalledApps();
       Set<String> systemApps = appPreferences.getSystemApps();
@@ -237,12 +246,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
             try {
               // installed apps
-              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false);
+              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false, false, false, false);
               installedApps.add(tempApp.toString());
               UtilsApp.saveIconToCache(context, tempApp);
             } catch (OutOfMemoryError e) {
               //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
-              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false);
+              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false, false, false, false);
               installedApps.add(tempApp.toString());
             } catch (Exception e) {
               e.printStackTrace();
@@ -250,12 +259,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           } else {
             try {
               // system apps
-              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), true);
+              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), true, false, false, false);
               systemApps.add(tempApp.toString());
               UtilsApp.saveIconToCache(context, tempApp);
             } catch (OutOfMemoryError e) {
               //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
-              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false);
+              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false, false, false, false);
               systemApps.add(tempApp.toString());
             } catch (Exception e) {
               e.printStackTrace();
@@ -264,7 +273,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         }
       }
       appPreferences.setInstalledApps(installedApps);
-      appPreferences.setSystemApps(systemApps);
+      appPreferences.setSystemApps(systemApps);*/
+      AppDatabase db = new AppDatabase(context);
+      db.updateDatabase(context);
       return null;
     }
 

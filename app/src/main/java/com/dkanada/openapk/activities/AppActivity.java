@@ -358,8 +358,11 @@ public class AppActivity extends AppCompatActivity {
     Bitmap bitmap = getIntent().getParcelableExtra("app_icon");
     Drawable appIcon = new BitmapDrawable(getResources(), bitmap);
     Boolean appIsSystem = getIntent().getExtras().getBoolean("app_isSystem");
+    Boolean appIsFavorite = getIntent().getExtras().getBoolean("app_isFavorite");
+    Boolean appIsHidden = getIntent().getExtras().getBoolean("app_isHidden");
+    Boolean appIsDisabled = getIntent().getExtras().getBoolean("app_isDisabled");
 
-    appInfo = new AppInfo(appName, appApk, appVersion, appSource, appData, appIcon, appIsSystem);
+    appInfo = new AppInfo(appName, appApk, appVersion, appSource, appData, appIcon, appIsSystem, appIsFavorite, appIsHidden, appIsDisabled);
 
     appsFavorite = appPreferences.getFavoriteApps();
     appsHidden = appPreferences.getHiddenApps();

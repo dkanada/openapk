@@ -16,7 +16,7 @@ public class AppInfo implements Serializable {
   private Boolean hidden;
   private Boolean disabled;
 
-  public AppInfo(String name, String apk, String version, String source, String data, Drawable icon, Boolean isSystem) {
+  public AppInfo(String name, String apk, String version, String source, String data, Drawable icon, Boolean isSystem, Boolean favorite, Boolean hidden, Boolean disabled) {
     this.name = name;
     this.apk = apk;
     this.version = version;
@@ -24,17 +24,23 @@ public class AppInfo implements Serializable {
     this.data = data;
     this.icon = icon;
     this.system = isSystem;
+    this.favorite = favorite;
+    this.hidden = hidden;
+    this.disabled = disabled;
   }
 
   public AppInfo(String string) {
     String[] split = string.split("##");
-    if (split.length == 6) {
+    if (split.length == 9) {
       this.name = split[0];
       this.apk = split[1];
       this.version = split[2];
       this.source = split[3];
       this.data = split[4];
       this.system = Boolean.parseBoolean(split[5]);
+      this.favorite = Boolean.parseBoolean(split[6]);
+      this.hidden = Boolean.parseBoolean(split[7]);
+      this.disabled = Boolean.parseBoolean(split[8]);
     }
   }
 
@@ -83,6 +89,6 @@ public class AppInfo implements Serializable {
   }
 
   public String toString() {
-    return getName() + "##" + getAPK() + "##" + getVersion() + "##" + getSource() + "##" + getData() + "##" + getSystem();
+    return getName() + "##" + getAPK() + "##" + getVersion() + "##" + getSource() + "##" + getData() + "##" + getSystem() + "##" + getFavorite() + "##" + getHidden() + "##" + getDisabled();
   }
 }

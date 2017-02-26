@@ -1,6 +1,5 @@
 package com.dkanada.openapk;
 
-import android.appwidget.AppWidgetProviderInfo;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -15,7 +14,6 @@ import com.dkanada.openapk.utils.UtilsApp;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class AppDatabase extends SQLiteOpenHelper {
   private static final String TABLE_NAME = "apps";
@@ -42,6 +40,7 @@ public class AppDatabase extends SQLiteOpenHelper {
           AppDatabase.COLUMN_NAME_DISABLED + " TEXT)";
   private static final String SQL_DELETE_ENTRIES =
       "DROP TABLE IF EXISTS " + AppDatabase.TABLE_NAME;
+  private static final String QUERY = "SELECT * FROM " + TABLE_NAME;
 
   public AppDatabase(Context context) {
     super(context, "apps.db", null, 1);
@@ -62,25 +61,39 @@ public class AppDatabase extends SQLiteOpenHelper {
   }
 
   public void addAppInfo(AppInfo appInfo) {
-    removeAppInfo(appInfo);
-    ContentValues values = new ContentValues();
-    SQLiteDatabase db = getWritableDatabase();
-    values.put(COLUMN_NAME_APK, appInfo.getAPK());
-    values.put(COLUMN_NAME_NAME, appInfo.getName());
-    values.put(COLUMN_NAME_VERSION, appInfo.getVersion());
-    values.put(COLUMN_NAME_SOURCE, appInfo.getSource());
-    values.put(COLUMN_NAME_DATA, appInfo.getData());
-    values.put(COLUMN_NAME_SYSTEM, appInfo.getSystem());
-    values.put(COLUMN_NAME_FAVORITE, appInfo.getFavorite());
-    values.put(COLUMN_NAME_HIDDEN, appInfo.getHidden());
-    values.put(COLUMN_NAME_DISABLED, appInfo.getDisabled());
-    db.insert(TABLE_NAME, null, values);
+    if (!checkAppInfoExists(appInfo)) {
+      ContentValues values = new ContentValues();
+      SQLiteDatabase db = getWritableDatabase();
+      values.put(COLUMN_NAME_APK, appInfo.getAPK());
+      values.put(COLUMN_NAME_NAME, appInfo.getName());
+      values.put(COLUMN_NAME_VERSION, appInfo.getVersion());
+      values.put(COLUMN_NAME_SOURCE, appInfo.getSource());
+      values.put(COLUMN_NAME_DATA, appInfo.getData());
+      values.put(COLUMN_NAME_SYSTEM, appInfo.getSystem());
+      values.put(COLUMN_NAME_FAVORITE, appInfo.getFavorite());
+      values.put(COLUMN_NAME_HIDDEN, appInfo.getHidden());
+      values.put(COLUMN_NAME_DISABLED, appInfo.getDisabled());
+      db.insert(TABLE_NAME, null, values);
+    }
   }
 
   public void removeAppInfo(AppInfo appInfo) {
     SQLiteDatabase db = getWritableDatabase();
     db.delete(TABLE_NAME, COLUMN_NAME_APK + " = ?", new String[]{String.valueOf(appInfo.getAPK())});
     db.close();
+  }
+
+  public Boolean checkAppInfoExists(AppInfo appInfo) {
+    SQLiteDatabase db = getWritableDatabase();
+    Cursor cursor = db.rawQuery(QUERY, null);
+    if (cursor.moveToFirst()) {
+      do {
+        if (cursor.getString(0).equals(appInfo.getAPK())) {
+          return true;
+        }
+      } while (cursor.moveToNext());
+    }
+    return false;
   }
 
   public void updateAppInfo(AppInfo appInfo) {
@@ -99,12 +112,12 @@ public class AppDatabase extends SQLiteOpenHelper {
         if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
           try {
             // installed apps
-            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false);
+            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false, false, false, false);
             addAppInfo(tempApp);
             UtilsApp.saveIconToCache(context, tempApp);
           } catch (OutOfMemoryError e) {
             //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
-            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, context.getResources().getDrawable(R.drawable.ic_android), false);
+            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, context.getResources().getDrawable(R.drawable.ic_android), false, false, false, false);
             addAppInfo(tempApp);
           } catch (Exception e) {
             e.printStackTrace();
@@ -112,12 +125,12 @@ public class AppDatabase extends SQLiteOpenHelper {
         } else {
           try {
             // system apps
-            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), true);
+            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), true, false, false, false);
             addAppInfo(tempApp);
             UtilsApp.saveIconToCache(context, tempApp);
           } catch (OutOfMemoryError e) {
             //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
-            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, context.getResources().getDrawable(R.drawable.ic_android), false);
+            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, context.getResources().getDrawable(R.drawable.ic_android), false, false, false, false);
             addAppInfo(tempApp);
           } catch (Exception e) {
             e.printStackTrace();
@@ -129,9 +142,8 @@ public class AppDatabase extends SQLiteOpenHelper {
 
   public ArrayList<AppInfo> returnAppList(Context context, int data) {
     ArrayList<AppInfo> appList = new ArrayList<AppInfo>();
-    String query = "SELECT * FROM " + TABLE_NAME;
     SQLiteDatabase db = getWritableDatabase();
-    Cursor cursor = db.rawQuery(query, null);
+    Cursor cursor = db.rawQuery(QUERY, null);
     if (cursor.moveToFirst()) {
       do {
         switch(data) {
