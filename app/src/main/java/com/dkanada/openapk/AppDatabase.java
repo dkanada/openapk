@@ -149,31 +149,31 @@ public class AppDatabase extends SQLiteOpenHelper {
         switch(data) {
           // installed
           default:
-            if (cursor.getString(5).equals(false)) {
+            if (cursor.getString(5).equals("0")) {
               appList.add(returnAppInfo(context, cursor));
             }
             break;
           // system
           case 1:
-            if (cursor.getString(5).equals(true)) {
+            if (cursor.getString(5).equals("1")) {
               appList.add(returnAppInfo(context, cursor));
             }
             break;
           // favorite
           case 2:
-            if (cursor.getString(6).equals(true)) {
+            if (cursor.getString(6).equals("1")) {
               appList.add(returnAppInfo(context, cursor));
             }
             break;
           // hidden
           case 3:
-            if (cursor.getString(7).equals(true)) {
+            if (cursor.getString(7).equals("1")) {
               appList.add(returnAppInfo(context, cursor));
             }
             break;
           // disabled
           case 4:
-            if (cursor.getString(8).equals(true)) {
+            if (cursor.getString(8).equals("1")) {
               appList.add(returnAppInfo(context, cursor));
             }
             break;
