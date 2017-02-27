@@ -61,7 +61,7 @@ public class AppDatabase extends SQLiteOpenHelper {
   }
 
   public void addAppInfo(AppInfo appInfo) {
-    if (!checkAppInfoExists(appInfo)) {
+    if (!checkAppInfo(appInfo, 0)) {
       ContentValues values = new ContentValues();
       SQLiteDatabase db = getWritableDatabase();
       values.put(COLUMN_NAME_NAME, appInfo.getName());
@@ -83,7 +83,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     db.close();
   }
 
-  public Boolean checkAppInfoExists(AppInfo appInfo) {
+  public Boolean checkAppInfo(AppInfo appInfo, int data) {
     SQLiteDatabase db = getWritableDatabase();
     Cursor cursor = db.rawQuery(QUERY_ALL, null);
     if (cursor.moveToFirst()) {
@@ -98,6 +98,8 @@ public class AppDatabase extends SQLiteOpenHelper {
 
   public void updateAppInfo(AppInfo appInfo, int data) {
     SQLiteDatabase db = getWritableDatabase();
+    ContentValues values = new ContentValues();
+    String SELECTION = COLUMN_NAME_APK + "=" + appInfo.getAPK();
     switch(data) {
       // everything
       default:
@@ -106,18 +108,23 @@ public class AppDatabase extends SQLiteOpenHelper {
         break;
       // system
       case 1:
-        Cursor cursor = db.rawQuery(QUERY_ALL, null);
-        if (cursor.moveToFirst()) {
-        }
+        values.put(COLUMN_NAME_SYSTEM, appInfo.getSystem());
+        db.update(TABLE_NAME, values, SELECTION, null);
         break;
       // favorite
       case 2:
+        values.put(COLUMN_NAME_FAVORITE, appInfo.getFavorite());
+        db.update(TABLE_NAME, values, SELECTION, null);
         break;
       // hidden
       case 3:
+        values.put(COLUMN_NAME_HIDDEN, appInfo.getHidden());
+        db.update(TABLE_NAME, values, SELECTION, null);
         break;
       // disabled
       case 4:
+        values.put(COLUMN_NAME_DISABLED, appInfo.getDisabled());
+        db.update(TABLE_NAME, values, SELECTION, null);
         break;
     }
   }
