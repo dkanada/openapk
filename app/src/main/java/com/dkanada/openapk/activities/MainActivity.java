@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     if (getSupportActionBar() != null) {
       getSupportActionBar().setTitle(R.string.app_name);
     }
-
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
       getWindow().setStatusBarColor(UtilsUI.darker(appPreferences.getPrimaryColorPref(), 0.8));
@@ -132,71 +131,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   }
 
   private void getInstalledAppsFast() {
-    Set<String> installedApps = appPreferences.getInstalledApps();
-    Set<String> systemApps = appPreferences.getSystemApps();
-    Set<String> favoriteApps = appPreferences.getFavoriteApps();
-    Set<String> hiddenApps = appPreferences.getHiddenApps();
-    Set<String> disabledApps = appPreferences.getDisabledApps();
-
-    appInstalledList = new ArrayList<>();
-    appSystemList = new ArrayList<>();
-    appFavoriteList = new ArrayList<>();
-    appHiddenList = new ArrayList<>();
-    appDisabledList = new ArrayList<>();
-
     AppDatabase db = new AppDatabase(context);
-
-    appInstalledList = db.returnAppList(context, 0);
-    appSystemList = db.returnAppList(context, 1);
-    appFavoriteList = db.returnAppList(context, 2);
-    appHiddenList = db.returnAppList(context, 3);
-    appDisabledList = db.returnAppList(context, 4);
-
-    // list of installed apps
-    /*for (String app : installedApps) {
-      AppInfo tempApp = new AppInfo(app);
-      Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
-      tempApp.setIcon(tempAppIcon);
-      appInstalledList.add(tempApp);
-    }
-
-    // list of system apps
-    for (String app : systemApps) {
-      AppInfo tempApp = new AppInfo(app);
-      Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
-      tempApp.setIcon(tempAppIcon);
-      appSystemList.add(tempApp);
-    }
-
-    // list of favorite apps
-    for (String app : favoriteApps) {
-      AppInfo tempApp = new AppInfo(app);
-      Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
-      tempApp.setIcon(tempAppIcon);
-      appFavoriteList.add(tempApp);
-    }
-
-    // list of hidden apps
-    for (String app : hiddenApps) {
-      AppInfo tempApp = new AppInfo(app);
-      Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
-      tempApp.setIcon(tempAppIcon);
-      appHiddenList.add(tempApp);
-    }
-
-    // list of disabled apps
-    for (String app : disabledApps) {
-      AppInfo tempApp = new AppInfo(app);
-      Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
-      tempApp.setIcon(tempAppIcon);
-      appDisabledList.add(tempApp);
-    }*/
-
-    appInstalledList = sortAdapter(appInstalledList);
-    appSystemList = sortAdapter(appSystemList);
-    appFavoriteList = sortAdapter(appFavoriteList);
-    appHiddenList = sortAdapter(appHiddenList);
-    appDisabledList = sortAdapter(appDisabledList);
+    appInstalledList = sortAdapter(db.returnAppList(context, 0));
+    appSystemList = sortAdapter(db.returnAppList(context, 1));
+    appFavoriteList = sortAdapter(db.returnAppList(context, 2));
+    appHiddenList = sortAdapter(db.returnAppList(context, 3));
+    appDisabledList = sortAdapter(db.returnAppList(context, 4));
 
     appAdapter = new AppAdapter(appInstalledList, context);
     appSystemAdapter = new AppAdapter(appSystemList, context);
@@ -232,48 +172,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   class getInstalledApps extends AsyncTask<Void, String, Void> {
     @Override
     protected Void doInBackground(Void... params) {
-      /*final PackageManager packageManager = getPackageManager();
-      List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
-      Set<String> installedApps = appPreferences.getInstalledApps();
-      Set<String> systemApps = appPreferences.getSystemApps();
-
-      installedApps.clear();
-      systemApps.clear();
-
-      // installed and system apps
-      for (PackageInfo packageInfo : packages) {
-        if (!(packageManager.getApplicationLabel(packageInfo.applicationInfo).equals("") || packageInfo.packageName.equals(""))) {
-          if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-            try {
-              // installed apps
-              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false, false, false, false);
-              installedApps.add(tempApp.toString());
-              UtilsApp.saveIconToCache(context, tempApp);
-            } catch (OutOfMemoryError e) {
-              //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
-              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false, false, false, false);
-              installedApps.add(tempApp.toString());
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-          } else {
-            try {
-              // system apps
-              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), true, false, false, false);
-              systemApps.add(tempApp.toString());
-              UtilsApp.saveIconToCache(context, tempApp);
-            } catch (OutOfMemoryError e) {
-              //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
-              AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, getResources().getDrawable(R.drawable.ic_android), false, false, false, false);
-              systemApps.add(tempApp.toString());
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-          }
-        }
-      }
-      appPreferences.setInstalledApps(installedApps);
-      appPreferences.setSystemApps(systemApps);*/
       AppDatabase db = new AppDatabase(context);
       db.updateDatabase(context);
       return null;
