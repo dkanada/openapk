@@ -108,7 +108,6 @@ public class UtilsRoot {
       } else {
         command = new String[]{"su", "-c", "pm hide " + apk + "\n"};
       }
-
       Process process = Runtime.getRuntime().exec(command);
       process.waitFor();
       int i = process.exitValue();
@@ -130,7 +129,6 @@ public class UtilsRoot {
       } else {
         command = new String[]{"su", "-c", "pm disable " + app + "\n"};
       }
-
       Process process = Runtime.getRuntime().exec(command);
       process.waitFor();
       int i = process.exitValue();
@@ -147,7 +145,6 @@ public class UtilsRoot {
     boolean status = false;
     try {
       String[] command = new String[]{"su", "-c", "reboot\n"};
-
       Process process = Runtime.getRuntime().exec(command);
       process.waitFor();
       int i = process.exitValue();

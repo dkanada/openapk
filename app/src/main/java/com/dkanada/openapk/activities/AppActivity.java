@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.gc.materialdesign.views.Card;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.dkanada.openapk.AppInfo;
@@ -53,7 +54,7 @@ public class AppActivity extends AppCompatActivity {
   private int UNINSTALL_REQUEST_CODE = 1;
   private Context context;
   private Activity activity;
-  private MenuItem item_favorite;
+  private MenuItem favorite;
 
   // other variables
   private FloatingActionsMenu fab;
@@ -169,21 +170,16 @@ public class AppActivity extends AppCompatActivity {
   }
 
   protected void updateOpenButton(CardView open) {
-    if (appInfo.getSystem()) {
-      open.setVisibility(View.GONE);
-    } else {
+    final Intent intent = getPackageManager().getLaunchIntentForPackage(appInfo.getAPK());
+    if (intent != null) {
       open.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          try {
-            Intent intent = getPackageManager().getLaunchIntentForPackage(appInfo.getAPK());
-            startActivity(intent);
-          } catch (NullPointerException e) {
-            e.printStackTrace();
-            UtilsDialog.showSnackBar(activity, String.format(getResources().getString(R.string.dialog_cannot_open), appInfo.getName()), null, null, 2).show();
-          }
+          startActivity(intent);
         }
       });
+    } else {
+      open.setVisibility(View.GONE);
     }
   }
 
@@ -386,8 +382,8 @@ public class AppActivity extends AppCompatActivity {
 
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
-    item_favorite = menu.findItem(R.id.action_favorite);
-    UtilsUI.updateAppFavoriteIcon(context, item_favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
+    favorite = menu.findItem(R.id.action_favorite);
+    UtilsUI.updateAppFavoriteIcon(context, favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
     return super.onPrepareOptionsMenu(menu);
   }
 
@@ -407,7 +403,7 @@ public class AppActivity extends AppCompatActivity {
           UtilsApp.saveIconToCache(context, appInfo);
           appPreferences.setFavoriteApps(appsFavorite);
         }
-        UtilsUI.updateAppFavoriteIcon(context, item_favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
+        UtilsUI.updateAppFavoriteIcon(context, favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
         return true;
     }
     return super.onOptionsItemSelected(item);
