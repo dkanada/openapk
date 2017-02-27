@@ -68,16 +68,32 @@ public class AppInfo implements Serializable {
     return system;
   }
 
+  public void setSystem(boolean bool) {
+    system = bool;
+  }
+
   public Boolean getFavorite() {
     return favorite;
+  }
+
+  public void setFavorite(boolean bool) {
+    favorite = bool;
   }
 
   public Boolean getHidden() {
     return hidden;
   }
 
+  public void setHidden(boolean bool) {
+    hidden = bool;
+  }
+
   public Boolean getDisabled() {
     return disabled;
+  }
+
+  public void setDisabled(boolean bool) {
+    disabled = bool;
   }
 
   public Drawable getIcon() {
