@@ -10,23 +10,23 @@ public class AppInfo implements Serializable {
   private String version;
   private String source;
   private String data;
-  private Drawable icon;
   private Boolean system;
   private Boolean favorite;
   private Boolean hidden;
   private Boolean disabled;
+  private Drawable icon;
 
-  public AppInfo(String name, String apk, String version, String source, String data, Drawable icon, Boolean isSystem, Boolean favorite, Boolean hidden, Boolean disabled) {
+  public AppInfo(String name, String apk, String version, String source, String data, Boolean isSystem, Boolean favorite, Boolean hidden, Boolean disabled, Drawable icon) {
     this.name = name;
     this.apk = apk;
     this.version = version;
     this.source = source;
     this.data = data;
-    this.icon = icon;
     this.system = isSystem;
     this.favorite = favorite;
     this.hidden = hidden;
     this.disabled = disabled;
+    this.icon = icon;
   }
 
   public AppInfo(String string) {
@@ -64,14 +64,6 @@ public class AppInfo implements Serializable {
     return data;
   }
 
-  public Drawable getIcon() {
-    return icon;
-  }
-
-  public void setIcon(Drawable icon) {
-    this.icon = icon;
-  }
-
   public Boolean getSystem() {
     return system;
   }
@@ -86,6 +78,14 @@ public class AppInfo implements Serializable {
 
   public Boolean getDisabled() {
     return disabled;
+  }
+
+  public Drawable getIcon() {
+    return icon;
+  }
+
+  public void setIcon(Drawable icon) {
+    this.icon = icon;
   }
 
   public String toString() {

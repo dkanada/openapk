@@ -17,8 +17,8 @@ import java.util.List;
 
 public class AppDatabase extends SQLiteOpenHelper {
   private static final String TABLE_NAME = "apps";
-  private static final String COLUMN_NAME_APK = "apk";
   private static final String COLUMN_NAME_NAME = "name";
+  private static final String COLUMN_NAME_APK = "apk";
   private static final String COLUMN_NAME_VERSION = "version";
   private static final String COLUMN_NAME_SOURCE = "source";
   private static final String COLUMN_NAME_DATA = "data";
@@ -29,8 +29,8 @@ public class AppDatabase extends SQLiteOpenHelper {
 
   private static final String SQL_CREATE_ENTRIES =
       "CREATE TABLE " + AppDatabase.TABLE_NAME + " (" +
-          AppDatabase.COLUMN_NAME_APK + " TEXT PRIMARY KEY," +
           AppDatabase.COLUMN_NAME_NAME + " TEXT," +
+          AppDatabase.COLUMN_NAME_APK + " TEXT PRIMARY KEY," +
           AppDatabase.COLUMN_NAME_VERSION + " TEXT," +
           AppDatabase.COLUMN_NAME_SOURCE + " TEXT," +
           AppDatabase.COLUMN_NAME_DATA + " TEXT," +
@@ -64,8 +64,8 @@ public class AppDatabase extends SQLiteOpenHelper {
     if (!checkAppInfoExists(appInfo)) {
       ContentValues values = new ContentValues();
       SQLiteDatabase db = getWritableDatabase();
-      values.put(COLUMN_NAME_APK, appInfo.getAPK());
       values.put(COLUMN_NAME_NAME, appInfo.getName());
+      values.put(COLUMN_NAME_APK, appInfo.getAPK());
       values.put(COLUMN_NAME_VERSION, appInfo.getVersion());
       values.put(COLUMN_NAME_SOURCE, appInfo.getSource());
       values.put(COLUMN_NAME_DATA, appInfo.getData());
@@ -97,7 +97,6 @@ public class AppDatabase extends SQLiteOpenHelper {
   }
 
   public void updateAppInfo(AppInfo appInfo) {
-    SQLiteDatabase db = getWritableDatabase();
     removeAppInfo(appInfo);
     addAppInfo(appInfo);
   }
@@ -112,12 +111,12 @@ public class AppDatabase extends SQLiteOpenHelper {
         if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
           try {
             // installed apps
-            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), false, false, false, false);
+            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, false, packageManager.getApplicationIcon(packageInfo.applicationInfo));
             addAppInfo(tempApp);
             UtilsApp.saveIconToCache(context, tempApp);
           } catch (OutOfMemoryError e) {
             //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
-            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, context.getResources().getDrawable(R.drawable.ic_android), false, false, false, false);
+            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, false, context.getResources().getDrawable(R.drawable.ic_android));
             addAppInfo(tempApp);
           } catch (Exception e) {
             e.printStackTrace();
@@ -125,12 +124,12 @@ public class AppDatabase extends SQLiteOpenHelper {
         } else {
           try {
             // system apps
-            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, packageManager.getApplicationIcon(packageInfo.applicationInfo), true, false, false, false);
+            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, true, false, false, false, packageManager.getApplicationIcon(packageInfo.applicationInfo));
             addAppInfo(tempApp);
             UtilsApp.saveIconToCache(context, tempApp);
           } catch (OutOfMemoryError e) {
             //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
-            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, context.getResources().getDrawable(R.drawable.ic_android), false, false, false, false);
+            AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, false, context.getResources().getDrawable(R.drawable.ic_android));
             addAppInfo(tempApp);
           } catch (Exception e) {
             e.printStackTrace();
