@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       drawer.closeDrawer();
     } else if (searchItem.isVisible() && !searchView.isIconified()) {
       searchView.onActionViewCollapsed();
-    } else if (!appPreferences.getDoubleTap()) {
+    } else if (appPreferences.getDoubleTap()) {
       if (doubleBackToExitPressedOnce) {
         super.onBackPressed();
         return;
