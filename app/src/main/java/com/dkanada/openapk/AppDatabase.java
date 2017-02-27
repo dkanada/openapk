@@ -40,7 +40,7 @@ public class AppDatabase extends SQLiteOpenHelper {
           AppDatabase.COLUMN_NAME_DISABLED + " TEXT)";
   private static final String SQL_DELETE_ENTRIES =
       "DROP TABLE IF EXISTS " + AppDatabase.TABLE_NAME;
-  private static final String QUERY = "SELECT * FROM " + TABLE_NAME;
+  private static final String QUERY_ALL = "SELECT * FROM " + TABLE_NAME;
 
   public AppDatabase(Context context) {
     super(context, "apps.db", null, 1);
@@ -85,7 +85,7 @@ public class AppDatabase extends SQLiteOpenHelper {
 
   public Boolean checkAppInfoExists(AppInfo appInfo) {
     SQLiteDatabase db = getWritableDatabase();
-    Cursor cursor = db.rawQuery(QUERY, null);
+    Cursor cursor = db.rawQuery(QUERY_ALL, null);
     if (cursor.moveToFirst()) {
       do {
         if (cursor.getString(0).equals(appInfo.getAPK())) {
@@ -96,15 +96,35 @@ public class AppDatabase extends SQLiteOpenHelper {
     return false;
   }
 
-  public void updateAppInfo(AppInfo appInfo) {
-    removeAppInfo(appInfo);
-    addAppInfo(appInfo);
+  public void updateAppInfo(AppInfo appInfo, int data) {
+    SQLiteDatabase db = getWritableDatabase();
+    switch(data) {
+      // everything
+      default:
+        removeAppInfo(appInfo);
+        addAppInfo(appInfo);
+        break;
+      // system
+      case 1:
+        Cursor cursor = db.rawQuery(QUERY_ALL, null);
+        if (cursor.moveToFirst()) {
+        }
+        break;
+      // favorite
+      case 2:
+        break;
+      // hidden
+      case 3:
+        break;
+      // disabled
+      case 4:
+        break;
+    }
   }
 
   public void updateDatabase(Context context) {
     final PackageManager packageManager = context.getPackageManager();
     List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
-
     // installed and system apps
     for (PackageInfo packageInfo : packages) {
       if (!(packageManager.getApplicationLabel(packageInfo.applicationInfo).equals("") || packageInfo.packageName.equals(""))) {
@@ -142,7 +162,7 @@ public class AppDatabase extends SQLiteOpenHelper {
   public ArrayList<AppInfo> returnAppList(Context context, int data) {
     ArrayList<AppInfo> appList = new ArrayList<AppInfo>();
     SQLiteDatabase db = getWritableDatabase();
-    Cursor cursor = db.rawQuery(QUERY, null);
+    Cursor cursor = db.rawQuery(QUERY_ALL, null);
     if (cursor.moveToFirst()) {
       do {
         switch(data) {
