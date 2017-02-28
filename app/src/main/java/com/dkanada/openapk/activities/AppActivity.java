@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.dkanada.openapk.AppDatabase;
 import com.gc.materialdesign.views.Card;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -43,6 +44,7 @@ import java.util.Set;
 public class AppActivity extends AppCompatActivity {
   // load settings
   private AppPreferences appPreferences;
+  private AppDatabase appDatabase;
 
   // general variables
   private AppInfo appInfo;
@@ -71,6 +73,8 @@ public class AppActivity extends AppCompatActivity {
     setContentView(R.layout.activity_app);
     this.context = this;
     this.activity = (Activity) context;
+
+    appDatabase = new AppDatabase(context);
 
     getInitialConfiguration();
     setInitialConfiguration();
@@ -302,28 +306,28 @@ public class AppActivity extends AppCompatActivity {
 
   protected void updateDisableFAB(final FloatingActionButton fab_disable) {
     if (UtilsRoot.isRooted()) {
-      UtilsUI.updateAppDisabledIcon(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
+      UtilsUI.updateAppDisabledIcon(context, fab_disable, appDatabase.checkAppInfo(appInfo, 4));
       fab_disable.setVisibility(View.VISIBLE);
       fab_disable.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          if (UtilsApp.isAppDisabled(appInfo, appsDisabled)) {
+          if (appDatabase.checkAppInfo(appInfo, 4)) {
             Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), true);
             if (disabled) {
               UtilsApp.removeIconFromCache(context, appInfo);
-              appsDisabled.remove(appInfo.toString());
-              appPreferences.setDisabledApps(appsDisabled);
+              appInfo.setDisabled(false);
+              appDatabase.updateAppInfo(appInfo, 4);
               UtilsDialog.showSnackBar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
             }
           } else {
             UtilsApp.saveIconToCache(context, appInfo);
             Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), false);
             if (disabled) {
-              appsDisabled.add(appInfo.toString());
-              appPreferences.setDisabledApps(appsDisabled);
+              appInfo.setDisabled(true);
+              appDatabase.updateAppInfo(appInfo, 4);
             }
           }
-          UtilsUI.updateAppDisabledIcon(context, fab_disable, UtilsApp.isAppDisabled(appInfo, appsDisabled));
+          UtilsUI.updateAppDisabledIcon(context, fab_disable, appDatabase.checkAppInfo(appInfo, 4));
         }
       });
     }

@@ -166,7 +166,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
   }
 
-  public ArrayList<AppInfo> returnAppList(Context context, int data) {
+  public ArrayList<AppInfo> getAppList(Context context, int data) {
     ArrayList<AppInfo> appList = new ArrayList<AppInfo>();
     SQLiteDatabase db = getWritableDatabase();
     Cursor cursor = db.rawQuery(QUERY_ALL, null);
@@ -176,31 +176,31 @@ public class AppDatabase extends SQLiteOpenHelper {
           // installed
           default:
             if (cursor.getString(5).equals("0")) {
-              appList.add(returnAppInfo(context, cursor));
+              appList.add(getAppInfo(context, cursor));
             }
             break;
           // system
           case 1:
             if (cursor.getString(5).equals("1")) {
-              appList.add(returnAppInfo(context, cursor));
+              appList.add(getAppInfo(context, cursor));
             }
             break;
           // favorite
           case 2:
             if (cursor.getString(6).equals("1")) {
-              appList.add(returnAppInfo(context, cursor));
+              appList.add(getAppInfo(context, cursor));
             }
             break;
           // hidden
           case 3:
             if (cursor.getString(7).equals("1")) {
-              appList.add(returnAppInfo(context, cursor));
+              appList.add(getAppInfo(context, cursor));
             }
             break;
           // disabled
           case 4:
             if (cursor.getString(8).equals("1")) {
-              appList.add(returnAppInfo(context, cursor));
+              appList.add(getAppInfo(context, cursor));
             }
             break;
         }
@@ -209,7 +209,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     return appList;
   }
 
-  public AppInfo returnAppInfo(Context context, Cursor cursor) {
+  public AppInfo getAppInfo(Context context, Cursor cursor) {
     String name = cursor.getString(0);
     String apk = cursor.getString(1);
     String version = cursor.getString(2);

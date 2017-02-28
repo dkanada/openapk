@@ -3,9 +3,7 @@ package com.dkanada.openapk.activities;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,7 +22,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.content.pm.ApplicationInfo;
 
 import com.dkanada.openapk.AppDatabase;
 import com.dkanada.openapk.AppInfo;
@@ -38,11 +35,9 @@ import com.dkanada.openapk.utils.UtilsUI;
 import com.mikepenz.materialdrawer.Drawer;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
   private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
@@ -102,14 +97,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     recyclerView.setLayoutManager(linearLayoutManager);
     drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
 
-    getInstalledAppsFast();
+    getInstalledApps();
 
     refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
     refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
         refresh.setRefreshing(true);
-        new getInstalledApps().execute();
+        new updateInstalledApps().execute();
       }
     });
   }
@@ -130,13 +125,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
   }
 
-  private void getInstalledAppsFast() {
+  private void getInstalledApps() {
     AppDatabase db = new AppDatabase(context);
-    appInstalledList = sortAdapter(db.returnAppList(context, 0));
-    appSystemList = sortAdapter(db.returnAppList(context, 1));
-    appFavoriteList = sortAdapter(db.returnAppList(context, 2));
-    appHiddenList = sortAdapter(db.returnAppList(context, 3));
-    appDisabledList = sortAdapter(db.returnAppList(context, 4));
+    appInstalledList = sortAdapter(db.getAppList(context, 0));
+    appSystemList = sortAdapter(db.getAppList(context, 1));
+    appFavoriteList = sortAdapter(db.getAppList(context, 2));
+    appHiddenList = sortAdapter(db.getAppList(context, 3));
+    appDisabledList = sortAdapter(db.getAppList(context, 4));
 
     appAdapter = new AppAdapter(appInstalledList, context);
     appSystemAdapter = new AppAdapter(appSystemList, context);
@@ -169,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
   }
 
-  class getInstalledApps extends AsyncTask<Void, String, Void> {
+  class updateInstalledApps extends AsyncTask<Void, String, Void> {
     @Override
     protected Void doInBackground(Void... params) {
       AppDatabase db = new AppDatabase(context);
@@ -180,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     protected void onPostExecute(Void aVoid) {
       super.onPostExecute(aVoid);
-      getInstalledAppsFast();
+      getInstalledApps();
       refresh.setRefreshing(false);
     }
   }
