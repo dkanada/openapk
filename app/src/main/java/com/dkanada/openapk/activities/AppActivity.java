@@ -277,28 +277,28 @@ public class AppActivity extends AppCompatActivity {
 
   protected void updateHideFAB(final FloatingActionButton fab_hide) {
     if (UtilsRoot.isRooted()) {
-      UtilsUI.updateAppHiddenIcon(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
+      UtilsUI.updateAppHiddenIcon(context, fab_hide, appDatabase.checkAppInfo(appInfo, 3));
       fab_hide.setVisibility(View.VISIBLE);
       fab_hide.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          if (UtilsApp.isAppHidden(appInfo, appsHidden)) {
+          if (appDatabase.checkAppInfo(appInfo, 3)) {
             Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), true);
             if (hidden) {
               UtilsApp.removeIconFromCache(context, appInfo);
-              appsHidden.remove(appInfo.toString());
-              appPreferences.setHiddenApps(appsHidden);
+              appInfo.setHidden(false);
+              appDatabase.updateAppInfo(appInfo, 3);
               UtilsDialog.showSnackBar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
             }
           } else {
             UtilsApp.saveIconToCache(context, appInfo);
             Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), false);
             if (hidden) {
-              appsHidden.add(appInfo.toString());
-              appPreferences.setHiddenApps(appsHidden);
+              appInfo.setHidden(true);
+              appDatabase.updateAppInfo(appInfo, 3);
             }
           }
-          UtilsUI.updateAppHiddenIcon(context, fab_hide, UtilsApp.isAppHidden(appInfo, appsHidden));
+          UtilsUI.updateAppHiddenIcon(context, fab_hide, appDatabase.checkAppInfo(appInfo, 3));
         }
       });
     }
@@ -387,7 +387,7 @@ public class AppActivity extends AppCompatActivity {
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
     favorite = menu.findItem(R.id.action_favorite);
-    UtilsUI.updateAppFavoriteIcon(context, favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
+    UtilsUI.updateAppFavoriteIcon(context, favorite, appDatabase.checkAppInfo(appInfo, 2));
     return super.onPrepareOptionsMenu(menu);
   }
 
@@ -398,16 +398,16 @@ public class AppActivity extends AppCompatActivity {
         finish();
         return true;
       case R.id.action_favorite:
-        if (UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite)) {
-          appsFavorite.remove(appInfo.getAPK());
+        if (appDatabase.checkAppInfo(appInfo, 2)) {
+          appInfo.setFavorite(false);
+          appDatabase.updateAppInfo(appInfo, 2);
           UtilsApp.removeIconFromCache(context, appInfo);
-          appPreferences.setFavoriteApps(appsFavorite);
         } else {
-          appsFavorite.add(appInfo.getAPK());
+          appInfo.setFavorite(true);
+          appDatabase.updateAppInfo(appInfo, 2);
           UtilsApp.saveIconToCache(context, appInfo);
-          appPreferences.setFavoriteApps(appsFavorite);
         }
-        UtilsUI.updateAppFavoriteIcon(context, favorite, UtilsApp.isAppFavorite(appInfo.getAPK(), appsFavorite));
+        UtilsUI.updateAppFavoriteIcon(context, favorite, appDatabase.checkAppInfo(appInfo, 2));
         return true;
     }
     return super.onOptionsItemSelected(item);
