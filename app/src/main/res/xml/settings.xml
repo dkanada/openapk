@@ -26,7 +26,7 @@
   <PreferenceCategory
       android:title="@string/settings_title_colors">
     <ListPreference
-        android:defaultValue="1"
+        android:defaultValue="0"
         android:entries="@array/themeEntries"
         android:entryValues="@array/themeValues"
         android:key="prefTheme"

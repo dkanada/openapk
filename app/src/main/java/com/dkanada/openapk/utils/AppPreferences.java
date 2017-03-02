@@ -48,7 +48,7 @@ public class AppPreferences {
   }
 
   public String getTheme() {
-    return sharedPreferences.getString(KeyTheme, "1");
+    return sharedPreferences.getString(KeyTheme, "0");
   }
 
   public void setTheme(String res) {
