@@ -160,17 +160,17 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
   }
 
   private void setFilenameSummary() {
-    int filenameValue = Integer.valueOf(appPreferences.getFilename()) - 1;
+    int filenameValue = Integer.valueOf(appPreferences.getFilename());
     prefFilename.setSummary(getResources().getStringArray(R.array.filenameEntries)[filenameValue]);
   }
 
   private void setSortModeSummary() {
-    int sortValue = Integer.valueOf(appPreferences.getSortMode()) - 1;
+    int sortValue = Integer.valueOf(appPreferences.getSortMode());
     prefSortMode.setSummary(getResources().getStringArray(R.array.sortEntries)[sortValue]);
   }
 
   private void setThemeSummary(){
-    int sortValue = Integer.valueOf(appPreferences.getTheme()) - 1;
+    int sortValue = Integer.valueOf(appPreferences.getTheme());
     prefTheme.setSummary(getResources().getStringArray(R.array.themeEntries)[sortValue]);
   }
 

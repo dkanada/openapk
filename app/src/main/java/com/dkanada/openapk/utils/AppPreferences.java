@@ -40,11 +40,11 @@ public class AppPreferences {
   }
 
   public String getFilename() {
-    return sharedPreferences.getString(KeyFilename, "1");
+    return sharedPreferences.getString(KeyFilename, "0");
   }
 
   public String getSortMode() {
-    return sharedPreferences.getString(KeySortMode, "1");
+    return sharedPreferences.getString(KeySortMode, "0");
   }
 
   public String getTheme() {

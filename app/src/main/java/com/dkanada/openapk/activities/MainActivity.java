@@ -212,6 +212,17 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
           }
         });
         break;
+      case "1":
+        // compare by size
+        Collections.sort(appList, new Comparator<AppInfo>() {
+          @Override
+          public int compare(AppInfo appOne, AppInfo appTwo) {
+            Long size1 = new File(appOne.getData()).length();
+            Long size2 = new File(appTwo.getData()).length();
+            return size2.compareTo(size1);
+          }
+        });
+        break;
       case "2":
         // compare by size
         Collections.sort(appList, new Comparator<AppInfo>() {
@@ -224,17 +235,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
         break;
       case "3":
-        // compare by size
-        Collections.sort(appList, new Comparator<AppInfo>() {
-          @Override
-          public int compare(AppInfo appOne, AppInfo appTwo) {
-            Long size1 = new File(appOne.getData()).length();
-            Long size2 = new File(appTwo.getData()).length();
-            return size2.compareTo(size1);
-          }
-        });
-        break;
-      case "4":
         // compare by size
         Collections.sort(appList, new Comparator<AppInfo>() {
           @Override
