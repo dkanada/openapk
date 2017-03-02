@@ -1,3 +1,14 @@
+### 1.0
+###### Released: March 3, 2017
+* lots of code optimizations
+* the app lists refresh much faster now
+* current app list is not reset on refresh
+* root must be manually enabled in settings
+* add setting for double tap to exit
+* change refresh animation
+* hidden and disabled apps no longer show up in normal lists
+* disabled apps persist even after database refresh
+
 ### 0.9
 ###### Released: February 5, 2017
 * include a dark theme

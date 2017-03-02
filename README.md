@@ -3,23 +3,20 @@
 <p align="center"><img src="https://github.com/dkanada/OpenAPK/blob/master/app/src/main/ic_launcher-web.png" width="100" height="100"></p>
 <p align="center">A modern, easy and customizable app manager for Android with root features and material design.</p>
 
-This is a fork of MLManager 1.X made by Javier Santos, which is now unmaintained. I wanted to add a few features, namely an option to disable apps, which is now implemented.
+This is a fork of MLManager 1.X made by Javier Santos, which is now unmaintained. If you have any ideas or feature requests add them to the issues page. Pull requests are welcome and a materialized app icon would be great from someone who knows how to create svg files.
 
 ## Features
-* Extract installed or system apps and save locally as APK.
-* Organize your applications marking them as favorite.
-* Easily Uninstall apps.
+* Extract installed or system apps and save them locally.
+* Organize your applications and mark them as favorites.
+* Easily uninstall apps.
 * Customizations available in the settings.
 * No root required.
-* Material Design.
-* Really easy to use.
+* Material design interface.
 
 ## Root Features
-* Hide apps from the device launcher.
-* Disable apps entirely.
-* Easily manage your hidden and disabled apps from the side panel.
-* Remove cache per app.
-* Clean data per app.
+* Hide or disable apps from the device launcher.
+* Remove the cache for apps or remove all the data entirely.
+* Uninstall system apps.
 
 ## Translations
 Currently supported languages:
@@ -27,20 +24,15 @@ Currently supported languages:
 * Spanish
 * Japanese
 * Portuguese
-* Italian - Thanks to Lucian Sipos -
-* Polish - Thanks to TykTak -
+* Italian
+* Polish
 
 ## Third Party Libraries
 * [Material Design Library](https://github.com/navasmdc/MaterialDesignLibrary)
 * [Android Floating Action Button](https://github.com/futuresimple/android-floating-action-button)
 * [Material Dialogs](https://github.com/afollestad/material-dialogs)
 * [Ambil Warna](https://github.com/yukuku/ambilwarna)
-* [Materialish Progress](https://github.com/pnikosis/materialish-progress)
 * [Material Drawer](https://github.com/mikepenz/MaterialDrawer)
-* [RecyclerViewFastScroller](https://github.com/danoz73/RecyclerViewFastScroller)
-* [Phoenix](https://github.com/Yalantis/Phoenix)
-* [DirectoryChooser](https://github.com/passy/Android-DirectoryChooser)
-* [AboutLibraries](https://github.com/mikepenz/AboutLibraries)
 
 ## License
 

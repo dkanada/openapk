@@ -57,7 +57,7 @@
   <string name="dialog_clear_data_success">Data deleted</string>
   <string name="dialog_clear_data_success_description">All data for %s has been removed.</string>
   <string name="dialog_root_required">Root required</string>
-  <string name="dialog_root_required_description">Your device must be rooted for this feature to work.</string>
+  <string name="dialog_root_required_description">Your device must be rooted for this feature to work and root features must be enabled in the settings.</string>
   <string name="dialog_reboot">A reboot is necessary to display the changes. Do you want to reboot now?</string>
   <string name="dialog_cannot_open">%s can\'t be opened because it\'s hidden. Try to unhide this app before opening.</string>
   <string name="dialog_uninstall_root">Are you sure you want to uninstall?</string>
@@ -96,7 +96,7 @@
   <string name="settings_double_tap">Press back to exit</string>
   <string name="settings_double_tap_description">Press the back button twice to close the app.</string>
   <string name="settings_root_enabled">Enable root features</string>
-  <string name="settings_root_enabled_description">You must also have a rooted phone for this to work.</string>
+  <string name="settings_root_enabled_description">These features could break your phone but it will probably be fine.</string>
   <string name="settings_about">Made with \u2665 from Spain.</string>
 
   <!-- About -->
