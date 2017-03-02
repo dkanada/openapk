@@ -105,6 +105,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         new updateInstalledApps().execute();
       }
     });
+    refresh.post(new Runnable() {
+      @Override
+      public void run() {
+        refresh.setRefreshing(true);
+      }
+    });
 
     if (!appPreferences.getInitialSetup()) {
       appPreferences.setInitialSetup(true);
