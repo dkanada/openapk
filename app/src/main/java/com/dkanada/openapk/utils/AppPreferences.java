@@ -26,11 +26,7 @@ public class AppPreferences {
   public static final String KeyRootEnabled = "prefRootEnabled";
 
   // internal preferences
-  public static final String KeyInstalledApps = "prefInstalledApps";
-  public static final String KeySystemApps = "prefSystemApps";
-  public static final String KeyFavoriteApps = "prefFavoriteApps";
-  public static final String KeyHiddenApps = "prefHiddenApps";
-  public static final String KeyDisabledApps = "prefDisabledApps";
+  public static final String KeyInitialSetup = "prefInitialSetup";
   public static final String KeyIsRooted = "prefIsRooted";
 
   public AppPreferences(Context context) {
@@ -94,59 +90,13 @@ public class AppPreferences {
     return sharedPreferences.getBoolean(KeyRootEnabled, false);
   }
 
-  // every preference below here is for internal purposes only
-  public Set<String> getFavoriteApps() {
-    return sharedPreferences.getStringSet(KeyFavoriteApps, new HashSet<String>());
+  // internal preferences
+  public boolean getInitialSetup() {
+    return sharedPreferences.getBoolean(KeyInitialSetup, false);
   }
 
-  public void setFavoriteApps(Set<String> favoriteApps) {
-    editor.remove(KeyFavoriteApps);
-    editor.commit();
-    editor.putStringSet(KeyFavoriteApps, favoriteApps);
-    editor.commit();
-  }
-
-  public Set<String> getHiddenApps() {
-    return sharedPreferences.getStringSet(KeyHiddenApps, new HashSet<String>());
-  }
-
-  public void setHiddenApps(Set<String> hiddenApps) {
-    editor.remove(KeyHiddenApps);
-    editor.commit();
-    editor.putStringSet(KeyHiddenApps, hiddenApps);
-    editor.commit();
-  }
-
-  public Set<String> getDisabledApps() {
-    return sharedPreferences.getStringSet(KeyDisabledApps, new HashSet<String>());
-  }
-
-  public void setDisabledApps(Set<String> disabledApps) {
-    editor.remove(KeyDisabledApps);
-    editor.commit();
-    editor.putStringSet(KeyDisabledApps, disabledApps);
-    editor.commit();
-  }
-
-  public Set<String> getInstalledApps() {
-    return sharedPreferences.getStringSet(KeyInstalledApps, new HashSet<String>());
-  }
-
-  public void setInstalledApps(Set<String> installedApps) {
-    editor.remove(KeyInstalledApps);
-    editor.commit();
-    editor.putStringSet(KeyInstalledApps, installedApps);
-    editor.commit();
-  }
-
-  public Set<String> getSystemApps() {
-    return sharedPreferences.getStringSet(KeySystemApps, new HashSet<String>());
-  }
-
-  public void setSystemApps(Set<String> systemApps) {
-    editor.remove(KeySystemApps);
-    editor.commit();
-    editor.putStringSet(KeySystemApps, systemApps);
+  public void setInitialSetup(boolean setup) {
+    editor.putBoolean(KeyInitialSetup, setup);
     editor.commit();
   }
 
