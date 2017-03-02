@@ -148,33 +148,6 @@ public class UtilsApp {
     return intent;
   }
 
-  // check if app is favorite
-  public static Boolean isAppFavorite(String apk, Set<String> appFavorites) {
-    Boolean res = false;
-    if (appFavorites.contains(apk)) {
-      res = true;
-    }
-    return res;
-  }
-
-  // check if app is hidden
-  public static Boolean isAppHidden(AppInfo appInfo, Set<String> appHidden) {
-    Boolean res = false;
-    if (appHidden.contains(appInfo.toString())) {
-      res = true;
-    }
-    return res;
-  }
-
-  // check if app is disabled
-  public static Boolean isAppDisabled(AppInfo appInfo, Set<String> appDisabled) {
-    Boolean res = false;
-    if (appDisabled.contains(appInfo.toString())) {
-      res = true;
-    }
-    return res;
-  }
-
   // save app icon to cache folder
   public static Boolean saveIconToCache(Context context, AppInfo appInfo) {
     Boolean res = false;
