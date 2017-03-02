@@ -178,11 +178,15 @@ public class AppDatabase extends SQLiteOpenHelper {
       }
     }
     SQLiteDatabase db = getWritableDatabase();
-    Cursor cursor = db.rawQuery(QUERY, null);
+    String QUERY_EXIST = QUERY;
+    Cursor cursor = db.rawQuery(QUERY_EXIST, null);
     cursor.moveToFirst();
     do {
-      if (true == false) {
+      try {
+        ApplicationInfo tmp = packageManager.getPackageInfo(cursor.getString(1), 0).applicationInfo;
+      } catch (Exception e) {
         removeAppInfo(getAppInfo(context, cursor));
+        e.printStackTrace();
       }
     } while (cursor.moveToNext());
   }
