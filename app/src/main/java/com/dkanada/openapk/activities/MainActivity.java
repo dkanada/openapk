@@ -97,8 +97,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     recyclerView.setLayoutManager(linearLayoutManager);
     drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
 
-    getInstalledApps();
-
     refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
     refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
@@ -107,6 +105,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         new updateInstalledApps().execute();
       }
     });
+
+    if (!appPreferences.getInitialSetup()) {
+      appPreferences.setInitialSetup(true);
+      new updateInstalledApps().execute();
+    } else {
+      new getInstalledApps().execute();
+    }
   }
 
   private void setInitialConfiguration() {
@@ -125,47 +130,53 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
   }
 
-  private void getInstalledApps() {
-    if (!appPreferences.getInitialSetup()) {
-      appPreferences.setInitialSetup(true);
-      new updateInstalledApps().execute();
-    }
-    AppDatabase db = new AppDatabase(context);
-    appInstalledList = sortAdapter(db.getAppList(context, 0));
-    appSystemList = sortAdapter(db.getAppList(context, 1));
-    appFavoriteList = sortAdapter(db.getAppList(context, 2));
-    appHiddenList = sortAdapter(db.getAppList(context, 3));
-    appDisabledList = sortAdapter(db.getAppList(context, 4));
+  class getInstalledApps extends AsyncTask<Void, String, Void> {
+    @Override
+    protected Void doInBackground(Void... params) {
+      AppDatabase db = new AppDatabase(context);
 
-    appAdapter = new AppAdapter(appInstalledList, context);
-    appSystemAdapter = new AppAdapter(appSystemList, context);
-    appFavoriteAdapter = new AppAdapter(appFavoriteList, context);
-    appHiddenAdapter = new AppAdapter(appHiddenList, context);
-    appDisabledAdapter = new AppAdapter(appDisabledList, context);
+      appInstalledList = sortAdapter(db.getAppList(context, 0));
+      appSystemList = sortAdapter(db.getAppList(context, 1));
+      appFavoriteList = sortAdapter(db.getAppList(context, 2));
+      appHiddenList = sortAdapter(db.getAppList(context, 3));
+      appDisabledList = sortAdapter(db.getAppList(context, 4));
 
-    switch(OpenAPKApplication.getCurrentAdapter()) {
-      default:
-        recyclerView.swapAdapter(appAdapter, false);
-        UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
-        break;
-      case 1:
-        recyclerView.swapAdapter(appSystemAdapter, false);
-        UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_system_apps));
-        break;
-      case 2:
-        recyclerView.swapAdapter(appFavoriteAdapter, false);
-        UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_favorite_apps));
-        break;
-      case 3:
-        recyclerView.swapAdapter(appHiddenAdapter, false);
-        UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_hidden_apps));
-        break;
-      case 4:
-        recyclerView.swapAdapter(appDisabledAdapter, false);
-        UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_disabled_apps));
-        break;
+      appAdapter = new AppAdapter(appInstalledList, context);
+      appSystemAdapter = new AppAdapter(appSystemList, context);
+      appFavoriteAdapter = new AppAdapter(appFavoriteList, context);
+      appHiddenAdapter = new AppAdapter(appHiddenList, context);
+      appDisabledAdapter = new AppAdapter(appDisabledList, context);
+      return null;
     }
-    drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+      switch(OpenAPKApplication.getCurrentAdapter()) {
+        default:
+          recyclerView.swapAdapter(appAdapter, false);
+          UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
+          break;
+        case 1:
+          recyclerView.swapAdapter(appSystemAdapter, false);
+          UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_system_apps));
+          break;
+        case 2:
+          recyclerView.swapAdapter(appFavoriteAdapter, false);
+          UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_favorite_apps));
+          break;
+        case 3:
+          recyclerView.swapAdapter(appHiddenAdapter, false);
+          UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_hidden_apps));
+          break;
+        case 4:
+          recyclerView.swapAdapter(appDisabledAdapter, false);
+          UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_disabled_apps));
+          break;
+      }
+      drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
+      super.onPostExecute(aVoid);
+      refresh.setRefreshing(false);
+    }
   }
 
   class updateInstalledApps extends AsyncTask<Void, String, Void> {
@@ -179,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     protected void onPostExecute(Void aVoid) {
       super.onPostExecute(aVoid);
-      getInstalledApps();
+      new getInstalledApps().execute();
       refresh.setRefreshing(false);
     }
   }
