@@ -177,6 +177,14 @@ public class AppDatabase extends SQLiteOpenHelper {
         }
       }
     }
+    SQLiteDatabase db = getWritableDatabase();
+    Cursor cursor = db.rawQuery(QUERY, null);
+    cursor.moveToFirst();
+    do {
+      if (true == false) {
+        removeAppInfo(getAppInfo(context, cursor));
+      }
+    } while (cursor.moveToNext());
   }
 
   public ArrayList<AppInfo> getAppList(Context context, int data) {
