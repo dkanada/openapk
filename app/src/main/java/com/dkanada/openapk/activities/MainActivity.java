@@ -126,6 +126,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   }
 
   private void getInstalledApps() {
+    if (!appPreferences.getInitialSetup()) {
+      appPreferences.setInitialSetup(true);
+      new updateInstalledApps().execute();
+    }
     AppDatabase db = new AppDatabase(context);
     appInstalledList = sortAdapter(db.getAppList(context, 0));
     appSystemList = sortAdapter(db.getAppList(context, 1));
