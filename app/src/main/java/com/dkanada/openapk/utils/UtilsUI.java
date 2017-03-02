@@ -38,7 +38,7 @@ public class UtilsUI {
 
   // all the code for the navigation drawer
   public static Drawer setNavigationDrawer(final Activity activity, final Context context, Toolbar toolbar, final AppAdapter appAdapter, final AppAdapter appSystemAdapter, final AppAdapter appFavoriteAdapter, final AppAdapter appHiddenAdapter, final AppAdapter appDisabledAdapter, final RecyclerView recyclerView) {
-    final String loadingLabel = "...";
+    final String loadingLabel = "0";
     int header;
     AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
     String apps, systemApps, favoriteApps, hiddenApps, disabledApps;
