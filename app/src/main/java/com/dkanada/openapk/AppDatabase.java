@@ -150,12 +150,12 @@ public class AppDatabase extends SQLiteOpenHelper {
       if (!(packageManager.getApplicationLabel(packageInfo.applicationInfo).equals("") || packageInfo.packageName.equals("")) && (packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
         try {
           // installed apps
-          AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, false, packageManager.getApplicationIcon(packageInfo.applicationInfo));
+          AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, !packageInfo.applicationInfo.enabled, packageManager.getApplicationIcon(packageInfo.applicationInfo));
           addAppInfo(tempApp);
           UtilsApp.saveIconToCache(context, tempApp);
         } catch (OutOfMemoryError e) {
           //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
-          AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, false, context.getResources().getDrawable(R.drawable.ic_android));
+          AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, !packageInfo.applicationInfo.enabled, context.getResources().getDrawable(R.drawable.ic_android));
           addAppInfo(tempApp);
         } catch (Exception e) {
           e.printStackTrace();
@@ -163,12 +163,12 @@ public class AppDatabase extends SQLiteOpenHelper {
       } else {
         try {
           // system apps
-          AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, true, false, false, false, packageManager.getApplicationIcon(packageInfo.applicationInfo));
+          AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, true, false, false, !packageInfo.applicationInfo.enabled, packageManager.getApplicationIcon(packageInfo.applicationInfo));
           addAppInfo(tempApp);
           UtilsApp.saveIconToCache(context, tempApp);
         } catch (OutOfMemoryError e) {
           //TODO Workaround to avoid FC on some devices (OutOfMemoryError). Drawable should be cached before.
-          AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, false, context.getResources().getDrawable(R.drawable.ic_android));
+          AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, !packageInfo.applicationInfo.enabled, context.getResources().getDrawable(R.drawable.ic_android));
           addAppInfo(tempApp);
         } catch (Exception e) {
           e.printStackTrace();

@@ -57,9 +57,9 @@ public class UtilsRoot {
   public static boolean uninstallWithRootPermission(String source) {
     boolean status = false;
     try {
-      String[] command_write = new String[]{"su", "-c", "mount -o rw,remount /system\n"};
-      String[] command_delete = new String[]{"su", "-c", "rm -r " + "/" + source + "\n"};
-      String[] command_read = new String[]{"su", "-c", "mount -o ro,remount /system\n"};
+      String[] command_write = new String[]{"su", "-c", "mount -o rw,remount /system"};
+      String[] command_delete = new String[]{"su", "-c", "rm -r " + "/" + source};
+      String[] command_read = new String[]{"su", "-c", "mount -o ro,remount /system"};
 
       Process process = Runtime.getRuntime().exec(command_write);
       process.waitFor();
@@ -104,9 +104,9 @@ public class UtilsRoot {
     try {
       String[] command;
       if (hidden) {
-        command = new String[]{"su", "-c", "pm unhide " + apk + "\n"};
+        command = new String[]{"su", "-c", "pm unhide " + apk};
       } else {
-        command = new String[]{"su", "-c", "pm hide " + apk + "\n"};
+        command = new String[]{"su", "-c", "pm hide " + apk};
       }
       Process process = Runtime.getRuntime().exec(command);
       process.waitFor();
@@ -125,9 +125,9 @@ public class UtilsRoot {
     try {
       String[] command;
       if (disabled) {
-        command = new String[]{"su", "-c", "pm enable " + app + "\n"};
+        command = new String[]{"su", "-c", "pm enable " + app};
       } else {
-        command = new String[]{"su", "-c", "pm disable " + app + "\n"};
+        command = new String[]{"su", "-c", "pm disable " + app};
       }
       Process process = Runtime.getRuntime().exec(command);
       process.waitFor();
@@ -144,7 +144,7 @@ public class UtilsRoot {
   public static boolean rebootSystem() {
     boolean status = false;
     try {
-      String[] command = new String[]{"su", "-c", "reboot\n"};
+      String[] command = new String[]{"su", "-c", "reboot"};
       Process process = Runtime.getRuntime().exec(command);
       process.waitFor();
       int i = process.exitValue();
