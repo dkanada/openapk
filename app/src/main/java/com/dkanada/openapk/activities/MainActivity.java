@@ -44,14 +44,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
   // settings
   private AppPreferences appPreferences;
-
-  // general variables
-  private List<AppInfo> appInstalledList;
-  private List<AppInfo> appSystemList;
-  private List<AppInfo> appFavoriteList;
-  private List<AppInfo> appHiddenList;
-  private List<AppInfo> appDisabledList;
-
   private AppAdapter appAdapter;
   private AppAdapter appSystemAdapter;
   private AppAdapter appFavoriteAdapter;
@@ -137,6 +129,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   }
 
   class getInstalledApps extends AsyncTask<Void, String, Void> {
+    private List<AppInfo> appInstalledList;
+    private List<AppInfo> appSystemList;
+    private List<AppInfo> appFavoriteList;
+    private List<AppInfo> appHiddenList;
+    private List<AppInfo> appDisabledList;
+
     @Override
     protected Void doInBackground(Void... params) {
       AppDatabase db = new AppDatabase(context);

@@ -42,24 +42,14 @@ import com.dkanada.openapk.utils.UtilsUI;
 import java.util.Set;
 
 public class AppActivity extends AppCompatActivity {
-  // load settings
   private AppPreferences appPreferences;
   private AppDatabase appDatabase;
-
-  // general variables
-  private AppInfo appInfo;
-  private Set<String> appsFavorite;
-  private Set<String> appsHidden;
-  private Set<String> appsDisabled;
-
-  // configuration variables
-  private int UNINSTALL_REQUEST_CODE = 1;
   private Context context;
   private Activity activity;
   private MenuItem favorite;
-
-  // other variables
+  private AppInfo appInfo;
   private FloatingActionsMenu fab;
+  private int UNINSTALL_REQUEST_CODE = 1;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
