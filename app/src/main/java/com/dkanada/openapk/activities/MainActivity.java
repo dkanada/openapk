@@ -197,7 +197,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     protected void onPostExecute(Void aVoid) {
       super.onPostExecute(aVoid);
       new getInstalledApps().execute();
-      refresh.setRefreshing(false);
     }
   }
 

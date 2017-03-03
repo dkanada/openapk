@@ -96,7 +96,7 @@
   <string name="settings_double_tap">Press back to exit</string>
   <string name="settings_double_tap_description">Press the back button twice to close the app.</string>
   <string name="settings_root_enabled">Enable root features</string>
-  <string name="settings_root_enabled_description">These features could break your phone but it will probably be fine.</string>
+  <string name="settings_root_enabled_description">This could break your phone but it will probably be fine.</string>
   <string name="settings_about">Made with \u2665 from Spain.</string>
 
   <!-- About -->
