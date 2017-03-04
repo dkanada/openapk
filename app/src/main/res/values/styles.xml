@@ -1,7 +1,6 @@
 <resources>
 
-  <style name="Light"
-      parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="Light" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
     <!-- colorPrimary is used for the action bar background -->
@@ -14,8 +13,7 @@
     <item name="android:textColor">@color/textLight</item>
   </style>
 
-  <style name="Dark"
-      parent="Theme.AppCompat.NoActionBar">
+  <style name="Dark" parent="Theme.AppCompat.NoActionBar">
     <item name="android:windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
     <!-- colorPrimary is used for the default action bar background -->
@@ -28,8 +26,7 @@
     <item name="android:textColor">@color/textDark</item>
   </style>
 
-  <style name="DrawerDark"
-      parent="MaterialDrawerTheme">
+  <style name="DrawerDark" parent="MaterialDrawerTheme">
     <!-- MaterialDrawer specific values -->
     <item name="material_drawer_background">@color/material_drawer_dark_background</item>
     <item name="material_drawer_primary_text">@color/material_drawer_dark_primary_text</item>
@@ -42,8 +39,7 @@
     <item name="material_drawer_header_selection_text">@color/material_drawer_dark_header_selection_text</item>
   </style>
 
-  <style name="CardViewStyle"
-      parent="CardView">
+  <style name="CardViewStyle" parent="CardView">
     <item name="cardCornerRadius">2dp</item>
     <item name="cardElevation">2dp</item>
   </style>
