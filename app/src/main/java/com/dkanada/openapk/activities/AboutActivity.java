@@ -15,29 +15,20 @@ import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.UtilsApp;
 import com.dkanada.openapk.utils.UtilsUI;
 
-public class AboutActivity extends AppCompatActivity {
-  // load settings
-  AppPreferences appPreferences;
-
-  // about variables
-  private Context context;
+public class AboutActivity extends ThemableActivity {
+  private AppPreferences appPreferences;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    this.appPreferences = OpenAPKApplication.getAppPreferences();
-    if (appPreferences.getTheme().equals("1")) {
-      setTheme(R.style.Light);
-    } else {
-      setTheme(R.style.Dark);
-    }
+    appPreferences = OpenAPKApplication.getAppPreferences();
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_about);
-    this.context = this;
 
     setInitialConfiguration();
     setScreenElements();
   }
 
+  // TODO this is the same for every activity, maybe add to themable activity
   private void setInitialConfiguration() {
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);

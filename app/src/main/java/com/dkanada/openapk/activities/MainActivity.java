@@ -39,7 +39,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class MainActivity extends ThemableActivity implements SearchView.OnQueryTextListener {
   private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
 
   // settings
@@ -66,12 +66,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     this.appPreferences = OpenAPKApplication.getAppPreferences();
-    if (appPreferences.getTheme().equals("1")) {
-      setTheme(R.style.Light);
-    } else {
-      setTheme(R.style.Dark);
-      setTheme(R.style.DrawerDark);
-    }
     setContentView(R.layout.activity_main);
     this.activity = this;
     this.context = this;
@@ -115,9 +109,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
   private void setInitialConfiguration() {
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
-    if (getSupportActionBar() != null) {
-      getSupportActionBar().setTitle(R.string.app_name);
-    }
+    getSupportActionBar().setTitle(R.string.app_name);
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
       getWindow().setStatusBarColor(UtilsUI.darker(appPreferences.getPrimaryColorPref(), 0.8));

@@ -41,7 +41,7 @@ import com.dkanada.openapk.utils.UtilsUI;
 
 import java.util.Set;
 
-public class AppActivity extends AppCompatActivity {
+public class AppActivity extends ThemableActivity {
   private AppPreferences appPreferences;
   private AppDatabase appDatabase;
   private Context context;
@@ -54,14 +54,9 @@ public class AppActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     this.appPreferences = OpenAPKApplication.getAppPreferences();
-    if (appPreferences.getTheme().equals("1")) {
-      setTheme(R.style.Light);
-    } else {
-      setTheme(R.style.Dark);
-    }
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_app);
-    this.context = this;
+    context = this;
     this.activity = (Activity) context;
 
     appDatabase = new AppDatabase(context);
@@ -74,12 +69,7 @@ public class AppActivity extends AppCompatActivity {
   private void setInitialConfiguration() {
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
-    if (getSupportActionBar() != null) {
-      getSupportActionBar().setTitle("");
-      getSupportActionBar().setHomeButtonEnabled(true);
-      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
+    getSupportActionBar().setTitle("");
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {

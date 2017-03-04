@@ -1,5 +1,7 @@
 package com.dkanada.openapk.activities;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +11,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,104 +21,35 @@ import android.widget.LinearLayout;
 
 import com.dkanada.openapk.OpenAPKApplication;
 import com.dkanada.openapk.R;
+import com.dkanada.openapk.fragments.SettingsFragment;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.UtilsApp;
 import com.dkanada.openapk.utils.UtilsUI;
 
 import yuku.ambilwarna.widget.AmbilWarnaPreference;
 
-public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-
-  // load settings
+public class SettingsActivity extends ThemableActivity {
   private AppPreferences appPreferences;
-  private Toolbar toolbar;
-  private Context context;
-
-  private Preference prefDeleteAll, prefCustomPath, prefNavigationColor, prefDefaultValues, prefDoubleTap, prefRootEnabled, prefVersion;
-  private AmbilWarnaPreference prefPrimaryColor, prefFABColor;
-  private ListPreference prefFilename, prefSortMode, prefTheme;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     this.appPreferences = OpenAPKApplication.getAppPreferences();
-    if (appPreferences.getTheme().equals("1")) {
-      setTheme(R.style.Light);
-    } else {
-      setTheme(R.style.Dark);
-    }
     super.onCreate(savedInstanceState);
-    addPreferencesFromResource(R.xml.settings);
-    this.context = this;
-
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-    prefs.registerOnSharedPreferenceChangeListener(this);
-
-    prefDeleteAll = findPreference("prefDeleteAll");
-    prefCustomPath = findPreference("prefCustomPath");
-    prefFilename = (ListPreference) findPreference("prefFilename");
-    prefSortMode = (ListPreference) findPreference("prefSortMode");
-
-    prefTheme = (ListPreference) findPreference("prefTheme");
-    prefPrimaryColor = (AmbilWarnaPreference) findPreference("prefPrimaryColor");
-    prefFABColor = (AmbilWarnaPreference) findPreference("prefFABColor");
-    prefNavigationColor = findPreference("prefNavigationColor");
-    prefDefaultValues = findPreference("prefDefaultValues");
-
-    prefDoubleTap = findPreference("prefDoubleTap");
-    prefRootEnabled = findPreference("prefRootEnabled");
-    prefVersion = findPreference("prefVersion");
+    setContentView(R.layout.activity_settings);
 
     setInitialConfiguration();
 
-    prefVersion.setTitle(getResources().getString(R.string.app_name) + " v" + UtilsApp.getAppVersionName(context));
-    prefVersion.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-      @Override
-      public boolean onPreferenceClick(Preference preference) {
-        startActivity(new Intent(context, AboutActivity.class));
-        return false;
-      }
-    });
-
-    // set a few preference summaries
-    setCustomPathSummary();
-    setFilenameSummary();
-    setSortModeSummary();
-    setThemeSummary();
-
-    // prefDeleteAll
-    prefDeleteAll.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-      @Override
-      public boolean onPreferenceClick(Preference preference) {
-        prefDeleteAll.setSummary(R.string.deleting);
-        prefDeleteAll.setEnabled(false);
-        Boolean deleteAll = UtilsApp.deleteAppFiles();
-        if (deleteAll) {
-          prefDeleteAll.setSummary(R.string.deleting_done);
-        } else {
-          prefDeleteAll.setSummary(R.string.deleting_error);
-        }
-        prefDeleteAll.setEnabled(true);
-        return true;
-      }
-    });
-
-    // prefDefaultValues
-    prefDefaultValues.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-      @Override
-      public boolean onPreferenceClick(Preference preference) {
-        appPreferences.setPrimaryColorPref(getResources().getColor(R.color.actionBar));
-        appPreferences.setFABColorPref(getResources().getColor(R.color.fab));
-        return true;
-      }
-    });
+    FragmentManager fragmentManager = getFragmentManager();
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    SettingsFragment fragment = new SettingsFragment();
+    fragmentTransaction.add(R.id.fragment_container, fragment);
+    fragmentTransaction.commit();
   }
 
-  @Override
-  public void setContentView(int layoutResID) {
-    ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.activity_settings, new LinearLayout(this), false);
-    toolbar = (Toolbar) contentView.findViewById(R.id.toolbar);
-    //TODO Toolbar should load the default style in XML (white title and back arrow), but doesn't happen
-    toolbar.setTitleTextColor(getResources().getColor(R.color.textWhite));
+  private void setInitialConfiguration() {
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
+    getSupportActionBar().setTitle(R.string.action_settings);
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -123,15 +57,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
       }
     });
 
-    ViewGroup contentWrapper = (ViewGroup) contentView.findViewById(R.id.content_wrapper);
-    LayoutInflater.from(this).inflate(layoutResID, contentWrapper, true);
-    getWindow().setContentView(contentView);
-  }
-
-  private void setInitialConfiguration() {
-    toolbar.setTitle(getResources().getString(R.string.action_settings));
-
-    // 5.0+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
       getWindow().setStatusBarColor(UtilsUI.darker(appPreferences.getPrimaryColorPref(), 0.8));
@@ -140,58 +65,5 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         getWindow().setNavigationBarColor(appPreferences.getPrimaryColorPref());
       }
     }
-
-    // 5.0-
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-      prefPrimaryColor.setEnabled(false);
-      prefNavigationColor.setEnabled(false);
-      prefNavigationColor.setDefaultValue(false);
-    }
-  }
-
-  private void setCustomPathSummary() {
-    String path = appPreferences.getCustomPath();
-    if (path.equals(UtilsApp.getDefaultAppFolder().getPath())) {
-      prefCustomPath.setSummary("Not implemented yet due to non-free dependencies.");
-      //prefCustomPath.setSummary(UtilsApp.getDefaultAppFolder().getPath());
-    } else {
-      prefCustomPath.setSummary(path);
-    }
-  }
-
-  private void setFilenameSummary() {
-    int filenameValue = Integer.valueOf(appPreferences.getFilename());
-    prefFilename.setSummary(getResources().getStringArray(R.array.filenameEntries)[filenameValue]);
-  }
-
-  private void setSortModeSummary() {
-    int sortValue = Integer.valueOf(appPreferences.getSortMode());
-    prefSortMode.setSummary(getResources().getStringArray(R.array.sortEntries)[sortValue]);
-  }
-
-  private void setThemeSummary(){
-    int sortValue = Integer.valueOf(appPreferences.getTheme());
-    prefTheme.setSummary(getResources().getStringArray(R.array.themeEntries)[sortValue]);
-  }
-
-  @Override
-  public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-    Preference pref = findPreference(key);
-    if (pref == prefCustomPath) {
-      setCustomPathSummary();
-    } else if (pref == prefFilename) {
-      setFilenameSummary();
-    } else if (pref == prefSortMode) {
-      setSortModeSummary();
-    } else if (pref == prefTheme) {
-      setThemeSummary();
-    }
-  }
-
-  @Override
-  public void onBackPressed() {
-    Intent intent = new Intent(context, MainActivity.class);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-    context.startActivity(intent);
   }
 }
