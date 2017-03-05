@@ -33,7 +33,7 @@ public class SettingsActivity extends ThemableActivity {
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
-    this.appPreferences = OpenAPKApplication.getAppPreferences();
+    appPreferences = OpenAPKApplication.getAppPreferences();
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
 

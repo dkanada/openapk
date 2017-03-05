@@ -64,8 +64,8 @@ public class MainActivity extends ThemableActivity implements SearchView.OnQuery
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    appPreferences = OpenAPKApplication.getAppPreferences();
     super.onCreate(savedInstanceState);
-    this.appPreferences = OpenAPKApplication.getAppPreferences();
     setContentView(R.layout.activity_main);
     this.activity = this;
     this.context = this;

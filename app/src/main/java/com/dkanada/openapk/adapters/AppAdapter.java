@@ -100,17 +100,22 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
       @Override
       public void onClick(View view) {
         Activity activity = (Activity) context;
-
         Intent intent = new Intent(context, AppActivity.class);
+
         intent.putExtra("app_name", appInfo.getName());
         intent.putExtra("app_apk", appInfo.getAPK());
         intent.putExtra("app_version", appInfo.getVersion());
         intent.putExtra("app_source", appInfo.getSource());
         intent.putExtra("app_data", appInfo.getData());
+        intent.putExtra("app_isSystem", appInfo.getSystem());
+        intent.putExtra("app_isFavorite", appInfo.getFavorite());
+        intent.putExtra("app_isHidden", appInfo.getHidden());
+        intent.putExtra("app_isDisabled", appInfo.getDisabled());
+
         Bitmap bitmap = ((BitmapDrawable) appInfo.getIcon()).getBitmap();
         intent.putExtra("app_icon", bitmap);
-        intent.putExtra("app_isSystem", appInfo.getSystem());
 
+        // the icon will smoothly transition to its new location if version is above lollipop
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
           String transitionName = context.getResources().getString(R.string.app_icon_transition);
           ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, appIcon, transitionName);
@@ -165,12 +170,12 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
   }
 
   public static class AppViewHolder extends RecyclerView.ViewHolder {
-    protected TextView vName;
-    protected TextView vApk;
-    protected ImageView vIcon;
-    protected ButtonFlat vExtract;
-    protected ButtonFlat vShare;
-    protected CardView vCard;
+    private TextView vName;
+    private TextView vApk;
+    private ImageView vIcon;
+    private ButtonFlat vExtract;
+    private ButtonFlat vShare;
+    private CardView vCard;
 
     public AppViewHolder(View v) {
       super(v);

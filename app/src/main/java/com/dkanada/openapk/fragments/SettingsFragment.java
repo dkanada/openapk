@@ -21,13 +21,14 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
   private Preference prefDeleteAll, prefCustomPath, prefNavigationColor, prefDefaultValues, prefDoubleTap, prefRootEnabled, prefVersion;
   private AmbilWarnaPreference prefPrimaryColor, prefFABColor;
   private ListPreference prefFilename, prefSortMode, prefTheme;
-  AppPreferences preferences;
+  AppPreferences appPreferences;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
+    appPreferences = OpenAPKApplication.getAppPreferences();
     super.onCreate(savedInstanceState);
     addPreferencesFromResource(R.xml.settings);
-    preferences = OpenAPKApplication.getAppPreferences();
+
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
     prefs.registerOnSharedPreferenceChangeListener(this);
 
@@ -76,16 +77,16 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
     prefDefaultValues.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
       @Override
       public boolean onPreferenceClick(Preference preference) {
-        preferences.setPrimaryColorPref(getResources().getColor(R.color.actionBar));
-        preferences.setFABColorPref(getResources().getColor(R.color.fab));
+        appPreferences.setPrimaryColorPref(getResources().getColor(R.color.actionBar));
+        appPreferences.setFABColorPref(getResources().getColor(R.color.fab));
         return true;
       }
     });
 
+    // removes settings that wont work on lower versions
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       prefPrimaryColor.setEnabled(false);
       prefNavigationColor.setEnabled(false);
-      prefNavigationColor.setDefaultValue(false);
     }
 
     setSortModeSummary();
@@ -95,7 +96,7 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
   }
 
   private void setCustomPathSummary() {
-    String path = preferences.getCustomPath();
+    String path = appPreferences.getCustomPath();
     if (path.equals(UtilsApp.getDefaultAppFolder().getPath())) {
       prefCustomPath.setSummary("Not implemented yet due to non-free dependencies.");
       //prefCustomPath.setSummary(UtilsApp.getDefaultAppFolder().getPath());
@@ -105,17 +106,17 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
   }
 
   private void setFilenameSummary() {
-    int filenameValue = Integer.valueOf(preferences.getFilename());
+    int filenameValue = Integer.valueOf(appPreferences.getFilename());
     prefFilename.setSummary(getResources().getStringArray(R.array.filenameEntries)[filenameValue]);
   }
 
   private void setSortModeSummary() {
-    int sortValue = Integer.valueOf(preferences.getSortMode());
+    int sortValue = Integer.valueOf(appPreferences.getSortMode());
     prefSortMode.setSummary(getResources().getStringArray(R.array.sortEntries)[sortValue]);
   }
 
   private void setThemeSummary(){
-    int sortValue = Integer.valueOf(preferences.getTheme());
+    int sortValue = Integer.valueOf(appPreferences.getTheme());
     prefTheme.setSummary(getResources().getStringArray(R.array.themeEntries)[sortValue]);
   }
 
