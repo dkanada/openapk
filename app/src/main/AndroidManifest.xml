@@ -26,7 +26,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+                android:resource="@xml/search" />
         </activity>
         <activity android:name="com.dkanada.openapk.activities.AppActivity" />
         <activity android:name="com.dkanada.openapk.activities.SettingsActivity" />

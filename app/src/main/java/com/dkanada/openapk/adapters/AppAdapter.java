@@ -165,7 +165,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
 
   @Override
   public AppViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-    View appAdapterView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.app_layout, viewGroup, false);
+    View appAdapterView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_app, viewGroup, false);
     return new AppViewHolder(appAdapterView);
   }
 
