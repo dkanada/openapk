@@ -1,3 +1,10 @@
+### 1.0.1
+###### Released: March 9, 2017
+* all tasks are ran in the background now
+* fix for hidden apps getting removed from the database
+* minor changes to strings for new tasks
+* fix refresh animation ending too early
+
 ### 1.0
 ###### Released: March 3, 2017
 * lots of code optimizations

@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 26
-        versionName "1.0"
+        versionCode 27
+        versionName "1.0.1"
     }
 
     buildTypes {
@@ -50,5 +50,4 @@ dependencies {
     compile 'com.github.yukuku:ambilwarna:2.0.1'
     compile('com.mikepenz:materialdrawer:4.6.1@aar') { transitive = true; }
     compile 'com.mikepenz:google-material-typeface:1.2.0.1@aar'
-
 }
