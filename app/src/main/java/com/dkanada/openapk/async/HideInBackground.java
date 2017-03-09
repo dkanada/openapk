@@ -38,7 +38,6 @@ public class HideInBackground extends AsyncTask<Void, String, Boolean> {
         status = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), appDatabase.checkAppInfo(appInfo, 3));
         appInfo.setHidden(false);
         appDatabase.updateAppInfo(appInfo, 3);
-        UtilsDialog.showSnackBar(activity, context.getResources().getString(R.string.dialog_reboot), context.getResources().getString(R.string.button_reboot), null, 3).show();
       }
     }
     return status;
@@ -49,7 +48,7 @@ public class HideInBackground extends AsyncTask<Void, String, Boolean> {
     super.onPostExecute(status);
     dialog.dismiss();
     if (status) {
-      UtilsDialog.showSnackBar(activity, "temp", null, null, 2).show();
+      UtilsDialog.showSnackBar(activity, context.getResources().getString(R.string.dialog_reboot), context.getResources().getString(R.string.button_reboot), null, 3).show();
     } else {
       UtilsDialog.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     }
