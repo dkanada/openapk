@@ -1,26 +1,24 @@
 package com.dkanada.openapk.activities;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.dkanada.openapk.OpenAPKApplication;
+import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.UtilsApp;
-import com.dkanada.openapk.utils.UtilsUI;
+import com.dkanada.openapk.utils.AppUtils;
+import com.dkanada.openapk.utils.InterfaceUtils;
 
-public class AboutActivity extends ThemableActivity {
+public class AboutActivity extends ThemeActivity {
   private AppPreferences appPreferences;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    appPreferences = OpenAPKApplication.getAppPreferences();
+    appPreferences = App.getAppPreferences();
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_about);
 
@@ -42,7 +40,7 @@ public class AboutActivity extends ThemableActivity {
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-      getWindow().setStatusBarColor(UtilsUI.darker(appPreferences.getPrimaryColorPref(), 0.8));
+      getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColorPref(), 0.8));
       toolbar.setBackgroundColor(appPreferences.getPrimaryColorPref());
       if (appPreferences.getNavigationColorPref()) {
         getWindow().setNavigationBarColor(appPreferences.getPrimaryColorPref());
@@ -55,6 +53,6 @@ public class AboutActivity extends ThemableActivity {
     TextView appNameVersion = (TextView) findViewById(R.id.app_name);
 
     header.setBackgroundColor(appPreferences.getPrimaryColorPref());
-    appNameVersion.setText(getResources().getString(R.string.app_name) + " " + UtilsApp.getAppVersionName(getApplicationContext()));
+    appNameVersion.setText(getResources().getString(R.string.app_name) + " " + AppUtils.getAppVersionName(getApplicationContext()));
   }
 }
