@@ -18,16 +18,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.dkanada.openapk.utils.AppUtils;
 import com.gc.materialdesign.views.ButtonFlat;
-import com.dkanada.openapk.OpenAPKApplication;
+import com.dkanada.openapk.App;
 import com.dkanada.openapk.activities.AppActivity;
-import com.dkanada.openapk.AppInfo;
+import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.activities.MainActivity;
-import com.dkanada.openapk.async.ExtractFileInBackground;
+import com.dkanada.openapk.async.ExtractFileAsync;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.UtilsApp;
-import com.dkanada.openapk.utils.UtilsDialog;
+import com.dkanada.openapk.utils.DialogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
   public AppAdapter(List<AppInfo> appList, Context context) {
     this.appList = appList;
     this.context = context;
-    this.appPreferences = OpenAPKApplication.getAppPreferences();
+    this.appPreferences = App.getAppPreferences();
   }
 
   @Override
@@ -80,18 +80,18 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
     appExtract.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
+        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
             , String.format(context.getResources().getString(R.string.dialog_saving), appInfo.getName())
             , context.getResources().getString(R.string.dialog_saving_description));
-        new ExtractFileInBackground(context, dialog, appInfo).execute();
+        new ExtractFileAsync(context, dialog, appInfo).execute();
       }
     });
 
     appShare.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        UtilsApp.extractFile(appInfo);
-        Intent shareIntent = UtilsApp.getShareIntent(UtilsApp.getOutputFilename(appInfo));
+        AppUtils.extractFile(appInfo);
+        Intent shareIntent = AppUtils.getShareIntent(AppUtils.getOutputFilename(appInfo));
         context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send_to), appInfo.getName())));
       }
     });

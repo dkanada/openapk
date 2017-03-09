@@ -15,8 +15,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 
-import com.dkanada.openapk.AppInfo;
-import com.dkanada.openapk.OpenAPKApplication;
+import com.dkanada.openapk.App;
+import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
 
 import org.apache.commons.io.FileUtils;
@@ -25,9 +25,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Set;
 
-public class UtilsApp {
+public class AppUtils {
   private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
 
   // extract file to app directory
@@ -52,7 +51,7 @@ public class UtilsApp {
 
   // return custom folder where apps will be saved
   public static File getCustomAppFolder() {
-    AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
+    AppPreferences appPreferences = App.getAppPreferences();
     return new File(appPreferences.getCustomPath());
   }
 
@@ -66,7 +65,7 @@ public class UtilsApp {
 
   // get the name of the extracted app
   public static String getAPKFilename(AppInfo appInfo) {
-    AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
+    AppPreferences appPreferences = App.getAppPreferences();
     String res;
 
     switch (appPreferences.getFilename()) {

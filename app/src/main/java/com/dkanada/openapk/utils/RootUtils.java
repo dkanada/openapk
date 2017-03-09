@@ -1,30 +1,28 @@
 package com.dkanada.openapk.utils;
 
-import android.graphics.Path;
 import android.os.Build;
 
-import com.dkanada.openapk.OpenAPKApplication;
+import com.dkanada.openapk.App;
 
 import java.io.File;
-import java.util.prefs.Preferences;
 
-public class UtilsRoot {
+public class RootUtils {
 
   private static final int ROOT_STATUS_NOT_CHECKED = 0;
   private static final int ROOT_STATUS_ROOTED = 1;
   private static final int ROOT_STATUS_NOT_ROOTED = 2;
 
-  private UtilsRoot() {
+  private RootUtils() {
   }
 
   public static boolean isRooted() {
-    int rootStatus = OpenAPKApplication.getAppPreferences().getRootStatus();
-    boolean rootEnabled = OpenAPKApplication.getAppPreferences().getRootEnabled();
+    int rootStatus = App.getAppPreferences().getRootStatus();
+    boolean rootEnabled = App.getAppPreferences().getRootEnabled();
     boolean isRooted = false;
     if (rootEnabled) {
       if (rootStatus == ROOT_STATUS_NOT_CHECKED) {
         isRooted = isRootByBuildTag() || isRootedByFileSU() || isRootedByExecutingCommand();
-        OpenAPKApplication.getAppPreferences().setRootStatus(isRooted ? ROOT_STATUS_ROOTED : ROOT_STATUS_NOT_ROOTED);
+        App.getAppPreferences().setRootStatus(isRooted ? ROOT_STATUS_ROOTED : ROOT_STATUS_NOT_ROOTED);
       } else if (rootStatus == ROOT_STATUS_ROOTED) {
         isRooted = true;
       }

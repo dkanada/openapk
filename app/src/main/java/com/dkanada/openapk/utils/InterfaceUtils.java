@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.dkanada.openapk.OpenAPKApplication;
+import com.dkanada.openapk.App;
 import com.dkanada.openapk.activities.AboutActivity;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.activities.SettingsActivity;
@@ -26,7 +26,7 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-public class UtilsUI {
+public class InterfaceUtils {
 
   public static int darker(int color, double factor) {
     int a = Color.alpha(color);
@@ -40,7 +40,7 @@ public class UtilsUI {
   public static Drawer setNavigationDrawer(final Activity activity, final Context context, Toolbar toolbar, final AppAdapter appAdapter, final AppAdapter appSystemAdapter, final AppAdapter appFavoriteAdapter, final AppAdapter appHiddenAdapter, final AppAdapter appDisabledAdapter, final RecyclerView recyclerView) {
     final String loadingLabel = "0";
     int header;
-    AppPreferences appPreferences = OpenAPKApplication.getAppPreferences();
+    AppPreferences appPreferences = App.getAppPreferences();
     String apps, systemApps, favoriteApps, hiddenApps, disabledApps;
 
     if (appAdapter != null) {
@@ -91,7 +91,7 @@ public class UtilsUI {
     drawerBuilder.withActivity(activity);
     drawerBuilder.withToolbar(toolbar);
     drawerBuilder.withAccountHeader(headerResult);
-    drawerBuilder.withStatusBarColor(UtilsUI.darker(appPreferences.getPrimaryColorPref(), 0.8));
+    drawerBuilder.withStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColorPref(), 0.8));
 
     drawerBuilder.addDrawerItems(
         new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(apps).withBadgeStyle(badgeStyle).withIdentifier(1),
@@ -109,27 +109,27 @@ public class UtilsUI {
         switch (iDrawerItem.getIdentifier()) {
           case 1:
             recyclerView.setAdapter(appAdapter);
-            OpenAPKApplication.setCurrentAdapter(0);
+            App.setCurrentAdapter(0);
             setToolbarTitle(activity, context.getResources().getString(R.string.action_apps));
             break;
           case 2:
             recyclerView.setAdapter(appSystemAdapter);
-            OpenAPKApplication.setCurrentAdapter(1);
+            App.setCurrentAdapter(1);
             setToolbarTitle(activity, context.getResources().getString(R.string.action_system_apps));
             break;
           case 3:
             recyclerView.setAdapter(appFavoriteAdapter);
-            OpenAPKApplication.setCurrentAdapter(2);
+            App.setCurrentAdapter(2);
             setToolbarTitle(activity, context.getResources().getString(R.string.action_favorite_apps));
             break;
           case 4:
             recyclerView.setAdapter(appHiddenAdapter);
-            OpenAPKApplication.setCurrentAdapter(3);
+            App.setCurrentAdapter(3);
             setToolbarTitle(activity, context.getResources().getString(R.string.action_hidden_apps));
             break;
           case 5:
             recyclerView.setAdapter(appDisabledAdapter);
-            OpenAPKApplication.setCurrentAdapter(4);
+            App.setCurrentAdapter(4);
             setToolbarTitle(activity, context.getResources().getString(R.string.action_disabled_apps));
             break;
           case 6:

@@ -1,4 +1,4 @@
-package com.dkanada.openapk;
+package com.dkanada.openapk.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,14 +10,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.drawable.Drawable;
 
-import com.dkanada.openapk.utils.UtilsApp;
+import com.dkanada.openapk.models.AppInfo;
+import com.dkanada.openapk.R;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppDatabase extends SQLiteOpenHelper {
+public class AppDbUtils extends SQLiteOpenHelper {
   private static final String TABLE_NAME = "apps";
   private static final String COLUMN_NAME_NAME = "name";
   private static final String COLUMN_NAME_APK = "apk";
@@ -30,21 +29,21 @@ public class AppDatabase extends SQLiteOpenHelper {
   private static final String COLUMN_NAME_DISABLED = "disabled";
 
   private static final String SQL_CREATE_ENTRIES =
-      "CREATE TABLE " + AppDatabase.TABLE_NAME + " (" +
-          AppDatabase.COLUMN_NAME_NAME + " TEXT," +
-          AppDatabase.COLUMN_NAME_APK + " TEXT PRIMARY KEY," +
-          AppDatabase.COLUMN_NAME_VERSION + " TEXT," +
-          AppDatabase.COLUMN_NAME_SOURCE + " TEXT," +
-          AppDatabase.COLUMN_NAME_DATA + " TEXT," +
-          AppDatabase.COLUMN_NAME_SYSTEM + " TEXT," +
-          AppDatabase.COLUMN_NAME_FAVORITE + " TEXT," +
-          AppDatabase.COLUMN_NAME_HIDDEN + " TEXT," +
-          AppDatabase.COLUMN_NAME_DISABLED + " TEXT)";
+      "CREATE TABLE " + AppDbUtils.TABLE_NAME + " (" +
+          AppDbUtils.COLUMN_NAME_NAME + " TEXT," +
+          AppDbUtils.COLUMN_NAME_APK + " TEXT PRIMARY KEY," +
+          AppDbUtils.COLUMN_NAME_VERSION + " TEXT," +
+          AppDbUtils.COLUMN_NAME_SOURCE + " TEXT," +
+          AppDbUtils.COLUMN_NAME_DATA + " TEXT," +
+          AppDbUtils.COLUMN_NAME_SYSTEM + " TEXT," +
+          AppDbUtils.COLUMN_NAME_FAVORITE + " TEXT," +
+          AppDbUtils.COLUMN_NAME_HIDDEN + " TEXT," +
+          AppDbUtils.COLUMN_NAME_DISABLED + " TEXT)";
   private static final String SQL_DELETE_ENTRIES =
-      "DROP TABLE IF EXISTS " + AppDatabase.TABLE_NAME;
+      "DROP TABLE IF EXISTS " + AppDbUtils.TABLE_NAME;
   private static final String QUERY = "SELECT * FROM " + TABLE_NAME;
 
-  public AppDatabase(Context context) {
+  public AppDbUtils(Context context) {
     super(context, "apps.db", null, 1);
   }
 
@@ -152,7 +151,7 @@ public class AppDatabase extends SQLiteOpenHelper {
           // installed apps
           AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, !packageInfo.applicationInfo.enabled, packageManager.getApplicationIcon(packageInfo.applicationInfo));
           addAppInfo(tempApp);
-          UtilsApp.saveIconToCache(context, tempApp);
+          AppUtils.saveIconToCache(context, tempApp);
         } catch (OutOfMemoryError e) {
           // TODO this is a workaround to avoid crashing on some devices (OutOfMemoryError) the drawable should be cached before
           AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, !packageInfo.applicationInfo.enabled, context.getResources().getDrawable(R.drawable.ic_android));
@@ -165,7 +164,7 @@ public class AppDatabase extends SQLiteOpenHelper {
           // system apps
           AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, true, false, false, !packageInfo.applicationInfo.enabled, packageManager.getApplicationIcon(packageInfo.applicationInfo));
           addAppInfo(tempApp);
-          UtilsApp.saveIconToCache(context, tempApp);
+          AppUtils.saveIconToCache(context, tempApp);
         } catch (OutOfMemoryError e) {
           // TODO this is a workaround to avoid crashing on some devices (OutOfMemoryError) the drawable should be cached before
           AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, !packageInfo.applicationInfo.enabled, context.getResources().getDrawable(R.drawable.ic_android));
@@ -185,7 +184,7 @@ public class AppDatabase extends SQLiteOpenHelper {
       } catch (Exception e) {
         if (!checkAppInfo(getAppInfo(context, cursor), 3)) {
           removeAppInfo(getAppInfo(context, cursor));
-          UtilsApp.removeIconFromCache(context, getAppInfo(context, cursor));
+          AppUtils.removeIconFromCache(context, getAppInfo(context, cursor));
           e.printStackTrace();
         }
       }
@@ -246,7 +245,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     Boolean hidden = Boolean.parseBoolean(cursor.getString(7));
     Boolean disabled = Boolean.parseBoolean(cursor.getString(8));
     AppInfo tempApp = new AppInfo(name + "##" + apk + "##" + version + "##" + source + "##" + data + "##" + system + "##" + favorite + "##" + hidden + "##" + disabled);
-    Drawable tempAppIcon = UtilsApp.getIconFromCache(context, tempApp);
+    Drawable tempAppIcon = AppUtils.getIconFromCache(context, tempApp);
     tempApp.setIcon(tempAppIcon);
     return tempApp;
   }

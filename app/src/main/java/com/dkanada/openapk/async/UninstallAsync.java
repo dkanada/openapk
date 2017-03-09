@@ -6,20 +6,20 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.dkanada.openapk.AppInfo;
+import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.activities.MainActivity;
-import com.dkanada.openapk.utils.UtilsApp;
-import com.dkanada.openapk.utils.UtilsDialog;
-import com.dkanada.openapk.utils.UtilsRoot;
+import com.dkanada.openapk.utils.AppUtils;
+import com.dkanada.openapk.utils.DialogUtils;
+import com.dkanada.openapk.utils.RootUtils;
 
-public class UninstallInBackground extends AsyncTask<Void, String, Boolean> {
+public class UninstallAsync extends AsyncTask<Void, String, Boolean> {
   private Context context;
   private Activity activity;
   private MaterialDialog dialog;
   private AppInfo appInfo;
 
-  public UninstallInBackground(Context context, MaterialDialog dialog, AppInfo appInfo) {
+  public UninstallAsync(Context context, MaterialDialog dialog, AppInfo appInfo) {
     this.context = context;
     this.activity = (Activity) context;
     this.dialog = dialog;
@@ -29,8 +29,8 @@ public class UninstallInBackground extends AsyncTask<Void, String, Boolean> {
   @Override
   protected Boolean doInBackground(Void... voids) {
     Boolean status = false;
-    if (UtilsApp.checkPermissions(activity)) {
-      status = UtilsRoot.uninstallWithRootPermission(appInfo.getSource());
+    if (AppUtils.checkPermissions(activity)) {
+      status = RootUtils.uninstallWithRootPermission(appInfo.getSource());
     }
     return status;
   }
@@ -40,11 +40,11 @@ public class UninstallInBackground extends AsyncTask<Void, String, Boolean> {
     super.onPostExecute(status);
     dialog.dismiss();
     if (status) {
-      MaterialDialog.Builder materialDialog = UtilsDialog.showUninstalled(context, appInfo);
+      MaterialDialog.Builder materialDialog = DialogUtils.showUninstalled(context, appInfo);
       materialDialog.callback(new MaterialDialog.ButtonCallback() {
         @Override
         public void onPositive(MaterialDialog dialog) {
-          UtilsRoot.rebootSystem();
+          RootUtils.rebootSystem();
           dialog.dismiss();
         }
       });
@@ -60,7 +60,7 @@ public class UninstallInBackground extends AsyncTask<Void, String, Boolean> {
       });
       materialDialog.show();
     } else {
-      UtilsDialog.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
+      DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     }
   }
 }

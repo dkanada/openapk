@@ -4,18 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.dkanada.openapk.OpenAPKApplication;
+import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.utils.AppPreferences;
 
-public abstract class ThemableActivity extends AppCompatActivity {
+public abstract class ThemeActivity extends AppCompatActivity {
 
   private AppPreferences appPreferences;
   private String currentTheme;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    appPreferences = OpenAPKApplication.getAppPreferences();
+    appPreferences = App.getAppPreferences();
     currentTheme = appPreferences.getTheme();
     if (appPreferences.getTheme().equals("1")) {
       setTheme(R.style.Light);

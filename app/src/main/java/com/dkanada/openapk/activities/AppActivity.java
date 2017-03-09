@@ -22,27 +22,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.dkanada.openapk.AppDatabase;
-import com.dkanada.openapk.async.ClearDataInBackground;
-import com.dkanada.openapk.async.DisableInBackground;
-import com.dkanada.openapk.async.HideInBackground;
+import com.dkanada.openapk.utils.AppDbUtils;
+import com.dkanada.openapk.async.ClearDataAsync;
+import com.dkanada.openapk.async.DisableAsync;
+import com.dkanada.openapk.async.HideAsync;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.dkanada.openapk.AppInfo;
-import com.dkanada.openapk.OpenAPKApplication;
+import com.dkanada.openapk.models.AppInfo;
+import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.async.RemoveCacheInBackground;
-import com.dkanada.openapk.async.ExtractFileInBackground;
-import com.dkanada.openapk.async.UninstallInBackground;
+import com.dkanada.openapk.async.RemoveCacheAsync;
+import com.dkanada.openapk.async.ExtractFileAsync;
+import com.dkanada.openapk.async.UninstallAsync;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.UtilsRoot;
-import com.dkanada.openapk.utils.UtilsApp;
-import com.dkanada.openapk.utils.UtilsDialog;
-import com.dkanada.openapk.utils.UtilsUI;
+import com.dkanada.openapk.utils.RootUtils;
+import com.dkanada.openapk.utils.AppUtils;
+import com.dkanada.openapk.utils.DialogUtils;
+import com.dkanada.openapk.utils.InterfaceUtils;
 
-public class AppActivity extends ThemableActivity {
+public class AppActivity extends ThemeActivity {
   private AppPreferences appPreferences;
-  private AppDatabase appDatabase;
+  private AppDbUtils appDbUtils;
   private Context context;
   private Activity activity;
   private MenuItem favorite;
@@ -52,13 +52,13 @@ public class AppActivity extends ThemableActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    appPreferences = OpenAPKApplication.getAppPreferences();
+    appPreferences = App.getAppPreferences();
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_app);
     context = this;
     this.activity = (Activity) context;
 
-    appDatabase = new AppDatabase(context);
+    appDbUtils = new AppDbUtils(context);
 
     getInitialConfiguration();
     setInitialConfiguration();
@@ -78,7 +78,7 @@ public class AppActivity extends ThemableActivity {
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-      getWindow().setStatusBarColor(UtilsUI.darker(appPreferences.getPrimaryColorPref(), 0.8));
+      getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColorPref(), 0.8));
       toolbar.setBackgroundColor(appPreferences.getPrimaryColorPref());
       if (appPreferences.getNavigationColorPref()) {
         getWindow().setNavigationBarColor(appPreferences.getPrimaryColorPref());
@@ -112,11 +112,11 @@ public class AppActivity extends ThemableActivity {
     // configure colors
     header.setBackgroundColor(appPreferences.getPrimaryColorPref());
     fab_share.setColorNormal(appPreferences.getFABColorPref());
-    fab_share.setColorPressed(UtilsUI.darker(appPreferences.getFABColorPref(), 0.8));
+    fab_share.setColorPressed(InterfaceUtils.darker(appPreferences.getFABColorPref(), 0.8));
     fab_hide.setColorNormal(appPreferences.getFABColorPref());
-    fab_hide.setColorPressed(UtilsUI.darker(appPreferences.getFABColorPref(), 0.8));
+    fab_hide.setColorPressed(InterfaceUtils.darker(appPreferences.getFABColorPref(), 0.8));
     fab_disable.setColorNormal(appPreferences.getFABColorPref());
-    fab_disable.setColorPressed(UtilsUI.darker(appPreferences.getFABColorPref(), 0.8));
+    fab_disable.setColorPressed(InterfaceUtils.darker(appPreferences.getFABColorPref(), 0.8));
 
     updateOpenButton(open);
     updateExtractButton(extract);
@@ -134,7 +134,7 @@ public class AppActivity extends ThemableActivity {
       googleplay.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          UtilsApp.goToGooglePlay(context, appInfo.getAPK());
+          AppUtils.goToGooglePlay(context, appInfo.getAPK());
         }
       });
 
@@ -145,7 +145,7 @@ public class AppActivity extends ThemableActivity {
           ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
           clipData = ClipData.newPlainText("text", appInfo.getAPK());
           clipboardManager.setPrimaryClip(clipData);
-          UtilsDialog.showSnackBar(activity, context.getResources().getString(R.string.copied_clipboard), null, null, 2).show();
+          DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.copied_clipboard), null, null, 2).show();
           return false;
         }
       });
@@ -170,27 +170,27 @@ public class AppActivity extends ThemableActivity {
     extract.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
+        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
             , String.format(getResources().getString(R.string.dialog_saving), appInfo.getName())
             , getResources().getString(R.string.dialog_saving_description));
-        new ExtractFileInBackground(context, dialog, appInfo).execute();
+        new ExtractFileAsync(context, dialog, appInfo).execute();
       }
     });
   }
 
   protected void updateUninstallButton(CardView uninstall) {
-    if (appInfo.getSystem() && UtilsRoot.isRooted()) {
+    if (appInfo.getSystem() && RootUtils.isRooted()) {
       uninstall.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          MaterialDialog.Builder materialBuilder = UtilsDialog.showUninstall(context)
+          MaterialDialog.Builder materialBuilder = DialogUtils.showUninstall(context)
               .callback(new MaterialDialog.ButtonCallback() {
                 @Override
                 public void onPositive(MaterialDialog dialog) {
-                  MaterialDialog dialogUninstalling = UtilsDialog.showTitleContentWithProgress(context
+                  MaterialDialog dialogUninstalling = DialogUtils.showTitleContentWithProgress(context
                       , String.format(getResources().getString(R.string.dialog_uninstalling), appInfo.getName())
                       , getResources().getString(R.string.dialog_uninstalling_description));
-                  new UninstallInBackground(context, dialogUninstalling, appInfo).execute();
+                  new UninstallAsync(context, dialogUninstalling, appInfo).execute();
                   dialog.dismiss();
                 }
               });
@@ -214,30 +214,30 @@ public class AppActivity extends ThemableActivity {
   }
 
   protected void updateCacheButton(CardView cache) {
-    if (UtilsRoot.isRooted()) {
+    if (RootUtils.isRooted()) {
       cache.setVisibility(View.VISIBLE);
       cache.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
+          MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
               , getResources().getString(R.string.dialog_cache_deleting)
               , getResources().getString(R.string.dialog_cache_deleting_description));
-          new RemoveCacheInBackground(context, dialog, appInfo).execute();
+          new RemoveCacheAsync(context, dialog, appInfo).execute();
         }
       });
     }
   }
 
   protected void updateDataButton(CardView data) {
-    if (UtilsRoot.isRooted()) {
+    if (RootUtils.isRooted()) {
       data.setVisibility(View.VISIBLE);
       data.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
+          MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
               , getResources().getString(R.string.dialog_clear_data_deleting)
               , getResources().getString(R.string.dialog_clear_data_deleting_description));
-          new ClearDataInBackground(context, dialog, appInfo).execute();
+          new ClearDataAsync(context, dialog, appInfo).execute();
         }
       });
     }
@@ -247,40 +247,40 @@ public class AppActivity extends ThemableActivity {
     fab_share.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        UtilsApp.extractFile(appInfo);
-        Intent shareIntent = UtilsApp.getShareIntent(UtilsApp.getOutputFilename(appInfo));
+        AppUtils.extractFile(appInfo);
+        Intent shareIntent = AppUtils.getShareIntent(AppUtils.getOutputFilename(appInfo));
         startActivity(Intent.createChooser(shareIntent, String.format(getResources().getString(R.string.send_to), appInfo.getName())));
       }
     });
   }
 
   protected void updateHideFAB(final FloatingActionButton fab_hide) {
-    UtilsUI.updateAppHiddenIcon(context, fab_hide, appDatabase.checkAppInfo(appInfo, 3));
-    if (UtilsRoot.isRooted()) {
+    InterfaceUtils.updateAppHiddenIcon(context, fab_hide, appDbUtils.checkAppInfo(appInfo, 3));
+    if (RootUtils.isRooted()) {
       fab_hide.setVisibility(View.VISIBLE);
       fab_hide.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
+          MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
               , getResources().getString(R.string.dialog_clear_data_deleting)
               , getResources().getString(R.string.dialog_clear_data_deleting_description));
-          new HideInBackground(context, dialog, appInfo).execute();
+          new HideAsync(context, dialog, appInfo).execute();
         }
       });
     }
   }
 
   protected void updateDisableFAB(final FloatingActionButton fab_disable) {
-    UtilsUI.updateAppDisabledIcon(context, fab_disable, appDatabase.checkAppInfo(appInfo, 4));
-    if (UtilsRoot.isRooted()) {
+    InterfaceUtils.updateAppDisabledIcon(context, fab_disable, appDbUtils.checkAppInfo(appInfo, 4));
+    if (RootUtils.isRooted()) {
       fab_disable.setVisibility(View.VISIBLE);
       fab_disable.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
+          MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
               , getResources().getString(R.string.dialog_clear_data_deleting)
               , getResources().getString(R.string.dialog_clear_data_deleting_description));
-          new DisableInBackground(context, dialog, appInfo).execute();
+          new DisableAsync(context, dialog, appInfo).execute();
         }
       });
     }
@@ -336,7 +336,7 @@ public class AppActivity extends ThemableActivity {
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
     favorite = menu.findItem(R.id.action_favorite);
-    UtilsUI.updateAppFavoriteIcon(context, favorite, appDatabase.checkAppInfo(appInfo, 2));
+    InterfaceUtils.updateAppFavoriteIcon(context, favorite, appDbUtils.checkAppInfo(appInfo, 2));
     return super.onPrepareOptionsMenu(menu);
   }
 
@@ -347,14 +347,14 @@ public class AppActivity extends ThemableActivity {
         finish();
         return true;
       case R.id.action_favorite:
-        if (appDatabase.checkAppInfo(appInfo, 2)) {
+        if (appDbUtils.checkAppInfo(appInfo, 2)) {
           appInfo.setFavorite(false);
-          appDatabase.updateAppInfo(appInfo, 2);
+          appDbUtils.updateAppInfo(appInfo, 2);
         } else {
           appInfo.setFavorite(true);
-          appDatabase.updateAppInfo(appInfo, 2);
+          appDbUtils.updateAppInfo(appInfo, 2);
         }
-        UtilsUI.updateAppFavoriteIcon(context, favorite, appDatabase.checkAppInfo(appInfo, 2));
+        InterfaceUtils.updateAppFavoriteIcon(context, favorite, appDbUtils.checkAppInfo(appInfo, 2));
         return true;
     }
     return super.onOptionsItemSelected(item);

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -23,15 +22,15 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.dkanada.openapk.AppDatabase;
-import com.dkanada.openapk.AppInfo;
-import com.dkanada.openapk.OpenAPKApplication;
+import com.dkanada.openapk.utils.AppDbUtils;
+import com.dkanada.openapk.models.AppInfo;
+import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.adapters.AppAdapter;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.UtilsApp;
-import com.dkanada.openapk.utils.UtilsDialog;
-import com.dkanada.openapk.utils.UtilsUI;
+import com.dkanada.openapk.utils.AppUtils;
+import com.dkanada.openapk.utils.DialogUtils;
+import com.dkanada.openapk.utils.InterfaceUtils;
 import com.mikepenz.materialdrawer.Drawer;
 
 import java.io.File;
@@ -39,7 +38,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MainActivity extends ThemableActivity implements SearchView.OnQueryTextListener {
+public class MainActivity extends ThemeActivity implements SearchView.OnQueryTextListener {
   private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
 
   // settings
@@ -64,14 +63,14 @@ public class MainActivity extends ThemableActivity implements SearchView.OnQuery
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    appPreferences = OpenAPKApplication.getAppPreferences();
+    appPreferences = App.getAppPreferences();
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     this.activity = this;
     this.context = this;
 
     setInitialConfiguration();
-    UtilsApp.checkPermissions(activity);
+    AppUtils.checkPermissions(activity);
 
     recyclerView = (RecyclerView) findViewById(R.id.appList);
     refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
@@ -81,7 +80,7 @@ public class MainActivity extends ThemableActivity implements SearchView.OnQuery
     linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(linearLayoutManager);
-    drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
+    drawer = InterfaceUtils.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
 
     refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
     refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -113,7 +112,7 @@ public class MainActivity extends ThemableActivity implements SearchView.OnQuery
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-      getWindow().setStatusBarColor(UtilsUI.darker(appPreferences.getPrimaryColorPref(), 0.8));
+      getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColorPref(), 0.8));
       toolbar.setBackgroundColor(appPreferences.getPrimaryColorPref());
       if (appPreferences.getNavigationColorPref()) {
         getWindow().setNavigationBarColor(appPreferences.getPrimaryColorPref());
@@ -130,7 +129,7 @@ public class MainActivity extends ThemableActivity implements SearchView.OnQuery
 
     @Override
     protected Void doInBackground(Void... params) {
-      AppDatabase db = new AppDatabase(context);
+      AppDbUtils db = new AppDbUtils(context);
 
       appInstalledList = sortAdapter(db.getAppList(context, 0));
       appSystemList = sortAdapter(db.getAppList(context, 1));
@@ -148,29 +147,29 @@ public class MainActivity extends ThemableActivity implements SearchView.OnQuery
 
     @Override
     protected void onPostExecute(Void aVoid) {
-      switch(OpenAPKApplication.getCurrentAdapter()) {
+      switch(App.getCurrentAdapter()) {
         default:
           recyclerView.swapAdapter(appAdapter, false);
-          UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
+          InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
           break;
         case 1:
           recyclerView.swapAdapter(appSystemAdapter, false);
-          UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_system_apps));
+          InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_system_apps));
           break;
         case 2:
           recyclerView.swapAdapter(appFavoriteAdapter, false);
-          UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_favorite_apps));
+          InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_favorite_apps));
           break;
         case 3:
           recyclerView.swapAdapter(appHiddenAdapter, false);
-          UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_hidden_apps));
+          InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_hidden_apps));
           break;
         case 4:
           recyclerView.swapAdapter(appDisabledAdapter, false);
-          UtilsUI.setToolbarTitle(activity, getResources().getString(R.string.action_disabled_apps));
+          InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_disabled_apps));
           break;
       }
-      drawer = UtilsUI.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
+      drawer = InterfaceUtils.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
       super.onPostExecute(aVoid);
       refresh.setRefreshing(false);
     }
@@ -179,7 +178,7 @@ public class MainActivity extends ThemableActivity implements SearchView.OnQuery
   class updateInstalledApps extends AsyncTask<Void, String, Void> {
     @Override
     protected Void doInBackground(Void... params) {
-      AppDatabase db = new AppDatabase(context);
+      AppDbUtils db = new AppDbUtils(context);
       db.updateDatabase(context);
       return null;
     }
@@ -281,7 +280,7 @@ public class MainActivity extends ThemableActivity implements SearchView.OnQuery
     switch (requestCode) {
       case MY_PERMISSIONS_REQUEST_WRITE_READ: {
         if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-          UtilsDialog.showTitleContent(context, getResources().getString(R.string.dialog_permissions), getResources().getString(R.string.dialog_permissions_description));
+          DialogUtils.showTitleContent(context, getResources().getString(R.string.dialog_permissions), getResources().getString(R.string.dialog_permissions_description));
         }
       }
     }

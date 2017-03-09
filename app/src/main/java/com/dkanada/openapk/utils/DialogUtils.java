@@ -7,12 +7,12 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.gc.materialdesign.widgets.SnackBar;
-import com.dkanada.openapk.AppInfo;
+import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
 
 import java.io.File;
 
-public class UtilsDialog {
+public class DialogUtils {
 
   public static MaterialDialog showTitleContent(Context context, String title, String content) {
     MaterialDialog.Builder materialBuilder = new MaterialDialog.Builder(context)
@@ -68,7 +68,7 @@ public class UtilsDialog {
         snackBar = new SnackBar(activity, text, buttonText, new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            UtilsRoot.rebootSystem();
+            RootUtils.rebootSystem();
           }
         });
         break;

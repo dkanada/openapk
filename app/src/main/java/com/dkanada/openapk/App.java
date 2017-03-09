@@ -6,7 +6,7 @@ import com.dkanada.openapk.utils.AppPreferences;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.Iconics;
 
-public class OpenAPKApplication extends Application {
+public class App extends Application {
   private static AppPreferences appPreferences;
   private static int currentAdapter;
 

@@ -6,9 +6,6 @@ import android.preference.PreferenceManager;
 
 import com.dkanada.openapk.R;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class AppPreferences {
   private SharedPreferences sharedPreferences;
   private SharedPreferences.Editor editor;
@@ -36,7 +33,7 @@ public class AppPreferences {
   }
 
   public String getCustomPath() {
-    return sharedPreferences.getString(KeyCustomPath, UtilsApp.getDefaultAppFolder().getPath());
+    return sharedPreferences.getString(KeyCustomPath, AppUtils.getDefaultAppFolder().getPath());
   }
 
   public String getFilename() {

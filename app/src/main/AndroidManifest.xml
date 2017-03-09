@@ -12,7 +12,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Light"
-        android:name="com.dkanada.openapk.OpenAPKApplication"
         tools:replace="android:theme">
         <activity
             android:name="com.dkanada.openapk.activities.MainActivity"

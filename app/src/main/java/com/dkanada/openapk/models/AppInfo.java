@@ -1,4 +1,4 @@
-package com.dkanada.openapk;
+package com.dkanada.openapk.models;
 
 import android.graphics.drawable.Drawable;
 

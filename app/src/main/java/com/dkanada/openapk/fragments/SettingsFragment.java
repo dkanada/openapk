@@ -9,11 +9,11 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
-import com.dkanada.openapk.OpenAPKApplication;
+import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.activities.AboutActivity;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.UtilsApp;
+import com.dkanada.openapk.utils.AppUtils;
 
 import yuku.ambilwarna.widget.AmbilWarnaPreference;
 
@@ -25,7 +25,7 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
-    appPreferences = OpenAPKApplication.getAppPreferences();
+    appPreferences = App.getAppPreferences();
     super.onCreate(savedInstanceState);
     addPreferencesFromResource(R.xml.settings);
 
@@ -47,7 +47,7 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
     prefRootEnabled = findPreference("prefRootEnabled");
     prefVersion = findPreference("prefVersion");
 
-    prefVersion.setTitle(getResources().getString(R.string.app_name) + " v" + UtilsApp.getAppVersionName(getActivity()));
+    prefVersion.setTitle(getResources().getString(R.string.app_name) + " v" + AppUtils.getAppVersionName(getActivity()));
     prefVersion.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
       @Override
       public boolean onPreferenceClick(Preference preference) {
@@ -62,7 +62,7 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
       public boolean onPreferenceClick(Preference preference) {
         prefDeleteAll.setSummary(R.string.deleting);
         prefDeleteAll.setEnabled(false);
-        Boolean deleteAll = UtilsApp.deleteAppFiles();
+        Boolean deleteAll = AppUtils.deleteAppFiles();
         if (deleteAll) {
           prefDeleteAll.setSummary(R.string.deleting_done);
         } else {
@@ -97,9 +97,9 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
 
   private void setCustomPathSummary() {
     String path = appPreferences.getCustomPath();
-    if (path.equals(UtilsApp.getDefaultAppFolder().getPath())) {
+    if (path.equals(AppUtils.getDefaultAppFolder().getPath())) {
       prefCustomPath.setSummary("Not implemented yet due to non-free dependencies.");
-      //prefCustomPath.setSummary(UtilsApp.getDefaultAppFolder().getPath());
+      //prefCustomPath.setSummary(AppUtils.getDefaultAppFolder().getPath());
     } else {
       prefCustomPath.setSummary(path);
     }
