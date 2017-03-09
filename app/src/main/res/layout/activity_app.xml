@@ -219,7 +219,7 @@
             android:layout_marginStart="@dimen/horizontal_margin"
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-thin"
-            android:text="@string/dialog_cache"
+            android:text="@string/action_remove_cache"
             android:textSize="25sp"/>
 
         <TextView
@@ -252,7 +252,7 @@
             android:layout_marginStart="@dimen/horizontal_margin"
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-thin"
-            android:text="@string/dialog_clear_data"
+            android:text="@string/action_clear_data"
             android:textSize="25sp"/>
 
         <TextView

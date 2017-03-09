@@ -145,7 +145,7 @@ public class AppActivity extends ThemeActivity {
           ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
           clipData = ClipData.newPlainText("text", appInfo.getAPK());
           clipboardManager.setPrimaryClip(clipData);
-          DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.copied_clipboard), null, null, 2).show();
+          DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.clipboard), null, null, 2).show();
           return false;
         }
       });

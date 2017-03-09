@@ -94,7 +94,7 @@ public class InterfaceUtils {
     drawerBuilder.withStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColorPref(), 0.8));
 
     drawerBuilder.addDrawerItems(
-        new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(apps).withBadgeStyle(badgeStyle).withIdentifier(1),
+        new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_installed_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(apps).withBadgeStyle(badgeStyle).withIdentifier(1),
         new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withBadge(systemApps).withBadgeStyle(badgeStyle).withIdentifier(2),
         new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_favorite_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(3),
         new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_visibility_off).withBadge(hiddenApps).withBadgeStyle(badgeStyle).withIdentifier(4),
@@ -110,7 +110,7 @@ public class InterfaceUtils {
           case 1:
             recyclerView.setAdapter(appAdapter);
             App.setCurrentAdapter(0);
-            setToolbarTitle(activity, context.getResources().getString(R.string.action_apps));
+            setToolbarTitle(activity, context.getResources().getString(R.string.action_installed_apps));
             break;
           case 2:
             recyclerView.setAdapter(appSystemAdapter);

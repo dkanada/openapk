@@ -36,7 +36,7 @@ public class DialogUtils {
     return new MaterialDialog.Builder(context)
         .title(context.getResources().getString(R.string.dialog_uninstall_root))
         .content(context.getResources().getString(R.string.dialog_uninstall_root_description))
-        .positiveText(context.getResources().getString(R.string.button_uninstall))
+        .positiveText(context.getResources().getString(R.string.action_uninstall))
         .negativeText(context.getResources().getString(android.R.string.cancel))
         .cancelable(false);
   }

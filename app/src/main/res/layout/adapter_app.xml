@@ -70,14 +70,14 @@
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:background="@color/actionBar"
-            android:text="@string/button_extract"/>
+            android:text="@string/action_extract"/>
 
         <com.gc.materialdesign.views.ButtonFlat
             android:id="@+id/btnShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/actionBar"
-            android:text="@string/button_share"/>
+            android:text="@string/action_share"/>
       </LinearLayout>
     </RelativeLayout>
   </android.support.v7.widget.CardView>

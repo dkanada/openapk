@@ -150,7 +150,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
       switch(App.getCurrentAdapter()) {
         default:
           recyclerView.swapAdapter(appAdapter, false);
-          InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_apps));
+          InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_installed_apps));
           break;
         case 1:
           recyclerView.swapAdapter(appSystemAdapter, false);
