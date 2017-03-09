@@ -83,10 +83,26 @@ public class UtilsRoot {
     return status;
   }
 
-  public static boolean clearDataWithRootPermission(String directory) {
+  public static boolean removeCacheWithRootPermission(String directory) {
     boolean status = false;
     try {
       String[] command = new String[]{"su", "-c", "rm -rf " + directory};
+      Process process = Runtime.getRuntime().exec(command);
+      process.waitFor();
+      int i = process.exitValue();
+      if (i == 0) {
+        status = true;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return status;
+  }
+
+  public static boolean clearDataWithRootPermission(String apk) {
+    boolean status = false;
+    try {
+      String[] command = new String[]{"su", "-c", "pm clear " + apk};
       Process process = Runtime.getRuntime().exec(command);
       process.waitFor();
       int i = process.exitValue();

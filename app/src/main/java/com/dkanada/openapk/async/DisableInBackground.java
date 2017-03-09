@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.dkanada.openapk.AppDatabase;
 import com.dkanada.openapk.AppInfo;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.utils.UtilsApp;
@@ -28,7 +29,17 @@ public class DisableInBackground extends AsyncTask<Void, String, Boolean> {
   protected Boolean doInBackground(Void... voids) {
     Boolean status = false;
     if (UtilsApp.checkPermissions(activity)) {
-      status = UtilsRoot.clearDataWithRootPermission("temp");
+      AppDatabase appDatabase = new AppDatabase(context);
+      if (!appDatabase.checkAppInfo(appInfo, 4)) {
+        status = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), appDatabase.checkAppInfo(appInfo, 4));
+        appInfo.setDisabled(true);
+        appDatabase.updateAppInfo(appInfo, 4);
+      } else {
+        status = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), appDatabase.checkAppInfo(appInfo, 4));
+        appInfo.setDisabled(false);
+        appDatabase.updateAppInfo(appInfo, 4);
+        UtilsDialog.showSnackBar(activity, context.getResources().getString(R.string.dialog_reboot), context.getResources().getString(R.string.button_reboot), null, 3).show();
+      }
     }
     return status;
   }

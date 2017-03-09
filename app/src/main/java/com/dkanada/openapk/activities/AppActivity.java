@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,13 +23,15 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dkanada.openapk.AppDatabase;
-import com.gc.materialdesign.views.Card;
+import com.dkanada.openapk.async.ClearDataInBackground;
+import com.dkanada.openapk.async.DisableInBackground;
+import com.dkanada.openapk.async.HideInBackground;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.dkanada.openapk.AppInfo;
 import com.dkanada.openapk.OpenAPKApplication;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.async.ClearDataInBackground;
+import com.dkanada.openapk.async.RemoveCacheInBackground;
 import com.dkanada.openapk.async.ExtractFileInBackground;
 import com.dkanada.openapk.async.UninstallInBackground;
 import com.dkanada.openapk.utils.AppPreferences;
@@ -38,8 +39,6 @@ import com.dkanada.openapk.utils.UtilsRoot;
 import com.dkanada.openapk.utils.UtilsApp;
 import com.dkanada.openapk.utils.UtilsDialog;
 import com.dkanada.openapk.utils.UtilsUI;
-
-import java.util.Set;
 
 public class AppActivity extends ThemableActivity {
   private AppPreferences appPreferences;
@@ -223,7 +222,7 @@ public class AppActivity extends ThemableActivity {
           MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
               , getResources().getString(R.string.dialog_cache_deleting)
               , getResources().getString(R.string.dialog_cache_deleting_description));
-          new ClearDataInBackground(context, dialog, appInfo).execute();
+          new RemoveCacheInBackground(context, dialog, appInfo).execute();
         }
       });
     }
@@ -256,58 +255,32 @@ public class AppActivity extends ThemableActivity {
   }
 
   protected void updateHideFAB(final FloatingActionButton fab_hide) {
+    UtilsUI.updateAppHiddenIcon(context, fab_hide, appDatabase.checkAppInfo(appInfo, 3));
     if (UtilsRoot.isRooted()) {
-      UtilsUI.updateAppHiddenIcon(context, fab_hide, appDatabase.checkAppInfo(appInfo, 3));
       fab_hide.setVisibility(View.VISIBLE);
       fab_hide.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          if (appDatabase.checkAppInfo(appInfo, 3)) {
-            Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), true);
-            if (hidden) {
-              UtilsApp.removeIconFromCache(context, appInfo);
-              appInfo.setHidden(false);
-              appDatabase.updateAppInfo(appInfo, 3);
-              UtilsDialog.showSnackBar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
-            }
-          } else {
-            UtilsApp.saveIconToCache(context, appInfo);
-            Boolean hidden = UtilsRoot.hideWithRootPermission(appInfo.getAPK(), false);
-            if (hidden) {
-              appInfo.setHidden(true);
-              appDatabase.updateAppInfo(appInfo, 3);
-            }
-          }
-          UtilsUI.updateAppHiddenIcon(context, fab_hide, appDatabase.checkAppInfo(appInfo, 3));
+          MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
+              , getResources().getString(R.string.dialog_clear_data_deleting)
+              , getResources().getString(R.string.dialog_clear_data_deleting_description));
+          new HideInBackground(context, dialog, appInfo).execute();
         }
       });
     }
   }
 
   protected void updateDisableFAB(final FloatingActionButton fab_disable) {
+    UtilsUI.updateAppDisabledIcon(context, fab_disable, appDatabase.checkAppInfo(appInfo, 4));
     if (UtilsRoot.isRooted()) {
-      UtilsUI.updateAppDisabledIcon(context, fab_disable, appDatabase.checkAppInfo(appInfo, 4));
       fab_disable.setVisibility(View.VISIBLE);
       fab_disable.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          if (appDatabase.checkAppInfo(appInfo, 4)) {
-            Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), true);
-            if (disabled) {
-              UtilsApp.removeIconFromCache(context, appInfo);
-              appInfo.setDisabled(false);
-              appDatabase.updateAppInfo(appInfo, 4);
-              UtilsDialog.showSnackBar(activity, getResources().getString(R.string.dialog_reboot), getResources().getString(R.string.button_reboot), null, 3).show();
-            }
-          } else {
-            UtilsApp.saveIconToCache(context, appInfo);
-            Boolean disabled = UtilsRoot.disableWithRootPermission(appInfo.getAPK(), false);
-            if (disabled) {
-              appInfo.setDisabled(true);
-              appDatabase.updateAppInfo(appInfo, 4);
-            }
-          }
-          UtilsUI.updateAppDisabledIcon(context, fab_disable, appDatabase.checkAppInfo(appInfo, 4));
+          MaterialDialog dialog = UtilsDialog.showTitleContentWithProgress(context
+              , getResources().getString(R.string.dialog_clear_data_deleting)
+              , getResources().getString(R.string.dialog_clear_data_deleting_description));
+          new DisableInBackground(context, dialog, appInfo).execute();
         }
       });
     }
@@ -341,6 +314,7 @@ public class AppActivity extends ThemableActivity {
     Boolean appIsDisabled = getIntent().getExtras().getBoolean("app_isDisabled");
     Bitmap bitmap = getIntent().getParcelableExtra("app_icon");
     Drawable appIcon = new BitmapDrawable(getResources(), bitmap);
+
     appInfo = new AppInfo(appName, appApk, appVersion, appSource, appData, appIsSystem, appIsFavorite, appIsHidden, appIsDisabled, appIcon);
   }
 
@@ -376,11 +350,9 @@ public class AppActivity extends ThemableActivity {
         if (appDatabase.checkAppInfo(appInfo, 2)) {
           appInfo.setFavorite(false);
           appDatabase.updateAppInfo(appInfo, 2);
-          UtilsApp.removeIconFromCache(context, appInfo);
         } else {
           appInfo.setFavorite(true);
           appDatabase.updateAppInfo(appInfo, 2);
-          UtilsApp.saveIconToCache(context, appInfo);
         }
         UtilsUI.updateAppFavoriteIcon(context, favorite, appDatabase.checkAppInfo(appInfo, 2));
         return true;

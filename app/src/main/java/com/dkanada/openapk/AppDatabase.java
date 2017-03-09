@@ -184,6 +184,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         ApplicationInfo tmp = packageManager.getPackageInfo(cursor.getString(1), 0).applicationInfo;
       } catch (Exception e) {
         removeAppInfo(getAppInfo(context, cursor));
+        UtilsApp.removeIconFromCache(context, getAppInfo(context, cursor));
         e.printStackTrace();
       }
     } while (cursor.moveToNext());

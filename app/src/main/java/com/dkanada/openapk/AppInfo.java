@@ -16,13 +16,13 @@ public class AppInfo implements Serializable {
   private Boolean disabled;
   private Drawable icon;
 
-  public AppInfo(String name, String apk, String version, String source, String data, Boolean isSystem, Boolean favorite, Boolean hidden, Boolean disabled, Drawable icon) {
+  public AppInfo(String name, String apk, String version, String source, String data, Boolean system, Boolean favorite, Boolean hidden, Boolean disabled, Drawable icon) {
     this.name = name;
     this.apk = apk;
     this.version = version;
     this.source = source;
     this.data = data;
-    this.system = isSystem;
+    this.system = system;
     this.favorite = favorite;
     this.hidden = hidden;
     this.disabled = disabled;

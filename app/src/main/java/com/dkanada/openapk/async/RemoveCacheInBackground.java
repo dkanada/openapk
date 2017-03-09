@@ -11,13 +11,13 @@ import com.dkanada.openapk.utils.UtilsApp;
 import com.dkanada.openapk.utils.UtilsDialog;
 import com.dkanada.openapk.utils.UtilsRoot;
 
-public class ClearDataInBackground extends AsyncTask<Void, String, Boolean> {
+public class RemoveCacheInBackground extends AsyncTask<Void, String, Boolean> {
   private Context context;
   private Activity activity;
   private MaterialDialog dialog;
   private AppInfo appInfo;
 
-  public ClearDataInBackground(Context context, MaterialDialog dialog, AppInfo appInfo) {
+  public RemoveCacheInBackground(Context context, MaterialDialog dialog, AppInfo appInfo) {
     this.context = context;
     this.activity = (Activity) context;
     this.dialog = dialog;
@@ -28,7 +28,7 @@ public class ClearDataInBackground extends AsyncTask<Void, String, Boolean> {
   protected Boolean doInBackground(Void... voids) {
     Boolean status = false;
     if (UtilsApp.checkPermissions(activity)) {
-      status = UtilsRoot.clearDataWithRootPermission(appInfo.getAPK());
+      status = UtilsRoot.removeCacheWithRootPermission(appInfo.getData() + "/cache/**");
     }
     return status;
   }
