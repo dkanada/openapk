@@ -25,8 +25,8 @@
   <string name="dialog_saving_description">O ML Manager está a guardar a APK no diretório \"ML Manager\"</string>
   <string name="dialog_about">Sobre o %s</string>
   <string name="dialog_about_description">Desenvolvida por Javier Santos.\n\nOpen Source nos termos da licença GPLv3.</string>
-  <string name="dialog_run">Abrir</string>
-  <string name="dialog_run_description">Iniciar aplicação</string>
+  <string name="action_open">Abrir</string>
+  <string name="dialog_open_description">Iniciar aplicação</string>
   <string name="dialog_extract">Extrair</string>
   <string name="dialog_extract_description">Extrair para o diretório \"MLManager\"</string>
   <string name="dialog_extract_fail">Falha ao extrair</string>
@@ -74,8 +74,8 @@
   <string name="settings_navigation_color_description">Não utilizar cor personalizada na barra de nagevação</string>
   <string name="settings_default_customization">Restaurar predefinições</string>
   <string name="settings_default_customization_description">Restaurar as cores pré-definidas</string>
-  <string name="settings_about">Criado com \u2665 de Espanha</string>
-  <string name="about_description_1">Programador da aplicação</string>
-  <string name="about_description_2">Criador do ícone</string>
+  <string name="settings_reset_description">Criado com \u2665 de Espanha</string>
+  <string name="about_description_one">Programador da aplicação</string>
+  <string name="about_description_two">Criador do ícone</string>
   <string name="tap_exit">Toque novamente para fechar</string>
 </resources>

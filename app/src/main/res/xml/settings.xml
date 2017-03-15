@@ -4,10 +4,6 @@
   <PreferenceCategory
       android:title="@string/settings_title_applications">
     <Preference
-        android:key="prefDeleteAll"
-        android:summary="@string/settings_delete_all_description"
-        android:title="@string/settings_delete_all"/>
-    <Preference
         android:key="prefCustomPath"
         android:title="@string/settings_custom_path"/>
     <ListPreference
@@ -46,13 +42,9 @@
         android:key="prefNavigationColor"
         android:summary="@string/settings_navigation_color_description"
         android:title="@string/settings_navigation_color"/>
-    <Preference
-        android:key="prefDefaultValues"
-        android:summary="@string/settings_default_customization_description"
-        android:title="@string/settings_default_customization"/>
   </PreferenceCategory>
   <PreferenceCategory
-      android:title="@string/settings_title_miscellaneous">
+      android:title="@string/settings_title_other">
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="prefDoubleTap"
@@ -64,8 +56,8 @@
         android:summary="@string/settings_root_enabled_description"
         android:title="@string/settings_root_enabled"/>
     <Preference
-        android:key="prefVersion"
-        android:summary="@string/settings_about"
-        android:title="@string/app_name"/>
+        android:key="prefReset"
+        android:summary="@string/settings_reset_description"
+        android:title="@string/settings_reset"/>
   </PreferenceCategory>
 </PreferenceScreen>

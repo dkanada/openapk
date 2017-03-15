@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ import com.dkanada.openapk.utils.AppUtils;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.icons.MaterialDrawerFont;
 
 import java.io.File;
 import java.util.Collections;
@@ -59,6 +62,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
   private MenuItem searchItem;
   private SearchView searchView;
   private static LinearLayout noResults;
+  private ImageView icon;
   private SwipeRefreshLayout refresh;
 
   @Override
@@ -75,6 +79,11 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     recyclerView = (RecyclerView) findViewById(R.id.appList);
     refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
     noResults = (LinearLayout) findViewById(R.id.noResults);
+
+    icon = (ImageView) findViewById(R.id.noResultsIcon);
+    if (appPreferences.getTheme().equals("1")) {
+      icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.fabLabelLight));
+    }
 
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

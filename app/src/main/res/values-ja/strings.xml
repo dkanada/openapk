@@ -25,8 +25,8 @@
   <string name="dialog_saving_description">ML マネージャーは \"MLManager\" フォルダーに APK を保存しています。</string>
   <string name="dialog_about">%s について</string>
   <string name="dialog_about_description">Javier Santos が開発しました。\n\nGPLv3 ライセンスのオープンソース。</string>
-  <string name="dialog_run">開く</string>
-  <string name="dialog_run_description">このアプリを今すぐ実行します</string>
+  <string name="action_open">開く</string>
+  <string name="dialog_open_description">このアプリを今すぐ実行します</string>
   <string name="dialog_extract">抽出</string>
   <string name="dialog_extract_description">このアプリを \"MLManager\" ディレクトリの下に抽出します</string>
   <string name="dialog_extract_fail">抽出できませんでした</string>
@@ -74,8 +74,8 @@
   <string name="settings_navigation_color_description">ナビゲーション バーにユーザー設定の色を使用しません。</string>
   <string name="settings_default_customization">カスタマイズを復元</string>
   <string name="settings_default_customization_description">色をデフォルト値に戻します</string>
-  <string name="settings_about">スペインの \u2665 で作りました</string>
-  <string name="about_description_1">アプリ開発者</string>
-  <string name="about_description_2">アイコン デザイナー</string>
+  <string name="settings_reset_description">スペインの \u2665 で作りました</string>
+  <string name="about_description_one">アプリ開発者</string>
+  <string name="about_description_two">アイコン デザイナー</string>
   <string name="tap_exit">もう一度タップすると、アプリを閉じます</string>
 </resources>

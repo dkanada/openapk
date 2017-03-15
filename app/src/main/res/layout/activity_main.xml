@@ -21,9 +21,10 @@
         android:visibility="gone">
 
       <ImageView
+          android:id="@+id/noResultsIcon"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@drawable/ic_search_black"/>
+          android:src="@drawable/ic_search"/>
 
       <TextView
           android:layout_width="wrap_content"

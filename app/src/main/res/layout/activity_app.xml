@@ -40,7 +40,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:text="App"
+        android:text="name"
         android:textColor="@color/textWhite"
         android:textSize="22sp"/>
 
@@ -52,60 +52,34 @@
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif-thin"
         android:gravity="center_horizontal"
+        android:text="version"
         android:textColor="@color/textWhite"
         android:textSize="15sp"/>
-  </RelativeLayout>
 
-  <RelativeLayout
-      android:id="@+id/relativeLayout2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="16dp"
-      android:layout_marginRight="16dp"
-      android:layout_marginTop="180dp">
-
-    <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/id_card"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_margin="5dp"
-        android:foreground="?android:attr/selectableItemBackground">
-
-      <ImageView
-          android:id="@+id/app_googleplay"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginLeft="@dimen/horizontal_margin"
-          android:layout_marginStart="@dimen/horizontal_margin"
-          android:adjustViewBounds="true"
-          android:maxHeight="30dp"
-          android:maxWidth="30dp"
-          android:src="@drawable/ic_googleplay"/>
-
-      <TextView
-          android:id="@+id/app_apk"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginLeft="@dimen/horizontal_margin"
-          android:layout_marginRight="@dimen/horizontal_margin"
-          android:fontFamily="sans-serif-thin"
-          android:gravity="center"
-          android:text="com.dkanada.openapk"/>
-    </android.support.v7.widget.CardView>
+    <TextView
+        android:id="@+id/app_apk"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_version"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center_horizontal"
+        android:text="package"
+        android:textColor="@color/textWhite"
+        android:textSize="15sp"/>
   </RelativeLayout>
 
   <ScrollView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@id/relativeLayout2">
+      android:layout_below="@id/relativeLayout1">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
 
       <android.support.v7.widget.CardView
           xmlns:android="http://schemas.android.com/apk/res/android"
@@ -122,7 +96,7 @@
             android:layout_marginStart="@dimen/horizontal_margin"
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-thin"
-            android:text="@string/dialog_run"
+            android:text="@string/action_open"
             android:textSize="25sp"/>
 
         <TextView
@@ -134,7 +108,7 @@
             android:ellipsize="end"
             android:fontFamily="sans-serif-thin"
             android:singleLine="true"
-            android:text="@string/dialog_run_description"
+            android:text="@string/dialog_open_description"
             android:textSize="14sp"/>
       </android.support.v7.widget.CardView>
 
@@ -154,7 +128,7 @@
             android:layout_marginStart="@dimen/horizontal_margin"
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-thin"
-            android:text="@string/dialog_extract"
+            android:text="@string/action_extract"
             android:textSize="25sp"/>
 
         <TextView
@@ -186,7 +160,7 @@
             android:layout_marginStart="@dimen/horizontal_margin"
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-thin"
-            android:text="@string/dialog_uninstall"
+            android:text="@string/action_uninstall"
             android:textSize="25sp"/>
 
         <TextView

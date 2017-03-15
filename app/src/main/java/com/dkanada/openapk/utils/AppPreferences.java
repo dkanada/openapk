@@ -11,20 +11,19 @@ public class AppPreferences {
   private SharedPreferences.Editor editor;
   private Context context;
 
-  public static final String KeyCustomPath = "prefCustomPath";
-  public static final String KeyFilename = "prefFilename";
-  public static final String KeySortMode = "prefSortMode";
-  public static final String KeyTheme = "prefTheme";
-  public static final String KeyPrimaryColor = "prefPrimaryColor";
-  public static final String KeyFABColor = "prefFABColor";
-  public static final String KeyFABShow = "prefFABShow";
-  public static final String KeyNavigationColor = "prefNavigationColor";
-  public static final String KeyDoubleTap = "prefDoubleTap";
-  public static final String KeyRootEnabled = "prefRootEnabled";
+  private static final String KeyCustomPath = "prefCustomPath";
+  private static final String KeyFilename = "prefFilename";
+  private static final String KeySortMode = "prefSortMode";
+  private static final String KeyTheme = "prefTheme";
+  private static final String KeyPrimaryColor = "prefPrimaryColor";
+  private static final String KeyFABColor = "prefFABColor";
+  private static final String KeyNavigationColor = "prefNavigationColor";
+  private static final String KeyDoubleTap = "prefDoubleTap";
+  private static final String KeyRootEnabled = "prefRootEnabled";
 
   // internal preferences
-  public static final String KeyInitialSetup = "prefInitialSetup";
-  public static final String KeyIsRooted = "prefIsRooted";
+  private static final String KeyInitialSetup = "prefInitialSetup";
+  private static final String KeyIsRooted = "prefIsRooted";
 
   public AppPreferences(Context context) {
     this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -69,10 +68,6 @@ public class AppPreferences {
   public void setFABColorPref(Integer res) {
     editor.putInt(KeyFABColor, res);
     editor.commit();
-  }
-
-  public Boolean getFABShowPref() {
-    return sharedPreferences.getBoolean(KeyFABShow, false);
   }
 
   public Boolean getNavigationColorPref() {

@@ -3,6 +3,8 @@ package com.dkanada.openapk.utils;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -113,6 +115,14 @@ public class AppUtils {
     } catch (ActivityNotFoundException e) {
       context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + id)));
     }
+  }
+
+  // save app name to clipboard
+  public static void saveClipboard(Context context, AppInfo appInfo) {
+    ClipData clipData;
+    ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+    clipData = ClipData.newPlainText("text", appInfo.getAPK());
+    clipboardManager.setPrimaryClip(clipData);
   }
 
   // get version number for this app

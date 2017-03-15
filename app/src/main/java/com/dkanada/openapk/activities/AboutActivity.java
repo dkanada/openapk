@@ -2,9 +2,11 @@ package com.dkanada.openapk.activities;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dkanada.openapk.App;
@@ -51,8 +53,12 @@ public class AboutActivity extends ThemeActivity {
   private void setScreenElements() {
     TextView header = (TextView) findViewById(R.id.header);
     TextView appNameVersion = (TextView) findViewById(R.id.app_name);
+    ImageView icon = (ImageView) findViewById(R.id.about_icon);
 
     header.setBackgroundColor(appPreferences.getPrimaryColorPref());
     appNameVersion.setText(getResources().getString(R.string.app_name) + " " + AppUtils.getAppVersionName(getApplicationContext()));
+    if (appPreferences.getTheme().equals("1")) {
+      icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.fabLabelLight));
+    }
   }
 }

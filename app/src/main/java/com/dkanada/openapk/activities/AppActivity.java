@@ -89,11 +89,9 @@ public class AppActivity extends ThemeActivity {
   private void setScreenElements() {
     TextView header = (TextView) findViewById(R.id.header);
     ImageView icon = (ImageView) findViewById(R.id.app_icon);
-    ImageView icon_googleplay = (ImageView) findViewById(R.id.app_googleplay);
     TextView name = (TextView) findViewById(R.id.app_name);
     TextView version = (TextView) findViewById(R.id.app_version);
     TextView apk = (TextView) findViewById(R.id.app_apk);
-    CardView googleplay = (CardView) findViewById(R.id.id_card);
     CardView open = (CardView) findViewById(R.id.start_card);
     CardView extract = (CardView) findViewById(R.id.extract_card);
     CardView uninstall = (CardView) findViewById(R.id.uninstall_card);
@@ -126,30 +124,6 @@ public class AppActivity extends ThemeActivity {
     updateShareFAB(fab_share);
     updateHideFAB(fab_hide);
     updateDisableFAB(fab_disable);
-
-    // google play icon
-    if (appInfo.getSystem()) {
-      icon_googleplay.setVisibility(View.GONE);
-    } else {
-      googleplay.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          AppUtils.goToGooglePlay(context, appInfo.getAPK());
-        }
-      });
-
-      googleplay.setOnLongClickListener(new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View view) {
-          ClipData clipData;
-          ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-          clipData = ClipData.newPlainText("text", appInfo.getAPK());
-          clipboardManager.setPrimaryClip(clipData);
-          DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.clipboard), null, null, 2).show();
-          return false;
-        }
-      });
-    }
   }
 
   protected void updateOpenButton(CardView open) {

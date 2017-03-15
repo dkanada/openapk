@@ -24,8 +24,8 @@
   <string name="dialog_saving_description">ML Manager zapisuje APK do folderu \"MLManager\".</string>
   <string name="dialog_about">O %s</string>
   <string name="dialog_about_description">Stworzono przez Javiera Santos.\n\nOpen Source pod licencj GPLv3.</string>
-  <string name="dialog_run">Otwórz</string>
-  <string name="dialog_run_description">Uruchom teraz tę aplikację</string>
+  <string name="action_open">Otwórz</string>
+  <string name="dialog_open_description">Uruchom teraz tę aplikację</string>
   <string name="dialog_extract">Rozpakuj</string>
   <string name="dialog_extract_description">Rozpakuj tę aplikację w folderze \"MLManager\"</string>
   <string name="dialog_extract_fail">Rozpakowanie zakończone niepowodzeniem</string>
@@ -62,8 +62,8 @@
   <string name="settings_navigation_color_description">Nie używaj własnego koloru dla paska nawigacyjnego.</string>
   <string name="settings_default_customization">Przywróć personalizację</string>
   <string name="settings_default_customization_description">Przywróć kolory do domyślnych</string>
-  <string name="settings_about">Utworzono z \u2665 w Hiszpanii</string>
-  <string name="about_description_1">Deweloper aplikacji</string>
-  <string name="about_description_2">Projektant ikon</string>
+  <string name="settings_reset_description">Utworzono z \u2665 w Hiszpanii</string>
+  <string name="about_description_one">Deweloper aplikacji</string>
+  <string name="about_description_two">Projektant ikon</string>
   <string name="tap_exit">Dotknij ponownie aby zamknąć aplikację</string>
 </resources>

@@ -18,9 +18,20 @@ import com.dkanada.openapk.utils.AppUtils;
 import yuku.ambilwarna.widget.AmbilWarnaPreference;
 
 public final class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-  private Preference prefDeleteAll, prefCustomPath, prefNavigationColor, prefDefaultValues, prefDoubleTap, prefRootEnabled, prefVersion;
-  private AmbilWarnaPreference prefPrimaryColor, prefFABColor;
-  private ListPreference prefFilename, prefSortMode, prefTheme;
+
+  // change the summary on prefChanged
+  private Preference prefCustomPath;
+  private ListPreference prefFilename;
+  private ListPreference prefSortMode;
+  private ListPreference prefTheme;
+
+  // disable if android version too low
+  private AmbilWarnaPreference prefPrimaryColor;
+  private Preference prefNavigationColor;
+
+  // action on click
+  private Preference prefReset;
+
   AppPreferences appPreferences;
 
   @Override
@@ -32,62 +43,30 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
     prefs.registerOnSharedPreferenceChangeListener(this);
 
-    prefDeleteAll = findPreference("prefDeleteAll");
     prefCustomPath = findPreference("prefCustomPath");
     prefFilename = (ListPreference) findPreference("prefFilename");
     prefSortMode = (ListPreference) findPreference("prefSortMode");
-
     prefTheme = (ListPreference) findPreference("prefTheme");
+
     prefPrimaryColor = (AmbilWarnaPreference) findPreference("prefPrimaryColor");
-    prefFABColor = (AmbilWarnaPreference) findPreference("prefFABColor");
     prefNavigationColor = findPreference("prefNavigationColor");
-    prefDefaultValues = findPreference("prefDefaultValues");
 
-    prefDoubleTap = findPreference("prefDoubleTap");
-    prefRootEnabled = findPreference("prefRootEnabled");
-    prefVersion = findPreference("prefVersion");
-
-    prefVersion.setTitle(getResources().getString(R.string.app_name) + " v" + AppUtils.getAppVersionName(getActivity()));
-    prefVersion.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-      @Override
-      public boolean onPreferenceClick(Preference preference) {
-        startActivity(new Intent(getActivity(), AboutActivity.class));
-        return false;
-      }
-    });
-
-    // prefDeleteAll
-    prefDeleteAll.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-      @Override
-      public boolean onPreferenceClick(Preference preference) {
-        prefDeleteAll.setSummary(R.string.deleting);
-        prefDeleteAll.setEnabled(false);
-        Boolean deleteAll = AppUtils.deleteAppFiles();
-        if (deleteAll) {
-          prefDeleteAll.setSummary(R.string.deleting_done);
-        } else {
-          prefDeleteAll.setSummary(R.string.deleting_error);
-        }
-        prefDeleteAll.setEnabled(true);
-        return true;
-      }
-    });
-
-    // prefDefaultValues
-    prefDefaultValues.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-      @Override
-      public boolean onPreferenceClick(Preference preference) {
-        appPreferences.setPrimaryColorPref(getResources().getColor(R.color.actionBar));
-        appPreferences.setFABColorPref(getResources().getColor(R.color.fab));
-        return true;
-      }
-    });
+    prefReset = findPreference("prefReset");
 
     // removes settings that wont work on lower versions
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       prefPrimaryColor.setEnabled(false);
       prefNavigationColor.setEnabled(false);
     }
+
+    prefReset.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+      @Override
+      public boolean onPreferenceClick(Preference preference) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPreferences.edit().clear().apply();
+        return true;
+      }
+    });
 
     setSortModeSummary();
     setThemeSummary();

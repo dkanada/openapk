@@ -25,8 +25,8 @@
   <string name="dialog_saving_description">ML Manager sta salvando l\'APK nella cartella \"MLManager\".</string>
   <string name="dialog_about">Info su %s</string>
   <string name="dialog_about_description">Sviluppato da Javier Santos.\n\nOpen Source sotto licenza GPLv3.</string>
-  <string name="dialog_run">Apri</string>
-  <string name="dialog_run_description">Eseguire l\'applicazione</string>
+  <string name="action_open">Apri</string>
+  <string name="dialog_open_description">Eseguire l\'applicazione</string>
   <string name="dialog_extract">Estrai</string>
   <string name="dialog_extract_description">Estrai l\'app nella cartella \"MLManager\"</string>
   <string name="dialog_extract_fail">Estrazione fallita</string>
@@ -74,8 +74,8 @@
   <string name="settings_navigation_color_description">Non utilizzare un colore personalizzato per la barra di navigazione.</string>
   <string name="settings_default_customization">Ripristina le personalizzazioni</string>
   <string name="settings_default_customization_description">Ripristina i colori predefiniti</string>
-  <string name="settings_about">Fatta con il \u2665 dalla Spagna</string>
-  <string name="about_description_1">Sviluppatore App</string>
-  <string name="about_description_2">Designer</string>
+  <string name="settings_reset_description">Fatta con il \u2665 dalla Spagna</string>
+  <string name="about_description_one">Sviluppatore App</string>
+  <string name="about_description_two">Designer</string>
   <string name="tap_exit">Tocca ancora per chiudere l\'app</string>
 </resources>
