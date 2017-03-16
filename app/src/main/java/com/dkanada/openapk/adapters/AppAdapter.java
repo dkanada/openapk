@@ -69,13 +69,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
     final ImageView appIcon = appViewHolder.vIcon;
     final CardView cardView = appViewHolder.vCard;
 
-    if(appPreferences.getTheme().equals("1")) {
-      appExtract.setBackgroundColor(context.getResources().getColor(R.color.accentLight));
-      appShare.setBackgroundColor(context.getResources().getColor(R.color.accentLight));
-    } else {
-      appExtract.setBackgroundColor(context.getResources().getColor(R.color.accentDark));
-      appShare.setBackgroundColor(context.getResources().getColor(R.color.accentDark));
-    }
+    appExtract.setBackgroundColor(context.getResources().getColor(R.color.accent));
+    appShare.setBackgroundColor(context.getResources().getColor(R.color.accent));
 
     appExtract.setOnClickListener(new View.OnClickListener() {
       @Override

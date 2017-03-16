@@ -3,33 +3,34 @@
   <color name="actionBar">#3F51B5</color>
   <color name="statusBar">#303F9F</color>
   <color name="fab">#E91E63</color>
-  <color name="textWhite">#FAFAFA</color>
+  <color name="accent">#448AFF</color>
 
-  <color name="accentLight">#448AFF</color>
   <color name="textPrimaryLight">#212121</color>
   <color name="textLight">#212121</color>
   <color name="badgeLight">#E0E0E0</color>
   <color name="fabLabelLight">#616161</color>
 
-  <color name="accentDark">#448AFF</color>
   <color name="textPrimaryDark">#FAFAFA</color>
   <color name="textDark">#FAFAFA</color>
   <color name="badgeDark">#424242</color>
   <color name="fabLabelDark">#616161</color>
 
-  <color name="cardBlue">#00BED4</color>
-  <color name="cardGreen">#8CC24A</color>
-  <color name="cardRed">#DE6262</color>
-  <color name="cardOrange">#FF7043</color>
+  <color name="white">#FAFAFA</color>
+  <color name="blue">#00BED4</color>
+  <color name="green">#8CC24A</color>
+  <color name="red">#DE6262</color>
+  <color name="orange">#FF7043</color>
 
   <!-- MaterialDrawer dark colors -->
   <color name="material_drawer_dark_background">@color/md_dark_background</color>
+
   <!-- MaterialDrawer text and item colors -->
   <color name="material_drawer_dark_primary_text">@color/textDark</color>
   <color name="material_drawer_dark_primary_icon">@color/textDark</color>
   <color name="material_drawer_dark_secondary_text">@color/textDark</color>
   <color name="material_drawer_dark_hint_text">@color/textDark</color>
   <color name="material_drawer_dark_divider">#616161</color>
+
   <!-- MaterialDrawer drawer colors -->
   <color name="material_drawer_dark_selected">@color/md_dark_background</color>
   <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>

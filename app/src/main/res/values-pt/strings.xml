@@ -12,7 +12,6 @@
   <string name="action_unhide">Mostrar</string>
   <string name="send_to">Enviar \"%s\" por</string>
   <string name="deleting">A apagar&#8230;</string>
-  <string name="loading">A carregar&#8230;</string>
   <string name="deleting_done">Ficheiros eliminados!</string>
   <string name="deleting_error">Ocorreu um erro  ao remover os ficheiros</string>
   <string name="search">Pesquisar</string>
@@ -60,8 +59,6 @@
   <string name="button_reboot">Reiniciar</string>
   <string name="button_later">Mais tarde</string>
   <string name="action_uninstall">Desinstalar</string>
-  <string name="settings_delete_all">Eliminar todas as APK extraídas</string>
-  <string name="settings_delete_all_description">Remover todas as APK extraídas guardadas no diretório de extração</string>
   <string name="settings_custom_path">Pasta personalizada para as APK</string>
   <string name="settings_custom_filename">Nome de ficheiro para APK extraídas</string>
   <string name="settings_sort_mode">Ordenar aplicações por</string>
@@ -72,8 +69,6 @@
   <string name="settings_fab_color_description">Define a cor do botão flutuante (FAB)</string>
   <string name="settings_navigation_color">Mostrar barra de navegação a preto</string>
   <string name="settings_navigation_color_description">Não utilizar cor personalizada na barra de nagevação</string>
-  <string name="settings_default_customization">Restaurar predefinições</string>
-  <string name="settings_default_customization_description">Restaurar as cores pré-definidas</string>
   <string name="settings_reset_description">Criado com \u2665 de Espanha</string>
   <string name="about_description_one">Programador da aplicação</string>
   <string name="about_description_two">Criador do ícone</string>

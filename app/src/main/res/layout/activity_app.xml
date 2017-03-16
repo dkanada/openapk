@@ -41,7 +41,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:text="name"
-        android:textColor="@color/textWhite"
+        android:textColor="@color/white"
         android:textSize="22sp"/>
 
     <TextView
@@ -53,7 +53,7 @@
         android:fontFamily="sans-serif-thin"
         android:gravity="center_horizontal"
         android:text="version"
-        android:textColor="@color/textWhite"
+        android:textColor="@color/white"
         android:textSize="15sp"/>
 
     <TextView
@@ -65,7 +65,7 @@
         android:fontFamily="sans-serif-thin"
         android:gravity="center_horizontal"
         android:text="package"
-        android:textColor="@color/textWhite"
+        android:textColor="@color/white"
         android:textSize="15sp"/>
   </RelativeLayout>
 

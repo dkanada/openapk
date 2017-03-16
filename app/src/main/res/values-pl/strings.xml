@@ -12,7 +12,6 @@
   <string name="action_unhide">Usuń z ukrytych</string>
   <string name="send_to">Wyślij \"%s\" używając</string>
   <string name="deleting">Usuwanie&#8230;</string>
-  <string name="loading">Ładowanie&#8230;</string>
   <string name="deleting_done">Pliki zostały usunięte!</string>
   <string name="deleting_error">Podczas usuwania plików coś poszło nie tak</string>
   <string name="search">Szukaj</string>
@@ -49,8 +48,6 @@
   <string name="action_extract">Rozpakuj</string>
   <string name="button_undo">Cofnij</string>
   <string name="button_reboot">Uruchom ponownie</string>
-  <string name="settings_delete_all">Usuń wszystkie rozpakowane pliki APK</string>
-  <string name="settings_delete_all_description">Usuń wszystkie rozpakowane pliki APK przechowywane w folderze</string>
   <string name="settings_custom_filename">Domyślna nazwa pliku dla rozpakowanych APK</string>
   <string name="settings_sort_mode">Sortuj aplikacje według</string>
   <string name="settings_title_colors">Personalizacja</string>
@@ -60,8 +57,6 @@
   <string name="settings_fab_color_description">Ustal kolor dla pływającego przycisku akcji (FAB)</string>
   <string name="settings_navigation_color">Pokaż pasek nawigacji w kolorze czarnym</string>
   <string name="settings_navigation_color_description">Nie używaj własnego koloru dla paska nawigacyjnego.</string>
-  <string name="settings_default_customization">Przywróć personalizację</string>
-  <string name="settings_default_customization_description">Przywróć kolory do domyślnych</string>
   <string name="settings_reset_description">Utworzono z \u2665 w Hiszpanii</string>
   <string name="about_description_one">Deweloper aplikacji</string>
   <string name="about_description_two">Projektant ikon</string>

@@ -12,7 +12,6 @@
   <string name="action_unhide">Mostra</string>
   <string name="send_to">Invia utilizzando \"%s\"</string>
   <string name="deleting">Eliminazione&#8230;</string>
-  <string name="loading">Caricamento&#8230;</string>
   <string name="deleting_done">File cancellati!</string>
   <string name="deleting_error">Qualcosa è andato storto durante la rimozione dei file</string>
   <string name="search">Cerca</string>
@@ -60,8 +59,6 @@
   <string name="button_reboot">Riavvia</string>
   <string name="button_later">Piu\' tardi</string>
   <string name="action_uninstall">Disinstalla</string>
-  <string name="settings_delete_all">Rimuovi tutti gli APK estratti</string>
-  <string name="settings_delete_all_description">Rimuovi tutti gli APK estratti dalla cartella predefinita</string>
   <string name="settings_custom_path">Cartella personalizzata per gli APK</string>
   <string name="settings_custom_filename">Nome predefinito per gli APK estratti</string>
   <string name="settings_sort_mode">Ordina le app in per&#8230;</string>
@@ -72,8 +69,6 @@
   <string name="settings_fab_color_description">Imposta il colore del Floating Action Button (FAB)</string>
   <string name="settings_navigation_color">Mostra la barra di navigazione in nero</string>
   <string name="settings_navigation_color_description">Non utilizzare un colore personalizzato per la barra di navigazione.</string>
-  <string name="settings_default_customization">Ripristina le personalizzazioni</string>
-  <string name="settings_default_customization_description">Ripristina i colori predefiniti</string>
   <string name="settings_reset_description">Fatta con il \u2665 dalla Spagna</string>
   <string name="about_description_one">Sviluppatore App</string>
   <string name="about_description_two">Designer</string>

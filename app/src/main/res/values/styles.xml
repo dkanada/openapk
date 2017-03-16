@@ -7,7 +7,7 @@
     <item name="colorPrimary">@color/actionBar</item>
     <!-- colorPrimaryDark is used for the status bar -->
     <item name="colorPrimaryDark">@color/statusBar</item>
-    <item name="colorAccent">@color/accentLight</item>
+    <item name="colorAccent">@color/accent</item>
     <!-- text colors -->
     <item name="android:textColorPrimary">@color/textPrimaryLight</item>
     <item name="android:textColor">@color/textLight</item>
@@ -20,13 +20,14 @@
     <item name="colorPrimary">@color/actionBar</item>
     <!-- colorPrimaryDark is used for the status bar -->
     <item name="colorPrimaryDark">@color/statusBar</item>
-    <item name="colorAccent">@color/accentDark</item>
+    <item name="colorAccent">@color/accent</item>
     <!-- text colors -->
     <item name="android:textColorPrimary">@color/textPrimaryDark</item>
     <item name="android:textColor">@color/textDark</item>
   </style>
 
   <style name="DrawerDark" parent="MaterialDrawerTheme">
+
     <!-- MaterialDrawer specific values -->
     <item name="material_drawer_background">@color/material_drawer_dark_background</item>
     <item name="material_drawer_primary_text">@color/material_drawer_dark_primary_text</item>
@@ -46,6 +47,6 @@
 
   <style name="LabelStyle">
     <item name="android:background">@drawable/fab_label_background</item>
-    <item name="android:textColor">@color/textWhite</item>
+    <item name="android:textColor">@color/white</item>
   </style>
 </resources>

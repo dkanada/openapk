@@ -36,7 +36,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:text="@string/app_name"
-        android:textColor="@color/textWhite"
+        android:textColor="@color/white"
         android:textSize="22sp"/>
 
     <TextView
@@ -48,7 +48,7 @@
         android:gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:text="@string/app_description"
-        android:textColor="@color/textWhite"
+        android:textColor="@color/white"
         android:textSize="15sp"
         android:fontFamily="sans-serif-thin"
         android:lines="3"/>
