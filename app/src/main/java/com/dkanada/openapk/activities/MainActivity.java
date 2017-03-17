@@ -230,7 +230,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
             try {
               PackageInfo infoOne = packageManager.getPackageInfo(appOne.getAPK(), 0);
               PackageInfo infoTwo = packageManager.getPackageInfo(appTwo.getAPK(), 0);
-              return Long.toString(infoOne.firstInstallTime).compareTo(Long.toString(infoTwo.firstInstallTime));
+              return Long.toString(infoTwo.firstInstallTime).compareTo(Long.toString(infoOne.firstInstallTime));
             } catch (Exception e) {
               e.printStackTrace();
             }
@@ -246,7 +246,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
             try {
               PackageInfo infoOne = packageManager.getPackageInfo(appOne.getAPK(), 0);
               PackageInfo infoTwo = packageManager.getPackageInfo(appTwo.getAPK(), 0);
-              return Long.toString(infoOne.lastUpdateTime).compareTo(Long.toString(infoTwo.lastUpdateTime));
+              return Long.toString(infoTwo.lastUpdateTime).compareTo(Long.toString(infoOne.lastUpdateTime));
             } catch (Exception e) {
               e.printStackTrace();
             }
