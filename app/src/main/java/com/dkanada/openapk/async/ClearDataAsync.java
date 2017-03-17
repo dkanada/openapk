@@ -27,7 +27,7 @@ public class ClearDataAsync extends AsyncTask<Void, String, Boolean> {
   @Override
   protected Boolean doInBackground(Void... voids) {
     Boolean status = false;
-    if (AppUtils.checkPermissions(activity)) {
+    if (AppUtils.checkPermissions(activity) && RootUtils.isRooted()) {
       status = RootUtils.clearDataWithRootPermission(appInfo.getAPK());
     }
     return status;
@@ -37,9 +37,12 @@ public class ClearDataAsync extends AsyncTask<Void, String, Boolean> {
   protected void onPostExecute(Boolean status) {
     super.onPostExecute(status);
     dialog.dismiss();
-    if (status) {
+    if (status && RootUtils.isRooted()) {
       DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_clear_data_success), null, null, 2).show();
+    } else if (!RootUtils.isRooted()) {
+      DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     } else {
+      // TODO implement
       DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     }
   }

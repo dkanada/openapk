@@ -29,7 +29,7 @@ public class UninstallAsync extends AsyncTask<Void, String, Boolean> {
   @Override
   protected Boolean doInBackground(Void... voids) {
     Boolean status = false;
-    if (AppUtils.checkPermissions(activity)) {
+    if (AppUtils.checkPermissions(activity) && RootUtils.isRooted()) {
       status = RootUtils.uninstallWithRootPermission(appInfo.getSource());
     }
     return status;
@@ -39,7 +39,7 @@ public class UninstallAsync extends AsyncTask<Void, String, Boolean> {
   protected void onPostExecute(Boolean status) {
     super.onPostExecute(status);
     dialog.dismiss();
-    if (status) {
+    if (status && RootUtils.isRooted()) {
       MaterialDialog.Builder materialDialog = DialogUtils.showUninstalled(context, appInfo);
       materialDialog.callback(new MaterialDialog.ButtonCallback() {
         @Override
@@ -59,7 +59,10 @@ public class UninstallAsync extends AsyncTask<Void, String, Boolean> {
         }
       });
       materialDialog.show();
+    } else if (!RootUtils.isRooted()) {
+      DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     } else {
+      // TODO implement
       DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     }
   }

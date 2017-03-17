@@ -28,7 +28,7 @@ public class HideAsync extends AsyncTask<Void, String, Boolean> {
   @Override
   protected Boolean doInBackground(Void... voids) {
     Boolean status = false;
-    if (AppUtils.checkPermissions(activity)) {
+    if (AppUtils.checkPermissions(activity) && RootUtils.isRooted()) {
       AppDbUtils appDbUtils = new AppDbUtils(context);
       if (!appDbUtils.checkAppInfo(appInfo, 3)) {
         status = RootUtils.hideWithRootPermission(appInfo.getAPK(), appDbUtils.checkAppInfo(appInfo, 3));
@@ -47,9 +47,12 @@ public class HideAsync extends AsyncTask<Void, String, Boolean> {
   protected void onPostExecute(Boolean status) {
     super.onPostExecute(status);
     dialog.dismiss();
-    if (status) {
+    if (status && RootUtils.isRooted()) {
       DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_reboot), context.getResources().getString(R.string.button_reboot), null, 3).show();
+    } else if (!RootUtils.isRooted()) {
+      DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     } else {
+      // TODO implement
       DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     }
   }
