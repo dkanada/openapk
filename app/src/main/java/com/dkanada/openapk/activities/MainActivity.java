@@ -3,6 +3,7 @@ package com.dkanada.openapk.activities;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -34,7 +35,6 @@ import com.dkanada.openapk.utils.AppUtils;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
 import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.icons.MaterialDrawerFont;
 
 import java.io.File;
 import java.util.Collections;
@@ -200,6 +200,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
   }
 
   public List<AppInfo> sortAdapter(List<AppInfo> appList) {
+    final PackageManager packageManager = getPackageManager();
     switch (appPreferences.getSortMode()) {
       default:
         // compare by name
@@ -222,24 +223,34 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         });
         break;
       case "2":
-        // compare by size
+        // compare by installation date
         Collections.sort(appList, new Comparator<AppInfo>() {
           @Override
           public int compare(AppInfo appOne, AppInfo appTwo) {
-            Long size1 = new File(appOne.getData()).length();
-            Long size2 = new File(appTwo.getData()).length();
-            return size2.compareTo(size1);
+            try {
+              PackageInfo infoOne = packageManager.getPackageInfo(appOne.getAPK(), 0);
+              PackageInfo infoTwo = packageManager.getPackageInfo(appTwo.getAPK(), 0);
+              return Long.toString(infoOne.firstInstallTime).compareTo(Long.toString(infoTwo.firstInstallTime));
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+            return 1;
           }
         });
         break;
       case "3":
-        // compare by size
+        // compare by last update
         Collections.sort(appList, new Comparator<AppInfo>() {
           @Override
           public int compare(AppInfo appOne, AppInfo appTwo) {
-            Long size1 = new File(appOne.getData()).length();
-            Long size2 = new File(appTwo.getData()).length();
-            return size2.compareTo(size1);
+            try {
+              PackageInfo infoOne = packageManager.getPackageInfo(appOne.getAPK(), 0);
+              PackageInfo infoTwo = packageManager.getPackageInfo(appTwo.getAPK(), 0);
+              return Long.toString(infoOne.lastUpdateTime).compareTo(Long.toString(infoTwo.lastUpdateTime));
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+            return 1;
           }
         });
         break;
