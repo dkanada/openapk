@@ -74,175 +74,175 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/relativeLayout1">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp">
+        android:gravity="top"
+        android:orientation="vertical">
 
-      <android.support.v7.widget.CardView
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/start_card"
-          android:layout_width="match_parent"
-          android:layout_height="85dp"
-          android:layout_margin="5dp"
-          android:foreground="?android:attr/selectableItemBackground">
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="100dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="8dp"
+          android:gravity="center_horizontal"
+          android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/action_open"
-            android:textSize="25sp"/>
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/open"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_description_margin"
-            android:layout_marginRight="@dimen/horizontal_description_margin"
-            android:layout_marginTop="50dp"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-thin"
-            android:singleLine="true"
-            android:text="@string/dialog_open_description"
-            android:textSize="14sp"/>
-      </android.support.v7.widget.CardView>
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-      <android.support.v7.widget.CardView
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/extract_card"
-          android:layout_width="match_parent"
-          android:layout_height="85dp"
-          android:layout_below="@id/start_card"
-          android:layout_margin="5dp"
-          android:foreground="?android:attr/selectableItemBackground">
+          <ImageView
+              android:id="@+id/open_icon"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:adjustViewBounds="true"
+              android:maxHeight="50dp"
+              android:maxWidth="50dp"
+              android:src="@drawable/ic_open_in_new"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/action_extract"
-            android:textSize="25sp"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:layout_marginTop="10dp"
+              android:text="@string/action_open"
+              android:textColor="@color/white"
+              android:textSize="10sp"/>
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/extract"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_description_margin"
-            android:layout_marginRight="@dimen/horizontal_description_margin"
-            android:layout_marginTop="50dp"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-thin"
-            android:singleLine="true"
-            android:text="@string/dialog_extract_description"
-            android:textSize="14sp"/>
-      </android.support.v7.widget.CardView>
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-      <android.support.v7.widget.CardView
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/uninstall_card"
-          android:layout_width="match_parent"
-          android:layout_height="85dp"
-          android:layout_below="@id/extract_card"
-          android:layout_margin="5dp"
-          android:foreground="?android:attr/selectableItemBackground">
+          <ImageView
+              android:id="@+id/extract_icon"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:adjustViewBounds="true"
+              android:maxHeight="50dp"
+              android:maxWidth="50dp"
+              android:src="@drawable/ic_android"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/action_uninstall"
-            android:textSize="25sp"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:layout_marginTop="10dp"
+              android:text="@string/action_extract"
+              android:textColor="@color/white"
+              android:textSize="10sp"/>
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/uninstall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_description_margin"
-            android:layout_marginRight="@dimen/horizontal_description_margin"
-            android:layout_marginTop="50dp"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-thin"
-            android:singleLine="true"
-            android:text="@string/dialog_uninstall_description"
-            android:textSize="14sp"/>
-      </android.support.v7.widget.CardView>
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-      <android.support.v7.widget.CardView
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/cache_card"
-          android:layout_width="match_parent"
-          android:layout_height="85dp"
-          android:layout_below="@id/uninstall_card"
-          android:layout_margin="5dp"
-          android:foreground="?android:attr/selectableItemBackground"
-          android:visibility="gone">
+          <ImageView
+              android:id="@+id/uninstall_icon"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:adjustViewBounds="true"
+              android:maxHeight="50dp"
+              android:maxWidth="50dp"
+              android:src="@drawable/ic_delete"/>
 
-        <TextView
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:layout_marginTop="10dp"
+              android:text="@string/action_uninstall"
+              android:textColor="@color/white"
+              android:textSize="10sp"/>
+        </LinearLayout>
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="100dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="8dp"
+          android:gravity="center_horizontal"
+          android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/cache_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/action_remove_cache"
-            android:textSize="25sp"/>
+            android:layout_height="85dp"
+            android:layout_margin="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:visibility="gone">
 
-        <TextView
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/horizontal_margin"
+              android:layout_marginStart="@dimen/horizontal_margin"
+              android:layout_marginTop="10dp"
+              android:fontFamily="sans-serif-thin"
+              android:text="@string/action_remove_cache"
+              android:textSize="25sp"/>
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="@dimen/horizontal_description_margin"
+              android:layout_marginRight="@dimen/horizontal_description_margin"
+              android:layout_marginTop="50dp"
+              android:ellipsize="end"
+              android:fontFamily="sans-serif-thin"
+              android:singleLine="true"
+              android:text="@string/dialog_cache_description"
+              android:textSize="14sp"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/clear_data_card"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_description_margin"
-            android:layout_marginRight="@dimen/horizontal_description_margin"
-            android:layout_marginTop="50dp"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-thin"
-            android:singleLine="true"
-            android:text="@string/dialog_cache_description"
-            android:textSize="14sp"/>
-      </android.support.v7.widget.CardView>
+            android:layout_height="85dp"
+            android:layout_margin="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:visibility="gone">
 
-      <android.support.v7.widget.CardView
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/clear_data_card"
-          android:layout_width="match_parent"
-          android:layout_height="85dp"
-          android:layout_below="@id/cache_card"
-          android:layout_margin="5dp"
-          android:foreground="?android:attr/selectableItemBackground"
-          android:visibility="gone">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/horizontal_margin"
+              android:layout_marginStart="@dimen/horizontal_margin"
+              android:layout_marginTop="10dp"
+              android:fontFamily="sans-serif-thin"
+              android:text="@string/action_clear_data"
+              android:textSize="25sp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/action_clear_data"
-            android:textSize="25sp"/>
-
-        <TextView
-            android:id="@+id/clear_data_description"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_description_margin"
-            android:layout_marginRight="@dimen/horizontal_description_margin"
-            android:layout_marginTop="50dp"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-thin"
-            android:singleLine="true"
-            android:text="@string/dialog_clear_data_description"
-            android:textSize="14sp"/>
-      </android.support.v7.widget.CardView>
-    </RelativeLayout>
+          <TextView
+              android:id="@+id/clear_data_description"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="@dimen/horizontal_description_margin"
+              android:layout_marginRight="@dimen/horizontal_description_margin"
+              android:layout_marginTop="50dp"
+              android:ellipsize="end"
+              android:fontFamily="sans-serif-thin"
+              android:singleLine="true"
+              android:text="@string/dialog_clear_data_description"
+              android:textSize="14sp"/>
+        </android.support.v7.widget.CardView>
+      </LinearLayout>
+    </LinearLayout>
   </ScrollView>
 
   <FrameLayout

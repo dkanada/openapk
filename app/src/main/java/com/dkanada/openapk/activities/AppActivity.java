@@ -1,8 +1,5 @@
 package com.dkanada.openapk.activities;
 
-import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -19,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -44,7 +43,6 @@ public class AppActivity extends ThemeActivity {
   private AppPreferences appPreferences;
   private AppDbUtils appDbUtils;
   private Context context;
-  private Activity activity;
   private MenuItem favorite;
   private AppInfo appInfo;
   private FloatingActionsMenu fab;
@@ -56,7 +54,6 @@ public class AppActivity extends ThemeActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_app);
     context = this;
-    this.activity = (Activity) context;
 
     appDbUtils = new AppDbUtils(context);
 
@@ -92,9 +89,9 @@ public class AppActivity extends ThemeActivity {
     TextView name = (TextView) findViewById(R.id.app_name);
     TextView version = (TextView) findViewById(R.id.app_version);
     TextView apk = (TextView) findViewById(R.id.app_apk);
-    CardView open = (CardView) findViewById(R.id.start_card);
-    CardView extract = (CardView) findViewById(R.id.extract_card);
-    CardView uninstall = (CardView) findViewById(R.id.uninstall_card);
+    LinearLayout open = (LinearLayout) findViewById(R.id.open);
+    LinearLayout extract = (LinearLayout) findViewById(R.id.extract);
+    LinearLayout uninstall = (LinearLayout) findViewById(R.id.uninstall);
     CardView cache = (CardView) findViewById(R.id.cache_card);
     CardView data = (CardView) findViewById(R.id.clear_data_card);
     fab = (FloatingActionsMenu) findViewById(R.id.fab);
@@ -126,7 +123,7 @@ public class AppActivity extends ThemeActivity {
     updateDisableFAB(fab_disable);
   }
 
-  protected void updateOpenButton(CardView open) {
+  protected void updateOpenButton(LinearLayout open) {
     final Intent intent = getPackageManager().getLaunchIntentForPackage(appInfo.getAPK());
     if (intent != null) {
       open.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +137,7 @@ public class AppActivity extends ThemeActivity {
     }
   }
 
-  protected void updateExtractButton(CardView extract) {
+  protected void updateExtractButton(LinearLayout extract) {
     extract.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -152,7 +149,7 @@ public class AppActivity extends ThemeActivity {
     });
   }
 
-  protected void updateUninstallButton(CardView uninstall) {
+  protected void updateUninstallButton(LinearLayout uninstall) {
     if (appInfo.getSystem() && RootUtils.isRooted()) {
       uninstall.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -172,8 +169,7 @@ public class AppActivity extends ThemeActivity {
         }
       });
     } else if(appInfo.getSystem()) {
-      uninstall.setVisibility(View.GONE);
-      uninstall.setForeground(null);
+      uninstall.setEnabled(false);
     } else {
       uninstall.setOnClickListener(new View.OnClickListener() {
         @Override
