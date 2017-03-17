@@ -28,7 +28,7 @@
         android:key="prefTheme"
         android:title="@string/settings_theme"/>
     <yuku.ambilwarna.widget.AmbilWarnaPreference
-        android:defaultValue="@color/actionBar"
+        android:defaultValue="@color/primary"
         android:key="prefPrimaryColor"
         android:summary="@string/settings_primary_color_description"
         android:title="@string/settings_primary_color"/>

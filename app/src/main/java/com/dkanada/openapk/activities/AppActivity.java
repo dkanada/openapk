@@ -2,14 +2,15 @@ package com.dkanada.openapk.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -38,6 +40,9 @@ import com.dkanada.openapk.utils.RootUtils;
 import com.dkanada.openapk.utils.AppUtils;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
 
 public class AppActivity extends ThemeActivity {
   private AppPreferences appPreferences;
@@ -88,42 +93,70 @@ public class AppActivity extends ThemeActivity {
     ImageView icon = (ImageView) findViewById(R.id.app_icon);
     TextView name = (TextView) findViewById(R.id.app_name);
     TextView version = (TextView) findViewById(R.id.app_version);
-    TextView apk = (TextView) findViewById(R.id.app_apk);
-    LinearLayout open = (LinearLayout) findViewById(R.id.open);
-    LinearLayout extract = (LinearLayout) findViewById(R.id.extract);
-    LinearLayout uninstall = (LinearLayout) findViewById(R.id.uninstall);
-    CardView cache = (CardView) findViewById(R.id.cache_card);
-    CardView data = (CardView) findViewById(R.id.clear_data_card);
-    fab = (FloatingActionsMenu) findViewById(R.id.fab);
-    FloatingActionButton fab_share = (FloatingActionButton) findViewById(R.id.fab_a);
-    final FloatingActionButton fab_hide = (FloatingActionButton) findViewById(R.id.fab_b);
-    final FloatingActionButton fab_disable = (FloatingActionButton) findViewById(R.id.fab_c);
+
+    RelativeLayout open = (RelativeLayout) findViewById(R.id.open);
+    RelativeLayout extract = (RelativeLayout) findViewById(R.id.extract);
+    RelativeLayout uninstall = (RelativeLayout) findViewById(R.id.uninstall);
+    RelativeLayout hide = (RelativeLayout) findViewById(R.id.hide);
+    RelativeLayout disable = (RelativeLayout) findViewById(R.id.disable);
+    RelativeLayout share = (RelativeLayout) findViewById(R.id.share);
+
+    TextView apkText = (TextView) findViewById(R.id.app_apk_text);
+    TextView installText = (TextView) findViewById(R.id.app_install_text);
+    TextView updateText = (TextView) findViewById(R.id.app_update_text);
+
+    CardView cache = (CardView) findViewById(R.id.remove_cache);
+    CardView data = (CardView) findViewById(R.id.clear_data);
 
     icon.setImageDrawable(appInfo.getIcon());
     name.setText(appInfo.getName());
-    apk.setText(appInfo.getAPK());
     version.setText(appInfo.getVersion());
 
-    // configure colors
+    PackageManager packageManager = getPackageManager();
+    apkText.setText(appInfo.getAPK());
+    SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
+    try {
+      installText.setText(formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).firstInstallTime));
+      updateText.setText(formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).lastUpdateTime));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    // update colors
     header.setBackgroundColor(appPreferences.getPrimaryColorPref());
-    fab_share.setColorNormal(appPreferences.getFABColorPref());
-    fab_share.setColorPressed(InterfaceUtils.darker(appPreferences.getFABColorPref(), 0.8));
-    fab_hide.setColorNormal(appPreferences.getFABColorPref());
-    fab_hide.setColorPressed(InterfaceUtils.darker(appPreferences.getFABColorPref(), 0.8));
-    fab_disable.setColorNormal(appPreferences.getFABColorPref());
-    fab_disable.setColorPressed(InterfaceUtils.darker(appPreferences.getFABColorPref(), 0.8));
+    if (appPreferences.getTheme().equals("1")) {
+      RelativeLayout apk = (RelativeLayout) findViewById(R.id.app_apk);
+      RelativeLayout update = (RelativeLayout) findViewById(R.id.app_update);
+
+      apk.setBackgroundColor(getResources().getColor(R.color.grey_light));
+      update.setBackgroundColor(getResources().getColor(R.color.grey_light));
+
+      ImageView openIcon = (ImageView) findViewById(R.id.open_icon);
+      ImageView extractIcon = (ImageView) findViewById(R.id.extract_icon);
+      ImageView uninstallIcon = (ImageView) findViewById(R.id.uninstall_icon);
+      ImageView hideIcon = (ImageView) findViewById(R.id.hide_icon);
+      ImageView disableIcon = (ImageView) findViewById(R.id.disable_icon);
+      ImageView shareIcon = (ImageView) findViewById(R.id.share_icon);
+
+      openIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+      extractIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+      uninstallIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+      hideIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+      disableIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+      shareIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+    }
 
     updateOpenButton(open);
     updateExtractButton(extract);
     updateUninstallButton(uninstall);
+    updateHideButton(hide);
+    updateDisableButton(disable);
+    updateShareButton(share);
     updateCacheButton(cache);
     updateDataButton(data);
-    updateShareFAB(fab_share);
-    updateHideFAB(fab_hide);
-    updateDisableFAB(fab_disable);
   }
 
-  protected void updateOpenButton(LinearLayout open) {
+  protected void updateOpenButton(RelativeLayout open) {
     final Intent intent = getPackageManager().getLaunchIntentForPackage(appInfo.getAPK());
     if (intent != null) {
       open.setOnClickListener(new View.OnClickListener() {
@@ -133,11 +166,11 @@ public class AppActivity extends ThemeActivity {
         }
       });
     } else {
-      open.setVisibility(View.GONE);
+      open.setEnabled(false);
     }
   }
 
-  protected void updateExtractButton(LinearLayout extract) {
+  protected void updateExtractButton(RelativeLayout extract) {
     extract.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -149,7 +182,7 @@ public class AppActivity extends ThemeActivity {
     });
   }
 
-  protected void updateUninstallButton(LinearLayout uninstall) {
+  protected void updateUninstallButton(RelativeLayout uninstall) {
     if (appInfo.getSystem() && RootUtils.isRooted()) {
       uninstall.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -183,10 +216,10 @@ public class AppActivity extends ThemeActivity {
     }
   }
 
-  protected void updateCacheButton(CardView cache) {
+  protected void updateCacheButton(CardView removeCache) {
     if (RootUtils.isRooted()) {
-      cache.setVisibility(View.VISIBLE);
-      cache.setOnClickListener(new View.OnClickListener() {
+      removeCache.setVisibility(View.VISIBLE);
+      removeCache.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
@@ -198,10 +231,10 @@ public class AppActivity extends ThemeActivity {
     }
   }
 
-  protected void updateDataButton(CardView data) {
+  protected void updateDataButton(CardView clearData) {
     if (RootUtils.isRooted()) {
-      data.setVisibility(View.VISIBLE);
-      data.setOnClickListener(new View.OnClickListener() {
+      clearData.setVisibility(View.VISIBLE);
+      clearData.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
@@ -213,22 +246,11 @@ public class AppActivity extends ThemeActivity {
     }
   }
 
-  protected void updateShareFAB(FloatingActionButton fab_share) {
-    fab_share.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        AppUtils.extractFile(appInfo);
-        Intent shareIntent = AppUtils.getShareIntent(AppUtils.getOutputFilename(appInfo));
-        startActivity(Intent.createChooser(shareIntent, String.format(getResources().getString(R.string.send_to), appInfo.getName())));
-      }
-    });
-  }
-
-  protected void updateHideFAB(final FloatingActionButton fab_hide) {
-    InterfaceUtils.updateAppHiddenIcon(context, fab_hide, appDbUtils.checkAppInfo(appInfo, 3));
+  protected void updateHideButton(RelativeLayout hide) {
+    InterfaceUtils.updateAppHiddenIcon(context, hide, appDbUtils.checkAppInfo(appInfo, 3));
     if (RootUtils.isRooted()) {
-      fab_hide.setVisibility(View.VISIBLE);
-      fab_hide.setOnClickListener(new View.OnClickListener() {
+      hide.setVisibility(View.VISIBLE);
+      hide.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
@@ -240,11 +262,11 @@ public class AppActivity extends ThemeActivity {
     }
   }
 
-  protected void updateDisableFAB(final FloatingActionButton fab_disable) {
-    InterfaceUtils.updateAppDisabledIcon(context, fab_disable, appDbUtils.checkAppInfo(appInfo, 4));
+  protected void updateDisableButton(RelativeLayout disable) {
+    InterfaceUtils.updateAppDisabledIcon(context, disable, appDbUtils.checkAppInfo(appInfo, 4));
     if (RootUtils.isRooted()) {
-      fab_disable.setVisibility(View.VISIBLE);
-      fab_disable.setOnClickListener(new View.OnClickListener() {
+      disable.setVisibility(View.VISIBLE);
+      disable.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
@@ -254,6 +276,17 @@ public class AppActivity extends ThemeActivity {
         }
       });
     }
+  }
+
+  protected void updateShareButton(RelativeLayout fab_share) {
+    fab_share.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        AppUtils.extractFile(appInfo);
+        Intent shareIntent = AppUtils.getShareIntent(AppUtils.getOutputFilename(appInfo));
+        startActivity(Intent.createChooser(shareIntent, String.format(getResources().getString(R.string.send_to), appInfo.getName())));
+      }
+    });
   }
 
   @Override
@@ -290,11 +323,7 @@ public class AppActivity extends ThemeActivity {
 
   @Override
   public void onBackPressed() {
-    if (fab.isExpanded()) {
-      fab.collapse();
-    } else {
-      super.onBackPressed();
-    }
+    super.onBackPressed();
   }
 
   @Override

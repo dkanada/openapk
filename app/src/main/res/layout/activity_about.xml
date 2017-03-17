@@ -7,7 +7,7 @@
       layout="@layout/toolbar"/>
 
   <RelativeLayout
-      android:id="@+id/relativeLayout1"
+      android:id="@+id/header_layout"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@id/toolbar">
@@ -16,7 +16,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@color/actionBar"
+        android:background="@color/primary"
         android:scaleType="centerCrop"/>
 
     <ImageView
@@ -57,7 +57,7 @@
   <ScrollView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@id/relativeLayout1">
+      android:layout_below="@id/header_layout">
 
     <RelativeLayout
         android:layout_width="wrap_content"

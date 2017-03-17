@@ -75,6 +75,11 @@
   <string name="button_reboot">Reboot</string>
   <string name="button_later">Later</string>
 
+  <!-- layouts -->
+  <string name="package_layout">Package Name</string>
+  <string name="install_layout">First Installed</string>
+  <string name="update_layout">Last Updated</string>
+
   <!-- settings -->
   <string name="settings_title_applications">Applications</string>
   <string name="settings_title_colors">Colors</string>

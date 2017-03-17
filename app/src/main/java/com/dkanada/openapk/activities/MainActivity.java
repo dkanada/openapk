@@ -82,7 +82,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
 
     icon = (ImageView) findViewById(R.id.noResultsIcon);
     if (appPreferences.getTheme().equals("1")) {
-      icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.fabLabelLight));
+      icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
     }
 
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

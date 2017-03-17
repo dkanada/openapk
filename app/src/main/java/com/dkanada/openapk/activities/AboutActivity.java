@@ -58,7 +58,7 @@ public class AboutActivity extends ThemeActivity {
     header.setBackgroundColor(appPreferences.getPrimaryColorPref());
     appNameVersion.setText(getResources().getString(R.string.app_name) + " " + AppUtils.getAppVersionName(getApplicationContext()));
     if (appPreferences.getTheme().equals("1")) {
-      icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.fabLabelLight));
+      icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
     }
   }
 }

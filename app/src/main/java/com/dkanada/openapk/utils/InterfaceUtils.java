@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.activities.AboutActivity;
@@ -162,25 +165,29 @@ public class InterfaceUtils {
     }
   }
 
-  // update the state of the hidden fab
-  public static void updateAppHiddenIcon(Context context, FloatingActionButton fabHide, Boolean isHidden) {
+  // update the state of the hidden icon
+  public static void updateAppHiddenIcon(Context context, RelativeLayout hide, Boolean isHidden) {
+    ImageView hideIcon = (ImageView) hide.getChildAt(0);
+    TextView hideText = (TextView) hide.getChildAt(1);
     if (isHidden) {
-      fabHide.setTitle(context.getResources().getString(R.string.action_unhide));
-      fabHide.setIcon(R.drawable.ic_visibility);
+      hideText.setText(context.getResources().getString(R.string.action_unhide));
+      hideIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_visibility));
     } else {
-      fabHide.setTitle(context.getResources().getString(R.string.action_hide));
-      fabHide.setIcon(R.drawable.ic_visibility_off);
+      hideText.setText(context.getResources().getString(R.string.action_hide));
+      hideIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_visibility_off));
     }
   }
 
-  // update the state of the disabled fab
-  public static void updateAppDisabledIcon(Context context, FloatingActionButton fabDisable, Boolean isDisabled) {
+  // update the state of the disabled icon
+  public static void updateAppDisabledIcon(Context context, RelativeLayout disable, Boolean isDisabled) {
+    ImageView disableIcon = (ImageView) disable.getChildAt(0);
+    TextView disableText = (TextView) disable.getChildAt(1);
     if (isDisabled) {
-      fabDisable.setTitle(context.getResources().getString(R.string.action_enable));
-      fabDisable.setIcon(R.drawable.ic_remove_circle_outline);
+      disableText.setText(context.getResources().getString(R.string.action_enable));
+      disableIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_remove_circle_outline));
     } else {
-      fabDisable.setTitle(context.getResources().getString(R.string.action_disable));
-      fabDisable.setIcon(R.drawable.ic_remove_circle);
+      disableText.setText(context.getResources().getString(R.string.action_disable));
+      disableIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_remove_circle));
     }
   }
 }

@@ -53,7 +53,7 @@ public class AppPreferences {
   }
 
   public int getPrimaryColorPref() {
-    return sharedPreferences.getInt(KeyPrimaryColor, context.getResources().getColor(R.color.actionBar));
+    return sharedPreferences.getInt(KeyPrimaryColor, context.getResources().getColor(R.color.primary));
   }
 
   public void setPrimaryColorPref(Integer res) {

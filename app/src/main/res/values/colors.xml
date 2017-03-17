@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="actionBar">#3F51B5</color>
-  <color name="statusBar">#303F9F</color>
+  <color name="primary">#3F51B5</color>
+  <color name="primary_dark">#303F9F</color>
   <color name="fab">#E91E63</color>
   <color name="accent">#448AFF</color>
 
   <color name="textPrimaryLight">#212121</color>
   <color name="textLight">#212121</color>
   <color name="badgeLight">#E0E0E0</color>
-  <color name="fabLabelLight">#616161</color>
 
   <color name="textPrimaryDark">#FAFAFA</color>
   <color name="textDark">#FAFAFA</color>
   <color name="badgeDark">#424242</color>
-  <color name="fabLabelDark">#616161</color>
 
   <color name="white">#FAFAFA</color>
   <color name="blue">#00BED4</color>
+  <color name="blue_light">#81D4FA</color>
   <color name="green">#8CC24A</color>
   <color name="red">#DE6262</color>
   <color name="orange">#FF7043</color>
+  <color name="grey_dark">#424242</color>
+  <color name="grey">#616161</color>
+  <color name="grey_light">#EEEEEE</color>
+
 
   <!-- MaterialDrawer dark colors -->
   <color name="material_drawer_dark_background">@color/md_dark_background</color>
