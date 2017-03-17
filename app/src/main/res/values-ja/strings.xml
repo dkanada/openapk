@@ -22,15 +22,11 @@
   <string name="dialog_saved_description">\"%1$s\" APK は \"MLManager\" フォルダーに次の名前で保存されました: %2$s</string>
   <string name="dialog_saving">%s APK を保存中&#8230;</string>
   <string name="dialog_saving_description">ML マネージャーは \"MLManager\" フォルダーに APK を保存しています。</string>
-  <string name="dialog_about">%s について</string>
-  <string name="dialog_about_description">Javier Santos が開発しました。\n\nGPLv3 ライセンスのオープンソース。</string>
   <string name="action_open">開く</string>
   <string name="dialog_open_description">このアプリを今すぐ実行します</string>
-  <string name="dialog_extract">抽出</string>
   <string name="dialog_extract_description">このアプリを \"MLManager\" ディレクトリの下に抽出します</string>
   <string name="dialog_extract_fail">抽出できませんでした</string>
   <string name="dialog_extract_fail_description">この APK を抽出できませんでした。デバイスを再起動してみてください。</string>
-  <string name="dialog_uninstall">アンインストール</string>
   <string name="dialog_uninstall_description">このアプリを今すぐアンインストールします</string>
   <string name="dialog_uninstalling">%s APK のアンインストール中&#8230;</string>
   <string name="dialog_uninstalling_description">ML Manager がこのアプリをアンインストールしています。しばらくお待ちください。</string>

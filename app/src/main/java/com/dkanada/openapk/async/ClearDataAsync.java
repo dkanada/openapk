@@ -38,7 +38,7 @@ public class ClearDataAsync extends AsyncTask<Void, String, Boolean> {
     super.onPostExecute(status);
     dialog.dismiss();
     if (status && RootUtils.isRooted()) {
-      DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_clear_data_success), null, null, 2).show();
+      DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_clear_data_success_description, appInfo.getName()), null, null, 2).show();
     } else if (!RootUtils.isRooted()) {
       DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     } else {

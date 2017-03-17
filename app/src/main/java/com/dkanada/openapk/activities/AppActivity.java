@@ -236,8 +236,8 @@ public class AppActivity extends ThemeActivity {
         @Override
         public void onClick(View view) {
           MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-              , getResources().getString(R.string.dialog_clear_data_deleting)
-              , getResources().getString(R.string.dialog_clear_data_deleting_description));
+              , getResources().getString(R.string.dialog_hide_progress)
+              , getResources().getString(R.string.dialog_hide_progress_description));
           new HideAsync(context, dialog, appInfo).execute();
         }
       });
@@ -252,8 +252,8 @@ public class AppActivity extends ThemeActivity {
         @Override
         public void onClick(View view) {
           MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-              , getResources().getString(R.string.dialog_clear_data_deleting)
-              , getResources().getString(R.string.dialog_clear_data_deleting_description));
+              , getResources().getString(R.string.dialog_disable_progress_deleting)
+              , getResources().getString(R.string.dialog_disable_progress_description));
           new DisableAsync(context, dialog, appInfo).execute();
         }
       });

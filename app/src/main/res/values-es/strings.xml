@@ -22,15 +22,11 @@
   <string name="dialog_saved_description">El APK \"%1$s\" ha sido guardado en la carpeta \"MLManager\" con nombre: %2$s</string>
   <string name="dialog_saving">Guardando APK %s&#8230;</string>
   <string name="dialog_saving_description">ML Manager está guardando el APK en la carpeta \"MLManager\".</string>
-  <string name="dialog_about">Sobre %s</string>
-  <string name="dialog_about_description">Desarrollado por Javier Santos.\n\nOpen Source bajo licencia GPLv3.</string>
   <string name="action_open">Iniciar</string>
   <string name="dialog_open_description">Abrir esta app ahora</string>
-  <string name="dialog_extract">Extraer</string>
   <string name="dialog_extract_description">Extraer esta app en el directorio \"MLManager\"</string>
   <string name="dialog_extract_fail">Extracción fallida</string>
   <string name="dialog_extract_fail_description">No se ha podido extraer este APK. Por favor, intenta reiniciar el dispositivo.</string>
-  <string name="dialog_uninstall">Desinstalar</string>
   <string name="dialog_uninstall_description">Desinstalar esta app ahora</string>
   <string name="dialog_uninstalling">Desinstalando APK %s&#8230;</string>
   <string name="dialog_uninstalling_description">ML Manager está desinstalando esta app. Por favor espera.</string>

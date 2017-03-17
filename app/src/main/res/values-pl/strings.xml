@@ -21,15 +21,11 @@
   <string name="dialog_saved_description">\"%1$s\" plik APK zapisano w folderze \"MLManager\" pod nazwą: %2$s</string>
   <string name="dialog_saving">Zapisywanie %s APK&#8230;</string>
   <string name="dialog_saving_description">ML Manager zapisuje APK do folderu \"MLManager\".</string>
-  <string name="dialog_about">O %s</string>
-  <string name="dialog_about_description">Stworzono przez Javiera Santos.\n\nOpen Source pod licencj GPLv3.</string>
   <string name="action_open">Otwórz</string>
   <string name="dialog_open_description">Uruchom teraz tę aplikację</string>
-  <string name="dialog_extract">Rozpakuj</string>
   <string name="dialog_extract_description">Rozpakuj tę aplikację w folderze \"MLManager\"</string>
   <string name="dialog_extract_fail">Rozpakowanie zakończone niepowodzeniem</string>
   <string name="dialog_extract_fail_description">Nie można rozpakować tego APK. Proszę uruchom ponownie swoje urządzenie.</string>
-  <string name="dialog_uninstall">Odinstaluj</string>
   <string name="dialog_uninstall_description">Odinstaluj teraz tę aplikację</string>
   <string name="action_remove_cache">Usuń cache</string>
   <string name="dialog_cache_description">Usuń cache dla tej aplikacji</string>
