@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> implements Filterable {
-  private AppPreferences appPreferences;
   private List<AppInfo> appList;
   private List<AppInfo> appListSearch;
   private Context context;
@@ -41,7 +40,6 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
   public AppAdapter(List<AppInfo> appList, Context context) {
     this.appList = appList;
     this.context = context;
-    this.appPreferences = App.getAppPreferences();
   }
 
   @Override

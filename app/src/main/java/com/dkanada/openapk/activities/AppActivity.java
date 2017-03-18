@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,8 +26,6 @@ import com.dkanada.openapk.utils.AppDbUtils;
 import com.dkanada.openapk.async.ClearDataAsync;
 import com.dkanada.openapk.async.DisableAsync;
 import com.dkanada.openapk.async.HideAsync;
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
@@ -41,7 +38,6 @@ import com.dkanada.openapk.utils.AppUtils;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 
 public class AppActivity extends ThemeActivity {

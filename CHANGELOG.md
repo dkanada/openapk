@@ -1,3 +1,12 @@
+### 1.1
+###### Released: March 17, 2017
+* complete redesign of the app layout
+* update settings page
+* fix broken root actions in async methods
+* fix build issue for f-droid release
+* fix sort by installation and update
+* bug fixes and other small changes
+
 ### 1.0.1
 ###### Released: March 9, 2017
 * all tasks are ran in the background now

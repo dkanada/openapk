@@ -29,7 +29,6 @@ Currently supported languages:
 
 ## Third Party Libraries
 * [Material Design Library](https://github.com/navasmdc/MaterialDesignLibrary)
-* [Android Floating Action Button](https://github.com/futuresimple/android-floating-action-button)
 * [Material Dialogs](https://github.com/afollestad/material-dialogs)
 * [Ambil Warna](https://github.com/yukuku/ambilwarna)
 * [Material Drawer](https://github.com/mikepenz/MaterialDrawer)

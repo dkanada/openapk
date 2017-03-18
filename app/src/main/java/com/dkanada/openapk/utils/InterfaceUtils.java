@@ -18,7 +18,6 @@ import com.dkanada.openapk.activities.AboutActivity;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.activities.SettingsActivity;
 import com.dkanada.openapk.adapters.AppAdapter;
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
