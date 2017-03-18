@@ -213,6 +213,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         break;
       case "1":
         // compare by size
+        // TODO fix this
         Collections.sort(appList, new Comparator<AppInfo>() {
           @Override
           public int compare(AppInfo appOne, AppInfo appTwo) {

@@ -76,9 +76,15 @@
   <string name="button_later">Later</string>
 
   <!-- layouts -->
-  <string name="package_layout">Package Name</string>
+  <string name="package_layout">Package</string>
+  <string name="version_layout">Version</string>
+  <string name="size_layout">App Size</string>
+  <string name="cache_size_layout">Cache Size</string>
+  <string name="data_layout">Data Folder</string>
   <string name="install_layout">First Installed</string>
   <string name="update_layout">Last Updated</string>
+  <string name="development_layout">In Development</string>
+  <string name="error_layout">404</string>
 
   <!-- settings -->
   <string name="settings_title_applications">Applications</string>
@@ -103,6 +109,11 @@
   <string name="settings_reset_description">Reset the preferences to their default values.</string>
 
   <!-- about -->
+  <string name="about_one">dkanada</string>
+  <string name="about_two">Javier Santos</string>
+  <string name="about_three">Javier Toro</string>
+  <string name="about_four">Lucian Sipos</string>
+  <string name="about_five">TykTak</string>
   <string name="about_description_one">App Maintainer</string>
   <string name="about_description_two">Original Developer</string>
   <string name="about_description_three">Icon Designer</string>

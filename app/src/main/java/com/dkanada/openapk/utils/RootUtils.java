@@ -1,5 +1,6 @@
 package com.dkanada.openapk.utils;
 
+import android.graphics.Path;
 import android.os.Build;
 
 import com.dkanada.openapk.App;
@@ -174,7 +175,7 @@ public class RootUtils {
   public static long getFolderSizeInMB(String directory) {
     File f = new File(directory);
     long size = 0;
-    if (f.isDirectory()) {
+    if (f.isDirectory() && f.listFiles() != null) {
       for (File file : f.listFiles()) {
         size += getFolderSizeInMB(file.getAbsolutePath());
       }

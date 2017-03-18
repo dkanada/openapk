@@ -16,7 +16,7 @@
     <TextView
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="110dp"
         android:background="@color/primary"
         android:scaleType="centerCrop"/>
 
@@ -40,21 +40,9 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:text="name"
+        android:text="@string/error_layout"
         android:textColor="@color/white"
         android:textSize="22sp"/>
-
-    <TextView
-        android:id="@+id/app_version"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/app_name"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="sans-serif-thin"
-        android:gravity="center_horizontal"
-        android:text="version"
-        android:textColor="@color/white"
-        android:textSize="15sp"/>
   </RelativeLayout>
 
   <RelativeLayout
@@ -68,7 +56,7 @@
         android:id="@+id/quick_action_layout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_margin="8dp"
+        android:layout_margin="10dp"
         android:gravity="center">
 
       <RelativeLayout
@@ -219,8 +207,7 @@
       <RelativeLayout
           android:id="@+id/app_apk"
           android:layout_width="match_parent"
-          android:layout_height="40dp"
-          android:background="@color/grey_dark">
+          android:layout_height="40dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -238,7 +225,111 @@
             android:layout_marginRight="@dimen/horizontal_margin"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:text="error"
+            android:text="@string/error_layout"
+            android:textSize="16sp"/>
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:id="@+id/app_version"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:layout_below="@+id/app_apk">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:text="@string/version_layout"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/app_version_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="@string/error_layout"
+            android:textSize="16sp"/>
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:id="@+id/app_size"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:layout_below="@+id/app_version">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:text="@string/size_layout"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/app_size_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="@string/error_layout"
+            android:textSize="16sp"/>
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:id="@+id/app_cache_size"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:layout_below="@+id/app_size">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:text="@string/cache_size_layout"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/app_cache_size_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="@string/error_layout"
+            android:textSize="16sp"/>
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:id="@+id/app_data_folder"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:layout_below="@+id/app_cache_size">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:text="@string/data_layout"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/app_data_folder_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="@string/error_layout"
             android:textSize="16sp"/>
       </RelativeLayout>
 
@@ -246,7 +337,7 @@
           android:id="@+id/app_install"
           android:layout_width="match_parent"
           android:layout_height="40dp"
-          android:layout_below="@+id/app_apk">
+          android:layout_below="@+id/app_data_folder">
 
         <TextView
             android:layout_width="wrap_content"
@@ -264,7 +355,7 @@
             android:layout_marginRight="@dimen/horizontal_margin"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:text="error"
+            android:text="@string/error_layout"
             android:textSize="16sp"/>
       </RelativeLayout>
 
@@ -272,8 +363,7 @@
           android:id="@+id/app_update"
           android:layout_width="match_parent"
           android:layout_height="40dp"
-          android:layout_below="@id/app_install"
-          android:background="@color/grey_dark">
+          android:layout_below="@id/app_install">
 
         <TextView
             android:layout_width="wrap_content"
@@ -291,7 +381,7 @@
             android:layout_marginRight="@dimen/horizontal_margin"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:text="error"
+            android:text="@string/error_layout"
             android:textSize="16sp"/>
       </RelativeLayout>
     </RelativeLayout>

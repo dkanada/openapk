@@ -77,7 +77,7 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
   private void setCustomPathSummary() {
     String path = appPreferences.getCustomPath();
     if (path.equals(AppUtils.getDefaultAppFolder().getPath())) {
-      prefCustomPath.setSummary("Not implemented yet due to non-free dependencies.");
+      prefCustomPath.setSummary(R.string.development_layout);
       //prefCustomPath.setSummary(AppUtils.getDefaultAppFolder().getPath());
     } else {
       prefCustomPath.setSummary(path);

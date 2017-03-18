@@ -93,7 +93,7 @@
             android:layout_marginStart="70dp"
             android:fontFamily="sans-serif-light"
             android:gravity="start"
-            android:text="dkanada"
+            android:text="@string/about_one"
             android:textSize="22sp"/>
 
         <TextView
@@ -135,7 +135,7 @@
             android:layout_marginStart="70dp"
             android:fontFamily="sans-serif-light"
             android:gravity="start"
-            android:text="Javier Santos"
+            android:text="@string/about_two"
             android:textSize="22sp"/>
 
         <TextView
@@ -177,7 +177,7 @@
             android:layout_marginStart="70dp"
             android:fontFamily="sans-serif-light"
             android:gravity="start"
-            android:text="Javier Toro"
+            android:text="@string/about_three"
             android:textSize="22sp"/>
 
         <TextView
@@ -220,7 +220,7 @@
               android:layout_marginLeft="@dimen/horizontal_margin"
               android:layout_marginStart="@dimen/horizontal_margin"
               android:fontFamily="sans-serif-light"
-              android:text="Lucian Sipos"
+              android:text="@string/about_four"
               android:textSize="15sp"/>
         </android.support.v7.widget.CardView>
 
@@ -246,11 +246,10 @@
               android:layout_marginLeft="@dimen/horizontal_margin"
               android:layout_marginStart="@dimen/horizontal_margin"
               android:fontFamily="sans-serif-light"
-              android:text="TykTak"
+              android:text="@string/about_five"
               android:textSize="15sp"/>
         </android.support.v7.widget.CardView>
       </LinearLayout>
     </RelativeLayout>
   </ScrollView>
-
 </RelativeLayout>

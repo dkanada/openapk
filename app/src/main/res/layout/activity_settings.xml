@@ -11,6 +11,7 @@
       android:orientation="horizontal"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
+
     <fragment android:name="com.dkanada.openapk.fragments.SettingsFragment"
         android:id="@+id/fragment_container"
         android:layout_weight="1"

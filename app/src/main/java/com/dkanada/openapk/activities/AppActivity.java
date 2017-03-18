@@ -50,7 +50,6 @@ public class AppActivity extends ThemeActivity {
   private Context context;
   private MenuItem favorite;
   private AppInfo appInfo;
-  private FloatingActionsMenu fab;
   private int UNINSTALL_REQUEST_CODE = 1;
 
   @Override
@@ -92,7 +91,6 @@ public class AppActivity extends ThemeActivity {
     TextView header = (TextView) findViewById(R.id.header);
     ImageView icon = (ImageView) findViewById(R.id.app_icon);
     TextView name = (TextView) findViewById(R.id.app_name);
-    TextView version = (TextView) findViewById(R.id.app_version);
 
     RelativeLayout open = (RelativeLayout) findViewById(R.id.open);
     RelativeLayout extract = (RelativeLayout) findViewById(R.id.extract);
@@ -101,7 +99,12 @@ public class AppActivity extends ThemeActivity {
     RelativeLayout disable = (RelativeLayout) findViewById(R.id.disable);
     RelativeLayout share = (RelativeLayout) findViewById(R.id.share);
 
+    RelativeLayout information = (RelativeLayout) findViewById(R.id.information_layout);
     TextView apkText = (TextView) findViewById(R.id.app_apk_text);
+    TextView versionText = (TextView) findViewById(R.id.app_version_text);
+    TextView sizeText = (TextView) findViewById(R.id.app_size_text);
+    TextView cacheSizeText = (TextView) findViewById(R.id.app_cache_size_text);
+    TextView dataFolderText = (TextView) findViewById(R.id.app_data_folder_text);
     TextView installText = (TextView) findViewById(R.id.app_install_text);
     TextView updateText = (TextView) findViewById(R.id.app_update_text);
 
@@ -110,10 +113,13 @@ public class AppActivity extends ThemeActivity {
 
     icon.setImageDrawable(appInfo.getIcon());
     name.setText(appInfo.getName());
-    version.setText(appInfo.getVersion());
 
-    PackageManager packageManager = getPackageManager();
     apkText.setText(appInfo.getAPK());
+    versionText.setText(appInfo.getVersion());
+    sizeText.setText(R.string.development_layout);
+    cacheSizeText.setText(R.string.development_layout);
+    dataFolderText.setText(appInfo.getData());
+    PackageManager packageManager = getPackageManager();
     SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
     try {
       installText.setText(formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).firstInstallTime));
@@ -125,11 +131,9 @@ public class AppActivity extends ThemeActivity {
     // update colors
     header.setBackgroundColor(appPreferences.getPrimaryColorPref());
     if (appPreferences.getTheme().equals("1")) {
-      RelativeLayout apk = (RelativeLayout) findViewById(R.id.app_apk);
-      RelativeLayout update = (RelativeLayout) findViewById(R.id.app_update);
-
-      apk.setBackgroundColor(getResources().getColor(R.color.grey_light));
-      update.setBackgroundColor(getResources().getColor(R.color.grey_light));
+      for (int i = 0; i < information.getChildCount(); i += 2) {
+        information.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.grey_light));
+      }
 
       ImageView openIcon = (ImageView) findViewById(R.id.open_icon);
       ImageView extractIcon = (ImageView) findViewById(R.id.extract_icon);
@@ -144,6 +148,10 @@ public class AppActivity extends ThemeActivity {
       hideIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
       disableIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
       shareIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+    } else {
+      for (int i = 0; i < information.getChildCount(); i += 2) {
+        information.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.grey_dark));
+      }
     }
 
     updateOpenButton(open);
