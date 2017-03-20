@@ -179,8 +179,8 @@ public class AppActivity extends ThemeActivity {
       @Override
       public void onClick(View view) {
         MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-            , String.format(getResources().getString(R.string.dialog_saving), appInfo.getName())
-            , getResources().getString(R.string.dialog_saving_description));
+            , String.format(getResources().getString(R.string.dialog_extract_progress), appInfo.getName())
+            , getResources().getString(R.string.dialog_extract_progress_description));
         new ExtractFileAsync(context, dialog, appInfo).execute();
       }
     });
@@ -191,13 +191,13 @@ public class AppActivity extends ThemeActivity {
       uninstall.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          MaterialDialog.Builder materialBuilder = DialogUtils.showUninstall(context)
+          MaterialDialog.Builder materialBuilder = DialogUtils.uninstallSystemApp(context)
               .callback(new MaterialDialog.ButtonCallback() {
                 @Override
                 public void onPositive(MaterialDialog dialog) {
                   MaterialDialog dialogUninstalling = DialogUtils.showTitleContentWithProgress(context
-                      , String.format(getResources().getString(R.string.dialog_uninstalling), appInfo.getName())
-                      , getResources().getString(R.string.dialog_uninstalling_description));
+                      , String.format(getResources().getString(R.string.dialog_uninstall_progress), appInfo.getName())
+                      , getResources().getString(R.string.dialog_uninstall_progress_description));
                   new UninstallAsync(context, dialogUninstalling, appInfo).execute();
                   dialog.dismiss();
                 }
@@ -227,8 +227,8 @@ public class AppActivity extends ThemeActivity {
         @Override
         public void onClick(View view) {
           MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-              , getResources().getString(R.string.dialog_cache_deleting)
-              , getResources().getString(R.string.dialog_cache_deleting_description));
+              , getResources().getString(R.string.dialog_cache_progress)
+              , getResources().getString(R.string.dialog_cache_progress_description));
           new RemoveCacheAsync(context, dialog, appInfo).execute();
         }
       });
@@ -242,8 +242,8 @@ public class AppActivity extends ThemeActivity {
         @Override
         public void onClick(View view) {
           MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-              , getResources().getString(R.string.dialog_clear_data_deleting)
-              , getResources().getString(R.string.dialog_clear_data_deleting_description));
+              , getResources().getString(R.string.dialog_clear_data_progress)
+              , getResources().getString(R.string.dialog_clear_data_progress_description));
           new ClearDataAsync(context, dialog, appInfo).execute();
         }
       });
@@ -274,7 +274,7 @@ public class AppActivity extends ThemeActivity {
         @Override
         public void onClick(View view) {
           MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-              , getResources().getString(R.string.dialog_disable_progress_deleting)
+              , getResources().getString(R.string.dialog_disable_progress)
               , getResources().getString(R.string.dialog_disable_progress_description));
           new DisableAsync(context, dialog, appInfo).execute();
         }

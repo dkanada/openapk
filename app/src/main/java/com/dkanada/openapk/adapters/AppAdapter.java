@@ -20,13 +20,11 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dkanada.openapk.utils.AppUtils;
 import com.gc.materialdesign.views.ButtonFlat;
-import com.dkanada.openapk.App;
 import com.dkanada.openapk.activities.AppActivity;
 import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.activities.MainActivity;
 import com.dkanada.openapk.async.ExtractFileAsync;
-import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 
 import java.util.ArrayList;
@@ -74,8 +72,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
       @Override
       public void onClick(View view) {
         MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-            , String.format(context.getResources().getString(R.string.dialog_saving), appInfo.getName())
-            , context.getResources().getString(R.string.dialog_saving_description));
+            , String.format(context.getResources().getString(R.string.dialog_extract_progress), appInfo.getName())
+            , context.getResources().getString(R.string.dialog_extract_progress_description));
         new ExtractFileAsync(context, dialog, appInfo).execute();
       }
     });
@@ -110,7 +108,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
 
         // the icon will smoothly transition to its new location if version is above lollipop
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-          String transitionName = context.getResources().getString(R.string.app_icon_transition);
+          String transitionName = context.getResources().getString(R.string.transition);
           ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, appIcon, transitionName);
           context.startActivity(intent, transitionActivityOptions.toBundle());
         } else {

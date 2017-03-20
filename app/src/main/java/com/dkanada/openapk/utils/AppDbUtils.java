@@ -167,7 +167,7 @@ public class AppDbUtils extends SQLiteOpenHelper {
           AppUtils.saveIconToCache(context, tempApp);
         } catch (OutOfMemoryError e) {
           // TODO this is a workaround to avoid crashing on some devices (OutOfMemoryError) the drawable should be cached before
-          AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, false, false, false, !packageInfo.applicationInfo.enabled, context.getResources().getDrawable(R.drawable.ic_android));
+          AppInfo tempApp = new AppInfo(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(), packageInfo.packageName, packageInfo.versionName, packageInfo.applicationInfo.sourceDir, packageInfo.applicationInfo.dataDir, true, false, false, !packageInfo.applicationInfo.enabled, context.getResources().getDrawable(R.drawable.ic_android));
           addAppInfo(tempApp);
         } catch (Exception e) {
           e.printStackTrace();

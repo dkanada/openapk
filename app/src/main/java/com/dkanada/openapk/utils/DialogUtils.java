@@ -32,21 +32,12 @@ public class DialogUtils {
     return materialBuilder.show();
   }
 
-  public static MaterialDialog.Builder showUninstall(Context context) {
+  public static MaterialDialog.Builder uninstallSystemApp(Context context) {
     return new MaterialDialog.Builder(context)
         .title(context.getResources().getString(R.string.dialog_uninstall_root))
         .content(context.getResources().getString(R.string.dialog_uninstall_root_description))
         .positiveText(context.getResources().getString(R.string.action_uninstall))
         .negativeText(context.getResources().getString(android.R.string.cancel))
-        .cancelable(false);
-  }
-
-  public static MaterialDialog.Builder showUninstalled(Context context, AppInfo appInfo) {
-    return new MaterialDialog.Builder(context)
-        .title(String.format(context.getResources().getString(R.string.dialog_uninstalled_root), appInfo.getName()))
-        .content(context.getResources().getString(R.string.dialog_uninstalled_root_description))
-        .positiveText(context.getResources().getString(R.string.button_reboot))
-        .negativeText(context.getResources().getString(R.string.button_later))
         .cancelable(false);
   }
 

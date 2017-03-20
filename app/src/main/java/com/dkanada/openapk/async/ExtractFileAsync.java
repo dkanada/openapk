@@ -37,7 +37,7 @@ public class ExtractFileAsync extends AsyncTask<Void, String, Boolean> {
     super.onPostExecute(status);
     dialog.dismiss();
     if (status) {
-      DialogUtils.showSnackBar(activity, String.format(context.getResources().getString(R.string.dialog_saved_description), appInfo.getName(), AppUtils.getAPKFilename(appInfo)), context.getResources().getString(R.string.button_undo), AppUtils.getOutputFilename(appInfo), 1).show();
+      DialogUtils.showSnackBar(activity, String.format(context.getResources().getString(R.string.dialog_extract_success_description), appInfo.getName(), AppUtils.getAPKFilename(appInfo)), context.getResources().getString(R.string.button_undo), AppUtils.getOutputFilename(appInfo), 1).show();
     } else {
       DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_extract_fail), context.getResources().getString(R.string.dialog_extract_fail_description));
     }

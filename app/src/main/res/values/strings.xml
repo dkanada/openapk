@@ -3,7 +3,7 @@
   <!-- miscellaneous -->
   <string name="app_name" translatable="false">OpenAPK</string>
   <string name="app_description">Modern, easy and customizable app manager for Android.</string>
-  <string name="app_icon_transition" translatable="false">appIconTransition</string>
+  <string name="transition" translatable="false">transition</string>
 
   <!-- labels -->
   <string name="action_installed_apps">Installed Apps</string>
@@ -34,46 +34,37 @@
   <string name="search_noresults">No results were found for your search.</string>
 
   <!-- dialogs -->
-  <string name="dialog_open_description">Run this app now.</string>
-  <string name="dialog_extract_description">Extract this app under the specified directory.</string>
-  <string name="dialog_uninstall_description">Uninstall this app right now.</string>
-  <string name="dialog_cache_description">Remove the cache for this app.</string>
-  <string name="dialog_clear_data_description">Remove all application data for this app.</string>
-  <string name="dialog_saved">%s saved</string>
-  <string name="dialog_saved_description">%1$s has been saved into the specified folder with name: %2$s.</string>
-  <string name="dialog_saving">Saving %s...</string>
-  <string name="dialog_saving_description">Saving the APK into the specified folder.</string>
+  <string name="dialog_extract_progress">Saving %s...</string>
+  <string name="dialog_extract_progress_description">Saving the APK into the specified folder.</string>
+  <string name="dialog_extract_success">%s saved</string>
+  <string name="dialog_extract_success_description">%1$s has been saved into the specified folder with name: %2$s.</string>
   <string name="dialog_extract_fail">Extract failed</string>
   <string name="dialog_extract_fail_description">Unable to extract this APK.</string>
-  <string name="dialog_uninstalling">Uninstalling %s...</string>
-  <string name="dialog_uninstalling_description">Uninstalling this app. Please wait.</string>
-  <string name="dialog_cache_success">Cache deleted</string>
-  <string name="dialog_cache_success_description">The cache for %s has been removed.</string>
-  <string name="dialog_cache_deleting">Deleting cache files...</string>
-  <string name="dialog_cache_deleting_description">Please wait while cache files are deleted.</string>
-  <string name="dialog_clear_data_deleting">Deleting data...</string>
-  <string name="dialog_clear_data_deleting_description">Please wait while all data for the app is deleted.</string>
+  <string name="dialog_uninstall_progress">Uninstalling %s...</string>
+  <string name="dialog_uninstall_progress_description">Uninstalling this app. Please wait.</string>
   <string name="dialog_hide_progress">Updating hidden status...</string>
   <string name="dialog_hide_progress_description">Please wait while the hidden status is updated.</string>
-  <string name="dialog_disable_progress_deleting">Updating disabled status...</string>
+  <string name="dialog_disable_progress">Updating disabled status...</string>
   <string name="dialog_disable_progress_description">Please wait while the disabled status is updated.</string>
+  <string name="dialog_cache_progress">Deleting cache files...</string>
+  <string name="dialog_cache_progress_description">Please wait while cache files are deleted.</string>
+  <string name="dialog_cache_success">Cache deleted</string>
+  <string name="dialog_cache_success_description">The cache for %s has been removed.</string>
+  <string name="dialog_clear_data_progress">Deleting data...</string>
+  <string name="dialog_clear_data_progress_description">Please wait while all data for the app is deleted.</string>
   <string name="dialog_clear_data_success">Data deleted</string>
   <string name="dialog_clear_data_success_description">All data for %s has been removed.</string>
+  <string name="dialog_uninstall_root">Are you sure you want to uninstall?</string>
+  <string name="dialog_uninstall_root_description">You are one step away of removing a system app. Do not delete it if you are unsure, it could cause a malfunction.</string>
+  <string name="dialog_permissions">Permissions required</string>
+  <string name="dialog_permissions_description">You must accept the permissions to extract and share APKs, clean the cache, and remove app data.</string>
   <string name="dialog_root_required">Root required</string>
   <string name="dialog_root_required_description">Your device must be rooted for this feature to work and root features must be enabled in the settings.</string>
   <string name="dialog_reboot">A reboot is necessary to display the changes. Do you want to reboot now?</string>
-  <string name="dialog_cannot_open">%s can\'t be opened because it\'s hidden. Try to unhide this app before opening.</string>
-  <string name="dialog_uninstall_root">Are you sure you want to uninstall?</string>
-  <string name="dialog_uninstall_root_description">You are one step away of removing a system app. Do not delete it if you are unsure, it could cause a malfunction.</string>
-  <string name="dialog_uninstalled_root">%s uninstalled</string>
-  <string name="dialog_uninstalled_root_description">Some changes will not be applied until you restart your device. Do you want to restart now?</string>
-  <string name="dialog_permissions">Permissions are required</string>
-  <string name="dialog_permissions_description">You must accept the permissions to extract and share APKs, clean cache, and remove data.</string>
 
   <!-- buttons -->
-  <string name="button_undo">Undo</string>
   <string name="button_reboot">Reboot</string>
-  <string name="button_later">Later</string>
+  <string name="button_undo">Undo</string>
 
   <!-- layouts -->
   <string name="package_layout">Package</string>
@@ -90,7 +81,6 @@
   <string name="settings_title_applications">Applications</string>
   <string name="settings_title_colors">Colors</string>
   <string name="settings_title_other">Other</string>
-
   <string name="settings_custom_path">Directory</string>
   <string name="settings_custom_filename">Filename</string>
   <string name="settings_sort_mode">Sort method</string>
