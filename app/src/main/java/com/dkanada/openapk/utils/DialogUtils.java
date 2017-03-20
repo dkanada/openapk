@@ -2,10 +2,17 @@ package com.dkanada.openapk.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.color.ColorChooserDialog;
+import com.dkanada.openapk.App;
+import com.dkanada.openapk.activities.SettingsActivity;
+import com.dkanada.openapk.fragments.SettingsFragment;
 import com.gc.materialdesign.widgets.SnackBar;
 import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
@@ -30,6 +37,19 @@ public class DialogUtils {
         .cancelable(false)
         .progress(true, 0);
     return materialBuilder.show();
+  }
+
+  public static MaterialDialog.Builder chooseDirectory(Context context) {
+    return new MaterialDialog.Builder(context)
+        .title(context.getResources().getString(R.string.settings_custom_path))
+        .positiveText(context.getResources().getString(android.R.string.ok))
+        .cancelable(true)
+        .input("", App.getAppPreferences().getCustomPath(), new MaterialDialog.InputCallback() {
+          @Override
+          public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+            App.getAppPreferences().setCustomPath(input.toString());
+          }
+        });
   }
 
   public static MaterialDialog.Builder uninstallSystemApp(Context context) {

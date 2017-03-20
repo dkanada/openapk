@@ -1,5 +1,6 @@
 package com.dkanada.openapk.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -14,6 +15,7 @@ import com.dkanada.openapk.R;
 import com.dkanada.openapk.activities.AboutActivity;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.AppUtils;
+import com.dkanada.openapk.utils.DialogUtils;
 
 import yuku.ambilwarna.widget.AmbilWarnaPreference;
 
@@ -33,12 +35,14 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
   private Preference prefReset;
 
   AppPreferences appPreferences;
+  Context context;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     appPreferences = App.getAppPreferences();
     super.onCreate(savedInstanceState);
     addPreferencesFromResource(R.xml.settings);
+    context = getActivity();
 
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
     prefs.registerOnSharedPreferenceChangeListener(this);
@@ -59,6 +63,14 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
       prefNavigationColor.setEnabled(false);
     }
 
+    prefCustomPath.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+      @Override
+      public boolean onPreferenceClick(Preference preference) {
+        DialogUtils.chooseDirectory(context).show();
+        return true;
+      }
+    });
+
     prefReset.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
       @Override
       public boolean onPreferenceClick(Preference preference) {
@@ -75,13 +87,7 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
   }
 
   private void setCustomPathSummary() {
-    String path = appPreferences.getCustomPath();
-    if (path.equals(AppUtils.getDefaultAppFolder().getPath())) {
-      prefCustomPath.setSummary(R.string.development_layout);
-      //prefCustomPath.setSummary(AppUtils.getDefaultAppFolder().getPath());
-    } else {
-      prefCustomPath.setSummary(path);
-    }
+    prefCustomPath.setSummary(appPreferences.getCustomPath());
   }
 
   private void setFilenameSummary() {

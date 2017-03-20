@@ -35,6 +35,11 @@ public class AppPreferences {
     return sharedPreferences.getString(KeyCustomPath, AppUtils.getDefaultAppFolder().getPath());
   }
 
+  public void setCustomPath(String res) {
+    editor.putString(KeyCustomPath, res);
+    editor.commit();
+  }
+
   public String getFilename() {
     return sharedPreferences.getString(KeyFilename, "0");
   }
