@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 
 import com.dkanada.openapk.R;
 
+import java.util.Set;
+
 public class AppPreferences {
   private SharedPreferences sharedPreferences;
   private SharedPreferences.Editor editor;
@@ -14,9 +16,9 @@ public class AppPreferences {
   private static final String KeyCustomPath = "prefCustomPath";
   private static final String KeyFilename = "prefFilename";
   private static final String KeySortMode = "prefSortMode";
+  private static final String KeyAction = "prefAction";
   private static final String KeyTheme = "prefTheme";
   private static final String KeyPrimaryColor = "prefPrimaryColor";
-  private static final String KeyFABColor = "prefFABColor";
   private static final String KeyNavigationColor = "prefNavigationColor";
   private static final String KeyDoubleTap = "prefDoubleTap";
   private static final String KeyRootEnabled = "prefRootEnabled";
@@ -48,6 +50,10 @@ public class AppPreferences {
     return sharedPreferences.getString(KeySortMode, "0");
   }
 
+  public Set<String> getAction() {
+    return sharedPreferences.getStringSet(KeyAction, null);
+  }
+
   public String getTheme() {
     return sharedPreferences.getString(KeyTheme, "0");
   }
@@ -59,20 +65,6 @@ public class AppPreferences {
 
   public int getPrimaryColorPref() {
     return sharedPreferences.getInt(KeyPrimaryColor, context.getResources().getColor(R.color.primary));
-  }
-
-  public void setPrimaryColorPref(Integer res) {
-    editor.putInt(KeyPrimaryColor, res);
-    editor.commit();
-  }
-
-  public int getFABColorPref() {
-    return sharedPreferences.getInt(KeyFABColor, context.getResources().getColor(R.color.fab));
-  }
-
-  public void setFABColorPref(Integer res) {
-    editor.putInt(KeyFABColor, res);
-    editor.commit();
   }
 
   public Boolean getNavigationColorPref() {

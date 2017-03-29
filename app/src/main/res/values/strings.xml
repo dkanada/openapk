@@ -86,6 +86,7 @@
   <string name="settings_custom_path">Directory</string>
   <string name="settings_custom_filename">Filename</string>
   <string name="settings_sort_mode">Sort method</string>
+  <string name="settings_action">List actions</string>
   <string name="settings_theme">Theme</string>
   <string name="settings_primary_color">Primary color</string>
   <string name="settings_primary_color_description">Set the color for the toolbar and navigation bar.</string>

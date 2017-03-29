@@ -18,6 +18,12 @@
         android:entryValues="@array/sortValues"
         android:key="prefSortMode"
         android:title="@string/settings_sort_mode"/>
+    <MultiSelectListPreference
+        android:defaultValue="@array/actionDefault"
+        android:entries="@array/actionEntries"
+        android:entryValues="@array/actionValues"
+        android:key="prefAction"
+        android:title="@string/settings_action"/>
   </PreferenceCategory>
   <PreferenceCategory
       android:title="@string/settings_title_colors">
