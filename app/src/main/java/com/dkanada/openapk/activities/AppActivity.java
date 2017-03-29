@@ -1,5 +1,6 @@
 package com.dkanada.openapk.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -170,7 +171,12 @@ public class AppActivity extends ThemeActivity {
         }
       });
     } else {
-      open.setEnabled(false);
+      open.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          DialogUtils.showSnackBar((Activity) context, getResources().getString(R.string.dialog_no_activity), null, null, 2);
+        }
+      });
     }
   }
 
@@ -187,7 +193,7 @@ public class AppActivity extends ThemeActivity {
   }
 
   protected void updateUninstallButton(RelativeLayout uninstall) {
-    if (appInfo.getSystem() && RootUtils.isRooted()) {
+    if (appInfo.getSystem()) {
       uninstall.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -205,8 +211,6 @@ public class AppActivity extends ThemeActivity {
           materialBuilder.show();
         }
       });
-    } else if(appInfo.getSystem()) {
-      uninstall.setEnabled(false);
     } else {
       uninstall.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -221,65 +225,53 @@ public class AppActivity extends ThemeActivity {
   }
 
   protected void updateCacheButton(CardView removeCache) {
-    if (RootUtils.isRooted()) {
-      removeCache.setVisibility(View.VISIBLE);
-      removeCache.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-              , getResources().getString(R.string.dialog_cache_progress)
-              , getResources().getString(R.string.dialog_cache_progress_description));
-          new RemoveCacheAsync(context, dialog, appInfo).execute();
-        }
-      });
-    }
+    removeCache.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+            , getResources().getString(R.string.dialog_cache_progress)
+            , getResources().getString(R.string.dialog_cache_progress_description));
+        new RemoveCacheAsync(context, dialog, appInfo).execute();
+      }
+    });
   }
 
   protected void updateDataButton(CardView clearData) {
-    if (RootUtils.isRooted()) {
-      clearData.setVisibility(View.VISIBLE);
-      clearData.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-              , getResources().getString(R.string.dialog_clear_data_progress)
-              , getResources().getString(R.string.dialog_clear_data_progress_description));
-          new ClearDataAsync(context, dialog, appInfo).execute();
-        }
-      });
-    }
+    clearData.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+            , getResources().getString(R.string.dialog_clear_data_progress)
+            , getResources().getString(R.string.dialog_clear_data_progress_description));
+        new ClearDataAsync(context, dialog, appInfo).execute();
+      }
+    });
   }
 
   protected void updateHideButton(RelativeLayout hide) {
     InterfaceUtils.updateAppHiddenIcon(context, hide, appDbUtils.checkAppInfo(appInfo, 3));
-    if (RootUtils.isRooted()) {
-      hide.setVisibility(View.VISIBLE);
-      hide.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-              , getResources().getString(R.string.dialog_hide_progress)
-              , getResources().getString(R.string.dialog_hide_progress_description));
-          new HideAsync(context, dialog, appInfo).execute();
-        }
-      });
-    }
+    hide.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+            , getResources().getString(R.string.dialog_hide_progress)
+            , getResources().getString(R.string.dialog_hide_progress_description));
+        new HideAsync(context, dialog, appInfo).execute();
+      }
+    });
   }
 
   protected void updateDisableButton(RelativeLayout disable) {
     InterfaceUtils.updateAppDisabledIcon(context, disable, appDbUtils.checkAppInfo(appInfo, 4));
-    if (RootUtils.isRooted()) {
-      disable.setVisibility(View.VISIBLE);
-      disable.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-              , getResources().getString(R.string.dialog_disable_progress)
-              , getResources().getString(R.string.dialog_disable_progress_description));
-          new DisableAsync(context, dialog, appInfo).execute();
-        }
-      });
-    }
+    disable.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+            , getResources().getString(R.string.dialog_disable_progress)
+            , getResources().getString(R.string.dialog_disable_progress_description));
+        new DisableAsync(context, dialog, appInfo).execute();
+      }
+    });
   }
 
   protected void updateShareButton(RelativeLayout fab_share) {
@@ -298,13 +290,13 @@ public class AppActivity extends ThemeActivity {
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == UNINSTALL_REQUEST_CODE) {
       if (resultCode == RESULT_OK) {
-        Log.i("App", "OK");
+        Log.i("App", appInfo.getAPK() + "OK");
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         finish();
         startActivity(intent);
       } else if (resultCode == RESULT_CANCELED) {
-        Log.i("App", "CANCEL");
+        Log.i("App", appInfo.getAPK() + "CANCEL");
       }
     }
   }
@@ -321,7 +313,6 @@ public class AppActivity extends ThemeActivity {
     Boolean appIsDisabled = getIntent().getExtras().getBoolean("app_isDisabled");
     Bitmap bitmap = getIntent().getParcelableExtra("app_icon");
     Drawable appIcon = new BitmapDrawable(getResources(), bitmap);
-
     appInfo = new AppInfo(appName, appApk, appVersion, appSource, appData, appIsSystem, appIsFavorite, appIsHidden, appIsDisabled, appIcon);
   }
 

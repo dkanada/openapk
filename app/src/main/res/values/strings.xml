@@ -61,6 +61,7 @@
   <string name="dialog_root_required">Root required</string>
   <string name="dialog_root_required_description">Your device must be rooted for this feature to work and root features must be enabled in the settings.</string>
   <string name="dialog_reboot">A reboot is necessary to display the changes. Do you want to reboot now?</string>
+  <string name="dialog_no_activity">This app does not have a user interface.</string>
 
   <!-- buttons -->
   <string name="button_reboot">Reboot</string>
