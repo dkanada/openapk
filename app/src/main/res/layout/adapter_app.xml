@@ -20,8 +20,8 @@
           android:id="@+id/txtName"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="20dp"
-          android:layout_marginRight="80dp"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="80dp"
           android:layout_marginTop="10dp"
           android:fontFamily="sans-serif-thin"
           android:text="@string/error_layout"
@@ -32,8 +32,8 @@
           android:id="@+id/txtApk"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="20dp"
-          android:layout_marginRight="80dp"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="80dp"
           android:layout_marginTop="40dp"
           android:fontFamily="sans-serif-thin"
           android:text="@string/error_layout"
@@ -44,8 +44,8 @@
           android:id="@+id/imgIcon"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_alignParentRight="true"
-          android:layout_marginRight="20dp"
+          android:layout_alignParentEnd="true"
+          android:layout_marginEnd="20dp"
           android:layout_marginTop="10dp"
           android:adjustViewBounds="true"
           android:maxHeight="50dp"
@@ -54,35 +54,53 @@
           android:transitionName="@string/transition"/>
 
       <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginLeft="20dp"
-          android:layout_marginTop="70dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="20dp"
+          android:layout_marginTop="78dp"
           android:orientation="horizontal">
 
-        <com.gc.materialdesign.views.ButtonFlat
+        <Button
             android:id="@+id/btnOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/accent"
+            android:layout_marginEnd="10dp"
+            android:paddingStart="0dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:background="@color/grey_dark"
+            android:textColor="@color/accent"
             android:text="@string/error_layout"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            style="?android:attr/borderlessButtonStyle"/>
 
-        <com.gc.materialdesign.views.ButtonFlat
+        <Button
             android:id="@+id/btnTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/accent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:background="@color/grey_dark"
+            android:textColor="@color/accent"
             android:text="@string/error_layout"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            style="?android:attr/borderlessButtonStyle"/>
 
-        <com.gc.materialdesign.views.ButtonFlat
+        <Button
             android:id="@+id/btnThree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/accent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:background="@color/grey_dark"
+            android:textColor="@color/accent"
             android:text="@string/error_layout"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            style="?android:attr/borderlessButtonStyle"/>
       </LinearLayout>
     </RelativeLayout>
   </android.support.v7.widget.CardView>

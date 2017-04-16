@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -26,7 +27,6 @@ import com.dkanada.openapk.async.HideAsync;
 import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.async.UninstallAsync;
 import com.dkanada.openapk.utils.AppUtils;
-import com.gc.materialdesign.views.ButtonFlat;
 import com.dkanada.openapk.activities.AppActivity;
 import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
@@ -68,9 +68,9 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
   }
 
   private void setButtonEvents(AppViewHolder appViewHolder, final AppInfo appInfo) {
-    ButtonFlat btnOne = appViewHolder.vOne;
-    ButtonFlat btnTwo = appViewHolder.vTwo;
-    ButtonFlat btnThree = appViewHolder.vThree;
+    Button btnOne = appViewHolder.vOne;
+    Button btnTwo = appViewHolder.vTwo;
+    Button btnThree = appViewHolder.vThree;
     final ImageView appIcon = appViewHolder.vIcon;
     final CardView cardView = appViewHolder.vCard;
 
@@ -126,7 +126,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
     });
   }
 
-  public void setButton(int action, ButtonFlat button, final AppInfo appInfo) {
+  public void setButton(int action, Button button, final AppInfo appInfo) {
     switch (action) {
       case 0:
         button.setText(context.getString(R.string.action_open));
@@ -301,9 +301,9 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
     private ImageView vIcon;
     private CardView vCard;
 
-    private ButtonFlat vOne;
-    private ButtonFlat vTwo;
-    private ButtonFlat vThree;
+    private Button vOne;
+    private Button vTwo;
+    private Button vThree;
 
     public AppViewHolder(View v) {
       super(v);
@@ -312,9 +312,9 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
       vIcon = (ImageView) v.findViewById(R.id.imgIcon);
       vCard = (CardView) v.findViewById(R.id.app_card);
 
-      vOne = (ButtonFlat) v.findViewById(R.id.btnOne);
-      vTwo = (ButtonFlat) v.findViewById(R.id.btnTwo);
-      vThree = (ButtonFlat) v.findViewById(R.id.btnThree);
+      vOne = (Button) v.findViewById(R.id.btnOne);
+      vTwo = (Button) v.findViewById(R.id.btnTwo);
+      vThree = (Button) v.findViewById(R.id.btnThree);
     }
   }
 }
