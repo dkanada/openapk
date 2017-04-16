@@ -106,11 +106,12 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
       }
     });
 
+    // getInitialSetup is currently redundant but might be useful in the future
     if (!appPreferences.getInitialSetup()) {
       appPreferences.setInitialSetup(true);
       new updateInstalledApps().execute();
     } else {
-      new getInstalledApps().execute();
+      new updateInstalledApps().execute();
     }
   }
 
