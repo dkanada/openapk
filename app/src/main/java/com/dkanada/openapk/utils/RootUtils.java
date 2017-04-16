@@ -48,9 +48,9 @@ public class RootUtils {
   }
 
   public static boolean isRootedByExecutingCommand() {
-    return canExecuteCommand("/system/xbin/which su")
-        || canExecuteCommand("/system/bin/which su")
-        || canExecuteCommand("which su");
+    return canExecuteCommand("/system/xbin/which su") ||
+        canExecuteCommand("/system/bin/which su") ||
+        canExecuteCommand("which su");
   }
 
   public static boolean uninstallWithRootPermission(String source) {

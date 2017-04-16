@@ -68,23 +68,18 @@ public class AppUtils {
   // get the name of the extracted app
   public static String getAPKFilename(AppInfo appInfo) {
     AppPreferences appPreferences = App.getAppPreferences();
-    String res;
-
     switch (appPreferences.getFilename()) {
       case "1":
-        res = appInfo.getAPK() + "_" + appInfo.getVersion();
-        break;
+        return appInfo.getAPK() + "-" + appInfo.getVersion();
       case "2":
-        res = appInfo.getName() + "_" + appInfo.getVersion();
-        break;
+        return appInfo.getName() + "-" + appInfo.getVersion();
+      case "3":
+        return appInfo.getAPK();
       case "4":
-        res = appInfo.getName();
-        break;
+        return appInfo.getName();
       default:
-        res = appInfo.getAPK();
-        break;
+        return appInfo.getAPK();
     }
-    return res;
   }
 
   // get the name of the extracted app with the path
@@ -147,7 +142,7 @@ public class AppUtils {
     return res;
   }
 
-  // intent to share app
+  // get intent to share app
   public static Intent getShareIntent(File file) {
     Intent intent = new Intent();
     intent.setAction(Intent.ACTION_SEND);
