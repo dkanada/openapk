@@ -75,12 +75,12 @@ public class InterfaceUtils {
     Integer badgeColor;
     BadgeStyle badgeStyle;
     if(appPreferences.getTheme().equals("1")) {
-      badgeColor = ContextCompat.getColor(context, R.color.badgeLight);
-      badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(context.getResources().getColor(R.color.textLight));
+      badgeColor = ContextCompat.getColor(context, R.color.badge_light);
+      badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(context.getResources().getColor(R.color.text_light));
       header = R.drawable.header_day;
     } else {
-      badgeColor = ContextCompat.getColor(context, R.color.badgeDark);
-      badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(context.getResources().getColor(R.color.textDark));
+      badgeColor = ContextCompat.getColor(context, R.color.badge_dark);
+      badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(context.getResources().getColor(R.color.text_dark));
       header = R.drawable.header_night;
     }
 
@@ -93,7 +93,7 @@ public class InterfaceUtils {
     drawerBuilder.withActivity(activity);
     drawerBuilder.withToolbar(toolbar);
     drawerBuilder.withAccountHeader(headerResult);
-    drawerBuilder.withStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColorPref(), 0.8));
+    drawerBuilder.withStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColor(), 0.8));
 
     drawerBuilder.addDrawerItems(
         new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_installed_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(apps).withBadgeStyle(badgeStyle).withIdentifier(1),

@@ -34,7 +34,6 @@ import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.async.ExtractFileAsync;
 import com.dkanada.openapk.async.UninstallAsync;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.RootUtils;
 import com.dkanada.openapk.utils.AppUtils;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
@@ -76,10 +75,10 @@ public class AppActivity extends ThemeActivity {
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-      getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColorPref(), 0.8));
-      toolbar.setBackgroundColor(appPreferences.getPrimaryColorPref());
-      if (appPreferences.getNavigationColorPref()) {
-        getWindow().setNavigationBarColor(appPreferences.getPrimaryColorPref());
+      getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColor(), 0.8));
+      toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
+      if (appPreferences.getNavigationColor()) {
+        getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
       }
     }
   }
@@ -126,7 +125,7 @@ public class AppActivity extends ThemeActivity {
     }
 
     // update colors
-    header.setBackgroundColor(appPreferences.getPrimaryColorPref());
+    header.setBackgroundColor(appPreferences.getPrimaryColor());
     if (appPreferences.getTheme().equals("1")) {
       for (int i = 0; i < information.getChildCount(); i += 2) {
         information.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.grey_light));

@@ -40,10 +40,10 @@
         android:summary="@string/settings_primary_color_description"
         android:title="@string/settings_primary_color"/>
     <yuku.ambilwarna.widget.AmbilWarnaPreference
-        android:defaultValue="@color/fab"
-        android:key="prefFABColor"
-        android:summary="@string/settings_fab_color_description"
-        android:title="@string/settings_fab_color"/>
+        android:defaultValue="@color/accent"
+        android:key="prefAccentColor"
+        android:summary="@string/settings_accent_color_description"
+        android:title="@string/settings_accent_color"/>
     <CheckBoxPreference
         android:defaultValue="true"
         android:key="prefNavigationColor"

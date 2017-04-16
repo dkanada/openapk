@@ -21,6 +21,7 @@ public class AppPreferences {
   private static final String KeyAction = "prefAction";
   private static final String KeyTheme = "prefTheme";
   private static final String KeyPrimaryColor = "prefPrimaryColor";
+  private static final String KeyAccentColor = "prefAccentColor";
   private static final String KeyNavigationColor = "prefNavigationColor";
   private static final String KeyDoubleTap = "prefDoubleTap";
   private static final String KeyRootEnabled = "prefRootEnabled";
@@ -39,8 +40,8 @@ public class AppPreferences {
     return sharedPreferences.getString(KeyCustomPath, AppUtils.getDefaultAppFolder().getPath());
   }
 
-  public void setCustomPath(String res) {
-    editor.putString(KeyCustomPath, res);
+  public void setCustomPath(String value) {
+    editor.putString(KeyCustomPath, value);
     editor.commit();
   }
 
@@ -60,16 +61,15 @@ public class AppPreferences {
     return sharedPreferences.getString(KeyTheme, "0");
   }
 
-  public void setTheme(String res) {
-    editor.putString(KeyTheme, res);
-    editor.commit();
-  }
-
-  public int getPrimaryColorPref() {
+  public int getPrimaryColor() {
     return sharedPreferences.getInt(KeyPrimaryColor, context.getResources().getColor(R.color.primary));
   }
 
-  public Boolean getNavigationColorPref() {
+  public int getAccentColor() {
+    return sharedPreferences.getInt(KeyAccentColor, context.getResources().getColor(R.color.accent));
+  }
+
+  public Boolean getNavigationColor() {
     return sharedPreferences.getBoolean(KeyNavigationColor, false);
   }
 
@@ -86,8 +86,8 @@ public class AppPreferences {
     return sharedPreferences.getBoolean(KeyInitialSetup, false);
   }
 
-  public void setInitialSetup(boolean setup) {
-    editor.putBoolean(KeyInitialSetup, setup);
+  public void setInitialSetup(boolean value) {
+    editor.putBoolean(KeyInitialSetup, value);
     editor.commit();
   }
 
@@ -95,8 +95,8 @@ public class AppPreferences {
     return sharedPreferences.getInt(KeyIsRooted, 0);
   }
 
-  public void setRootStatus(int rootStatus) {
-    editor.putInt(KeyIsRooted, rootStatus);
+  public void setRootStatus(int value) {
+    editor.putInt(KeyIsRooted, value);
     editor.commit();
   }
 }

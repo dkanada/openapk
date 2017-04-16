@@ -42,10 +42,10 @@ public class AboutActivity extends ThemeActivity {
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-      getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColorPref(), 0.8));
-      toolbar.setBackgroundColor(appPreferences.getPrimaryColorPref());
-      if (appPreferences.getNavigationColorPref()) {
-        getWindow().setNavigationBarColor(appPreferences.getPrimaryColorPref());
+      getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColor(), 0.8));
+      toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
+      if (appPreferences.getNavigationColor()) {
+        getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
       }
     }
   }
@@ -55,7 +55,7 @@ public class AboutActivity extends ThemeActivity {
     TextView appNameVersion = (TextView) findViewById(R.id.app_name);
     ImageView icon = (ImageView) findViewById(R.id.about_icon);
 
-    header.setBackgroundColor(appPreferences.getPrimaryColorPref());
+    header.setBackgroundColor(appPreferences.getPrimaryColor());
     appNameVersion.setText(getResources().getString(R.string.app_name) + " " + AppUtils.getAppVersionName(getApplicationContext()));
     if (appPreferences.getTheme().equals("1")) {
       icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));

@@ -91,7 +91,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     recyclerView.setLayoutManager(linearLayoutManager);
     drawer = InterfaceUtils.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
 
-    refresh.setColorSchemeColors(appPreferences.getPrimaryColorPref());
+    refresh.setColorSchemeColors(appPreferences.getPrimaryColor());
     refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
@@ -121,10 +121,10 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-      getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColorPref(), 0.8));
-      toolbar.setBackgroundColor(appPreferences.getPrimaryColorPref());
-      if (appPreferences.getNavigationColorPref()) {
-        getWindow().setNavigationBarColor(appPreferences.getPrimaryColorPref());
+      getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColor(), 0.8));
+      toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
+      if (appPreferences.getNavigationColor()) {
+        getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
       }
     }
   }

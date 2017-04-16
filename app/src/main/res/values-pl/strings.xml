@@ -42,8 +42,8 @@
   <string name="settings_title_colors">Personalizacja</string>
   <string name="settings_primary_color">Kolor podstawowy</string>
   <string name="settings_primary_color_description">Ustal kolor podstawowy dla paska narzędzi i paska nawigacyjnego. Wymaga Androida 5.0+</string>
-  <string name="settings_fab_color">Kolor pływającego przycisku</string>
-  <string name="settings_fab_color_description">Ustal kolor dla pływającego przycisku akcji (FAB)</string>
+  <string name="settings_accent_color">Kolor pływającego przycisku</string>
+  <string name="settings_accent_color_description">Ustal kolor dla pływającego przycisku akcji (FAB)</string>
   <string name="settings_navigation_color">Pokaż pasek nawigacji w kolorze czarnym</string>
   <string name="settings_navigation_color_description">Nie używaj własnego koloru dla paska nawigacyjnego.</string>
   <string name="settings_reset_description">Utworzono z \u2665 w Hiszpanii</string>

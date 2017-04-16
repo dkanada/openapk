@@ -91,8 +91,8 @@
   <string name="settings_theme">Theme</string>
   <string name="settings_primary_color">Primary color</string>
   <string name="settings_primary_color_description">Set the color for the toolbar and navigation bar.</string>
-  <string name="settings_fab_color">Floating button color</string>
-  <string name="settings_fab_color_description">Set the color for the floating action button.</string>
+  <string name="settings_accent_color">Accent color</string>
+  <string name="settings_accent_color_description">Set the accent color for the quick actions and other elements.</string>
   <string name="settings_navigation_color">Color the navigation bar</string>
   <string name="settings_navigation_color_description">Use the primary color for the navigation bar.</string>
   <string name="settings_double_tap">Press back to exit</string>

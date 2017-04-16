@@ -20,19 +20,10 @@ import com.dkanada.openapk.utils.DialogUtils;
 import yuku.ambilwarna.widget.AmbilWarnaPreference;
 
 public final class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-
-  // change the summary on prefChanged
   private Preference prefCustomPath;
   private ListPreference prefFilename;
   private ListPreference prefSortMode;
   private ListPreference prefTheme;
-
-  // disable if android version too low
-  private AmbilWarnaPreference prefPrimaryColor;
-  private Preference prefNavigationColor;
-
-  // action on click
-  private Preference prefReset;
 
   AppPreferences appPreferences;
   Context context;
@@ -52,30 +43,26 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
     prefSortMode = (ListPreference) findPreference("prefSortMode");
     prefTheme = (ListPreference) findPreference("prefTheme");
 
-    prefPrimaryColor = (AmbilWarnaPreference) findPreference("prefPrimaryColor");
-    prefNavigationColor = findPreference("prefNavigationColor");
-
-    prefReset = findPreference("prefReset");
-
     // removes settings that wont work on lower versions
+    Preference prefNavigationColor = findPreference("prefNavigationColor");
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-      prefPrimaryColor.setEnabled(false);
       prefNavigationColor.setEnabled(false);
     }
 
-    prefCustomPath.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-      @Override
-      public boolean onPreferenceClick(Preference preference) {
-        DialogUtils.chooseDirectory(context).show();
-        return true;
-      }
-    });
-
+    Preference prefReset = findPreference("prefReset");
     prefReset.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
       @Override
       public boolean onPreferenceClick(Preference preference) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         sharedPreferences.edit().clear().apply();
+        return true;
+      }
+    });
+
+    prefCustomPath.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+      @Override
+      public boolean onPreferenceClick(Preference preference) {
+        DialogUtils.chooseDirectory(context).show();
         return true;
       }
     });
@@ -101,13 +88,12 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
   }
 
   private void setThemeSummary(){
-    int sortValue = Integer.valueOf(appPreferences.getTheme());
-    prefTheme.setSummary(getResources().getStringArray(R.array.themeEntries)[sortValue]);
+    int themeValue = Integer.valueOf(appPreferences.getTheme());
+    prefTheme.setSummary(getResources().getStringArray(R.array.themeEntries)[themeValue]);
   }
 
   @Override
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-    // TODO why is the fragment not connected after the activity closes once
     if (isAdded()) {
       Preference pref = findPreference(key);
       if (pref == prefCustomPath) {

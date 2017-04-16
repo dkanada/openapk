@@ -3,31 +3,24 @@
   <style name="Light" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
-    <!-- colorPrimary is used for the action bar background -->
     <item name="colorPrimary">@color/primary</item>
-    <!-- colorPrimaryDark is used for the status bar -->
     <item name="colorPrimaryDark">@color/primary_dark</item>
     <item name="colorAccent">@color/accent</item>
-    <!-- text colors -->
-    <item name="android:textColorPrimary">@color/textPrimaryLight</item>
-    <item name="android:textColor">@color/textLight</item>
+    <item name="android:textColorPrimary">@color/text_light</item>
+    <item name="android:textColor">@color/text_light</item>
   </style>
 
   <style name="Dark" parent="Theme.AppCompat.NoActionBar">
     <item name="android:windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
-    <!-- colorPrimary is used for the default action bar background -->
     <item name="colorPrimary">@color/primary</item>
-    <!-- colorPrimaryDark is used for the status bar -->
     <item name="colorPrimaryDark">@color/primary_dark</item>
     <item name="colorAccent">@color/accent</item>
-    <!-- text colors -->
-    <item name="android:textColorPrimary">@color/textPrimaryDark</item>
-    <item name="android:textColor">@color/textDark</item>
+    <item name="android:textColorPrimary">@color/text_dark</item>
+    <item name="android:textColor">@color/text_dark</item>
   </style>
 
   <style name="DrawerDark" parent="MaterialDrawerTheme">
-
     <!-- MaterialDrawer specific values -->
     <item name="material_drawer_background">@color/material_drawer_dark_background</item>
     <item name="material_drawer_primary_text">@color/material_drawer_dark_primary_text</item>
@@ -38,10 +31,5 @@
     <item name="material_drawer_selected">@color/material_drawer_dark_selected</item>
     <item name="material_drawer_selected_text">@color/material_drawer_dark_selected_text</item>
     <item name="material_drawer_header_selection_text">@color/material_drawer_dark_header_selection_text</item>
-  </style>
-
-  <style name="CardViewStyle" parent="CardView">
-    <item name="cardCornerRadius">2dp</item>
-    <item name="cardElevation">2dp</item>
   </style>
 </resources>
