@@ -64,31 +64,7 @@
           android:orientation="horizontal">
 
         <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/btnOpen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:text="@string/action_open"
-            android:visibility="gone"/>
-
-        <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/btnExtract"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:text="@string/action_extract"
-            android:visibility="gone"/>
-
-        <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/btnUninstall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:text="@string/action_uninstall"
-            android:visibility="gone"/>
-
-        <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/btnHide"
+            android:id="@+id/btnOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/primary"
@@ -96,7 +72,7 @@
             android:visibility="gone"/>
 
         <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/btnDisable"
+            android:id="@+id/btnTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/primary"
@@ -104,27 +80,11 @@
             android:visibility="gone"/>
 
         <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/btnShare"
+            android:id="@+id/btnThree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/primary"
-            android:text="@string/action_share"
-            android:visibility="gone"/>
-
-        <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/btnRemoveCache"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:text="@string/action_remove_cache"
-            android:visibility="gone"/>
-
-        <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/btnClearData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:text="@string/action_clear_data"
+            android:text="@string/error_layout"
             android:visibility="gone"/>
       </LinearLayout>
     </RelativeLayout>

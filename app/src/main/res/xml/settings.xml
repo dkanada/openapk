@@ -23,6 +23,7 @@
         android:entries="@array/actionEntries"
         android:entryValues="@array/actionValues"
         android:key="prefAction"
+        android:summary="@string/settings_action_description"
         android:title="@string/settings_action"/>
   </PreferenceCategory>
   <PreferenceCategory

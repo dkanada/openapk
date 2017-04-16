@@ -25,7 +25,6 @@ import com.dkanada.openapk.async.DisableAsync;
 import com.dkanada.openapk.async.HideAsync;
 import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.async.UninstallAsync;
-import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.AppUtils;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.dkanada.openapk.activities.AppActivity;
@@ -69,153 +68,34 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
   }
 
   private void setButtonEvents(AppViewHolder appViewHolder, final AppInfo appInfo) {
-    ButtonFlat appOpen = appViewHolder.vExtract;
-    ButtonFlat appExtract = appViewHolder.vShare;
-    ButtonFlat appUninstall = appViewHolder.vShare;
-    ButtonFlat appHide = appViewHolder.vShare;
-    ButtonFlat appDisable = appViewHolder.vShare;
-    ButtonFlat appShare = appViewHolder.vShare;
-    ButtonFlat appRemoveCache = appViewHolder.vShare;
-    ButtonFlat appClearData = appViewHolder.vShare;
+    ButtonFlat btnOne = appViewHolder.vOne;
+    ButtonFlat btnTwo = appViewHolder.vTwo;
+    ButtonFlat btnThree = appViewHolder.vThree;
 
     final ImageView appIcon = appViewHolder.vIcon;
     final CardView cardView = appViewHolder.vCard;
 
-    appOpen.setBackgroundColor(context.getResources().getColor(R.color.accent));
-    appExtract.setBackgroundColor(context.getResources().getColor(R.color.accent));
-    appUninstall.setBackgroundColor(context.getResources().getColor(R.color.accent));
-    appHide.setBackgroundColor(context.getResources().getColor(R.color.accent));
-    appDisable.setBackgroundColor(context.getResources().getColor(R.color.accent));
-    appShare.setBackgroundColor(context.getResources().getColor(R.color.accent));
-    appRemoveCache.setBackgroundColor(context.getResources().getColor(R.color.accent));
-    appClearData.setBackgroundColor(context.getResources().getColor(R.color.accent));
+    btnOne.setBackgroundColor(context.getResources().getColor(R.color.accent));
+    btnTwo.setBackgroundColor(context.getResources().getColor(R.color.accent));
+    btnThree.setBackgroundColor(context.getResources().getColor(R.color.accent));
 
-    Set<String> tmp = App.getAppPreferences().getAction();
-    for (String s : tmp) {
-      if (s.equals("0")) {
-        appOpen.setVisibility(View.VISIBLE);
-      } else if (s.equals("1")) {
-        appExtract.setVisibility(View.VISIBLE);
-      } else if (s.equals("2")) {
-        appUninstall.setVisibility(View.VISIBLE);
-      } else if (s.equals("3")) {
-        appHide.setVisibility(View.VISIBLE);
-      } else if (s.equals("4")) {
-        appDisable.setVisibility(View.VISIBLE);
-      } else if (s.equals("5")) {
-        appShare.setVisibility(View.VISIBLE);
-      } else if (s.equals("6")) {
-        appRemoveCache.setVisibility(View.VISIBLE);
-      } else if (s.equals("7")) {
-        appClearData.setVisibility(View.VISIBLE);
+    Set<String> actions = App.getAppPreferences().getAction();
+    int counter = 0;
+    for (String action : actions) {
+      if (counter == 0) {
+        btnOne.setVisibility(View.VISIBLE);
+        setButton(Integer.parseInt(action), btnOne, appInfo);
+      } else if (counter == 1) {
+        btnTwo.setVisibility(View.VISIBLE);
+        setButton(Integer.parseInt(action), btnTwo, appInfo);
+      } else if (counter == 2) {
+        btnThree.setVisibility(View.VISIBLE);
+        setButton(Integer.parseInt(action), btnThree, appInfo);
+      } else {
+        break;
       }
+      counter++;
     }
-
-    final Intent intent = context.getPackageManager().getLaunchIntentForPackage(appInfo.getAPK());
-    if (intent != null) {
-      appOpen.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          context.startActivity(intent);
-        }
-      });
-    } else {
-      appOpen.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          DialogUtils.showSnackBar((Activity) context, context.getResources().getString(R.string.dialog_no_activity), null, null, 2);
-        }
-      });
-    }
-
-    appExtract.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-            , String.format(context.getResources().getString(R.string.dialog_extract_progress), appInfo.getName())
-            , context.getResources().getString(R.string.dialog_extract_progress_description));
-        new ExtractFileAsync(context, dialog, appInfo).execute();
-      }
-    });
-
-    if (appInfo.getSystem()) {
-      appUninstall.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          MaterialDialog.Builder materialBuilder = DialogUtils.uninstallSystemApp(context)
-              .callback(new MaterialDialog.ButtonCallback() {
-                @Override
-                public void onPositive(MaterialDialog dialog) {
-                  MaterialDialog dialogUninstalling = DialogUtils.showTitleContentWithProgress(context
-                      , String.format(context.getResources().getString(R.string.dialog_uninstall_progress), appInfo.getName())
-                      , context.getResources().getString(R.string.dialog_uninstall_progress_description));
-                  new UninstallAsync(context, dialogUninstalling, appInfo).execute();
-                  dialog.dismiss();
-                }
-              });
-          materialBuilder.show();
-        }
-      });
-    } else {
-      appUninstall.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
-          intent.setData(Uri.parse("package:" + appInfo.getAPK()));
-          intent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
-          context.startActivity(intent);
-        }
-      });
-    }
-
-    appHide.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-            , context.getResources().getString(R.string.dialog_hide_progress)
-            , context.getResources().getString(R.string.dialog_hide_progress_description));
-        new HideAsync(context, dialog, appInfo).execute();
-      }
-    });
-
-    appDisable.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-            , context.getResources().getString(R.string.dialog_disable_progress)
-            , context.getResources().getString(R.string.dialog_disable_progress_description));
-        new DisableAsync(context, dialog, appInfo).execute();
-      }
-    });
-
-    appShare.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        AppUtils.extractFile(appInfo);
-        Intent shareIntent = AppUtils.getShareIntent(AppUtils.getOutputFilename(appInfo));
-        context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send_to), appInfo.getName())));
-      }
-    });
-
-    appRemoveCache.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-            , context.getResources().getString(R.string.dialog_cache_progress)
-            , context.getResources().getString(R.string.dialog_cache_progress_description));
-        new RemoveCacheAsync(context, dialog, appInfo).execute();
-      }
-    });
-
-    appClearData.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-            , context.getResources().getString(R.string.dialog_clear_data_progress)
-            , context.getResources().getString(R.string.dialog_clear_data_progress_description));
-        new ClearDataAsync(context, dialog, appInfo).execute();
-      }
-    });
 
     cardView.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -245,6 +125,133 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
         }
       }
     });
+  }
+
+  public void setButton(int action, ButtonFlat button, final AppInfo appInfo) {
+    switch (action) {
+      case 0:
+        button.setText(context.getString(R.string.action_open));
+        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(appInfo.getAPK());
+        if (intent != null) {
+          button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              context.startActivity(intent);
+            }
+          });
+        } else {
+          button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              DialogUtils.showSnackBar((Activity) context, context.getResources().getString(R.string.dialog_no_activity), null, null, 2);
+            }
+          });
+        }
+        break;
+      case 1:
+        button.setText(context.getString(R.string.action_extract));
+        button.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                , String.format(context.getResources().getString(R.string.dialog_extract_progress), appInfo.getName())
+                , context.getResources().getString(R.string.dialog_extract_progress_description));
+            new ExtractFileAsync(context, dialog, appInfo).execute();
+          }
+        });
+        break;
+      case 2:
+        button.setText(context.getString(R.string.action_uninstall));
+        if (appInfo.getSystem()) {
+          button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              MaterialDialog.Builder materialBuilder = DialogUtils.uninstallSystemApp(context)
+                  .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                      MaterialDialog dialogUninstalling = DialogUtils.showTitleContentWithProgress(context
+                          , String.format(context.getResources().getString(R.string.dialog_uninstall_progress), appInfo.getName())
+                          , context.getResources().getString(R.string.dialog_uninstall_progress_description));
+                      new UninstallAsync(context, dialogUninstalling, appInfo).execute();
+                      dialog.dismiss();
+                    }
+                  });
+              materialBuilder.show();
+            }
+          });
+        } else {
+          button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
+              intent.setData(Uri.parse("package:" + appInfo.getAPK()));
+              intent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
+              context.startActivity(intent);
+            }
+          });
+        }
+        break;
+      case 3:
+        button.setText(context.getString(R.string.action_hide));
+        button.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                , context.getResources().getString(R.string.dialog_hide_progress)
+                , context.getResources().getString(R.string.dialog_hide_progress_description));
+            new HideAsync(context, dialog, appInfo).execute();
+          }
+        });
+        break;
+      case 4:
+        button.setText(context.getString(R.string.action_disable));
+        button.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                , context.getResources().getString(R.string.dialog_disable_progress)
+                , context.getResources().getString(R.string.dialog_disable_progress_description));
+            new DisableAsync(context, dialog, appInfo).execute();
+          }
+        });
+        break;
+      case 5:
+        button.setText(context.getString(R.string.action_share));
+        button.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            AppUtils.extractFile(appInfo);
+            Intent shareIntent = AppUtils.getShareIntent(AppUtils.getOutputFilename(appInfo));
+            context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send_to), appInfo.getName())));
+          }
+        });
+        break;
+      case 6:
+        button.setText(context.getString(R.string.action_remove_cache));
+        button.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                , context.getResources().getString(R.string.dialog_cache_progress)
+                , context.getResources().getString(R.string.dialog_cache_progress_description));
+            new RemoveCacheAsync(context, dialog, appInfo).execute();
+          }
+        });
+        break;
+      case 7:
+        button.setText(context.getString(R.string.action_clear_data));
+        button.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                , context.getResources().getString(R.string.dialog_clear_data_progress)
+                , context.getResources().getString(R.string.dialog_clear_data_progress_description));
+            new ClearDataAsync(context, dialog, appInfo).execute();
+          }
+        });
+        break;
+    }
   }
 
   public Filter getFilter() {
@@ -295,14 +302,9 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
     private ImageView vIcon;
     private CardView vCard;
 
-    private ButtonFlat vOpen;
-    private ButtonFlat vExtract;
-    private ButtonFlat vUninstall;
-    private ButtonFlat vHide;
-    private ButtonFlat vDisable;
-    private ButtonFlat vShare;
-    private ButtonFlat vRemoveCache;
-    private ButtonFlat vClearData;
+    private ButtonFlat vOne;
+    private ButtonFlat vTwo;
+    private ButtonFlat vThree;
 
     public AppViewHolder(View v) {
       super(v);
@@ -311,14 +313,9 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
       vIcon = (ImageView) v.findViewById(R.id.imgIcon);
       vCard = (CardView) v.findViewById(R.id.app_card);
 
-      vOpen = (ButtonFlat) v.findViewById(R.id.btnOpen);
-      vExtract = (ButtonFlat) v.findViewById(R.id.btnExtract);
-      vUninstall = (ButtonFlat) v.findViewById(R.id.btnUninstall);
-      vHide = (ButtonFlat) v.findViewById(R.id.btnHide);
-      vDisable = (ButtonFlat) v.findViewById(R.id.btnDisable);
-      vShare = (ButtonFlat) v.findViewById(R.id.btnShare);
-      vRemoveCache = (ButtonFlat) v.findViewById(R.id.btnRemoveCache);
-      vClearData = (ButtonFlat) v.findViewById(R.id.btnClearData);
+      vOne = (ButtonFlat) v.findViewById(R.id.btnOne);
+      vTwo = (ButtonFlat) v.findViewById(R.id.btnTwo);
+      vThree = (ButtonFlat) v.findViewById(R.id.btnThree);
     }
   }
 }

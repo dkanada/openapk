@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 
 import com.dkanada.openapk.R;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 public class AppPreferences {
@@ -51,7 +53,7 @@ public class AppPreferences {
   }
 
   public Set<String> getAction() {
-    return sharedPreferences.getStringSet(KeyAction, null);
+    return sharedPreferences.getStringSet(KeyAction, new HashSet<>(Arrays.asList(context.getResources().getStringArray(R.array.actionDefault))));
   }
 
   public String getTheme() {
