@@ -1,3 +1,11 @@
+### 1.1.1
+###### Released: April 16, 2017
+* add option to use custom directory for saved files
+* changes to dialogs throughout the app
+* fix file name preference
+* add customization to quick actions
+* automatically update the database when opened
+
 ### 1.1
 ###### Released: March 17, 2017
 * complete redesign of the app layout
