@@ -16,7 +16,7 @@
 
   <string-array name="sortEntries">
     <item>Name</item>
-    <item>Size (Not Implemented Yet)</item>
+    <item>Size</item>
     <item>Installation date</item>
     <item>Update date</item>
   </string-array>

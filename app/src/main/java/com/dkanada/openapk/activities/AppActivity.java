@@ -173,7 +173,7 @@ public class AppActivity extends ThemeActivity {
       open.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          DialogUtils.showSnackBar((Activity) context, getResources().getString(R.string.dialog_no_activity), null, null, 2);
+          DialogUtils.showSnackBar((Activity) context, getResources().getString(R.string.dialog_no_activity), null, null, 0);
         }
       });
     }

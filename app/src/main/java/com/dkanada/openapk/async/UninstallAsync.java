@@ -40,11 +40,11 @@ public class UninstallAsync extends AsyncTask<Void, String, Boolean> {
     super.onPostExecute(status);
     dialog.dismiss();
     if (status && RootUtils.isRooted()) {
-      DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_reboot), context.getResources().getString(R.string.button_reboot), null, 3).show();
+      DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_reboot), context.getResources().getString(R.string.button_reboot), null, 2).show();
     } else if (!RootUtils.isRooted()) {
       DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     } else {
-      DialogUtils.showSnackBar((Activity) context, context.getResources().getString(R.string.dialog_error), null, null, 2);
+      DialogUtils.showSnackBar((Activity) context, context.getResources().getString(R.string.dialog_error), null, null, 0);
     }
   }
 }

@@ -61,9 +61,12 @@ public class DialogUtils {
         .cancelable(false);
   }
 
-  public static SnackBar showSnackBar(Activity activity, String text, @Nullable String buttonText, @Nullable final File file, Integer style) {
+  public static SnackBar showSnackBar(Activity activity, String text, @Nullable String buttonText, @Nullable final File file, int style) {
     SnackBar snackBar;
     switch (style) {
+      case 0:
+        snackBar = new SnackBar(activity, text, null, null);
+        break;
       case 1:
         snackBar = new SnackBar(activity, text, buttonText, new View.OnClickListener() {
           @Override
@@ -73,9 +76,6 @@ public class DialogUtils {
         });
         break;
       case 2:
-        snackBar = new SnackBar(activity, text, null, null);
-        break;
-      case 3:
         snackBar = new SnackBar(activity, text, buttonText, new View.OnClickListener() {
           @Override
           public void onClick(View view) {

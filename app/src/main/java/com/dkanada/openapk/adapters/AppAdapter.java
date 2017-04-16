@@ -142,7 +142,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
           button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              DialogUtils.showSnackBar((Activity) context, context.getResources().getString(R.string.dialog_no_activity), null, null, 2);
+              DialogUtils.showSnackBar((Activity) context, context.getResources().getString(R.string.dialog_no_activity), null, null, 0);
             }
           });
         }
