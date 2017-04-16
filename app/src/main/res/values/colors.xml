@@ -32,10 +32,10 @@
   <color name="material_drawer_dark_primary_icon">@color/textDark</color>
   <color name="material_drawer_dark_secondary_text">@color/textDark</color>
   <color name="material_drawer_dark_hint_text">@color/textDark</color>
-  <color name="material_drawer_dark_divider">#616161</color>
+  <color name="material_drawer_dark_divider">@color/grey</color>
 
   <!-- MaterialDrawer drawer colors -->
   <color name="material_drawer_dark_selected">@color/md_dark_background</color>
-  <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
+  <color name="material_drawer_dark_selected_text">@color/accent</color>
   <color name="material_drawer_dark_header_selection_text">@color/md_dark_background</color>
 </resources>

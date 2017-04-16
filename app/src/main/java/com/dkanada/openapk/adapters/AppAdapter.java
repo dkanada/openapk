@@ -71,13 +71,12 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
     ButtonFlat btnOne = appViewHolder.vOne;
     ButtonFlat btnTwo = appViewHolder.vTwo;
     ButtonFlat btnThree = appViewHolder.vThree;
-
     final ImageView appIcon = appViewHolder.vIcon;
     final CardView cardView = appViewHolder.vCard;
 
-    btnOne.setBackgroundColor(context.getResources().getColor(R.color.accent));
-    btnTwo.setBackgroundColor(context.getResources().getColor(R.color.accent));
-    btnThree.setBackgroundColor(context.getResources().getColor(R.color.accent));
+    btnOne.setVisibility(View.INVISIBLE);
+    btnTwo.setVisibility(View.INVISIBLE);
+    btnThree.setVisibility(View.INVISIBLE);
 
     Set<String> actions = App.getAppPreferences().getAction();
     int counter = 0;
