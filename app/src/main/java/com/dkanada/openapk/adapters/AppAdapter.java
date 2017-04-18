@@ -78,6 +78,16 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
     btnTwo.setVisibility(View.INVISIBLE);
     btnThree.setVisibility(View.INVISIBLE);
 
+    if (App.getAppPreferences().getTheme().equals("1")) {
+      btnOne.setBackgroundColor(context.getResources().getColor(R.color.white));
+      btnTwo.setBackgroundColor(context.getResources().getColor(R.color.white));
+      btnThree.setBackgroundColor(context.getResources().getColor(R.color.white));
+    } else {
+      btnOne.setBackgroundColor(context.getResources().getColor(R.color.grey_dark));
+      btnTwo.setBackgroundColor(context.getResources().getColor(R.color.grey_dark));
+      btnThree.setBackgroundColor(context.getResources().getColor(R.color.grey_dark));
+    }
+
     Set<String> actions = App.getAppPreferences().getAction();
     int counter = 0;
     for (String action : actions) {
