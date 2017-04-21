@@ -1,3 +1,8 @@
+### 1.1.2
+###### Released: April 20, 2017
+* fix some scaling issues on smaller screens
+* modify the quick action buttons for the light theme
+
 ### 1.1.1
 ###### Released: April 16, 2017
 * add option to use custom directory for saved files
