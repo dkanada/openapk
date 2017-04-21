@@ -85,7 +85,7 @@
           android:id="@+id/extract"
           android:layout_width="70dp"
           android:layout_height="match_parent"
-          android:layout_toRightOf="@+id/open"
+          android:layout_toEndOf="@+id/open"
           android:orientation="vertical">
 
         <ImageView
@@ -108,7 +108,7 @@
           android:id="@+id/uninstall"
           android:layout_width="70dp"
           android:layout_height="match_parent"
-          android:layout_toRightOf="@+id/extract"
+          android:layout_toEndOf="@+id/extract"
           android:orientation="vertical">
 
         <ImageView
@@ -131,7 +131,7 @@
           android:id="@+id/hide"
           android:layout_width="70dp"
           android:layout_height="match_parent"
-          android:layout_toRightOf="@+id/uninstall"
+          android:layout_toEndOf="@+id/uninstall"
           android:orientation="vertical">
 
         <ImageView
@@ -154,7 +154,7 @@
           android:id="@+id/disable"
           android:layout_width="70dp"
           android:layout_height="match_parent"
-          android:layout_toRightOf="@+id/hide"
+          android:layout_toEndOf="@+id/hide"
           android:orientation="vertical">
 
         <ImageView
@@ -177,7 +177,7 @@
           android:id="@+id/share"
           android:layout_width="70dp"
           android:layout_height="match_parent"
-          android:layout_toRightOf="@+id/disable"
+          android:layout_toEndOf="@+id/disable"
           android:orientation="vertical">
 
         <ImageView
@@ -212,8 +212,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_alignParentLeft="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_alignParentStart="true"
             android:gravity="center"
             android:text="@string/package_layout"
             android:textSize="16sp"/>
@@ -222,8 +222,8 @@
             android:id="@+id/app_apk_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_alignParentEnd="true"
             android:gravity="center"
             android:text="@string/error_layout"
             android:textSize="16sp"/>
@@ -238,8 +238,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_alignParentLeft="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_alignParentStart="true"
             android:gravity="center"
             android:text="@string/version_layout"
             android:textSize="16sp"/>
@@ -248,8 +248,8 @@
             android:id="@+id/app_version_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_alignParentEnd="true"
             android:gravity="center"
             android:text="@string/error_layout"
             android:textSize="16sp"/>
@@ -264,8 +264,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_alignParentLeft="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_alignParentStart="true"
             android:gravity="center"
             android:text="@string/size_layout"
             android:textSize="16sp"/>
@@ -274,8 +274,8 @@
             android:id="@+id/app_size_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_alignParentEnd="true"
             android:gravity="center"
             android:text="@string/error_layout"
             android:textSize="16sp"/>
@@ -290,8 +290,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_alignParentLeft="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_alignParentStart="true"
             android:gravity="center"
             android:text="@string/cache_size_layout"
             android:textSize="16sp"/>
@@ -300,8 +300,8 @@
             android:id="@+id/app_cache_size_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_alignParentEnd="true"
             android:gravity="center"
             android:text="@string/error_layout"
             android:textSize="16sp"/>
@@ -316,23 +316,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_alignParentLeft="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_alignParentStart="true"
             android:gravity="center"
             android:text="@string/data_layout"
             android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/app_data_folder_text"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical|right"
-            android:maxLines="1"
-            android:ellipsize="end"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
             android:text="@string/error_layout"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:maxWidth="220dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
       </RelativeLayout>
 
       <RelativeLayout
@@ -344,8 +345,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_alignParentLeft="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_alignParentStart="true"
             android:gravity="center"
             android:text="@string/install_layout"
             android:textSize="16sp"/>
@@ -354,8 +355,8 @@
             android:id="@+id/app_install_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_alignParentEnd="true"
             android:gravity="center"
             android:text="@string/error_layout"
             android:textSize="16sp"/>
@@ -370,8 +371,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_alignParentLeft="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_alignParentStart="true"
             android:gravity="center"
             android:text="@string/update_layout"
             android:textSize="16sp"/>
@@ -380,8 +381,8 @@
             android:id="@+id/app_update_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_alignParentEnd="true"
             android:gravity="center"
             android:text="@string/error_layout"
             android:textSize="16sp"/>
@@ -399,9 +400,9 @@
       <android.support.v7.widget.CardView
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:id="@+id/remove_cache"
-          android:layout_width="160dp"
-          android:layout_height="40dp"
-          android:layout_margin="4dp"
+          android:layout_width="150dp"
+          android:layout_height="42dp"
+          android:layout_margin="6dp"
           android:foreground="?android:attr/selectableItemBackground">
 
         <TextView
@@ -410,16 +411,16 @@
             android:gravity="center"
             android:fontFamily="sans-serif-thin"
             android:text="@string/action_remove_cache"
-            android:textSize="20sp"/>
+            android:textSize="18sp"/>
       </android.support.v7.widget.CardView>
 
       <android.support.v7.widget.CardView
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:id="@+id/clear_data"
-          android:layout_width="160dp"
-          android:layout_height="40dp"
-          android:layout_margin="4dp"
-          android:layout_toRightOf="@+id/remove_cache"
+          android:layout_width="150dp"
+          android:layout_height="42dp"
+          android:layout_margin="6dp"
+          android:layout_toEndOf="@+id/remove_cache"
           android:foreground="?android:attr/selectableItemBackground">
 
         <TextView
@@ -428,7 +429,7 @@
             android:gravity="center"
             android:fontFamily="sans-serif-thin"
             android:text="@string/action_clear_data"
-            android:textSize="20sp"/>
+            android:textSize="18sp"/>
       </android.support.v7.widget.CardView>
     </RelativeLayout>
   </RelativeLayout>
