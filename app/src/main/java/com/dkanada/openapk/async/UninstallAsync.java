@@ -2,13 +2,11 @@ package com.dkanada.openapk.async;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.activities.MainActivity;
 import com.dkanada.openapk.utils.AppUtils;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.RootUtils;
@@ -44,7 +42,7 @@ public class UninstallAsync extends AsyncTask<Void, String, Boolean> {
     } else if (!RootUtils.isRooted()) {
       DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     } else {
-      DialogUtils.showSnackBar((Activity) context, context.getResources().getString(R.string.dialog_error), null, null, 0);
+      DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error), null, null, 0);
     }
   }
 }

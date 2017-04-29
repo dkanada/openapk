@@ -42,7 +42,7 @@ public class RemoveCacheAsync extends AsyncTask<Void, String, Boolean> {
     } else if (!RootUtils.isRooted()) {
       DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
     } else {
-      DialogUtils.showSnackBar((Activity) context, context.getResources().getString(R.string.dialog_error), null, null, 0);
+      DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error), null, null, 0);
     }
   }
 }
