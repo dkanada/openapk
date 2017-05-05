@@ -1,3 +1,8 @@
+### 1.1.3
+###### Released: May 5, 2017
+* optimize some database queries
+* fix an issue checking certain database values
+
 ### 1.1.2
 ###### Released: April 20, 2017
 * fix some scaling issues on smaller screens
