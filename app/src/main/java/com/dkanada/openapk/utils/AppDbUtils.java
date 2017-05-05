@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppDbUtils extends SQLiteOpenHelper {
+  private static final String DATABASE_NAME = "apps.db";
   private static final String TABLE_NAME = "apps";
   private static final String COLUMN_NAME_NAME = "name";
   private static final String COLUMN_NAME_APK = "apk";
@@ -44,7 +45,7 @@ public class AppDbUtils extends SQLiteOpenHelper {
   private static final String QUERY = "SELECT * FROM " + TABLE_NAME;
 
   public AppDbUtils(Context context) {
-    super(context, "apps.db", null, 1);
+    super(context, DATABASE_NAME, null, 2);
   }
 
   public void onCreate(SQLiteDatabase db) {
@@ -63,7 +64,7 @@ public class AppDbUtils extends SQLiteOpenHelper {
 
   public void addAppInfo(AppInfo appInfo) {
     if (checkAppInfo(appInfo, 0)) {
-      // check for updates
+      updateAppInfo(appInfo, 0);
     } else {
       ContentValues values = new ContentValues();
       SQLiteDatabase db = getWritableDatabase();
@@ -94,6 +95,12 @@ public class AppDbUtils extends SQLiteOpenHelper {
       cursor.moveToFirst();
       switch (data) {
         default:
+          if (!appInfo.getAPK().equals(cursor.getString(1))
+                  || !appInfo.getVersion().equals(cursor.getString(2))
+                  || !appInfo.getSource().equals(cursor.getString(3))
+                  || !appInfo.getData().equals(cursor.getString(4))) {
+            return false;
+          }
           return true;
         case 1:
           return Boolean.parseBoolean(cursor.getString(5));
@@ -144,7 +151,7 @@ public class AppDbUtils extends SQLiteOpenHelper {
   public void updateDatabase(Context context) {
     final PackageManager packageManager = context.getPackageManager();
     List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
-    // installed and system apps
+    // add new installed and system apps
     for (PackageInfo packageInfo : packages) {
       if (!(packageManager.getApplicationLabel(packageInfo.applicationInfo).equals("") || packageInfo.packageName.equals("")) && (packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
         try {
@@ -174,61 +181,54 @@ public class AppDbUtils extends SQLiteOpenHelper {
         }
       }
     }
-    SQLiteDatabase db = getWritableDatabase();
-    String QUERY_EXIST = QUERY;
-    Cursor cursor = db.rawQuery(QUERY_EXIST, null);
-    cursor.moveToFirst();
-    do {
-      try {
-        ApplicationInfo tmp = packageManager.getPackageInfo(cursor.getString(1), 0).applicationInfo;
-      } catch (Exception e) {
-        if (!checkAppInfo(getAppInfo(context, cursor), 3)) {
-          removeAppInfo(getAppInfo(context, cursor));
-          AppUtils.removeIconFromCache(context, getAppInfo(context, cursor));
-          e.printStackTrace();
-        }
-      }
-    } while (cursor.moveToNext());
-  }
-
-  public ArrayList<AppInfo> getAppList(Context context, int data) {
-    ArrayList<AppInfo> appList = new ArrayList<AppInfo>();
+    // remove uninstalled apps from database
     SQLiteDatabase db = getWritableDatabase();
     Cursor cursor = db.rawQuery(QUERY, null);
     if (cursor.moveToFirst()) {
       do {
-        switch (data) {
-          // installed
-          default:
-            if (cursor.getString(5).equals("false") && cursor.getString(7).equals("false") && cursor.getString(8).equals("false")) {
-              appList.add(getAppInfo(context, cursor));
-            }
-            break;
-          // system
-          case 1:
-            if (cursor.getString(5).equals("true") && cursor.getString(7).equals("false") && cursor.getString(8).equals("false")) {
-              appList.add(getAppInfo(context, cursor));
-            }
-            break;
-          // favorite
-          case 2:
-            if (cursor.getString(6).equals("true")) {
-              appList.add(getAppInfo(context, cursor));
-            }
-            break;
-          // hidden
-          case 3:
-            if (cursor.getString(7).equals("true")) {
-              appList.add(getAppInfo(context, cursor));
-            }
-            break;
-          // disabled
-          case 4:
-            if (cursor.getString(8).equals("true")) {
-              appList.add(getAppInfo(context, cursor));
-            }
-            break;
+        try {
+          ApplicationInfo tmp = packageManager.getPackageInfo(cursor.getString(1), 0).applicationInfo;
+        } catch (Exception e) {
+          // check if app is hidden
+          if (!checkAppInfo(getAppInfo(context, cursor), 3)) {
+            removeAppInfo(getAppInfo(context, cursor));
+            AppUtils.removeIconFromCache(context, getAppInfo(context, cursor));
+            e.printStackTrace();
+          }
         }
+      } while (cursor.moveToNext());
+    }
+  }
+
+  public ArrayList<AppInfo> getAppList(Context context, int data) {
+    ArrayList<AppInfo> appList = new ArrayList<>();
+    SQLiteDatabase db = getWritableDatabase();
+    String QUERY_SPECIFIC = QUERY;
+    switch(data) {
+      default:
+        QUERY_SPECIFIC += " WHERE " + COLUMN_NAME_SYSTEM + " = 'false'"
+                + " AND " + COLUMN_NAME_HIDDEN + " = 'false'"
+                + " AND " + COLUMN_NAME_DISABLED + " = 'false'";
+        break;
+      case 1:
+        QUERY_SPECIFIC += " WHERE " + COLUMN_NAME_SYSTEM + " = 'true'"
+                + " AND " + COLUMN_NAME_HIDDEN + " = 'false'"
+                + " AND " + COLUMN_NAME_DISABLED + " = 'false'";
+        break;
+      case 2:
+        QUERY_SPECIFIC += " WHERE " + COLUMN_NAME_FAVORITE + " = 'true'";
+        break;
+      case 3:
+        QUERY_SPECIFIC += " WHERE " + COLUMN_NAME_HIDDEN + " = 'true'";
+        break;
+      case 4:
+        QUERY_SPECIFIC += " WHERE " + COLUMN_NAME_DISABLED + " = 'true'";
+        break;
+    }
+    Cursor cursor = db.rawQuery(QUERY_SPECIFIC, null);
+    if (cursor.moveToFirst()) {
+      do {
+        appList.add(getAppInfo(context, cursor));
       } while (cursor.moveToNext());
     }
     return appList;
