@@ -52,6 +52,7 @@
         android:textSize="15sp"
         android:fontFamily="sans-serif-thin"
         android:lines="3"/>
+
   </RelativeLayout>
 
   <ScrollView
@@ -105,6 +106,7 @@
             android:fontFamily="sans-serif-thin"
             android:text="@string/about_description_one"
             android:textSize="18sp"/>
+
       </android.support.v7.widget.CardView>
 
       <android.support.v7.widget.CardView
@@ -147,6 +149,7 @@
             android:fontFamily="sans-serif-thin"
             android:text="@string/about_description_two"
             android:textSize="18sp"/>
+
       </android.support.v7.widget.CardView>
 
       <android.support.v7.widget.CardView
@@ -189,6 +192,7 @@
             android:fontFamily="sans-serif-thin"
             android:text="@string/about_description_three"
             android:textSize="18sp"/>
+
       </android.support.v7.widget.CardView>
 
       <LinearLayout
@@ -222,6 +226,7 @@
               android:fontFamily="sans-serif-light"
               android:text="@string/about_four"
               android:textSize="15sp"/>
+
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -249,7 +254,11 @@
               android:text="@string/about_five"
               android:textSize="15sp"/>
         </android.support.v7.widget.CardView>
+
       </LinearLayout>
+
     </RelativeLayout>
+
   </ScrollView>
+
 </RelativeLayout>
