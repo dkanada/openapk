@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.Settings;
 
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.models.AppInfo;
+
+import java.io.File;
 
 /**
  * Created by dkanada on 6/7/17.
@@ -26,12 +29,12 @@ public class ActionUtils {
 
     public static boolean extract(Context context, AppInfo appInfo) {
         Activity activity = (Activity) context;
-        Boolean status = AppUtils.extractFile(appInfo, "");
+        Boolean status = AppUtils.extractFile(appInfo, Environment.getExternalStorageDirectory() + "/OpenAPK/");
         if (!AppUtils.checkPermissions(activity) || !status) {
             DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_extract_fail), context.getResources().getString(R.string.dialog_extract_fail_description));
             return false;
         }
-        DialogUtils.showSnackBar(activity, String.format(context.getResources().getString(R.string.dialog_extract_success_description), appInfo.getName(), AppUtils.getAPKFilename(appInfo)), context.getResources().getString(R.string.button_undo), AppUtils.getOutputFilename(appInfo), 1).show();
+        DialogUtils.showSnackBar(activity, String.format(context.getResources().getString(R.string.dialog_extract_success_description), appInfo.getName(), AppUtils.getAPKFilename(appInfo)), context.getResources().getString(R.string.button_undo), new File(AppUtils.getCustomAppFolder() + AppUtils.getAPKFilename(appInfo)), 1).show();
         return true;
     }
 
@@ -86,7 +89,7 @@ public class ActionUtils {
 
     public static boolean share(Context context, AppInfo appInfo) {
         AppUtils.extractFile(appInfo, context.getFilesDir().toString());
-        Intent shareIntent = AppUtils.getShareIntent(AppUtils.getOutputFilename(appInfo));
+        Intent shareIntent = AppUtils.getShareIntent(new File(context.getFilesDir() + AppUtils.getAPKFilename(appInfo)));
         context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send_to), appInfo.getName())));
         return true;
     }

@@ -35,10 +35,8 @@ public class AppUtils {
     public static Boolean extractFile(AppInfo appInfo, String directory) {
         Boolean res = false;
         File input = new File(appInfo.getSource());
-        File output = new File(directory + getOutputFilename(appInfo).toString());
-        if (directory != "") {
-            createAppDir();
-        }
+        File output = new File(directory + getAPKFilename(appInfo));
+        createAppDir();
         try {
             FileUtils.copyFile(input, output);
             res = true;
@@ -71,22 +69,17 @@ public class AppUtils {
     public static String getAPKFilename(AppInfo appInfo) {
         AppPreferences appPreferences = App.getAppPreferences();
         switch (appPreferences.getFilename()) {
-            case "1":
+            case "0":
                 return appInfo.getAPK() + "-" + appInfo.getVersion();
-            case "2":
+            case "1":
                 return appInfo.getName() + "-" + appInfo.getVersion();
-            case "3":
+            case "2":
                 return appInfo.getAPK();
-            case "4":
+            case "3":
                 return appInfo.getName();
             default:
                 return appInfo.getAPK();
         }
-    }
-
-    // get the name of the extracted app with the path
-    public static File getOutputFilename(AppInfo appInfo) {
-        return new File(getCustomAppFolder().getPath() + "/" + getAPKFilename(appInfo) + ".apk");
     }
 
     // delete all extracted apps from folder
