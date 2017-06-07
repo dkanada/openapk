@@ -12,12 +12,8 @@ import android.preference.PreferenceManager;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.activities.AboutActivity;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.AppUtils;
 import com.dkanada.openapk.utils.DialogUtils;
-
-import yuku.ambilwarna.widget.AmbilWarnaPreference;
 
 public final class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     private Preference prefCustomPath;

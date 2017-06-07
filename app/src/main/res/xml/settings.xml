@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
     <PreferenceCategory android:title="@string/settings_title_applications">
         <Preference
             android:key="prefCustomPath"
@@ -31,16 +33,20 @@
             android:entryValues="@array/themeValues"
             android:key="prefTheme"
             android:title="@string/settings_theme" />
-        <yuku.ambilwarna.widget.AmbilWarnaPreference
+        <com.jaredrummler.android.colorpicker.ColorPreference
             android:defaultValue="@color/primary"
             android:key="prefPrimaryColor"
             android:summary="@string/settings_primary_color_description"
-            android:title="@string/settings_primary_color" />
-        <yuku.ambilwarna.widget.AmbilWarnaPreference
+            android:title="@string/settings_primary_color"
+            app:cpv_dialogTitle="@string/settings_primary_color"
+            app:cpv_showAlphaSlider="true" />
+        <com.jaredrummler.android.colorpicker.ColorPreference
             android:defaultValue="@color/accent"
             android:key="prefAccentColor"
             android:summary="@string/settings_accent_color_description"
-            android:title="@string/settings_accent_color" />
+            android:title="@string/settings_accent_color"
+            app:cpv_dialogTitle="@string/settings_accent_color"
+            app:cpv_showAlphaSlider="true" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="prefNavigationColor"
