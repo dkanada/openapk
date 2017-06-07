@@ -3,6 +3,8 @@ package com.dkanada.openapk.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.models.AppInfo;
@@ -24,7 +26,7 @@ public class ActionUtils {
 
     public static boolean extract(Context context, AppInfo appInfo) {
         Activity activity = (Activity) context;
-        Boolean status = AppUtils.extractFile(appInfo);
+        Boolean status = AppUtils.extractFile(appInfo, "");
         if (!AppUtils.checkPermissions(activity) || !status) {
             DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_extract_fail), context.getResources().getString(R.string.dialog_extract_fail_description));
             return false;
@@ -79,6 +81,22 @@ public class ActionUtils {
             appDbUtils.updateAppInfo(appInfo, 4);
         }
         DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_reboot), context.getResources().getString(R.string.button_reboot), null, 2).show();
+        return true;
+    }
+
+    public static boolean share(Context context, AppInfo appInfo) {
+        AppUtils.extractFile(appInfo, context.getFilesDir().toString());
+        Intent shareIntent = AppUtils.getShareIntent(AppUtils.getOutputFilename(appInfo));
+        context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send_to), appInfo.getName())));
+        return true;
+    }
+
+    public static boolean settings(Context context, AppInfo appInfo) {
+        String packageName = appInfo.getAPK();
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + packageName));
+        context.startActivity(intent);
         return true;
     }
 }

@@ -31,12 +31,14 @@ import java.io.IOException;
 public class AppUtils {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
 
-    // extract file to app directory
-    public static Boolean extractFile(AppInfo appInfo) {
+    // extract file to specified directory
+    public static Boolean extractFile(AppInfo appInfo, String directory) {
         Boolean res = false;
         File input = new File(appInfo.getSource());
-        File output = getOutputFilename(appInfo);
-        createAppDir();
+        File output = new File(directory + getOutputFilename(appInfo).toString());
+        if (directory != "") {
+            createAppDir();
+        }
         try {
             FileUtils.copyFile(input, output);
             res = true;

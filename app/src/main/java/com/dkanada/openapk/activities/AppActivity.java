@@ -253,9 +253,7 @@ public class AppActivity extends ThemeActivity {
         fab_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUtils.extractFile(appInfo);
-                Intent shareIntent = AppUtils.getShareIntent(AppUtils.getOutputFilename(appInfo));
-                startActivity(Intent.createChooser(shareIntent, String.format(getResources().getString(R.string.send_to), appInfo.getName())));
+                ActionUtils.share(context, appInfo);
             }
         });
     }

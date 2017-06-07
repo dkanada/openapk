@@ -1,6 +1,6 @@
 <h1 align="center">OpenAPK</h1>
 
-<p align="center"><img src="https://github.com/dkanada/OpenAPK/blob/master/app/src/main/ic_launcher-web.png" width="100" height="100"></p>
+<p align="center"><img src="https://github.com/dkanada/OpenAPK/blob/master/app/src/main/ic_launcher.png" width="100" height="100"></p>
 <p align="center">A modern, easy and customizable app manager for Android with root features and material design.</p>
 
 This is a fork of MLManager 1.X made by Javier Santos, which is now unmaintained. If you have any ideas or feature requests add them to the issues page. Pull requests are welcome and a materialized app icon would be great from someone who knows how to create svg files.
