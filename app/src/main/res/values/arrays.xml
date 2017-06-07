@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
   <string-array name="filenameEntries">
-    <item>Source + Version</item>
+    <item>Package + Version</item>
     <item>Name + Version</item>
-    <item>Source</item>
+    <item>Package</item>
     <item>Name</item>
   </string-array>
-  <string-array name="filenameValues"
-      translatable="false">
+
+  <string-array name="filenameValues" translatable="false">
     <item>0</item>
     <item>1</item>
     <item>2</item>
@@ -20,8 +21,8 @@
     <item>Installation date</item>
     <item>Update date</item>
   </string-array>
-  <string-array name="sortValues"
-      translatable="false">
+
+  <string-array name="sortValues" translatable="false">
     <item>0</item>
     <item>1</item>
     <item>2</item>
@@ -31,37 +32,28 @@
   <string-array name="actionEntries">
     <item>Open</item>
     <item>Extract</item>
-    <item>Uninstall</item>
-    <item>Hide</item>
-    <item>Disable</item>
     <item>Share</item>
-    <item>Remove Cache</item>
-    <item>Clear Data</item>
   </string-array>
-  <string-array name="actionValues"
-      translatable="false">
+
+  <string-array name="actionValues" translatable="false">
     <item>0</item>
     <item>1</item>
     <item>2</item>
-    <item>3</item>
-    <item>4</item>
-    <item>5</item>
-    <item>6</item>
-    <item>7</item>
   </string-array>
-  <string-array name="actionDefault"
-      translatable="false">
+
+  <string-array name="actionDefault" translatable="false">
     <item>0</item>
-    <item>5</item>
+    <item>2</item>
   </string-array>
 
   <string-array name="themeEntries">
     <item>Dark</item>
     <item>Light</item>
   </string-array>
-  <string-array name="themeValues"
-      translatable="false">
+
+  <string-array name="themeValues" translatable="false">
     <item>0</item>
     <item>1</item>
   </string-array>
+
 </resources>

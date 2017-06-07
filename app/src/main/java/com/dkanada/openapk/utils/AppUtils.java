@@ -34,11 +34,11 @@ public class AppUtils {
   // extract file to app directory
   public static Boolean extractFile(AppInfo appInfo) {
     Boolean res = false;
-    File initialFile = new File(appInfo.getSource());
-    File finalFile = getOutputFilename(appInfo);
+    File input = new File(appInfo.getSource());
+    File output = getOutputFilename(appInfo);
     createAppDir();
     try {
-      FileUtils.copyFile(initialFile, finalFile);
+      FileUtils.copyFile(input, output);
       res = true;
     } catch (IOException e) {
       e.printStackTrace();

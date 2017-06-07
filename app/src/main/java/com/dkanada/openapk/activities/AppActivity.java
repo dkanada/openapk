@@ -23,16 +23,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.dkanada.openapk.utils.ActionUtils;
 import com.dkanada.openapk.utils.AppDbUtils;
 import com.dkanada.openapk.async.ClearDataAsync;
-import com.dkanada.openapk.async.DisableAsync;
-import com.dkanada.openapk.async.HideAsync;
 import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.async.RemoveCacheAsync;
-import com.dkanada.openapk.async.ExtractFileAsync;
-import com.dkanada.openapk.async.UninstallAsync;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.AppUtils;
 import com.dkanada.openapk.utils.DialogUtils;
@@ -161,32 +158,19 @@ public class AppActivity extends ThemeActivity {
   }
 
   protected void updateOpenButton(RelativeLayout open) {
-    final Intent intent = getPackageManager().getLaunchIntentForPackage(appInfo.getAPK());
-    if (intent != null) {
-      open.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          startActivity(intent);
-        }
-      });
-    } else {
-      open.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          DialogUtils.showSnackBar((Activity) context, getResources().getString(R.string.dialog_no_activity), null, null, 0);
-        }
-      });
-    }
+    open.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        ActionUtils.open(context, appInfo);
+      }
+    });
   }
 
   protected void updateExtractButton(RelativeLayout extract) {
     extract.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-            , String.format(getResources().getString(R.string.dialog_extract_progress), appInfo.getName())
-            , getResources().getString(R.string.dialog_extract_progress_description));
-        new ExtractFileAsync(context, dialog, appInfo).execute();
+        ActionUtils.extract(context, appInfo);
       }
     });
   }
@@ -200,11 +184,7 @@ public class AppActivity extends ThemeActivity {
               .callback(new MaterialDialog.ButtonCallback() {
                 @Override
                 public void onPositive(MaterialDialog dialog) {
-                  MaterialDialog dialogUninstalling = DialogUtils.showTitleContentWithProgress(context
-                      , String.format(getResources().getString(R.string.dialog_uninstall_progress), appInfo.getName())
-                      , getResources().getString(R.string.dialog_uninstall_progress_description));
-                  new UninstallAsync(context, dialogUninstalling, appInfo).execute();
-                  dialog.dismiss();
+                  ActionUtils.uninstall(context, appInfo);
                 }
               });
           materialBuilder.show();
@@ -247,28 +227,24 @@ public class AppActivity extends ThemeActivity {
     });
   }
 
-  protected void updateHideButton(RelativeLayout hide) {
+  protected void updateHideButton(final RelativeLayout hide) {
     InterfaceUtils.updateAppHiddenIcon(context, hide, appDbUtils.checkAppInfo(appInfo, 3));
     hide.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-            , getResources().getString(R.string.dialog_hide_progress)
-            , getResources().getString(R.string.dialog_hide_progress_description));
-        new HideAsync(context, dialog, appInfo).execute();
+        ActionUtils.hide(context, appInfo);
+        InterfaceUtils.updateAppHiddenIcon(context, hide, appDbUtils.checkAppInfo(appInfo, 3));
       }
     });
   }
 
-  protected void updateDisableButton(RelativeLayout disable) {
+  protected void updateDisableButton(final RelativeLayout disable) {
     InterfaceUtils.updateAppDisabledIcon(context, disable, appDbUtils.checkAppInfo(appInfo, 4));
     disable.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-            , getResources().getString(R.string.dialog_disable_progress)
-            , getResources().getString(R.string.dialog_disable_progress_description));
-        new DisableAsync(context, dialog, appInfo).execute();
+        ActionUtils.disable(context, appInfo);
+        InterfaceUtils.updateAppDisabledIcon(context, disable, appDbUtils.checkAppInfo(appInfo, 4));
       }
     });
   }
