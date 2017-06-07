@@ -3,21 +3,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-  <include
-      android:id="@+id/toolbar"
-      layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
-  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      android:orientation="horizontal"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
-    <fragment android:name="com.dkanada.openapk.fragments.SettingsFragment"
-        android:id="@+id/fragment_container"
-        android:layout_weight="1"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-  </LinearLayout>
+        <fragment
+            android:id="@+id/fragment_container"
+            android:name="com.dkanada.openapk.fragments.SettingsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <color name="primary">#3F51B5</color>
-  <color name="primary_dark">#303F9F</color>
-  <color name="accent">#448AFF</color>
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
+    <color name="accent">#448AFF</color>
 
-  <color name="text_light">#212121</color>
-  <color name="text_dark">#FAFAFA</color>
+    <color name="text_light">#212121</color>
+    <color name="text_dark">#FAFAFA</color>
 
-  <color name="badge_light">#E0E0E0</color>
-  <color name="badge_dark">#424242</color>
+    <color name="badge_light">#E0E0E0</color>
+    <color name="badge_dark">#424242</color>
 
-  <color name="white">#FFFFFF</color>
-  <color name="blue">#00BED4</color>
-  <color name="blue_light">#81D4FA</color>
-  <color name="green">#8CC24A</color>
-  <color name="red">#DE6262</color>
-  <color name="orange">#FF7043</color>
-  <color name="grey">#616161</color>
-  <color name="grey_light">#EEEEEE</color>
-  <color name="grey_dark">#424242</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#00BED4</color>
+    <color name="blue_light">#81D4FA</color>
+    <color name="green">#8CC24A</color>
+    <color name="red">#DE6262</color>
+    <color name="orange">#FF7043</color>
+    <color name="grey">#616161</color>
+    <color name="grey_light">#EEEEEE</color>
+    <color name="grey_dark">#424242</color>
 
-  <!-- MaterialDrawer text and item colors -->
-  <color name="material_drawer_dark_primary_text">@color/text_dark</color>
-  <color name="material_drawer_dark_primary_icon">@color/text_dark</color>
-  <color name="material_drawer_dark_secondary_text">@color/text_dark</color>
-  <color name="material_drawer_dark_hint_text">@color/text_dark</color>
-  <color name="material_drawer_dark_divider">@color/grey</color>
+    <!-- MaterialDrawer text and item colors -->
+    <color name="material_drawer_dark_primary_text">@color/text_dark</color>
+    <color name="material_drawer_dark_primary_icon">@color/text_dark</color>
+    <color name="material_drawer_dark_secondary_text">@color/text_dark</color>
+    <color name="material_drawer_dark_hint_text">@color/text_dark</color>
+    <color name="material_drawer_dark_divider">@color/grey</color>
 
-  <!-- MaterialDrawer drawer colors -->
-  <color name="material_drawer_dark_background">@color/md_dark_background</color>
-  <color name="material_drawer_dark_selected">@color/md_dark_background</color>
-  <color name="material_drawer_dark_selected_text">@color/accent</color>
-  <color name="material_drawer_dark_header_selection_text">@color/md_dark_background</color>
+    <!-- MaterialDrawer drawer colors -->
+    <color name="material_drawer_dark_background">@color/md_dark_background</color>
+    <color name="material_drawer_dark_selected">@color/md_dark_background</color>
+    <color name="material_drawer_dark_selected_text">@color/accent</color>
+    <color name="material_drawer_dark_header_selection_text">@color/md_dark_background</color>
 
 </resources>

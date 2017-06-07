@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".AppActivity">
 
-  <item android:id="@+id/action_favorite"
-      android:title="@string/action_favorite_apps"
-      app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_favorite"
+        android:title="@string/action_favorite_apps"
+        app:showAsAction="ifRoom" />
 
 </menu>

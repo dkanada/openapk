@@ -2,52 +2,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <include
-      android:id="@+id/toolbar"
-      layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
-  <RelativeLayout
-      android:id="@+id/main_content"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_below="@id/toolbar">
-
-    <LinearLayout
-        android:id="@+id/noResults"
+    <RelativeLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_below="@id/toolbar">
 
-      <ImageView
-          android:id="@+id/noResultsIcon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:src="@drawable/ic_search"/>
+        <LinearLayout
+            android:id="@+id/noResults"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:lines="2"
-          android:text="@string/search_noresults"/>
+            <ImageView
+                android:id="@+id/noResultsIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lines="2"
+                android:text="@string/search_noresults" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipe_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        </LinearLayout>
 
-      <android.support.v7.widget.RecyclerView
-          android:id="@+id/appList"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"/>
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/appList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-  </RelativeLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

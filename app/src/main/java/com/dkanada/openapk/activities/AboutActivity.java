@@ -16,49 +16,49 @@ import com.dkanada.openapk.utils.AppUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
 
 public class AboutActivity extends ThemeActivity {
-  private AppPreferences appPreferences;
+    private AppPreferences appPreferences;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    appPreferences = App.getAppPreferences();
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_about);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        appPreferences = App.getAppPreferences();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_about);
 
-    setInitialConfiguration();
-    setScreenElements();
-  }
-
-  // TODO this is the same for every activity, maybe add to themable activity
-  private void setInitialConfiguration() {
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-    getSupportActionBar().setTitle(R.string.action_about);
-    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        onBackPressed();
-      }
-    });
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-      getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColor(), 0.8));
-      toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
-      if (appPreferences.getNavigationColor()) {
-        getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
-      }
+        setInitialConfiguration();
+        setScreenElements();
     }
-  }
 
-  private void setScreenElements() {
-    TextView header = (TextView) findViewById(R.id.header);
-    TextView appNameVersion = (TextView) findViewById(R.id.app_name);
-    ImageView icon = (ImageView) findViewById(R.id.about_icon);
+    // TODO this is the same for every activity, maybe add to themable activity
+    private void setInitialConfiguration() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.action_about);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
-    header.setBackgroundColor(appPreferences.getPrimaryColor());
-    appNameVersion.setText(getResources().getString(R.string.app_name) + " " + AppUtils.getAppVersionName(getApplicationContext()));
-    if (appPreferences.getTheme().equals("1")) {
-      icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColor(), 0.8));
+            toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
+            if (appPreferences.getNavigationColor()) {
+                getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
+            }
+        }
     }
-  }
+
+    private void setScreenElements() {
+        TextView header = (TextView) findViewById(R.id.header);
+        TextView appNameVersion = (TextView) findViewById(R.id.app_name);
+        ImageView icon = (ImageView) findViewById(R.id.about_icon);
+
+        header.setBackgroundColor(appPreferences.getPrimaryColor());
+        appNameVersion.setText(getResources().getString(R.string.app_name) + " " + AppUtils.getAppVersionName(getApplicationContext()));
+        if (appPreferences.getTheme().equals("1")) {
+            icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+        }
+    }
 }

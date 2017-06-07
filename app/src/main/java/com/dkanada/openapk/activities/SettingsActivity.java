@@ -15,41 +15,41 @@ import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.InterfaceUtils;
 
 public class SettingsActivity extends ThemeActivity {
-  private AppPreferences appPreferences;
+    private AppPreferences appPreferences;
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    appPreferences = App.getAppPreferences();
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_settings);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        appPreferences = App.getAppPreferences();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
 
-    setInitialConfiguration();
+        setInitialConfiguration();
 
-    FragmentManager fragmentManager = getFragmentManager();
-    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-    SettingsFragment fragment = new SettingsFragment();
-    fragmentTransaction.add(R.id.fragment_container, fragment);
-    fragmentTransaction.commit();
-  }
-
-  private void setInitialConfiguration() {
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-    getSupportActionBar().setTitle(R.string.action_settings);
-    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        onBackPressed();
-      }
-    });
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-      getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColor(), 0.8));
-      toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
-      if (appPreferences.getNavigationColor()) {
-        getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
-      }
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        SettingsFragment fragment = new SettingsFragment();
+        fragmentTransaction.add(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
     }
-  }
+
+    private void setInitialConfiguration() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.action_settings);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColor(), 0.8));
+            toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
+            if (appPreferences.getNavigationColor()) {
+                getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
+            }
+        }
+    }
 }
