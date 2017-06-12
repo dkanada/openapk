@@ -78,9 +78,9 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
 
         recyclerView = (RecyclerView) findViewById(R.id.appList);
         refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-        noResults = (LinearLayout) findViewById(R.id.noResults);
+        noResults = (LinearLayout) findViewById(R.id.no_results);
 
-        icon = (ImageView) findViewById(R.id.noResultsIcon);
+        icon = (ImageView) findViewById(R.id.no_results_icon);
         if (appPreferences.getTheme().equals("1")) {
             icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
         }

@@ -20,12 +20,10 @@ import android.widget.TextView;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.utils.ActionUtils;
-import com.dkanada.openapk.utils.AppUtils;
 import com.dkanada.openapk.activities.AppActivity;
 import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.activities.MainActivity;
-import com.dkanada.openapk.utils.DialogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +42,6 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
     @Override
     public int getItemCount() {
         return appList.size();
-    }
-
-    public void clear() {
-        appList.clear();
-        notifyDataSetChanged();
     }
 
     @Override

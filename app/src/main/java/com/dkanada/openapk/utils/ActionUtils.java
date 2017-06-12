@@ -12,10 +12,6 @@ import com.dkanada.openapk.models.AppInfo;
 
 import java.io.File;
 
-/**
- * Created by dkanada on 6/7/17.
- */
-
 public class ActionUtils {
     public static boolean open(Context context, AppInfo appInfo) {
         final Intent intent = context.getPackageManager().getLaunchIntentForPackage(appInfo.getAPK());
@@ -46,6 +42,22 @@ public class ActionUtils {
             return false;
         }
         DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_reboot), context.getResources().getString(R.string.button_reboot), null, 2).show();
+        return true;
+    }
+
+    public static boolean share(Context context, AppInfo appInfo) {
+        AppUtils.extractFile(appInfo, context.getFilesDir().toString());
+        Intent shareIntent = AppUtils.getShareIntent(new File(context.getFilesDir() + AppUtils.getAPKFilename(appInfo)));
+        context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send_to), appInfo.getName())));
+        return true;
+    }
+
+    public static boolean settings(Context context, AppInfo appInfo) {
+        String packageName = appInfo.getAPK();
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + packageName));
+        context.startActivity(intent);
         return true;
     }
 
@@ -87,19 +99,15 @@ public class ActionUtils {
         return true;
     }
 
-    public static boolean share(Context context, AppInfo appInfo) {
-        AppUtils.extractFile(appInfo, context.getFilesDir().toString());
-        Intent shareIntent = AppUtils.getShareIntent(new File(context.getFilesDir() + AppUtils.getAPKFilename(appInfo)));
-        context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send_to), appInfo.getName())));
-        return true;
-    }
-
-    public static boolean settings(Context context, AppInfo appInfo) {
-        String packageName = appInfo.getAPK();
-        Intent intent = new Intent();
-        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.parse("package:" + packageName));
-        context.startActivity(intent);
+    public static boolean favorite(Context context, AppInfo appInfo) {
+        AppDbUtils appDbUtils = new AppDbUtils(context);
+        if (appDbUtils.checkAppInfo(appInfo, 2)) {
+            appInfo.setFavorite(false);
+            appDbUtils.updateAppInfo(appInfo, 2);
+        } else {
+            appInfo.setFavorite(true);
+            appDbUtils.updateAppInfo(appInfo, 2);
+        }
         return true;
     }
 }

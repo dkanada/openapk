@@ -1,10 +1,10 @@
 package com.dkanada.openapk.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -31,9 +31,9 @@ import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.AppUtils;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
+import com.dkanada.openapk.views.ActionIconView;
 
 import java.text.SimpleDateFormat;
 
@@ -85,12 +85,61 @@ public class AppActivity extends ThemeActivity {
         ImageView icon = (ImageView) findViewById(R.id.app_icon);
         TextView name = (TextView) findViewById(R.id.app_name);
 
-        RelativeLayout open = (RelativeLayout) findViewById(R.id.open);
-        RelativeLayout extract = (RelativeLayout) findViewById(R.id.extract);
-        RelativeLayout uninstall = (RelativeLayout) findViewById(R.id.uninstall);
-        RelativeLayout hide = (RelativeLayout) findViewById(R.id.hide);
-        RelativeLayout disable = (RelativeLayout) findViewById(R.id.disable);
+        header.setBackgroundColor(appPreferences.getPrimaryColor());
+        icon.setImageDrawable(appInfo.getIcon());
+        name.setText(appInfo.getName());
+
+        RelativeLayout quickActionLayout = (RelativeLayout) findViewById(R.id.quick_action_layout);
+        quickActionLayout.setBackgroundColor(Color.DKGRAY);
+        ActionIconView open = new ActionIconView(context,
+                getResources().getDrawable(R.drawable.ic_open_in_new),
+                getString(R.string.action_open),
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ActionUtils.open(context, appInfo);
+                    }
+                });
+        ActionIconView extract = new ActionIconView(context,
+                getResources().getDrawable(R.drawable.ic_archive),
+                getString(R.string.action_extract),
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ActionUtils.extract(context, appInfo);
+                    }
+                });
+        ActionIconView uninstall;
+        if (appInfo.getSystem()) {
+            uninstall = new ActionIconView(context,
+                    getResources().getDrawable(R.drawable.ic_delete),
+                    getString(R.string.action_uninstall),
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActionUtils.extract(context, appInfo);
+                        }
+                    });
+        } else {
+            uninstall = new ActionIconView(context,
+                    getResources().getDrawable(R.drawable.ic_delete),
+                    getString(R.string.action_uninstall),
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActionUtils.extract(context, appInfo);
+                        }
+                    });
+        }
         RelativeLayout share = (RelativeLayout) findViewById(R.id.share);
+        RelativeLayout settings = (RelativeLayout) findViewById(R.id.settings);
+
+        //updateShareButton(share);
+        //updateSettingsButton(settings);
+
+        quickActionLayout.addView(open);
+        quickActionLayout.addView(extract);
+        quickActionLayout.setGravity(1);
 
         RelativeLayout information = (RelativeLayout) findViewById(R.id.information_layout);
         TextView apkText = (TextView) findViewById(R.id.app_apk_text);
@@ -100,12 +149,6 @@ public class AppActivity extends ThemeActivity {
         TextView dataFolderText = (TextView) findViewById(R.id.app_data_folder_text);
         TextView installText = (TextView) findViewById(R.id.app_install_text);
         TextView updateText = (TextView) findViewById(R.id.app_update_text);
-
-        CardView cache = (CardView) findViewById(R.id.remove_cache);
-        CardView data = (CardView) findViewById(R.id.clear_data);
-
-        icon.setImageDrawable(appInfo.getIcon());
-        name.setText(appInfo.getName());
 
         apkText.setText(appInfo.getAPK());
         versionText.setText(appInfo.getVersion());
@@ -121,108 +164,37 @@ public class AppActivity extends ThemeActivity {
             e.printStackTrace();
         }
 
-        // update colors
-        header.setBackgroundColor(appPreferences.getPrimaryColor());
         if (appPreferences.getTheme().equals("1")) {
             for (int i = 0; i < information.getChildCount(); i += 2) {
                 information.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.grey_light));
             }
-
-            ImageView openIcon = (ImageView) findViewById(R.id.open_icon);
-            ImageView extractIcon = (ImageView) findViewById(R.id.extract_icon);
-            ImageView uninstallIcon = (ImageView) findViewById(R.id.uninstall_icon);
-            ImageView hideIcon = (ImageView) findViewById(R.id.hide_icon);
-            ImageView disableIcon = (ImageView) findViewById(R.id.disable_icon);
-            ImageView shareIcon = (ImageView) findViewById(R.id.share_icon);
-
-            openIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
-            extractIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
-            uninstallIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
-            hideIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
-            disableIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
-            shareIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
         } else {
             for (int i = 0; i < information.getChildCount(); i += 2) {
                 information.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.grey_dark));
             }
         }
 
-        updateOpenButton(open);
-        updateExtractButton(extract);
-        updateUninstallButton(uninstall);
-        updateHideButton(hide);
-        updateDisableButton(disable);
-        updateShareButton(share);
+        CardView cache = (CardView) findViewById(R.id.remove_cache);
+        CardView data = (CardView) findViewById(R.id.clear_data);
+
         updateCacheButton(cache);
         updateDataButton(data);
     }
 
-    protected void updateOpenButton(RelativeLayout open) {
-        open.setOnClickListener(new View.OnClickListener() {
+    protected void updateShareButton(RelativeLayout fab_share) {
+        fab_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.open(context, appInfo);
+                ActionUtils.share(context, appInfo);
             }
         });
     }
 
-    protected void updateExtractButton(RelativeLayout extract) {
-        extract.setOnClickListener(new View.OnClickListener() {
+    protected void updateSettingsButton(RelativeLayout fab_settings) {
+        fab_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.extract(context, appInfo);
-            }
-        });
-    }
-
-    protected void updateUninstallButton(RelativeLayout uninstall) {
-        if (appInfo.getSystem()) {
-            uninstall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    MaterialDialog.Builder materialBuilder = DialogUtils.uninstallSystemApp(context)
-                            .callback(new MaterialDialog.ButtonCallback() {
-                                @Override
-                                public void onPositive(MaterialDialog dialog) {
-                                    ActionUtils.uninstall(context, appInfo);
-                                }
-                            });
-                    materialBuilder.show();
-                }
-            });
-        } else {
-            uninstall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
-                    intent.setData(Uri.parse("package:" + appInfo.getAPK()));
-                    intent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
-                    startActivityForResult(intent, UNINSTALL_REQUEST_CODE);
-                }
-            });
-        }
-    }
-
-    protected void updateCacheButton(CardView removeCache) {
-        removeCache.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-                        , getResources().getString(R.string.dialog_cache_progress)
-                        , getResources().getString(R.string.dialog_cache_progress_description));
-                new RemoveCacheAsync(context, dialog, appInfo).execute();
-            }
-        });
-    }
-
-    protected void updateDataButton(CardView clearData) {
-        clearData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-                        , getResources().getString(R.string.dialog_clear_data_progress)
-                        , getResources().getString(R.string.dialog_clear_data_progress_description));
-                new ClearDataAsync(context, dialog, appInfo).execute();
+                ActionUtils.settings(context, appInfo);
             }
         });
     }
@@ -249,11 +221,26 @@ public class AppActivity extends ThemeActivity {
         });
     }
 
-    protected void updateShareButton(RelativeLayout fab_share) {
-        fab_share.setOnClickListener(new View.OnClickListener() {
+    protected void updateCacheButton(CardView removeCache) {
+        removeCache.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.share(context, appInfo);
+                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                        , getResources().getString(R.string.dialog_cache_progress)
+                        , getResources().getString(R.string.dialog_cache_progress_description));
+                new RemoveCacheAsync(context, dialog, appInfo).execute();
+            }
+        });
+    }
+
+    protected void updateDataButton(CardView clearData) {
+        clearData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                        , getResources().getString(R.string.dialog_clear_data_progress)
+                        , getResources().getString(R.string.dialog_clear_data_progress_description));
+                new ClearDataAsync(context, dialog, appInfo).execute();
             }
         });
     }
@@ -284,6 +271,7 @@ public class AppActivity extends ThemeActivity {
         Boolean appIsFavorite = getIntent().getExtras().getBoolean("app_isFavorite");
         Boolean appIsHidden = getIntent().getExtras().getBoolean("app_isHidden");
         Boolean appIsDisabled = getIntent().getExtras().getBoolean("app_isDisabled");
+
         Bitmap bitmap = getIntent().getParcelableExtra("app_icon");
         Drawable appIcon = new BitmapDrawable(getResources(), bitmap);
         appInfo = new AppInfo(appName, appApk, appVersion, appSource, appData, appIsSystem, appIsFavorite, appIsHidden, appIsDisabled, appIcon);
@@ -314,13 +302,7 @@ public class AppActivity extends ThemeActivity {
                 finish();
                 return true;
             case R.id.action_favorite:
-                if (appDbUtils.checkAppInfo(appInfo, 2)) {
-                    appInfo.setFavorite(false);
-                    appDbUtils.updateAppInfo(appInfo, 2);
-                } else {
-                    appInfo.setFavorite(true);
-                    appDbUtils.updateAppInfo(appInfo, 2);
-                }
+                ActionUtils.favorite(context, appInfo);
                 InterfaceUtils.updateAppFavoriteIcon(context, favorite, appDbUtils.checkAppInfo(appInfo, 2));
                 return true;
         }
