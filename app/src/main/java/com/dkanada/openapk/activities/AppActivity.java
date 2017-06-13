@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
+import com.dkanada.openapk.views.ButtonIconView;
 
 import java.text.SimpleDateFormat;
 
@@ -85,13 +87,34 @@ public class AppActivity extends ThemeActivity {
         icon.setImageDrawable(appInfo.getIcon());
         name.setText(appInfo.getName());
 
-        ImageView open = (ImageView) findViewById(R.id.open);
-        ImageView extract = (ImageView) findViewById(R.id.extract);
-        ImageView uninstall = (ImageView) findViewById(R.id.uninstall);
-        ImageView share = (ImageView) findViewById(R.id.share);
-        ImageView settings = (ImageView) findViewById(R.id.settings);
+        ButtonIconView open = new ButtonIconView(context, getResources().getDrawable(R.drawable.ic_open_in_new), getString(R.string.action_open), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActionUtils.open(context, appInfo);
+            }
+        });
+        ButtonIconView extract = new ButtonIconView(context, getResources().getDrawable(R.drawable.ic_archive), getString(R.string.action_extract), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActionUtils.extract(context, appInfo);
+            }
+        });
 
-        open.setOnClickListener(new View.OnClickListener() {
+        LinearLayout quickActions = (LinearLayout) findViewById(R.id.quick_actions);
+        quickActions.addView(open);
+        quickActions.addView(extract);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(open.getLayoutParams());
+        open.setLayoutParams(lp);
+        extract.setLayoutParams(lp);
+
+        //ImageView open = (ImageView) findViewById(R.id.open);
+        //ImageView extract = (ImageView) findViewById(R.id.extract);
+        //ImageView uninstall = (ImageView) findViewById(R.id.uninstall);
+        //ImageView share = (ImageView) findViewById(R.id.share);
+        //ImageView settings = (ImageView) findViewById(R.id.settings);
+
+        /*open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ActionUtils.open(context, appInfo);
@@ -124,7 +147,7 @@ public class AppActivity extends ThemeActivity {
             public void onClick(View view) {
                 ActionUtils.settings(context, appInfo);
             }
-        });
+        });*/
 
         RelativeLayout information = (RelativeLayout) findViewById(R.id.information_layout);
         TextView apkText = (TextView) findViewById(R.id.app_apk_text);

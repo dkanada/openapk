@@ -1,11 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:layout="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                xmlns:layout="http://schemas.android.com/apk/res-auto">
+                android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/view_toolbar" />
+        layout="@layout/view_toolbar"/>
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
                     android:background="@color/primary"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"/>
 
                 <ImageView
                     android:id="@+id/app_icon"
@@ -40,7 +40,7 @@
                     android:maxHeight="50dp"
                     android:maxWidth="50dp"
                     android:src="@drawable/ic_android"
-                    android:transitionName="@string/transition" />
+                    android:transitionName="@string/transition"/>
 
                 <TextView
                     android:id="@+id/app_name"
@@ -52,7 +52,7 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/error_layout"
                     android:textColor="@color/white"
-                    android:textSize="22sp" />
+                    android:textSize="22sp"/>
 
             </RelativeLayout>
 
@@ -60,12 +60,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/header_layout"
-                android:orientation="vertical"
-                android:gravity="top">
+                android:gravity="top"
+                android:orientation="vertical">
 
-                <include
+                <LinearLayout
                     android:id="@+id/quick_actions"
-                    layout="@layout/view_quick_actions" />
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@color/grey_dark"
+                    android:gravity="center"
+                    android:orientation="horizontal" />
 
                 <RelativeLayout
                     android:id="@+id/information_layout"
@@ -86,7 +90,7 @@
                             android:layout_marginStart="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/package_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                         <TextView
                             android:id="@+id/app_apk_text"
@@ -96,7 +100,7 @@
                             android:layout_marginEnd="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/error_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                     </RelativeLayout>
 
@@ -113,7 +117,7 @@
                             android:layout_marginStart="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/version_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                         <TextView
                             android:id="@+id/app_version_text"
@@ -123,7 +127,7 @@
                             android:layout_marginEnd="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/error_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                     </RelativeLayout>
 
@@ -140,7 +144,7 @@
                             android:layout_marginStart="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/size_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                         <TextView
                             android:id="@+id/app_size_text"
@@ -150,7 +154,7 @@
                             android:layout_marginEnd="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/error_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                     </RelativeLayout>
 
@@ -167,7 +171,7 @@
                             android:layout_marginStart="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/cache_size_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                         <TextView
                             android:id="@+id/app_cache_size_text"
@@ -177,7 +181,7 @@
                             android:layout_marginEnd="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/error_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                     </RelativeLayout>
 
@@ -194,7 +198,7 @@
                             android:layout_marginStart="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/data_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                         <TextView
                             android:id="@+id/app_data_folder_text"
@@ -207,7 +211,7 @@
                             android:maxLines="1"
                             android:maxWidth="220dp"
                             android:text="@string/error_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                     </RelativeLayout>
 
@@ -224,7 +228,7 @@
                             android:layout_marginStart="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/install_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                         <TextView
                             android:id="@+id/app_install_text"
@@ -234,7 +238,7 @@
                             android:layout_marginEnd="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/error_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                     </RelativeLayout>
 
@@ -251,7 +255,7 @@
                             android:layout_marginStart="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/update_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                         <TextView
                             android:id="@+id/app_update_text"
@@ -261,7 +265,7 @@
                             android:layout_marginEnd="@dimen/horizontal_margin"
                             android:gravity="center"
                             android:text="@string/error_layout"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"/>
 
                     </RelativeLayout>
 
@@ -276,11 +280,11 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/remove_cache"
-                        android:layout_width="150dp"
-                        android:layout_height="42dp"
-                        android:layout_margin="6dp"
-                        android:foreground="?android:attr/selectableItemBackground">
+                                                        android:id="@+id/remove_cache"
+                                                        android:layout_width="150dp"
+                                                        android:layout_height="42dp"
+                                                        android:layout_margin="6dp"
+                                                        android:foreground="?android:attr/selectableItemBackground">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -288,17 +292,17 @@
                             android:fontFamily="sans-serif-thin"
                             android:gravity="center"
                             android:text="@string/action_remove_cache"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"/>
 
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/clear_data"
-                        android:layout_width="150dp"
-                        android:layout_height="42dp"
-                        android:layout_margin="6dp"
-                        android:layout_toEndOf="@+id/remove_cache"
-                        android:foreground="?android:attr/selectableItemBackground">
+                                                        android:id="@+id/clear_data"
+                                                        android:layout_width="150dp"
+                                                        android:layout_height="42dp"
+                                                        android:layout_margin="6dp"
+                                                        android:layout_toEndOf="@+id/remove_cache"
+                                                        android:foreground="?android:attr/selectableItemBackground">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -306,7 +310,7 @@
                             android:fontFamily="sans-serif-thin"
                             android:gravity="center"
                             android:text="@string/action_clear_data"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"/>
 
                     </android.support.v7.widget.CardView>
 
