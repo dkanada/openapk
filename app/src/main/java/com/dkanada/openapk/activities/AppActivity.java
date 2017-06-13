@@ -4,13 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,7 +30,6 @@ import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
-import com.dkanada.openapk.views.ActionIconView;
 
 import java.text.SimpleDateFormat;
 
@@ -89,57 +85,46 @@ public class AppActivity extends ThemeActivity {
         icon.setImageDrawable(appInfo.getIcon());
         name.setText(appInfo.getName());
 
-        RelativeLayout quickActionLayout = (RelativeLayout) findViewById(R.id.quick_action_layout);
-        quickActionLayout.setBackgroundColor(Color.DKGRAY);
-        ActionIconView open = new ActionIconView(context,
-                getResources().getDrawable(R.drawable.ic_open_in_new),
-                getString(R.string.action_open),
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ActionUtils.open(context, appInfo);
-                    }
-                });
-        ActionIconView extract = new ActionIconView(context,
-                getResources().getDrawable(R.drawable.ic_archive),
-                getString(R.string.action_extract),
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ActionUtils.extract(context, appInfo);
-                    }
-                });
-        ActionIconView uninstall;
-        if (appInfo.getSystem()) {
-            uninstall = new ActionIconView(context,
-                    getResources().getDrawable(R.drawable.ic_delete),
-                    getString(R.string.action_uninstall),
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ActionUtils.extract(context, appInfo);
-                        }
-                    });
-        } else {
-            uninstall = new ActionIconView(context,
-                    getResources().getDrawable(R.drawable.ic_delete),
-                    getString(R.string.action_uninstall),
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ActionUtils.extract(context, appInfo);
-                        }
-                    });
-        }
-        RelativeLayout share = (RelativeLayout) findViewById(R.id.share);
-        RelativeLayout settings = (RelativeLayout) findViewById(R.id.settings);
+        ImageView open = (ImageView) findViewById(R.id.open);
+        ImageView extract = (ImageView) findViewById(R.id.extract);
+        ImageView uninstall = (ImageView) findViewById(R.id.uninstall);
+        ImageView share = (ImageView) findViewById(R.id.share);
+        ImageView settings = (ImageView) findViewById(R.id.settings);
 
-        //updateShareButton(share);
-        //updateSettingsButton(settings);
+        open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActionUtils.open(context, appInfo);
+            }
+        });
+        extract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActionUtils.extract(context, appInfo);
+            }
+        });
+        uninstall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (appInfo.getSystem()) {
+                    ActionUtils.open(context, appInfo);
+                } else {
 
-        quickActionLayout.addView(open);
-        quickActionLayout.addView(extract);
-        quickActionLayout.setGravity(1);
+                }
+            }
+        });
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActionUtils.share(context, appInfo);
+            }
+        });
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActionUtils.settings(context, appInfo);
+            }
+        });
 
         RelativeLayout information = (RelativeLayout) findViewById(R.id.information_layout);
         TextView apkText = (TextView) findViewById(R.id.app_apk_text);
@@ -177,24 +162,22 @@ public class AppActivity extends ThemeActivity {
         CardView cache = (CardView) findViewById(R.id.remove_cache);
         CardView data = (CardView) findViewById(R.id.clear_data);
 
-        updateCacheButton(cache);
-        updateDataButton(data);
-    }
-
-    protected void updateShareButton(RelativeLayout fab_share) {
-        fab_share.setOnClickListener(new View.OnClickListener() {
+        cache.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.share(context, appInfo);
+                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                        , getResources().getString(R.string.dialog_cache_progress)
+                        , getResources().getString(R.string.dialog_cache_progress_description));
+                new RemoveCacheAsync(context, dialog, appInfo).execute();
             }
         });
-    }
-
-    protected void updateSettingsButton(RelativeLayout fab_settings) {
-        fab_settings.setOnClickListener(new View.OnClickListener() {
+        data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.settings(context, appInfo);
+                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                        , getResources().getString(R.string.dialog_clear_data_progress)
+                        , getResources().getString(R.string.dialog_clear_data_progress_description));
+                new ClearDataAsync(context, dialog, appInfo).execute();
             }
         });
     }
@@ -217,30 +200,6 @@ public class AppActivity extends ThemeActivity {
             public void onClick(View view) {
                 ActionUtils.disable(context, appInfo);
                 InterfaceUtils.updateAppDisabledIcon(context, disable, appDbUtils.checkAppInfo(appInfo, 4));
-            }
-        });
-    }
-
-    protected void updateCacheButton(CardView removeCache) {
-        removeCache.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-                        , getResources().getString(R.string.dialog_cache_progress)
-                        , getResources().getString(R.string.dialog_cache_progress_description));
-                new RemoveCacheAsync(context, dialog, appInfo).execute();
-            }
-        });
-    }
-
-    protected void updateDataButton(CardView clearData) {
-        clearData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-                        , getResources().getString(R.string.dialog_clear_data_progress)
-                        , getResources().getString(R.string.dialog_clear_data_progress_description));
-                new ClearDataAsync(context, dialog, appInfo).execute();
             }
         });
     }

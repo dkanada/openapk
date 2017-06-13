@@ -4,7 +4,6 @@ package com.dkanada.openapk.views;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,7 +19,7 @@ public class ActionIconView extends RelativeLayout {
         this.setOnClickListener(onClickListener);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.view_action_icon, null);
+        View view = inflater.inflate(R.layout.view_quick_actions, null);
         addView(view);
 
         TextView textView = (TextView) view.findViewById(R.id.text);

@@ -4,7 +4,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/view_toolbar" />
 
     <RelativeLayout
         android:id="@+id/header_layout"
