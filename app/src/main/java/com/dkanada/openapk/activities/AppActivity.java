@@ -32,6 +32,7 @@ import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
 import com.dkanada.openapk.views.ButtonIconView;
+import com.dkanada.openapk.views.ButtonView;
 
 import java.text.SimpleDateFormat;
 
@@ -87,34 +88,13 @@ public class AppActivity extends ThemeActivity {
         icon.setImageDrawable(appInfo.getIcon());
         name.setText(appInfo.getName());
 
-        ButtonIconView open = new ButtonIconView(context, getResources().getDrawable(R.drawable.ic_open_in_new), getString(R.string.action_open), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActionUtils.open(context, appInfo);
-            }
-        });
-        ButtonIconView extract = new ButtonIconView(context, getResources().getDrawable(R.drawable.ic_archive), getString(R.string.action_extract), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActionUtils.extract(context, appInfo);
-            }
-        });
+        ImageView open = (ImageView) findViewById(R.id.open);
+        ImageView extract = (ImageView) findViewById(R.id.extract);
+        ImageView uninstall = (ImageView) findViewById(R.id.uninstall);
+        ImageView share = (ImageView) findViewById(R.id.share);
+        ImageView settings = (ImageView) findViewById(R.id.settings);
 
-        LinearLayout quickActions = (LinearLayout) findViewById(R.id.quick_actions);
-        quickActions.addView(open);
-        quickActions.addView(extract);
-
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(open.getLayoutParams());
-        open.setLayoutParams(lp);
-        extract.setLayoutParams(lp);
-
-        //ImageView open = (ImageView) findViewById(R.id.open);
-        //ImageView extract = (ImageView) findViewById(R.id.extract);
-        //ImageView uninstall = (ImageView) findViewById(R.id.uninstall);
-        //ImageView share = (ImageView) findViewById(R.id.share);
-        //ImageView settings = (ImageView) findViewById(R.id.settings);
-
-        /*open.setOnClickListener(new View.OnClickListener() {
+        open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ActionUtils.open(context, appInfo);
@@ -147,7 +127,7 @@ public class AppActivity extends ThemeActivity {
             public void onClick(View view) {
                 ActionUtils.settings(context, appInfo);
             }
-        });*/
+        });
 
         RelativeLayout information = (RelativeLayout) findViewById(R.id.information_layout);
         TextView apkText = (TextView) findViewById(R.id.app_apk_text);
@@ -182,7 +162,20 @@ public class AppActivity extends ThemeActivity {
             }
         }
 
-        CardView cache = (CardView) findViewById(R.id.remove_cache);
+        LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
+        ButtonView removeCache = new ButtonView(context, getString(R.string.action_remove_cache), "test", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                        , getResources().getString(R.string.dialog_cache_progress)
+                        , getResources().getString(R.string.dialog_cache_progress_description));
+                new RemoveCacheAsync(context, dialog, appInfo).execute();
+            }
+        });
+
+        buttons.addView(removeCache);
+
+        /*CardView cache = (CardView) findViewById(R.id.remove_cache);
         CardView data = (CardView) findViewById(R.id.clear_data);
 
         cache.setOnClickListener(new View.OnClickListener() {
@@ -202,7 +195,7 @@ public class AppActivity extends ThemeActivity {
                         , getResources().getString(R.string.dialog_clear_data_progress_description));
                 new ClearDataAsync(context, dialog, appInfo).execute();
             }
-        });
+        });*/
     }
 
     protected void updateHideButton(final RelativeLayout hide) {
