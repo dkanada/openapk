@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -35,6 +36,7 @@ import com.dkanada.openapk.views.ButtonIconView;
 import com.dkanada.openapk.views.ButtonView;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class AppActivity extends ThemeActivity {
     private AppPreferences appPreferences;
@@ -110,9 +112,12 @@ public class AppActivity extends ThemeActivity {
             @Override
             public void onClick(View view) {
                 if (appInfo.getSystem()) {
-                    ActionUtils.open(context, appInfo);
+                    ActionUtils.uninstall(context, appInfo);
                 } else {
-
+                    Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
+                    intent.setData(Uri.parse("package:" + appInfo.getAPK()));
+                    intent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
+                    startActivityForResult(intent, UNINSTALL_REQUEST_CODE);
                 }
             }
         });
@@ -129,7 +134,7 @@ public class AppActivity extends ThemeActivity {
             }
         });
 
-        RelativeLayout information = (RelativeLayout) findViewById(R.id.information_layout);
+        LinearLayout information = (LinearLayout) findViewById(R.id.information);
         TextView apkText = (TextView) findViewById(R.id.app_apk_text);
         TextView versionText = (TextView) findViewById(R.id.app_version_text);
         TextView sizeText = (TextView) findViewById(R.id.app_size_text);
@@ -144,7 +149,7 @@ public class AppActivity extends ThemeActivity {
         cacheSizeText.setText(R.string.development_layout);
         dataFolderText.setText(appInfo.getData());
         PackageManager packageManager = getPackageManager();
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US);
         try {
             installText.setText(formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).firstInstallTime));
             updateText.setText(formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).lastUpdateTime));

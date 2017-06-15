@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/app_apk"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/package_layout"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/app_apk_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/error_layout"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/app_version"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/version_layout"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/app_version_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/error_layout"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/app_size"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/size_layout"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/app_size_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/error_layout"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/app_cache_size"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/cache_size_layout"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/app_cache_size_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/error_layout"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/app_data_folder"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/data_layout"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/app_data_folder_text"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/error_layout"
+            android:textSize="16sp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/app_install"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/install_layout"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/app_install_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/error_layout"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/app_update"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/update_layout"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/app_update_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:text="@string/error_layout"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -111,6 +111,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
             appPreferences.setInitialSetup(true);
             new updateInstalledApps().execute();
         } else {
+            new getInstalledApps().execute();
             new updateInstalledApps().execute();
         }
     }
