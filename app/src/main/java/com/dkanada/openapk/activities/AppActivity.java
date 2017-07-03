@@ -168,7 +168,7 @@ public class AppActivity extends ThemeActivity {
         }
 
         LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
-        ButtonView removeCache = new ButtonView(context, getString(R.string.action_remove_cache), "test", new View.OnClickListener() {
+        ButtonView removeCache = new ButtonView(context, getString(R.string.action_remove_cache), null, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
@@ -177,30 +177,18 @@ public class AppActivity extends ThemeActivity {
                 new RemoveCacheAsync(context, dialog, appInfo).execute();
             }
         });
-
-        buttons.addView(removeCache);
-
-        /*CardView cache = (CardView) findViewById(R.id.remove_cache);
-        CardView data = (CardView) findViewById(R.id.clear_data);
-
-        cache.setOnClickListener(new View.OnClickListener() {
+        ButtonView clearData = new ButtonView(context, getString(R.string.action_clear_data), null, new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
-                        , getResources().getString(R.string.dialog_cache_progress)
-                        , getResources().getString(R.string.dialog_cache_progress_description));
-                new RemoveCacheAsync(context, dialog, appInfo).execute();
-            }
-        });
-        data.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
                         , getResources().getString(R.string.dialog_clear_data_progress)
                         , getResources().getString(R.string.dialog_clear_data_progress_description));
                 new ClearDataAsync(context, dialog, appInfo).execute();
             }
-        });*/
+        });
+
+        buttons.addView(removeCache);
+        buttons.addView(clearData);
     }
 
     protected void updateHideButton(final RelativeLayout hide) {

@@ -24,7 +24,12 @@ public class ButtonView extends RelativeLayout {
         TextView titleView = (TextView) view.findViewById(R.id.title);
         TextView summaryView = (TextView) view.findViewById(R.id.summary);
 
+        if (summary == null) {
+            summaryView.setVisibility(GONE);
+        } else {
+            summaryView.setText(summary);
+        }
+
         titleView.setText(title);
-        summaryView.setText(summary);
     }
 }
