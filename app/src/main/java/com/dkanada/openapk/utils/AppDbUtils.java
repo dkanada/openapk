@@ -95,7 +95,8 @@ public class AppDbUtils extends SQLiteOpenHelper {
             cursor.moveToFirst();
             switch (data) {
                 default:
-                    if (!appInfo.getAPK().equals(cursor.getString(1))
+                    if (!appInfo.getName().equals(cursor.getString(0))
+                            || !appInfo.getAPK().equals(cursor.getString(1))
                             || !appInfo.getVersion().equals(cursor.getString(2))
                             || !appInfo.getSource().equals(cursor.getString(3))
                             || !appInfo.getData().equals(cursor.getString(4))) {
