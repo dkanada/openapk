@@ -49,4 +49,5 @@ dependencies {
     compile('com.mikepenz:materialdrawer:4.6.1@aar') { transitive = true; }
     compile 'com.mikepenz:google-material-typeface:1.2.0.1@aar'
     compile 'com.jaredrummler:colorpicker:1.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
