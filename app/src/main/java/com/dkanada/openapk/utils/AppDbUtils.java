@@ -43,9 +43,11 @@ public class AppDbUtils extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + AppDbUtils.TABLE_NAME;
     private static final String QUERY = "SELECT * FROM " + TABLE_NAME;
+    private SQLiteDatabase database;
 
     public AppDbUtils(Context context) {
         super(context, DATABASE_NAME, null, 2);
+        database = getWritableDatabase();
     }
 
     public void onCreate(SQLiteDatabase db) {
@@ -67,7 +69,6 @@ public class AppDbUtils extends SQLiteOpenHelper {
             updateAppInfo(appInfo, 0);
         } else {
             ContentValues values = new ContentValues();
-            SQLiteDatabase db = getWritableDatabase();
             values.put(COLUMN_NAME_NAME, appInfo.getName());
             values.put(COLUMN_NAME_APK, appInfo.getAPK());
             values.put(COLUMN_NAME_VERSION, appInfo.getVersion());
@@ -77,20 +78,17 @@ public class AppDbUtils extends SQLiteOpenHelper {
             values.put(COLUMN_NAME_FAVORITE, appInfo.getFavorite().toString());
             values.put(COLUMN_NAME_HIDDEN, appInfo.getHidden().toString());
             values.put(COLUMN_NAME_DISABLED, appInfo.getDisabled().toString());
-            db.insert(TABLE_NAME, null, values);
+            database.insert(TABLE_NAME, null, values);
         }
     }
 
     public void removeAppInfo(AppInfo appInfo) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE_NAME, COLUMN_NAME_APK + " = ?", new String[]{String.valueOf(appInfo.getAPK())});
-        db.close();
+        database.delete(TABLE_NAME, COLUMN_NAME_APK + " = ?", new String[]{String.valueOf(appInfo.getAPK())});
     }
 
     public Boolean checkAppInfo(AppInfo appInfo, int data) {
-        SQLiteDatabase db = getWritableDatabase();
         String QUERY_EXIST = QUERY + " WHERE " + COLUMN_NAME_APK + " = '" + appInfo.getAPK() + "'";
-        Cursor cursor = db.rawQuery(QUERY_EXIST, null);
+        Cursor cursor = database.rawQuery(QUERY_EXIST, null);
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
             switch (data) {
@@ -117,7 +115,6 @@ public class AppDbUtils extends SQLiteOpenHelper {
     }
 
     public void updateAppInfo(AppInfo appInfo, int data) {
-        SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         String SELECTION = COLUMN_NAME_APK + " = '" + appInfo.getAPK() + "'";
         switch (data) {
@@ -129,22 +126,22 @@ public class AppDbUtils extends SQLiteOpenHelper {
             // system
             case 1:
                 values.put(COLUMN_NAME_SYSTEM, appInfo.getSystem().toString());
-                db.update(TABLE_NAME, values, SELECTION, null);
+                database.update(TABLE_NAME, values, SELECTION, null);
                 break;
             // favorite
             case 2:
                 values.put(COLUMN_NAME_FAVORITE, appInfo.getFavorite().toString());
-                db.update(TABLE_NAME, values, SELECTION, null);
+                database.update(TABLE_NAME, values, SELECTION, null);
                 break;
             // hidden
             case 3:
                 values.put(COLUMN_NAME_HIDDEN, appInfo.getHidden().toString());
-                db.update(TABLE_NAME, values, SELECTION, null);
+                database.update(TABLE_NAME, values, SELECTION, null);
                 break;
             // disabled
             case 4:
                 values.put(COLUMN_NAME_DISABLED, appInfo.getDisabled().toString());
-                db.update(TABLE_NAME, values, SELECTION, null);
+                database.update(TABLE_NAME, values, SELECTION, null);
                 break;
         }
     }
@@ -183,8 +180,7 @@ public class AppDbUtils extends SQLiteOpenHelper {
             }
         }
         // remove uninstalled apps from database
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.rawQuery(QUERY, null);
+        Cursor cursor = database.rawQuery(QUERY, null);
         if (cursor.moveToFirst()) {
             do {
                 try {
@@ -203,7 +199,6 @@ public class AppDbUtils extends SQLiteOpenHelper {
 
     public ArrayList<AppInfo> getAppList(Context context, int data) {
         ArrayList<AppInfo> appList = new ArrayList<>();
-        SQLiteDatabase db = getWritableDatabase();
         String QUERY_SPECIFIC = QUERY;
         switch (data) {
             default:
@@ -226,7 +221,7 @@ public class AppDbUtils extends SQLiteOpenHelper {
                 QUERY_SPECIFIC += " WHERE " + COLUMN_NAME_DISABLED + " = 'true'";
                 break;
         }
-        Cursor cursor = db.rawQuery(QUERY_SPECIFIC, null);
+        Cursor cursor = database.rawQuery(QUERY_SPECIFIC, null);
         if (cursor.moveToFirst()) {
             do {
                 appList.add(getAppInfo(context, cursor));
