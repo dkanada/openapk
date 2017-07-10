@@ -40,8 +40,8 @@
   <string name="dialog_root_required">Necessario il Root</string>
   <string name="dialog_root_required_description">Il dispositivo deve disporre dei permessi di root. Se non sono stati concessi, utilizza l\'app SuperUser per concedere l\'accesso a ML Manager.</string>
   <string name="dialog_reboot">Per visualizzare i cambiamenti è necessario riavviare il dispositivo. Riavviare adesso ?</string>
-  <string name="dialog_uninstall_root">Sei sicuro di voler disinstallare ?</string>
-  <string name="dialog_uninstall_root_description">Stai per rimuovere un\'applicazione di sistema. Non rimuovere niente se non sei sicuro di quello che fai; il dispositivo potrebbe subire dei danni.</string>
+  <string name="dialog_system_action">Sei sicuro di voler disinstallare ?</string>
+  <string name="dialog_system_action_description">Stai per rimuovere un\'applicazione di sistema. Non rimuovere niente se non sei sicuro di quello che fai; il dispositivo potrebbe subire dei danni.</string>
   <string name="action_extract">Estrai</string>
   <string name="button_undo">Ripristina</string>
   <string name="button_reboot">Riavvia</string>

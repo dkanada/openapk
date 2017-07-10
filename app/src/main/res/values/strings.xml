@@ -24,6 +24,7 @@
     <string name="action_unhide">Unhide</string>
     <string name="action_disable">Disable</string>
     <string name="action_enable">Enable</string>
+    <string name="action_system">System</string>
 
     <string name="send_to">Send \"%s\" using</string>
     <string name="deleting">Deleting...</string>
@@ -54,8 +55,8 @@
     <string name="dialog_clear_data_progress_description">Please wait while all data for the app is deleted.</string>
     <string name="dialog_clear_data_success">Data deleted</string>
     <string name="dialog_clear_data_success_description">All data for %s has been removed.</string>
-    <string name="dialog_uninstall_root">Are you sure you want to uninstall?</string>
-    <string name="dialog_uninstall_root_description">You are one step away of removing a system app. Do not delete it if you are unsure, it could cause a malfunction.</string>
+    <string name="dialog_system_action">This action could possibly break your phone.</string>
+    <string name="dialog_system_action_description">Are you sure you want to perform this action?</string>
     <string name="dialog_permissions">Permissions required</string>
     <string name="dialog_permissions_description">You must accept the permissions to extract and share APKs, clean the cache, and remove app data.</string>
     <string name="dialog_root_required">Root required</string>

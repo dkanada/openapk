@@ -4,17 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.dkanada.openapk.App;
-import com.dkanada.openapk.activities.SettingsActivity;
-import com.dkanada.openapk.fragments.SettingsFragment;
 import com.gc.materialdesign.widgets.SnackBar;
-import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
 
 import java.io.File;
@@ -52,11 +46,11 @@ public class DialogUtils {
                 });
     }
 
-    public static MaterialDialog.Builder uninstallSystemApp(Context context) {
+    public static MaterialDialog.Builder systemAction(Context context) {
         return new MaterialDialog.Builder(context)
-                .title(context.getResources().getString(R.string.dialog_uninstall_root))
-                .content(context.getResources().getString(R.string.dialog_uninstall_root_description))
-                .positiveText(context.getResources().getString(R.string.action_uninstall))
+                .title(context.getResources().getString(R.string.dialog_system_action))
+                .content(context.getResources().getString(R.string.dialog_system_action_description))
+                .positiveText(context.getResources().getString(android.R.string.ok))
                 .negativeText(context.getResources().getString(android.R.string.cancel))
                 .cancelable(false);
     }

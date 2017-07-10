@@ -16,9 +16,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -33,6 +35,7 @@ import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
 import com.dkanada.openapk.views.ButtonIconView;
+import com.dkanada.openapk.views.ButtonSwitchView;
 import com.dkanada.openapk.views.ButtonView;
 
 import java.text.SimpleDateFormat;
@@ -168,6 +171,45 @@ public class AppActivity extends ThemeActivity {
         }
 
         LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
+
+        Switch oneSwitch = new Switch(context);
+        if (appInfo.getHidden()) {
+            oneSwitch.setChecked(true);
+        }
+        oneSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ActionUtils.hide(context, appInfo);
+            }
+        });
+        Switch twoSwitch = new Switch(context);
+        if (appInfo.getDisabled()) {
+            twoSwitch.setChecked(true);
+        }
+        twoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ActionUtils.disable(context, appInfo);
+            }
+        });
+        Switch redSwitch = new Switch(context);
+        if (appInfo.getSystem()) {
+            redSwitch.setChecked(true);
+        }
+        redSwitch.setClickable(false);
+        redSwitch.setAlpha(0.5f);
+        redSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            }
+        });
+        ButtonSwitchView hide = new ButtonSwitchView(context, getResources().getString(R.string.action_hide), null, oneSwitch);
+        ButtonSwitchView disable = new ButtonSwitchView(context, getResources().getString(R.string.action_disable), null, twoSwitch);
+        ButtonSwitchView system = new ButtonSwitchView(context, getResources().getString(R.string.action_system), null, redSwitch);
+        buttons.addView(hide);
+        buttons.addView(disable);
+        buttons.addView(system);
+
         ButtonView removeCache = new ButtonView(context, getString(R.string.action_remove_cache), null, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

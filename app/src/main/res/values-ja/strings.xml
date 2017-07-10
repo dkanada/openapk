@@ -40,8 +40,8 @@
   <string name="dialog_root_required">root が必要です</string>
   <string name="dialog_root_required_description">お使いのデバイスを root 化して、root 権限が必要です。アクセスが拒否された場合、SuperUser アプリで ML Manager にアクセス許可を与えてください。</string>
   <string name="dialog_reboot">変更を反映するには再起動が必要です。今すぐ再起動しますか?</string>
-  <string name="dialog_uninstall_root">アンインストールしてもよろしいですか?</string>
-  <string name="dialog_uninstall_root_description">システムアプリを削除しようとしています。システムに詳しくない人は削除しないでください。デバイスが誤動作する可能性があります。</string>
+  <string name="dialog_system_action">アンインストールしてもよろしいですか?</string>
+  <string name="dialog_system_action_description">システムアプリを削除しようとしています。システムに詳しくない人は削除しないでください。デバイスが誤動作する可能性があります。</string>
   <string name="action_extract">抽出</string>
   <string name="button_undo">元に戻す</string>
   <string name="button_reboot">再起動</string>

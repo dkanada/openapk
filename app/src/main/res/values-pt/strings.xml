@@ -40,8 +40,8 @@
   <string name="dialog_root_required">Requer root</string>
   <string name="dialog_root_required_description">O seu dispositivo tem que ter root. Se alguma vez tiver recusado as permissões root ao ML Manager, aceda à aplicação SuperUser e conceda-nos as permissões de root.</string>
   <string name="dialog_reboot">Tem que reiniciar o dispositivo para mostrar as alterações. Reiniciar agora?</string>
-  <string name="dialog_uninstall_root">Tem a certeza de que quer desinstalar?</string>
-  <string name="dialog_uninstall_root_description">Está prestes a remover uma aplicação do sistema. Não efetue esta ação, a não ser que tenha a certeza que a sua remoção não afeta o seu sistema.</string>
+  <string name="dialog_system_action">Tem a certeza de que quer desinstalar?</string>
+  <string name="dialog_system_action_description">Está prestes a remover uma aplicação do sistema. Não efetue esta ação, a não ser que tenha a certeza que a sua remoção não afeta o seu sistema.</string>
   <string name="action_extract">Extrair</string>
   <string name="button_undo">Desfazer</string>
   <string name="button_reboot">Reiniciar</string>
