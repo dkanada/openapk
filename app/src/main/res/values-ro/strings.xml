@@ -52,8 +52,6 @@
     <string name="dialog_clear_data_progress_description">Vă rugăm așteptați până se șterg toate datele aplicației.</string>
     <string name="dialog_clear_data_success">Date șterse</string>
     <string name="dialog_clear_data_success_description">Toate datele pentru %s au fost eliminate.</string>
-    <string name="dialog_uninstall_root">Sunteți sigur(ă) că doriți să dezinstalați?</string>
-    <string name="dialog_uninstall_root_description">Sunteți la un pas distanță de eliminarea unei aplicații de sistem. Nu o ștergeți dacă sunteți nesigur(ă), poate cauza o funcționare precară.</string>
     <string name="dialog_permissions">Permisiuni necesare</string>
     <string name="dialog_permissions_description">Trebuie să acceptați permisiunile pentru a extrage și distribui APK-uri, șterge cache-ul și elimina datele aplicației.</string>
     <string name="dialog_root_required">Root este necesar</string>
