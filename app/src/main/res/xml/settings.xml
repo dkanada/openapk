@@ -33,20 +33,6 @@
             android:entryValues="@array/themeValues"
             android:key="prefTheme"
             android:title="@string/settings_theme" />
-        <com.jaredrummler.android.colorpicker.ColorPreference
-            android:defaultValue="@color/primary"
-            android:key="prefPrimaryColor"
-            android:summary="@string/settings_primary_color_description"
-            android:title="@string/settings_primary_color"
-            app:cpv_dialogTitle="@string/settings_primary_color"
-            app:cpv_showAlphaSlider="true" />
-        <com.jaredrummler.android.colorpicker.ColorPreference
-            android:defaultValue="@color/accent"
-            android:key="prefAccentColor"
-            android:summary="@string/settings_accent_color_description"
-            android:title="@string/settings_accent_color"
-            app:cpv_dialogTitle="@string/settings_accent_color"
-            app:cpv_showAlphaSlider="true" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="prefNavigationColor"
