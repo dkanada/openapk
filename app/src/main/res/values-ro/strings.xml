@@ -1,0 +1,117 @@
+<resources>
+
+    <!-- miscellaneous -->
+    <string name="app_description">Manager de aplicații Android modern, simplu și customizabil.</string>
+
+    <!-- labels -->
+    <string name="action_installed_apps">Aplicații instalate</string>
+    <string name="action_system_apps">Aplicații de sistem</string>
+    <string name="action_favorite_apps">Aplicații favorite</string>
+    <string name="action_hidden_apps">Aplicații ascunse</string>
+    <string name="action_disabled_apps">Aplicații dezactivate</string>
+    <string name="action_settings">Setări</string>
+    <string name="action_about">Despre</string>
+
+    <string name="action_open">Deschide</string>
+    <string name="action_extract">Extrage</string>
+    <string name="action_share">Distribuie</string>
+    <string name="action_uninstall">Dezinstalează</string>
+    <string name="action_remove_cache">Șterge cache-ul</string>
+    <string name="action_clear_data">Despre</string>
+    <string name="action_hide">Ascunde</string>
+    <string name="action_unhide">Arată</string>
+    <string name="action_disable">Dezactivează</string>
+    <string name="action_enable">Activează</string>
+
+    <string name="send_to">Trimite \"%s\" folosind</string>
+    <string name="deleting">Ștergere...</string>
+    <string name="deleting_done">Fișiere șterse.</string>
+    <string name="deleting_error">S-a produs o eroare în timpul ștergerii fișierelor.</string>
+    <string name="search">Caută</string>
+    <string name="search_hint">Caută după nume...</string>
+    <string name="search_noresults">Niciun rezultat nu a fost găsit la căutarea dvs.</string>
+
+    <!-- dialogs -->
+    <string name="dialog_extract_progress">Se salvează %s...</string>
+    <string name="dialog_extract_progress_description">Se salvează APK-ul în folderul specificat.</string>
+    <string name="dialog_extract_success">%s salvat</string>
+    <string name="dialog_extract_success_description">%1$s a fost salvat în folderul specificat cu numele: %2$s.</string>
+    <string name="dialog_extract_fail">Extragere nereușită</string>
+    <string name="dialog_extract_fail_description">Nu se poate extrage acest APK.</string>
+    <string name="dialog_uninstall_progress">Se dezinstalează %s...</string>
+    <string name="dialog_uninstall_progress_description">Se dezinstalează această aplicație. Vă rugăm așteptați.</string>
+    <string name="dialog_hide_progress">Se actualizează starea ascunderii...</string>
+    <string name="dialog_hide_progress_description">Vă rugăm așteptați până se actualizează starea ascunderii.</string>
+    <string name="dialog_disable_progress">Se actualizează starea dezactivării...</string>
+    <string name="dialog_disable_progress_description">Vă rugăm așteptați până se actualizează starea dezactivării.</string>
+    <string name="dialog_cache_progress">Ștergere fișiere cache...</string>
+    <string name="dialog_cache_progress_description">Vă rugăm așteptați până se șterg fișierele cache.</string>
+    <string name="dialog_cache_success">Cache șters</string>
+    <string name="dialog_cache_success_description">Cache-ul pentru %s a fost eliminat.</string>
+    <string name="dialog_clear_data_progress">Ștergere date...</string>
+    <string name="dialog_clear_data_progress_description">Vă rugăm așteptați până se șterg toate datele aplicației.</string>
+    <string name="dialog_clear_data_success">Date șterse</string>
+    <string name="dialog_clear_data_success_description">Toate datele pentru %s au fost eliminate.</string>
+    <string name="dialog_uninstall_root">Sunteți sigur(ă) că doriți să dezinstalați?</string>
+    <string name="dialog_uninstall_root_description">Sunteți la un pas distanță de eliminarea unei aplicații de sistem. Nu o ștergeți dacă sunteți nesigur(ă), poate cauza o funcționare precară.</string>
+    <string name="dialog_permissions">Permisiuni necesare</string>
+    <string name="dialog_permissions_description">Trebuie să acceptați permisiunile pentru a extrage și distribui APK-uri, șterge cache-ul și elimina datele aplicației.</string>
+    <string name="dialog_root_required">Root este necesar</string>
+    <string name="dialog_root_required_description">Dispozitivul dvs. trebuie să fie rootat pentru ca această funcție să meargă și funcțiile root să fie activate în setări.</string>
+    <string name="dialog_reboot">O repornire este necesară pentru a afișa modificările. Doriți să reporniți acum?</string>
+    <string name="dialog_no_activity">Această aplicație nu deține o interfață cu utilizatorul.</string>
+    <string name="dialog_error">A apărut o eroare și acțiunea selectată nu poate fi completată.</string>
+
+    <!-- buttons -->
+    <string name="button_reboot">Repornește</string>
+    <string name="button_undo">Anulează</string>
+
+    <!-- layouts -->
+    <string name="package_layout">Pachet</string>
+    <string name="version_layout">Versiune</string>
+    <string name="size_layout">Mărime aplicație</string>
+    <string name="cache_size_layout">Mărime cache</string>
+    <string name="data_layout">Folderul cu date</string>
+    <string name="install_layout">Prima instalare</string>
+    <string name="update_layout">Ultima actualizare</string>
+    <string name="development_layout">În lucru</string>
+    <string name="error_layout">404</string>
+
+    <!-- settings -->
+    <string name="settings_title_applications">Aplicații</string>
+    <string name="settings_title_colors">Culori</string>
+    <string name="settings_title_other">Altele</string>
+    <string name="settings_custom_path">Director</string>
+    <string name="settings_custom_filename">Nume fișier</string>
+    <string name="settings_sort_mode">Metodă de sortare</string>
+    <string name="settings_action">Acțiuni rapide</string>
+    <string name="settings_action_description">Setează până la trei acțiuni rapide.</string>
+    <string name="settings_theme">Temă</string>
+    <string name="settings_primary_color">Culoarea principală</string>
+    <string name="settings_primary_color_description">Setează culoarea pentru bara de unelte și bara de navigare.</string>
+    <string name="settings_accent_color">Culoare accent</string>
+    <string name="settings_accent_color_description">Setează culoarea de accent pentru acțiuni rapide și alte elemente.</string>
+    <string name="settings_navigation_color">Colorează bara de navigare</string>
+    <string name="settings_navigation_color_description">Folosește culoarea principală pentru bara de navigare.</string>
+    <string name="settings_double_tap">Apăsați înapoi pentru a ieși</string>
+    <string name="settings_double_tap_description">Apăsați butonul înapoi de două ori pentru a închide aplicația.</string>
+    <string name="settings_root_enabled">Activează funcțiile root.</string>
+    <string name="settings_root_enabled_description">Aceasta vă poate dăuna telefonului, dar cel mai probabil va fi în regulă.</string>
+    <string name="settings_reset">Resetează preferințe</string>
+    <string name="settings_reset_description">Resetează preferințele la valorile implicite.</string>
+
+    <!-- about -->
+    <string name="about_one">dkanada</string>
+    <string name="about_two">Javier Santos</string>
+    <string name="about_three">Javier Toro</string>
+    <string name="about_four">Lucian Sipos</string>
+    <string name="about_five">TykTak</string>
+    <string name="about_description_one">Responsabil aplicație</string>
+    <string name="about_description_two">Dezvoltatorul inițial</string>
+    <string name="about_description_three">Designerul pictogramei</string>
+
+    <!-- toasts -->
+    <string name="clipboard">Nume aplicație copiat în clipboard.</string>
+    <string name="tap_exit">Apasă din nou pentru a închide aplicația.</string>
+
+</resources>
