@@ -37,6 +37,7 @@ import com.dkanada.openapk.utils.InterfaceUtils;
 import com.dkanada.openapk.views.ButtonIconView;
 import com.dkanada.openapk.views.ButtonSwitchView;
 import com.dkanada.openapk.views.ButtonView;
+import com.dkanada.openapk.views.InformationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -137,7 +138,32 @@ public class AppActivity extends ThemeActivity {
             }
         });
 
-        LinearLayout information = (LinearLayout) findViewById(R.id.information);
+        LinearLayout informations = (LinearLayout) findViewById(R.id.information);
+        InformationView iPackage = new InformationView(context, getString(R.string.package_layout), appInfo.getAPK(), getResources().getColor(R.color.grey));
+        InformationView iVersion = new InformationView(context, getString(R.string.version_layout), appInfo.getVersion(), getResources().getColor(R.color.grey_dark));
+        InformationView iAppSize = new InformationView(context, getString(R.string.size_layout), getString(R.string.development_layout), getResources().getColor(R.color.grey));
+        InformationView iCachesize = new InformationView(context, getString(R.string.cache_size_layout), getString(R.string.development_layout), getResources().getColor(R.color.grey_dark));
+        InformationView iDataFolder = new InformationView(context, getString(R.string.data_layout), appInfo.getData(), getResources().getColor(R.color.grey));
+        InformationView iSourceFolder = new InformationView(context, getString(R.string.source_layout), appInfo.getSource(), getResources().getColor(R.color.grey_dark));
+        informations.addView(iPackage);
+        informations.addView(iVersion);
+        informations.addView(iAppSize);
+        informations.addView(iCachesize);
+        informations.addView(iDataFolder);
+        informations.addView(iSourceFolder);
+
+        PackageManager packageManager = getPackageManager();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US);
+        try {
+            InformationView iInstall = new InformationView(context, getString(R.string.install_layout), formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).firstInstallTime), getResources().getColor(R.color.grey));
+            InformationView iUpdate = new InformationView(context, getString(R.string.update_layout), formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).lastUpdateTime), getResources().getColor(R.color.grey_dark));
+            informations.addView(iInstall);
+            informations.addView(iUpdate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*LinearLayout information = (LinearLayout) findViewById(R.id.information);
         TextView apkText = (TextView) findViewById(R.id.app_apk_text);
         TextView versionText = (TextView) findViewById(R.id.app_version_text);
         TextView sizeText = (TextView) findViewById(R.id.app_size_text);
@@ -151,14 +177,6 @@ public class AppActivity extends ThemeActivity {
         sizeText.setText(R.string.development_layout);
         cacheSizeText.setText(R.string.development_layout);
         dataFolderText.setText(appInfo.getData());
-        PackageManager packageManager = getPackageManager();
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US);
-        try {
-            installText.setText(formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).firstInstallTime));
-            updateText.setText(formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).lastUpdateTime));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         if (appPreferences.getTheme().equals("1")) {
             for (int i = 0; i < information.getChildCount(); i += 2) {
@@ -168,7 +186,7 @@ public class AppActivity extends ThemeActivity {
             for (int i = 0; i < information.getChildCount(); i += 2) {
                 information.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.grey_dark));
             }
-        }
+        }*/
 
         LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
 

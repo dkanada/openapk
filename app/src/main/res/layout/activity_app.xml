@@ -62,12 +62,12 @@
                 android:layout_below="@+id/header_layout"
                 layout="@layout/view_quick_actions"/>
 
-            <include
+            <LinearLayout
                 android:id="@+id/information"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/quick_actions"
-                layout="@layout/view_information_items"/>
+                android:layout_below="@id/quick_actions"
+                android:orientation="vertical"/>
 
             <LinearLayout
                 android:id="@+id/buttons"

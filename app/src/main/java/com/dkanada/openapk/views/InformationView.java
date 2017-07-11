@@ -1,6 +1,7 @@
 package com.dkanada.openapk.views;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -13,13 +14,14 @@ import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 
 public class InformationView extends RelativeLayout {
-    public InformationView(Context context, String title, String summary, OnClickListener onClickListener) {
+    public InformationView(Context context, String title, String summary, int color) {
         super(context);
-        this.setOnClickListener(onClickListener);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.view_information, null);
         addView(view);
+
+        setBackgroundColor(color);
 
         TextView titleView = (TextView) view.findViewById(R.id.title);
         TextView summaryView = (TextView) view.findViewById(R.id.summary);
