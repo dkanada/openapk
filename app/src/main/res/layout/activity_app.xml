@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/quick_actions"
-                layout="@layout/view_information"/>
+                layout="@layout/view_information_items"/>
 
             <LinearLayout
                 android:id="@+id/buttons"
