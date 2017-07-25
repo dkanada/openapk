@@ -142,13 +142,13 @@ public class AppActivity extends ThemeActivity {
         InformationView iPackage = new InformationView(context, getString(R.string.package_layout), appInfo.getAPK(), getResources().getColor(R.color.grey));
         InformationView iVersion = new InformationView(context, getString(R.string.version_layout), appInfo.getVersion(), getResources().getColor(R.color.grey_dark));
         InformationView iAppSize = new InformationView(context, getString(R.string.size_layout), getString(R.string.development_layout), getResources().getColor(R.color.grey));
-        InformationView iCachesize = new InformationView(context, getString(R.string.cache_size_layout), getString(R.string.development_layout), getResources().getColor(R.color.grey_dark));
+        InformationView iCacheSize = new InformationView(context, getString(R.string.cache_size_layout), getString(R.string.development_layout), getResources().getColor(R.color.grey_dark));
         InformationView iDataFolder = new InformationView(context, getString(R.string.data_layout), appInfo.getData(), getResources().getColor(R.color.grey));
         InformationView iSourceFolder = new InformationView(context, getString(R.string.source_layout), appInfo.getSource(), getResources().getColor(R.color.grey_dark));
         informations.addView(iPackage);
         informations.addView(iVersion);
         informations.addView(iAppSize);
-        informations.addView(iCachesize);
+        informations.addView(iCacheSize);
         informations.addView(iDataFolder);
         informations.addView(iSourceFolder);
 
