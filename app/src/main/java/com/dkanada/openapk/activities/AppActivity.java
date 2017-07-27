@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -34,7 +35,6 @@ import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
-import com.dkanada.openapk.views.ButtonIconView;
 import com.dkanada.openapk.views.ButtonSwitchView;
 import com.dkanada.openapk.views.ButtonView;
 import com.dkanada.openapk.views.InformationView;
@@ -138,92 +138,66 @@ public class AppActivity extends ThemeActivity {
             }
         });
 
-        LinearLayout informations = (LinearLayout) findViewById(R.id.information);
-        InformationView iPackage = new InformationView(context, getString(R.string.package_layout), appInfo.getAPK(), getResources().getColor(R.color.grey));
-        InformationView iVersion = new InformationView(context, getString(R.string.version_layout), appInfo.getVersion(), getResources().getColor(R.color.grey_dark));
-        InformationView iAppSize = new InformationView(context, getString(R.string.size_layout), getString(R.string.development_layout), getResources().getColor(R.color.grey));
-        InformationView iCacheSize = new InformationView(context, getString(R.string.cache_size_layout), getString(R.string.development_layout), getResources().getColor(R.color.grey_dark));
-        InformationView iDataFolder = new InformationView(context, getString(R.string.data_layout), appInfo.getData(), getResources().getColor(R.color.grey));
-        InformationView iSourceFolder = new InformationView(context, getString(R.string.source_layout), appInfo.getSource(), getResources().getColor(R.color.grey_dark));
-        informations.addView(iPackage);
-        informations.addView(iVersion);
-        informations.addView(iAppSize);
-        informations.addView(iCacheSize);
-        informations.addView(iDataFolder);
-        informations.addView(iSourceFolder);
+        LinearLayout information = (LinearLayout) findViewById(R.id.information);
+        InformationView packageInformation = new InformationView(context, getString(R.string.package_layout), appInfo.getAPK(), getResources().getColor(R.color.grey));
+        InformationView versionInformation = new InformationView(context, getString(R.string.version_layout), appInfo.getVersion(), getResources().getColor(R.color.grey_dark));
+        InformationView appSizeInformation = new InformationView(context, getString(R.string.size_layout), getString(R.string.development_layout), getResources().getColor(R.color.grey));
+        InformationView cacheSizeInformation = new InformationView(context, getString(R.string.cache_size_layout), getString(R.string.development_layout), getResources().getColor(R.color.grey_dark));
+        InformationView dataFolderInformation = new InformationView(context, getString(R.string.data_layout), appInfo.getData(), getResources().getColor(R.color.grey));
+        InformationView sourceFolderInformation = new InformationView(context, getString(R.string.source_layout), appInfo.getSource(), getResources().getColor(R.color.grey_dark));
+        information.addView(packageInformation);
+        information.addView(versionInformation);
+        information.addView(appSizeInformation);
+        information.addView(cacheSizeInformation);
+        information.addView(dataFolderInformation);
+        information.addView(sourceFolderInformation);
 
         PackageManager packageManager = getPackageManager();
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US);
         try {
             InformationView iInstall = new InformationView(context, getString(R.string.install_layout), formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).firstInstallTime), getResources().getColor(R.color.grey));
             InformationView iUpdate = new InformationView(context, getString(R.string.update_layout), formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).lastUpdateTime), getResources().getColor(R.color.grey_dark));
-            informations.addView(iInstall);
-            informations.addView(iUpdate);
+            information.addView(iInstall);
+            information.addView(iUpdate);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        /*LinearLayout information = (LinearLayout) findViewById(R.id.information);
-        TextView apkText = (TextView) findViewById(R.id.app_apk_text);
-        TextView versionText = (TextView) findViewById(R.id.app_version_text);
-        TextView sizeText = (TextView) findViewById(R.id.app_size_text);
-        TextView cacheSizeText = (TextView) findViewById(R.id.app_cache_size_text);
-        TextView dataFolderText = (TextView) findViewById(R.id.app_data_folder_text);
-        TextView installText = (TextView) findViewById(R.id.app_install_text);
-        TextView updateText = (TextView) findViewById(R.id.app_update_text);
-
-        apkText.setText(appInfo.getAPK());
-        versionText.setText(appInfo.getVersion());
-        sizeText.setText(R.string.development_layout);
-        cacheSizeText.setText(R.string.development_layout);
-        dataFolderText.setText(appInfo.getData());
-
-        if (appPreferences.getTheme().equals("1")) {
-            for (int i = 0; i < information.getChildCount(); i += 2) {
-                information.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.grey_light));
-            }
-        } else {
-            for (int i = 0; i < information.getChildCount(); i += 2) {
-                information.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.grey_dark));
-            }
-        }*/
-
         LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
-
-        Switch oneSwitch = new Switch(context);
+        Switch hideSwitch = new Switch(context);
         if (appInfo.getHidden()) {
-            oneSwitch.setChecked(true);
+            hideSwitch.setChecked(true);
         }
-        oneSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        hideSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 ActionUtils.hide(context, appInfo);
             }
         });
-        Switch twoSwitch = new Switch(context);
+        Switch disableSwitch = new Switch(context);
         if (appInfo.getDisabled()) {
-            twoSwitch.setChecked(true);
+            disableSwitch.setChecked(true);
         }
-        twoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        disableSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 ActionUtils.disable(context, appInfo);
             }
         });
-        Switch redSwitch = new Switch(context);
+        Switch systemSwitch = new Switch(context);
         if (appInfo.getSystem()) {
-            redSwitch.setChecked(true);
+            systemSwitch.setChecked(true);
         }
-        redSwitch.setClickable(false);
-        redSwitch.setAlpha(0.5f);
-        redSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        systemSwitch.setClickable(false);
+        systemSwitch.setAlpha(0.5f);
+        systemSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             }
         });
-        ButtonSwitchView hide = new ButtonSwitchView(context, getResources().getString(R.string.action_hide), null, oneSwitch);
-        ButtonSwitchView disable = new ButtonSwitchView(context, getResources().getString(R.string.action_disable), null, twoSwitch);
-        ButtonSwitchView system = new ButtonSwitchView(context, getResources().getString(R.string.action_system), null, redSwitch);
+        ButtonSwitchView hide = new ButtonSwitchView(context, getResources().getString(R.string.action_hide), null, hideSwitch);
+        ButtonSwitchView disable = new ButtonSwitchView(context, getResources().getString(R.string.action_disable), null, disableSwitch);
+        ButtonSwitchView system = new ButtonSwitchView(context, getResources().getString(R.string.action_system), null, systemSwitch);
         buttons.addView(hide);
         buttons.addView(disable);
         buttons.addView(system);
