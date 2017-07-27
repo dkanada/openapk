@@ -18,7 +18,7 @@
     <color name="red">#DE6262</color>
     <color name="orange">#FF7043</color>
     <color name="grey">#616161</color>
-    <color name="grey_light">#EEEEEE</color>
+    <color name="grey_light">#BDBDBD</color>
     <color name="grey_dark">#424242</color>
 
     <!-- MaterialDrawer text and item colors -->

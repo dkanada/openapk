@@ -5,13 +5,13 @@ import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
+import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 
 public class ButtonSwitchView extends ConstraintLayout {
-    public ButtonSwitchView(Context context, String title, String summary, Switch mSwitch) {
+    public ButtonSwitchView(Context context, String title, String summary, View object) {
         super(context);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -19,15 +19,22 @@ public class ButtonSwitchView extends ConstraintLayout {
         addView(view);
 
         LinearLayout container = (LinearLayout) findViewById(R.id.container);
+        container.addView(object);
+
         TextView titleView = (TextView) view.findViewById(R.id.title);
         TextView summaryView = (TextView) view.findViewById(R.id.summary);
-
-        container.addView(mSwitch);
+        titleView.setText(title);
         if (summary == null) {
             summaryView.setVisibility(GONE);
         } else {
             summaryView.setText(summary);
         }
-        titleView.setText(title);
+
+        View divider = findViewById(R.id.divider);
+        if (App.getAppPreferences().getTheme().equals("1")) {
+            divider.setBackgroundColor(getResources().getColor(R.color.grey_light));
+        } else {
+            divider.setBackgroundColor(getResources().getColor(R.color.grey_dark));
+        }
     }
 }

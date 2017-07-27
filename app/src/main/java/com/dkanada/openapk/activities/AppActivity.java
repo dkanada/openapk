@@ -9,8 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -100,6 +98,14 @@ public class AppActivity extends ThemeActivity {
         ImageView share = (ImageView) findViewById(R.id.share);
         ImageView settings = (ImageView) findViewById(R.id.settings);
 
+        if (App.getAppPreferences().getTheme().equals("1")) {
+            open.setColorFilter(getResources().getColor(R.color.grey));
+            extract.setColorFilter(getResources().getColor(R.color.grey));
+            uninstall.setColorFilter(getResources().getColor(R.color.grey));
+            share.setColorFilter(getResources().getColor(R.color.grey));
+            settings.setColorFilter(getResources().getColor(R.color.grey));
+        }
+
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,26 +145,24 @@ public class AppActivity extends ThemeActivity {
         });
 
         LinearLayout information = (LinearLayout) findViewById(R.id.information);
-        InformationView packageInformation = new InformationView(context, getString(R.string.package_layout), appInfo.getAPK(), getResources().getColor(R.color.grey));
-        InformationView versionInformation = new InformationView(context, getString(R.string.version_layout), appInfo.getVersion(), getResources().getColor(R.color.grey_dark));
-        InformationView appSizeInformation = new InformationView(context, getString(R.string.size_layout), getString(R.string.development_layout), getResources().getColor(R.color.grey));
-        InformationView cacheSizeInformation = new InformationView(context, getString(R.string.cache_size_layout), getString(R.string.development_layout), getResources().getColor(R.color.grey_dark));
-        InformationView dataFolderInformation = new InformationView(context, getString(R.string.data_layout), appInfo.getData(), getResources().getColor(R.color.grey));
-        InformationView sourceFolderInformation = new InformationView(context, getString(R.string.source_layout), appInfo.getSource(), getResources().getColor(R.color.grey_dark));
+        InformationView packageInformation = new InformationView(context, getString(R.string.package_layout), appInfo.getAPK(), true);
+        InformationView versionInformation = new InformationView(context, getString(R.string.version_layout), appInfo.getVersion(), false);
+        InformationView sizeInformation = new InformationView(context, getString(R.string.size_layout), getString(R.string.development_layout), true);
+        InformationView dataFolderInformation = new InformationView(context, getString(R.string.data_layout), appInfo.getData(), false);
+        InformationView sourceFolderInformation = new InformationView(context, getString(R.string.source_layout), appInfo.getSource(), true);
         information.addView(packageInformation);
         information.addView(versionInformation);
-        information.addView(appSizeInformation);
-        information.addView(cacheSizeInformation);
+        information.addView(sizeInformation);
         information.addView(dataFolderInformation);
         information.addView(sourceFolderInformation);
 
         PackageManager packageManager = getPackageManager();
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US);
         try {
-            InformationView iInstall = new InformationView(context, getString(R.string.install_layout), formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).firstInstallTime), getResources().getColor(R.color.grey));
-            InformationView iUpdate = new InformationView(context, getString(R.string.update_layout), formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).lastUpdateTime), getResources().getColor(R.color.grey_dark));
-            information.addView(iInstall);
-            information.addView(iUpdate);
+            InformationView installInformation = new InformationView(context, getString(R.string.install_layout), formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).firstInstallTime), false);
+            InformationView updateInformation = new InformationView(context, getString(R.string.update_layout), formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).lastUpdateTime),  true);
+            information.addView(installInformation);
+            information.addView(updateInformation);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -220,7 +224,6 @@ public class AppActivity extends ThemeActivity {
                 new ClearDataAsync(context, dialog, appInfo).execute();
             }
         });
-
         buttons.addView(removeCache);
         buttons.addView(clearData);
     }

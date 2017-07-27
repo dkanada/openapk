@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 
 public class ButtonView extends RelativeLayout {
@@ -19,13 +20,18 @@ public class ButtonView extends RelativeLayout {
 
         TextView titleView = (TextView) view.findViewById(R.id.title);
         TextView summaryView = (TextView) view.findViewById(R.id.summary);
-
+        titleView.setText(title);
         if (summary == null) {
             summaryView.setVisibility(GONE);
         } else {
             summaryView.setText(summary);
         }
 
-        titleView.setText(title);
+        View divider = findViewById(R.id.divider);
+        if (App.getAppPreferences().getTheme().equals("1")) {
+            divider.setBackgroundColor(getResources().getColor(R.color.grey_light));
+        } else {
+            divider.setBackgroundColor(getResources().getColor(R.color.grey_dark));
+        }
     }
 }

@@ -72,7 +72,7 @@
     <!-- layouts -->
     <string name="package_layout">Package</string>
     <string name="version_layout">Version</string>
-    <string name="size_layout">App Size</string>
+    <string name="size_layout">Size</string>
     <string name="cache_size_layout">Cache Size</string>
     <string name="data_layout">Data</string>
     <string name="install_layout">First Installed</string>
