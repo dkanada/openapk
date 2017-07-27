@@ -1,3 +1,17 @@
+### 1.1.4
+###### Released: July 26, 2017
+* add button to go to app settings
+* changes to the app activity for new features
+* speed up initial start and database refresh
+* add romanian translation
+* fix material dialogs in dark theme
+
+### 1.1.4
+###### Released: June 7, 2017
+* add scroll view in app activity for smaller devices
+* add material color picker in preferences
+* remove some async classes
+
 ### 1.1.3
 ###### Released: May 5, 2017
 * optimize some database queries
