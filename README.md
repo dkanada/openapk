@@ -5,6 +5,9 @@
 
 This is a fork of MLManager 1.X made by Javier Santos, which is now unmaintained. If you have any ideas or feature requests add them to the issues page. Pull requests are welcome and a materialized app icon would be great from someone who knows how to create svg files.
 
+<a href="https://f-droid.org/packages/com.dkanada.openapk/" target="_blank">
+<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="90"/></a>
+
 ## Features
 * Extract installed or system apps and save them locally.
 * Organize your applications and mark them as favorites.
