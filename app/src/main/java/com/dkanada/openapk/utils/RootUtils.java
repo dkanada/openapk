@@ -173,16 +173,20 @@ public class RootUtils {
     }
 
     public static long getFolderSizeInMB(String directory) {
-        File f = new File(directory);
-        long size = 0;
-        if (f.isDirectory() && f.listFiles() != null) {
-            for (File file : f.listFiles()) {
-                size += getFolderSizeInMB(file.getAbsolutePath());
+        File dir = new File(directory);
+        if (dir.exists()) {
+            long result = 0;
+            File[] fileList = dir.listFiles();
+            for(int i = 0; i < fileList.length; i++) {
+                if(fileList[i].isDirectory()) {
+                    result += getFolderSizeInMB(fileList[i].toString());
+                } else {
+                    result += fileList[i].length();
+                }
             }
-        } else {
-            size = f.length() / 1024 / 2024;
+            return result;
         }
-        return size;
+        return 0;
     }
 
     private static boolean canExecuteCommand(String command) {
