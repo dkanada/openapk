@@ -70,15 +70,15 @@ public class AppUtils {
         AppPreferences appPreferences = App.getAppPreferences();
         switch (appPreferences.getFilename()) {
             case "0":
-                return appInfo.getAPK() + "-" + appInfo.getVersion();
+                return appInfo.getAPK() + "-" + appInfo.getVersion() + ".apk";
             case "1":
-                return appInfo.getName() + "-" + appInfo.getVersion();
+                return appInfo.getName() + "-" + appInfo.getVersion() + ".apk";
             case "2":
-                return appInfo.getAPK();
+                return appInfo.getAPK() + ".apk";
             case "3":
-                return appInfo.getName();
+                return appInfo.getName() + ".apk";
             default:
-                return appInfo.getAPK();
+                return appInfo.getAPK() + ".apk";
         }
     }
 
