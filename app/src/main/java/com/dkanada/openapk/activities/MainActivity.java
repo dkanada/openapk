@@ -3,6 +3,7 @@ package com.dkanada.openapk.activities;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -20,13 +21,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.dkanada.openapk.utils.AppDbUtils;
-import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.adapters.AppAdapter;
@@ -36,7 +36,6 @@ import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
 import com.mikepenz.materialdrawer.Drawer;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -46,10 +45,10 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
 
     // settings
     private AppPreferences appPreferences;
-    private AppAdapter appAdapter;
+    private PackageManager packageManager;
+    private AppAdapter appInstalledAdapter;
     private AppAdapter appSystemAdapter;
     private AppAdapter appFavoriteAdapter;
-    private AppAdapter appHiddenAdapter;
     private AppAdapter appDisabledAdapter;
 
     // configuration variables
@@ -67,11 +66,13 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        appPreferences = App.getAppPreferences();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.activity = this;
         this.context = this;
+
+        appPreferences = App.getAppPreferences();
+        packageManager = getPackageManager();
 
         setInitialConfiguration();
         AppUtils.checkPermissions(activity);
@@ -89,31 +90,29 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-        drawer = InterfaceUtils.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
+        drawer = InterfaceUtils.setNavigationDrawer((Activity) context, context, toolbar, recyclerView, appInstalledAdapter, appSystemAdapter, appFavoriteAdapter, appDisabledAdapter);
+
+        // might be useful in the future
+        if (!appPreferences.getInitialSetup()) {
+            appPreferences.setInitialSetup(true);
+        }
 
         refresh.setColorSchemeColors(appPreferences.getPrimaryColor());
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refresh.setRefreshing(true);
-                new updateInstalledApps().execute();
+                new getInstalledApps().execute();
             }
         });
+
         refresh.post(new Runnable() {
             @Override
             public void run() {
                 refresh.setRefreshing(true);
             }
         });
-
-        // getInitialSetup is currently redundant but might be useful in the future
-        if (!appPreferences.getInitialSetup()) {
-            appPreferences.setInitialSetup(true);
-            new updateInstalledApps().execute();
-        } else {
-            new getInstalledApps().execute();
-            new updateInstalledApps().execute();
-        }
+        new getInstalledApps().execute();
     }
 
     private void setInitialConfiguration() {
@@ -123,7 +122,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().setStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColor(), 0.8));
+            getWindow().setStatusBarColor(InterfaceUtils.dark(appPreferences.getPrimaryColor(), 0.8));
             toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
             if (appPreferences.getNavigationColor()) {
                 getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
@@ -132,35 +131,41 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     }
 
     class getInstalledApps extends AsyncTask<Void, String, Void> {
-        private List<AppInfo> appInstalledList;
-        private List<AppInfo> appSystemList;
-        private List<AppInfo> appFavoriteList;
-        private List<AppInfo> appHiddenList;
-        private List<AppInfo> appDisabledList;
+        private List<PackageInfo> appInstalledList;
+        private List<PackageInfo> appSystemList;
+        private List<PackageInfo> appFavoriteList;
+        private List<PackageInfo> appDisabledList;
 
         @Override
         protected Void doInBackground(Void... params) {
-            AppDbUtils db = new AppDbUtils(context);
+            List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
+            for (PackageInfo packageInfo : packages) {
+                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 1) {
+                    appSystemList.add(packageInfo);
+                } else if (!packageInfo.applicationInfo.enabled) {
+                    appDisabledList.add(packageInfo);
+                } else {
+                    appInstalledList.add(packageInfo);
+                }
+            }
 
-            appInstalledList = sortAdapter(db.getAppList(context, 0));
-            appSystemList = sortAdapter(db.getAppList(context, 1));
-            appFavoriteList = sortAdapter(db.getAppList(context, 2));
-            appHiddenList = sortAdapter(db.getAppList(context, 3));
-            appDisabledList = sortAdapter(db.getAppList(context, 4));
+            appInstalledList = sortAdapter(appInstalledList);
+            appSystemList = sortAdapter(appSystemList);
+            appFavoriteList = sortAdapter(appFavoriteList);
+            appDisabledList = sortAdapter(appDisabledList);
 
-            appAdapter = new AppAdapter(appInstalledList, context);
-            appSystemAdapter = new AppAdapter(appSystemList, context);
-            appFavoriteAdapter = new AppAdapter(appFavoriteList, context);
-            appHiddenAdapter = new AppAdapter(appHiddenList, context);
-            appDisabledAdapter = new AppAdapter(appDisabledList, context);
+            appInstalledAdapter = new AppAdapter(context, appInstalledList);
+            appSystemAdapter = new AppAdapter(context, appSystemList);
+            appFavoriteAdapter = new AppAdapter(context, appFavoriteList);
+            appDisabledAdapter = new AppAdapter(context, appDisabledList);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             switch (App.getCurrentAdapter()) {
-                default:
-                    recyclerView.swapAdapter(appAdapter, false);
+                case 0:
+                    recyclerView.swapAdapter(appInstalledAdapter, false);
                     InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_installed_apps));
                     break;
                 case 1:
@@ -172,93 +177,60 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                     InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_favorite_apps));
                     break;
                 case 3:
-                    recyclerView.swapAdapter(appHiddenAdapter, false);
-                    InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_hidden_apps));
-                    break;
-                case 4:
                     recyclerView.swapAdapter(appDisabledAdapter, false);
                     InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_disabled_apps));
                     break;
+                default:
+                    recyclerView.swapAdapter(appInstalledAdapter, false);
+                    InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_installed_apps));
+                    break;
             }
-            drawer = InterfaceUtils.setNavigationDrawer((Activity) context, context, toolbar, appAdapter, appSystemAdapter, appFavoriteAdapter, appHiddenAdapter, appDisabledAdapter, recyclerView);
+            drawer = InterfaceUtils.setNavigationDrawer((Activity) context, context, toolbar, recyclerView, appInstalledAdapter, appSystemAdapter, appFavoriteAdapter, appDisabledAdapter);
             super.onPostExecute(aVoid);
             refresh.setRefreshing(false);
         }
     }
 
-    class updateInstalledApps extends AsyncTask<Void, String, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            AppDbUtils db = new AppDbUtils(context);
-            db.updateDatabase(context);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            new getInstalledApps().execute();
-        }
-    }
-
-    public List<AppInfo> sortAdapter(List<AppInfo> appList) {
-        final PackageManager packageManager = getPackageManager();
+    public List<PackageInfo> sortAdapter(List<PackageInfo> list) {
         switch (appPreferences.getSortMode()) {
-            default:
+            case "0":
                 // compare by name
-                Collections.sort(appList, new Comparator<AppInfo>() {
+                Collections.sort(list, new Comparator<PackageInfo>() {
                     @Override
-                    public int compare(AppInfo appOne, AppInfo appTwo) {
-                        return appOne.getName().toLowerCase().compareTo(appTwo.getName().toLowerCase());
+                    public int compare(PackageInfo one, PackageInfo two) {
+                        return App.getPackageName(one).compareTo(App.getPackageName(two));
                     }
                 });
                 break;
             case "1":
-                // compare by size
-                // TODO fix this
-                Collections.sort(appList, new Comparator<AppInfo>() {
+                // compare by install date
+                Collections.sort(list, new Comparator<PackageInfo>() {
                     @Override
-                    public int compare(AppInfo appOne, AppInfo appTwo) {
-                        Long size1 = new File(appOne.getData()).length();
-                        Long size2 = new File(appTwo.getData()).length();
-                        return size2.compareTo(size1);
+                    public int compare(PackageInfo one, PackageInfo two) {
+                        return Long.toString(two.firstInstallTime).compareTo(Long.toString(one.firstInstallTime));
                     }
                 });
                 break;
             case "2":
-                // compare by installation date
-                Collections.sort(appList, new Comparator<AppInfo>() {
+                // compare by last update
+                Collections.sort(list, new Comparator<PackageInfo>() {
                     @Override
-                    public int compare(AppInfo appOne, AppInfo appTwo) {
-                        try {
-                            PackageInfo infoOne = packageManager.getPackageInfo(appOne.getAPK(), 0);
-                            PackageInfo infoTwo = packageManager.getPackageInfo(appTwo.getAPK(), 0);
-                            return Long.toString(infoTwo.firstInstallTime).compareTo(Long.toString(infoOne.firstInstallTime));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        return 1;
+                    public int compare(PackageInfo one, PackageInfo two) {
+                        return Long.toString(two.lastUpdateTime).compareTo(Long.toString(one.lastUpdateTime));
                     }
                 });
                 break;
-            case "3":
-                // compare by last update
-                Collections.sort(appList, new Comparator<AppInfo>() {
+            default:
+                // compare by name
+                Collections.sort(list, new Comparator<PackageInfo>() {
                     @Override
-                    public int compare(AppInfo appOne, AppInfo appTwo) {
-                        try {
-                            PackageInfo infoOne = packageManager.getPackageInfo(appOne.getAPK(), 0);
-                            PackageInfo infoTwo = packageManager.getPackageInfo(appTwo.getAPK(), 0);
-                            return Long.toString(infoTwo.lastUpdateTime).compareTo(Long.toString(infoOne.lastUpdateTime));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        return 1;
+                    public int compare(PackageInfo one, PackageInfo two) {
+                        return App.getPackageName(one).compareTo(App.getPackageName(two));
                     }
                 });
                 break;
         }
-        return appList;
+        return list;
     }
 
     @Override
@@ -290,9 +262,10 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         inflater.inflate(R.menu.menu_main, menu);
 
         searchItem = menu.findItem(R.id.action_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
         return true;

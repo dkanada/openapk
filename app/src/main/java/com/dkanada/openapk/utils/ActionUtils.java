@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.Settings;
 
+import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.models.AppInfo;
 
@@ -30,14 +31,14 @@ public class ActionUtils {
             DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_extract_fail), context.getResources().getString(R.string.dialog_extract_fail_description));
             return false;
         }
-        DialogUtils.showSnackBar(activity, String.format(context.getResources().getString(R.string.dialog_extract_success_description), appInfo.getName(), AppUtils.getAPKFilename(appInfo)), context.getResources().getString(R.string.button_undo), new File(AppUtils.getCustomAppFolder() + AppUtils.getAPKFilename(appInfo)), 1).show();
+        DialogUtils.showSnackBar(activity, String.format(context.getResources().getString(R.string.dialog_extract_success_description), appInfo.getName(), AppUtils.getAPKFilename(appInfo)), context.getResources().getString(R.string.button_undo), new File(App.getAppPreferences().getCustomPath() + AppUtils.getAPKFilename(appInfo)), 1).show();
         return true;
     }
 
     public static boolean uninstall(Context context, AppInfo appInfo) {
         Activity activity = (Activity) context;
-        Boolean status = RootUtils.uninstallWithRootPermission(appInfo.getAPK());
-        if (!AppUtils.checkPermissions(activity) || !RootUtils.isRooted() || !status) {
+        Boolean status = RootUtils.uninstallRoot(appInfo.getAPK());
+        if (!AppUtils.checkPermissions(activity) || !RootUtils.isRoot() || !status) {
             DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error), null, null, 0);
             return false;
         }
@@ -64,8 +65,8 @@ public class ActionUtils {
     public static boolean hide(Context context, AppInfo appInfo) {
         Activity activity = (Activity) context;
         AppDbUtils appDbUtils = new AppDbUtils(context);
-        boolean status = RootUtils.disableWithRootPermission(appInfo.getAPK(), appDbUtils.checkAppInfo(appInfo, 3));
-        if (!AppUtils.checkPermissions(activity) || !RootUtils.isRooted() || !status) {
+        boolean status = RootUtils.disable(appInfo.getAPK(), appDbUtils.checkAppInfo(appInfo, 3));
+        if (!AppUtils.checkPermissions(activity) || !RootUtils.isRoot() || !status) {
             DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error), null, null, 0);
             return false;
         }
@@ -83,8 +84,8 @@ public class ActionUtils {
     public static boolean disable(Context context, AppInfo appInfo) {
         Activity activity = (Activity) context;
         AppDbUtils appDbUtils = new AppDbUtils(context);
-        Boolean status = RootUtils.disableWithRootPermission(appInfo.getAPK(), appDbUtils.checkAppInfo(appInfo, 4));
-        if (!AppUtils.checkPermissions(activity) || !RootUtils.isRooted() || !status) {
+        Boolean status = RootUtils.disable(appInfo.getAPK(), appDbUtils.checkAppInfo(appInfo, 4));
+        if (!AppUtils.checkPermissions(activity) || !RootUtils.isRoot() || !status) {
             DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error), null, null, 0);
             return false;
         }

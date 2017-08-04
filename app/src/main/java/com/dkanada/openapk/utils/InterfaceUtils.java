@@ -3,15 +3,15 @@ package com.dkanada.openapk.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.activities.AboutActivity;
@@ -30,7 +30,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 public class InterfaceUtils {
 
-    public static int darker(int color, double factor) {
+    public static int dark(int color, double factor) {
         int a = Color.alpha(color);
         int r = Color.red(color);
         int g = Color.green(color);
@@ -38,12 +38,11 @@ public class InterfaceUtils {
         return Color.argb(a, Math.max((int) (r * factor), 0), Math.max((int) (g * factor), 0), Math.max((int) (b * factor), 0));
     }
 
-    // all the code for the navigation drawer
-    public static Drawer setNavigationDrawer(final Activity activity, final Context context, Toolbar toolbar, final AppAdapter appAdapter, final AppAdapter appSystemAdapter, final AppAdapter appFavoriteAdapter, final AppAdapter appHiddenAdapter, final AppAdapter appDisabledAdapter, final RecyclerView recyclerView) {
+    public static Drawer setNavigationDrawer(final Activity activity, final Context context, Toolbar toolbar, final RecyclerView recyclerView, final AppAdapter appAdapter, final AppAdapter appSystemAdapter, final AppAdapter appFavoriteAdapter, final AppAdapter appDisabledAdapter) {
         final String loadingLabel = "0";
         int header;
         AppPreferences appPreferences = App.getAppPreferences();
-        String apps, systemApps, favoriteApps, hiddenApps, disabledApps;
+        String apps, systemApps, favoriteApps, disabledApps;
 
         if (appAdapter != null) {
             apps = Integer.toString(appAdapter.getItemCount());
@@ -59,11 +58,6 @@ public class InterfaceUtils {
             favoriteApps = Integer.toString(appFavoriteAdapter.getItemCount());
         } else {
             favoriteApps = loadingLabel;
-        }
-        if (appHiddenAdapter != null) {
-            hiddenApps = Integer.toString(appHiddenAdapter.getItemCount());
-        } else {
-            hiddenApps = loadingLabel;
         }
         if (appDisabledAdapter != null) {
             disabledApps = Integer.toString(appDisabledAdapter.getItemCount());
@@ -93,13 +87,12 @@ public class InterfaceUtils {
         drawerBuilder.withActivity(activity);
         drawerBuilder.withToolbar(toolbar);
         drawerBuilder.withAccountHeader(headerResult);
-        drawerBuilder.withStatusBarColor(InterfaceUtils.darker(appPreferences.getPrimaryColor(), 0.8));
+        drawerBuilder.withStatusBarColor(InterfaceUtils.dark(appPreferences.getPrimaryColor(), 0.8));
 
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_installed_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(apps).withBadgeStyle(badgeStyle).withIdentifier(1),
                 new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withBadge(systemApps).withBadgeStyle(badgeStyle).withIdentifier(2),
                 new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_favorite_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(3),
-                new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_visibility_off).withBadge(hiddenApps).withBadgeStyle(badgeStyle).withIdentifier(4),
                 new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_disabled_apps)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withBadge(disabledApps).withBadgeStyle(badgeStyle).withIdentifier(5),
                 new DividerDrawerItem(),
                 new PrimaryDrawerItem().withName(context.getResources().getString(R.string.action_settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(6),
@@ -125,13 +118,8 @@ public class InterfaceUtils {
                         setToolbarTitle(activity, context.getResources().getString(R.string.action_favorite_apps));
                         break;
                     case 4:
-                        recyclerView.setAdapter(appHiddenAdapter);
-                        App.setCurrentAdapter(3);
-                        setToolbarTitle(activity, context.getResources().getString(R.string.action_hidden_apps));
-                        break;
-                    case 5:
                         recyclerView.setAdapter(appDisabledAdapter);
-                        App.setCurrentAdapter(4);
+                        App.setCurrentAdapter(3);
                         setToolbarTitle(activity, context.getResources().getString(R.string.action_disabled_apps));
                         break;
                     case 6:
@@ -161,32 +149,6 @@ public class InterfaceUtils {
             menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star));
         } else {
             menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star_border));
-        }
-    }
-
-    // update the state of the hidden icon
-    public static void updateAppHiddenIcon(Context context, RelativeLayout hide, Boolean isHidden) {
-        ImageView hideIcon = (ImageView) hide.getChildAt(0);
-        TextView hideText = (TextView) hide.getChildAt(1);
-        if (isHidden) {
-            hideText.setText(context.getResources().getString(R.string.action_unhide));
-            hideIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_visibility));
-        } else {
-            hideText.setText(context.getResources().getString(R.string.action_hide));
-            hideIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_visibility_off));
-        }
-    }
-
-    // update the state of the disabled icon
-    public static void updateAppDisabledIcon(Context context, RelativeLayout disable, Boolean isDisabled) {
-        ImageView disableIcon = (ImageView) disable.getChildAt(0);
-        TextView disableText = (TextView) disable.getChildAt(1);
-        if (isDisabled) {
-            disableText.setText(context.getResources().getString(R.string.action_enable));
-            disableIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_remove_circle_outline));
-        } else {
-            disableText.setText(context.getResources().getString(R.string.action_disable));
-            disableIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_remove_circle));
         }
     }
 }

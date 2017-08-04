@@ -1,6 +1,9 @@
 package com.dkanada.openapk;
 
 import android.app.Application;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 
 import com.dkanada.openapk.utils.AppPreferences;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -9,6 +12,7 @@ import com.mikepenz.iconics.Iconics;
 public class App extends Application {
     private static AppPreferences appPreferences;
     private static int currentAdapter;
+    private static PackageManager packageManager;
 
     @Override
     public void onCreate() {
@@ -16,6 +20,7 @@ public class App extends Application {
 
         // set fields
         appPreferences = new AppPreferences(this);
+        packageManager = getPackageManager();
         currentAdapter = 0;
 
         // register custom fonts
@@ -24,6 +29,14 @@ public class App extends Application {
 
     public static AppPreferences getAppPreferences() {
         return appPreferences;
+    }
+
+    public static String getPackageName(PackageInfo packageInfo) {
+        return packageManager.getApplicationLabel(packageInfo.applicationInfo).toString();
+    }
+
+    public static Drawable getPackageIcon(PackageInfo packageInfo) {
+        return packageManager.getApplicationIcon(packageInfo.applicationInfo);
     }
 
     public static int getCurrentAdapter() {

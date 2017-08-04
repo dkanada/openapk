@@ -61,7 +61,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnOne"
+                    android:id="@+id/btnOpen"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,11 +70,10 @@
                     android:minWidth="0dp"
                     android:paddingStart="0dp"
                     android:text="@string/error_layout"
-                    android:textColor="@color/accent"
-                    android:visibility="gone" />
+                    android:textColor="@color/accent" />
 
                 <Button
-                    android:id="@+id/btnTwo"
+                    android:id="@+id/btnShare"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,21 +82,7 @@
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:text="@string/error_layout"
-                    android:textColor="@color/accent"
-                    android:visibility="gone" />
-
-                <Button
-                    android:id="@+id/btnThree"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:minHeight="0dp"
-                    android:minWidth="0dp"
-                    android:text="@string/error_layout"
-                    android:textColor="@color/accent"
-                    android:visibility="gone" />
+                    android:textColor="@color/accent" />
 
             </LinearLayout>
 

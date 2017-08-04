@@ -27,8 +27,8 @@ public class RemoveCacheAsync extends AsyncTask<Void, String, Boolean> {
     @Override
     protected Boolean doInBackground(Void... voids) {
         Boolean status = false;
-        if (AppUtils.checkPermissions(activity) && RootUtils.isRooted()) {
-            status = RootUtils.removeCacheWithRootPermission(appInfo.getData() + "/cache/**");
+        if (AppUtils.checkPermissions(activity) && RootUtils.isRoot()) {
+            status = RootUtils.removeCache(appInfo.getData() + "/cache/**");
         }
         return status;
     }
@@ -37,9 +37,9 @@ public class RemoveCacheAsync extends AsyncTask<Void, String, Boolean> {
     protected void onPostExecute(Boolean status) {
         super.onPostExecute(status);
         dialog.dismiss();
-        if (status && RootUtils.isRooted()) {
+        if (status && RootUtils.isRoot()) {
             DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_cache_success_description, appInfo.getName()), null, null, 0).show();
-        } else if (!RootUtils.isRooted()) {
+        } else if (!RootUtils.isRoot()) {
             DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
         } else {
             DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error), null, null, 0);

@@ -46,20 +46,9 @@ public class AppUtils {
         return res;
     }
 
-    // return default folder where apps will be saved
-    public static File getDefaultAppFolder() {
-        return new File(Environment.getExternalStorageDirectory() + "/OpenAPK");
-    }
-
-    // return custom folder where apps will be saved
-    public static File getCustomAppFolder() {
-        AppPreferences appPreferences = App.getAppPreferences();
-        return new File(appPreferences.getCustomPath());
-    }
-
     // create app directory
     public static void createAppDir() {
-        File appDir = getCustomAppFolder();
+        File appDir = new File(App.getAppPreferences().getCustomPath());
         if (!appDir.exists()) {
             appDir.mkdir();
         }
@@ -85,7 +74,7 @@ public class AppUtils {
     // delete all extracted apps from folder
     public static Boolean deleteAppFiles() {
         Boolean res = false;
-        File f = getCustomAppFolder();
+        File f = new File(App.getAppPreferences().getCustomPath());
         if (f.exists() && f.isDirectory()) {
             File[] files = f.listFiles();
             for (File file : files) {

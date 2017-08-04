@@ -2,6 +2,7 @@ package com.dkanada.openapk.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 
 import com.dkanada.openapk.R;
@@ -18,7 +19,7 @@ public class AppPreferences {
     private static final String KeyCustomPath = "prefCustomPath";
     private static final String KeyFilename = "prefFilename";
     private static final String KeySortMode = "prefSortMode";
-    private static final String KeyAction = "prefAction";
+    private static final String KeyExtractButton = "prefExtractButton";
     private static final String KeyTheme = "prefTheme";
     private static final String KeyPrimaryColor = "prefPrimaryColor";
     private static final String KeyAccentColor = "prefAccentColor";
@@ -37,7 +38,7 @@ public class AppPreferences {
     }
 
     public String getCustomPath() {
-        return sharedPreferences.getString(KeyCustomPath, AppUtils.getDefaultAppFolder().getPath());
+        return sharedPreferences.getString(KeyCustomPath, Environment.getExternalStorageDirectory() + "/OpenAPK");
     }
 
     public void setCustomPath(String value) {
@@ -53,8 +54,8 @@ public class AppPreferences {
         return sharedPreferences.getString(KeySortMode, "0");
     }
 
-    public Set<String> getAction() {
-        return sharedPreferences.getStringSet(KeyAction, new HashSet<>(Arrays.asList(context.getResources().getStringArray(R.array.actionDefault))));
+    public String getExtractButton() {
+        return sharedPreferences.getString(KeyExtractButton, "0");
     }
 
     public String getTheme() {

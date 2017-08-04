@@ -1,6 +1,5 @@
 package com.dkanada.openapk.utils;
 
-import android.graphics.Path;
 import android.os.Build;
 
 import com.dkanada.openapk.App;
@@ -16,7 +15,7 @@ public class RootUtils {
     private RootUtils() {
     }
 
-    public static boolean isRooted() {
+    public static boolean isRoot() {
         int rootStatus = App.getAppPreferences().getRootStatus();
         boolean rootEnabled = App.getAppPreferences().getRootEnabled();
         boolean isRooted = false;
@@ -53,7 +52,7 @@ public class RootUtils {
                 canExecuteCommand("which su");
     }
 
-    public static boolean uninstallWithRootPermission(String source) {
+    public static boolean uninstallRoot(String source) {
         boolean status = false;
         try {
             String[] command_write = new String[]{"su", "-c", "mount -o rw,remount /system"};
@@ -82,7 +81,7 @@ public class RootUtils {
         return status;
     }
 
-    public static boolean removeCacheWithRootPermission(String directory) {
+    public static boolean removeCache(String directory) {
         boolean status = false;
         try {
             String[] command = new String[]{"su", "-c", "rm -rf " + directory};
@@ -98,7 +97,7 @@ public class RootUtils {
         return status;
     }
 
-    public static boolean clearDataWithRootPermission(String apk) {
+    public static boolean clearData(String apk) {
         boolean status = false;
         try {
             String[] command = new String[]{"su", "-c", "pm clear " + apk};
@@ -114,7 +113,7 @@ public class RootUtils {
         return status;
     }
 
-    public static boolean hideWithRootPermission(String apk, Boolean hidden) {
+    public static boolean hide(String apk, Boolean hidden) {
         boolean status = false;
         try {
             String[] command;
@@ -135,7 +134,7 @@ public class RootUtils {
         return status;
     }
 
-    public static boolean disableWithRootPermission(String app, Boolean disabled) {
+    public static boolean disable(String app, Boolean disabled) {
         boolean status = false;
         try {
             String[] command;
@@ -172,14 +171,14 @@ public class RootUtils {
         return status;
     }
 
-    public static long getFolderSizeInMB(String directory) {
+    public static long getFolderSize(String directory) {
         File dir = new File(directory);
         if (dir.exists()) {
             long result = 0;
             File[] fileList = dir.listFiles();
             for(int i = 0; i < fileList.length; i++) {
                 if(fileList[i].isDirectory()) {
-                    result += getFolderSizeInMB(fileList[i].toString());
+                    result += getFolderSize(fileList[i].toString());
                 } else {
                     result += fileList[i].length();
                 }
