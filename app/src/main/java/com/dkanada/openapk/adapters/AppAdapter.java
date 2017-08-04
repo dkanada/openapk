@@ -60,8 +60,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
         final ImageView appIcon = appViewHolder.vIcon;
         final CardView cardView = appViewHolder.vCard;
 
-        btnOpen.setVisibility(View.INVISIBLE);
-        btnShare.setVisibility(View.INVISIBLE);
+        btnOpen.setBackgroundColor(App.getAppPreferences().getAccentColor());
+        btnShare.setBackgroundColor(App.getAppPreferences().getAccentColor());
 
         if (App.getAppPreferences().getTheme().equals("1")) {
             btnOpen.setBackgroundColor(context.getResources().getColor(R.color.white));
@@ -78,25 +78,13 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
                 ActionUtils.open(context, packageInfo);
             }
         });
-
-        Boolean extract = App.getAppPreferences().getExtractButton();
-        if (extract) {
-            btnShare.setText(context.getString(R.string.action_share));
-            btnShare.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ActionUtils.share(context, packageInfo);
-                }
-            });
-        } else {
-            btnShare.setText(context.getString(R.string.action_extract));
-            btnShare.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ActionUtils.extract(context, packageInfo);
-                }
-            });
-        }
+        btnShare.setText(context.getString(R.string.action_share));
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActionUtils.share(context, packageInfo);
+            }
+        });
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,8 +163,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
             vPackage = (TextView) view.findViewById(R.id.txtApk);
             vIcon = (ImageView) view.findViewById(R.id.imgIcon);
 
-            vOpen = (Button) view.findViewById(R.id.btnOne);
-            vShare = (Button) view.findViewById(R.id.btnTwo);
+            vOpen = (Button) view.findViewById(R.id.btnOpen);
+            vShare = (Button) view.findViewById(R.id.btnShare);
         }
     }
 }

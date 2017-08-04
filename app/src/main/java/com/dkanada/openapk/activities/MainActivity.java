@@ -36,6 +36,7 @@ import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
 import com.mikepenz.materialdrawer.Drawer;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -90,7 +91,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-        drawer = InterfaceUtils.setNavigationDrawer((Activity) context, context, toolbar, recyclerView, appInstalledAdapter, appSystemAdapter, appFavoriteAdapter, appDisabledAdapter);
+        drawer = InterfaceUtils.setNavigationDrawer(context, toolbar, recyclerView, false, appInstalledAdapter, appSystemAdapter, appFavoriteAdapter, appDisabledAdapter);
 
         // might be useful in the future
         if (!appPreferences.getInitialSetup()) {
@@ -131,10 +132,10 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     }
 
     class getInstalledApps extends AsyncTask<Void, String, Void> {
-        private List<PackageInfo> appInstalledList;
-        private List<PackageInfo> appSystemList;
-        private List<PackageInfo> appFavoriteList;
-        private List<PackageInfo> appDisabledList;
+        private List<PackageInfo> appInstalledList = new ArrayList<PackageInfo>();
+        private List<PackageInfo> appSystemList = new ArrayList<PackageInfo>();
+        private List<PackageInfo> appFavoriteList = new ArrayList<PackageInfo>();
+        private List<PackageInfo> appDisabledList = new ArrayList<PackageInfo>();
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -185,7 +186,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                     InterfaceUtils.setToolbarTitle(activity, getResources().getString(R.string.action_installed_apps));
                     break;
             }
-            drawer = InterfaceUtils.setNavigationDrawer((Activity) context, context, toolbar, recyclerView, appInstalledAdapter, appSystemAdapter, appFavoriteAdapter, appDisabledAdapter);
+            drawer = InterfaceUtils.setNavigationDrawer(context, toolbar, recyclerView, true, appInstalledAdapter, appSystemAdapter, appFavoriteAdapter, appDisabledAdapter);
             super.onPostExecute(aVoid);
             refresh.setRefreshing(false);
         }

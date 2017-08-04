@@ -2,6 +2,7 @@ package com.dkanada.openapk.async;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.os.AsyncTask;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -15,20 +16,20 @@ public class RemoveCacheAsync extends AsyncTask<Void, String, Boolean> {
     private Context context;
     private Activity activity;
     private MaterialDialog dialog;
-    private AppInfo appInfo;
+    private PackageInfo packageInfo;
 
-    public RemoveCacheAsync(Context context, MaterialDialog dialog, AppInfo appInfo) {
+    public RemoveCacheAsync(Context context, MaterialDialog dialog, PackageInfo packageInfo) {
         this.context = context;
         this.activity = (Activity) context;
         this.dialog = dialog;
-        this.appInfo = appInfo;
+        this.packageInfo = packageInfo;
     }
 
     @Override
     protected Boolean doInBackground(Void... voids) {
         Boolean status = false;
         if (AppUtils.checkPermissions(activity) && RootUtils.isRoot()) {
-            status = RootUtils.removeCache(appInfo.getData() + "/cache/**");
+            status = RootUtils.removeCache(packageInfo.applicationInfo.dataDir + "/cache/**");
         }
         return status;
     }
@@ -38,7 +39,7 @@ public class RemoveCacheAsync extends AsyncTask<Void, String, Boolean> {
         super.onPostExecute(status);
         dialog.dismiss();
         if (status && RootUtils.isRoot()) {
-            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_cache_success_description, appInfo.getName()), null, null, 0).show();
+            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_cache_success_description, packageInfo.packageName), null, null, 0).show();
         } else if (!RootUtils.isRoot()) {
             DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
         } else {

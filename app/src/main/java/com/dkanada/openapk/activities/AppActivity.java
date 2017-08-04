@@ -2,6 +2,8 @@ package com.dkanada.openapk.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -24,7 +26,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dkanada.openapk.utils.ActionUtils;
-import com.dkanada.openapk.utils.AppDbUtils;
 import com.dkanada.openapk.async.ClearDataAsync;
 import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.App;
@@ -41,12 +42,12 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class AppActivity extends ThemeActivity {
+    private int UNINSTALL_REQUEST_CODE = 1;
+
     private AppPreferences appPreferences;
-    private AppDbUtils appDbUtils;
     private Context context;
     private MenuItem favorite;
-    private AppInfo appInfo;
-    private int UNINSTALL_REQUEST_CODE = 1;
+    private PackageInfo packageInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +55,6 @@ public class AppActivity extends ThemeActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
         context = this;
-
-        appDbUtils = new AppDbUtils(context);
 
         getInitialConfiguration();
         setInitialConfiguration();
@@ -89,8 +88,8 @@ public class AppActivity extends ThemeActivity {
         TextView name = (TextView) findViewById(R.id.app_name);
 
         header.setBackgroundColor(appPreferences.getPrimaryColor());
-        icon.setImageDrawable(appInfo.getIcon());
-        name.setText(appInfo.getName());
+        icon.setImageDrawable(App.getPackageIcon(packageInfo));
+        name.setText(App.getPackageName(packageInfo));
 
         ImageView open = (ImageView) findViewById(R.id.open);
         ImageView extract = (ImageView) findViewById(R.id.extract);
@@ -109,23 +108,23 @@ public class AppActivity extends ThemeActivity {
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.open(context, appInfo);
+                ActionUtils.open(context, packageInfo);
             }
         });
         extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.extract(context, appInfo);
+                ActionUtils.extract(context, packageInfo);
             }
         });
         uninstall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (appInfo.getSystem()) {
-                    ActionUtils.uninstall(context, appInfo);
+                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 1) {
+                    ActionUtils.uninstall(context, packageInfo);
                 } else {
                     Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
-                    intent.setData(Uri.parse("package:" + appInfo.getAPK()));
+                    intent.setData(Uri.parse("package:" + packageInfo.packageName));
                     intent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
                     startActivityForResult(intent, UNINSTALL_REQUEST_CODE);
                 }
@@ -134,64 +133,54 @@ public class AppActivity extends ThemeActivity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.share(context, appInfo);
+                ActionUtils.share(context, packageInfo);
             }
         });
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.settings(context, appInfo);
+                ActionUtils.settings(context, packageInfo);
             }
         });
 
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US);
         LinearLayout information = (LinearLayout) findViewById(R.id.information);
-        InformationView packageInformation = new InformationView(context, getString(R.string.package_layout), appInfo.getAPK(), true);
-        InformationView versionInformation = new InformationView(context, getString(R.string.version_layout), appInfo.getVersion(), false);
+        InformationView packageInformation = new InformationView(context, getString(R.string.package_layout), packageInfo.packageName, true);
+        InformationView versionInformation = new InformationView(context, getString(R.string.version_layout), packageInfo.versionName, false);
         InformationView sizeInformation = new InformationView(context, getString(R.string.size_layout), getString(R.string.development_layout), true);
-        InformationView dataFolderInformation = new InformationView(context, getString(R.string.data_layout), appInfo.getData(), false);
-        InformationView sourceFolderInformation = new InformationView(context, getString(R.string.source_layout), appInfo.getSource(), true);
+        InformationView dataFolderInformation = new InformationView(context, getString(R.string.data_layout), packageInfo.applicationInfo.dataDir, false);
+        InformationView sourceFolderInformation = new InformationView(context, getString(R.string.source_layout), packageInfo.applicationInfo.sourceDir, true);
+        InformationView installInformation = new InformationView(context, getString(R.string.install_layout), formatter.format(packageInfo.firstInstallTime), false);
+        InformationView updateInformation = new InformationView(context, getString(R.string.update_layout), formatter.format(packageInfo.lastUpdateTime),  true);
         information.addView(packageInformation);
         information.addView(versionInformation);
         information.addView(sizeInformation);
         information.addView(dataFolderInformation);
         information.addView(sourceFolderInformation);
-
-        PackageManager packageManager = getPackageManager();
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US);
-        try {
-            InformationView installInformation = new InformationView(context, getString(R.string.install_layout), formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).firstInstallTime), false);
-            InformationView updateInformation = new InformationView(context, getString(R.string.update_layout), formatter.format(packageManager.getPackageInfo(appInfo.getAPK(), 0).lastUpdateTime),  true);
-            information.addView(installInformation);
-            information.addView(updateInformation);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        information.addView(installInformation);
+        information.addView(updateInformation);
 
         LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
         Switch hideSwitch = new Switch(context);
-        if (appInfo.getHidden()) {
-            hideSwitch.setChecked(true);
-        }
+        hideSwitch.setClickable(false);
+        hideSwitch.setAlpha(0.5f);
         hideSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ActionUtils.hide(context, appInfo);
+                ActionUtils.hide(context, packageInfo);
             }
         });
         Switch disableSwitch = new Switch(context);
-        if (appInfo.getDisabled()) {
+        if (!packageInfo.applicationInfo.enabled) {
             disableSwitch.setChecked(true);
         }
         disableSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ActionUtils.disable(context, appInfo);
+                ActionUtils.disable(context, packageInfo);
             }
         });
         Switch systemSwitch = new Switch(context);
-        if (appInfo.getSystem()) {
-            systemSwitch.setChecked(true);
-        }
         systemSwitch.setClickable(false);
         systemSwitch.setAlpha(0.5f);
         systemSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -212,7 +201,7 @@ public class AppActivity extends ThemeActivity {
                 MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
                         , getResources().getString(R.string.dialog_cache_progress)
                         , getResources().getString(R.string.dialog_cache_progress_description));
-                new RemoveCacheAsync(context, dialog, appInfo).execute();
+                new RemoveCacheAsync(context, dialog, packageInfo).execute();
             }
         });
         ButtonView clearData = new ButtonView(context, getString(R.string.action_clear_data), null, new View.OnClickListener() {
@@ -221,33 +210,11 @@ public class AppActivity extends ThemeActivity {
                 MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
                         , getResources().getString(R.string.dialog_clear_data_progress)
                         , getResources().getString(R.string.dialog_clear_data_progress_description));
-                new ClearDataAsync(context, dialog, appInfo).execute();
+                new ClearDataAsync(context, dialog, packageInfo).execute();
             }
         });
         buttons.addView(removeCache);
         buttons.addView(clearData);
-    }
-
-    protected void updateHideButton(final RelativeLayout hide) {
-        InterfaceUtils.updateAppHiddenIcon(context, hide, appDbUtils.checkAppInfo(appInfo, 3));
-        hide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActionUtils.hide(context, appInfo);
-                InterfaceUtils.updateAppHiddenIcon(context, hide, appDbUtils.checkAppInfo(appInfo, 3));
-            }
-        });
-    }
-
-    protected void updateDisableButton(final RelativeLayout disable) {
-        InterfaceUtils.updateAppDisabledIcon(context, disable, appDbUtils.checkAppInfo(appInfo, 4));
-        disable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActionUtils.disable(context, appInfo);
-                InterfaceUtils.updateAppDisabledIcon(context, disable, appDbUtils.checkAppInfo(appInfo, 4));
-            }
-        });
     }
 
     @Override
@@ -255,31 +222,24 @@ public class AppActivity extends ThemeActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == UNINSTALL_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Log.i("App", appInfo.getAPK() + "OK");
+                Log.i("App", packageInfo.packageName + "OK");
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 finish();
                 startActivity(intent);
             } else if (resultCode == RESULT_CANCELED) {
-                Log.i("App", appInfo.getAPK() + "CANCEL");
+                Log.i("App", packageInfo.packageName + "CANCEL");
             }
         }
     }
 
     private void getInitialConfiguration() {
-        String appName = getIntent().getStringExtra("app_name");
-        String appApk = getIntent().getStringExtra("app_apk");
-        String appVersion = getIntent().getStringExtra("app_version");
-        String appSource = getIntent().getStringExtra("app_source");
-        String appData = getIntent().getStringExtra("app_data");
-        Boolean appIsSystem = getIntent().getExtras().getBoolean("app_isSystem");
-        Boolean appIsFavorite = getIntent().getExtras().getBoolean("app_isFavorite");
-        Boolean appIsHidden = getIntent().getExtras().getBoolean("app_isHidden");
-        Boolean appIsDisabled = getIntent().getExtras().getBoolean("app_isDisabled");
-
-        Bitmap bitmap = getIntent().getParcelableExtra("app_icon");
-        Drawable appIcon = new BitmapDrawable(getResources(), bitmap);
-        appInfo = new AppInfo(appName, appApk, appVersion, appSource, appData, appIsSystem, appIsFavorite, appIsHidden, appIsDisabled, appIcon);
+        String packageName = getIntent().getStringExtra("package");
+        try {
+            packageInfo = getPackageManager().getPackageInfo(packageName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -296,7 +256,8 @@ public class AppActivity extends ThemeActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         favorite = menu.findItem(R.id.action_favorite);
-        InterfaceUtils.updateAppFavoriteIcon(context, favorite, appDbUtils.checkAppInfo(appInfo, 2));
+        // TODO
+        InterfaceUtils.updateAppFavoriteIcon(context, favorite, false);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -307,8 +268,9 @@ public class AppActivity extends ThemeActivity {
                 finish();
                 return true;
             case R.id.action_favorite:
-                ActionUtils.favorite(context, appInfo);
-                InterfaceUtils.updateAppFavoriteIcon(context, favorite, appDbUtils.checkAppInfo(appInfo, 2));
+                ActionUtils.favorite(context, packageInfo);
+                // TODO
+                InterfaceUtils.updateAppFavoriteIcon(context, favorite, false);
                 return true;
         }
         return super.onOptionsItemSelected(item);

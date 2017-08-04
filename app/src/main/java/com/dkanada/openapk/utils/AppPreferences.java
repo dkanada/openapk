@@ -54,10 +54,6 @@ public class AppPreferences {
         return sharedPreferences.getString(KeySortMode, "0");
     }
 
-    public String getExtractButton() {
-        return sharedPreferences.getString(KeyExtractButton, "0");
-    }
-
     public String getTheme() {
         return sharedPreferences.getString(KeyTheme, "0");
     }

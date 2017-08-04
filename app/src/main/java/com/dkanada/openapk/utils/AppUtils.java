@@ -8,6 +8,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,10 +33,10 @@ public class AppUtils {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
 
     // extract file to specified directory
-    public static Boolean extractFile(AppInfo appInfo, String directory) {
+    public static Boolean extractFile(PackageInfo packageInfo, String directory) {
         Boolean res = false;
-        File input = new File(appInfo.getSource());
-        File output = new File(directory + getAPKFilename(appInfo));
+        File input = new File(packageInfo.applicationInfo.sourceDir);
+        File output = new File(directory + getAPKFilename(packageInfo));
         createAppDir();
         try {
             FileUtils.copyFile(input, output);
@@ -55,19 +56,19 @@ public class AppUtils {
     }
 
     // get the name of the extracted app
-    public static String getAPKFilename(AppInfo appInfo) {
+    public static String getAPKFilename(PackageInfo packageInfo) {
         AppPreferences appPreferences = App.getAppPreferences();
         switch (appPreferences.getFilename()) {
             case "0":
-                return appInfo.getAPK() + "-" + appInfo.getVersion() + ".apk";
+                return packageInfo.packageName + "-" + packageInfo.versionName + ".apk";
             case "1":
-                return appInfo.getName() + "-" + appInfo.getVersion() + ".apk";
+                return App.getPackageName(packageInfo) + "-" + packageInfo.versionCode + ".apk";
             case "2":
-                return appInfo.getAPK() + ".apk";
+                return packageInfo.packageName + ".apk";
             case "3":
-                return appInfo.getName() + ".apk";
+                return App.getPackageName(packageInfo) + ".apk";
             default:
-                return appInfo.getAPK() + ".apk";
+                return packageInfo.packageName + ".apk";
         }
     }
 
@@ -88,19 +89,19 @@ public class AppUtils {
     }
 
     // open google play if installed otherwise open browser
-    public static void goToGooglePlay(Context context, String id) {
+    public static void goToGooglePlay(Context context, PackageInfo packageInfo) {
         try {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + id)));
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageInfo.packageName)));
         } catch (ActivityNotFoundException e) {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + id)));
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageInfo.packageName)));
         }
     }
 
     // save app name to clipboard
-    public static void saveClipboard(Context context, AppInfo appInfo) {
+    public static void saveClipboard(Context context, PackageInfo packageInfo) {
         ClipData clipData;
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-        clipData = ClipData.newPlainText("text", appInfo.getAPK());
+        clipData = ClipData.newPlainText("text", packageInfo.packageName);
         clipboardManager.setPrimaryClip(clipData);
     }
 
@@ -137,18 +138,15 @@ public class AppUtils {
     }
 
     // save app icon to cache folder
-    public static Boolean saveIconToCache(Context context, AppInfo appInfo) {
+    public static Boolean saveIconToCache(Context context, PackageInfo packageInfo) {
         Boolean res = false;
         try {
-            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(appInfo.getAPK(), 0);
-            File fileUri = new File(context.getCacheDir(), appInfo.getAPK());
+            File fileUri = new File(context.getCacheDir(), packageInfo.packageName);
             FileOutputStream out = new FileOutputStream(fileUri);
-            Drawable icon = context.getPackageManager().getApplicationIcon(applicationInfo);
+            Drawable icon = context.getPackageManager().getApplicationIcon(packageInfo.applicationInfo);
             BitmapDrawable iconBitmap = (BitmapDrawable) icon;
             iconBitmap.getBitmap().compress(Bitmap.CompressFormat.PNG, 100, out);
             res = true;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -157,12 +155,14 @@ public class AppUtils {
 
     // delete app icon from cache folder
     public static Boolean removeIconFromCache(Context context, AppInfo appInfo) {
+        // TODO
         File file = new File(context.getCacheDir(), appInfo.getAPK());
         return file.delete();
     }
 
     // get app icon from cache folder
     public static Drawable getIconFromCache(Context context, AppInfo appInfo) {
+        // TODO
         Drawable res;
         try {
             File fileUri = new File(context.getCacheDir(), appInfo.getAPK());
