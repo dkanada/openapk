@@ -262,7 +262,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
 
-        searchItem = menu.findItem(R.id.action_search);
+        searchItem = menu.findItem(R.id.search);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);

@@ -2,57 +2,81 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
     <PreferenceCategory android:title="@string/settings_title_applications">
+
         <Preference
             android:key="prefCustomPath"
             android:title="@string/settings_custom_path" />
+
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/filenameEntries"
             android:entryValues="@array/filenameValues"
             android:key="prefFilename"
             android:title="@string/settings_custom_filename" />
+
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/sortEntries"
             android:entryValues="@array/sortValues"
             android:key="prefSortMode"
             android:title="@string/settings_sort_mode" />
-        <MultiSelectListPreference
-            android:defaultValue="@array/actionDefault"
-            android:entries="@array/actionEntries"
-            android:entryValues="@array/actionValues"
-            android:key="prefAction"
-            android:summary="@string/settings_action_description"
-            android:title="@string/settings_action" />
+
     </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/settings_title_colors">
+
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/themeEntries"
             android:entryValues="@array/themeValues"
             android:key="prefTheme"
             android:title="@string/settings_theme" />
+
+        <com.jaredrummler.android.colorpicker.ColorPreference
+            android:defaultValue="@color/primary"
+            android:key="prefPrimaryColor"
+            android:summary="@string/settings_primary_color_description"
+            android:title="@string/settings_primary_color"
+            app:cpv_dialogTitle="@string/settings_primary_color"
+            app:cpv_showAlphaSlider="true" />
+
+        <com.jaredrummler.android.colorpicker.ColorPreference
+            android:defaultValue="@color/accent"
+            android:key="prefAccentColor"
+            android:summary="@string/settings_accent_color_description"
+            android:title="@string/settings_accent_color"
+            app:cpv_dialogTitle="@string/settings_accent_color"
+            app:cpv_showAlphaSlider="true" />
+
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="prefNavigationColor"
             android:summary="@string/settings_navigation_color_description"
             android:title="@string/settings_navigation_color" />
+
     </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/settings_title_other">
+
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="prefDoubleTap"
             android:summary="@string/settings_double_tap_description"
             android:title="@string/settings_double_tap" />
+
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="prefRootEnabled"
             android:summary="@string/settings_root_enabled_description"
             android:title="@string/settings_root_enabled" />
+
         <Preference
             android:key="prefReset"
             android:summary="@string/settings_reset_description"
             android:title="@string/settings_reset" />
+
     </PreferenceCategory>
+
 </PreferenceScreen>

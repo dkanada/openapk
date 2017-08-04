@@ -19,7 +19,6 @@ public class AppPreferences {
     private static final String KeyCustomPath = "prefCustomPath";
     private static final String KeyFilename = "prefFilename";
     private static final String KeySortMode = "prefSortMode";
-    private static final String KeyExtractButton = "prefExtractButton";
     private static final String KeyTheme = "prefTheme";
     private static final String KeyPrimaryColor = "prefPrimaryColor";
     private static final String KeyAccentColor = "prefAccentColor";

@@ -42,7 +42,7 @@ public class ClearDataAsync extends AsyncTask<Void, String, Boolean> {
         } else if (!RootUtils.isRoot()) {
             DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
         } else {
-            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error), null, null, 0);
+            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error_description), null, null, 0);
         }
     }
 }

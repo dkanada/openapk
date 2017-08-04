@@ -10,7 +10,6 @@ import android.provider.Settings;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.models.AppInfo;
 
 import java.io.File;
 
@@ -20,7 +19,7 @@ public class ActionUtils {
         if (intent != null) {
             context.startActivity(intent);
         } else {
-            DialogUtils.showSnackBar((Activity) context, context.getResources().getString(R.string.dialog_no_activity), null, null, 0);
+            DialogUtils.showSnackBar((Activity) context, context.getResources().getString(R.string.no_activity), null, null, 0).show();
         }
         return true;
     }
@@ -29,7 +28,7 @@ public class ActionUtils {
         Activity activity = (Activity) context;
         Boolean status = AppUtils.extractFile(packageInfo, Environment.getExternalStorageDirectory() + "/OpenAPK/");
         if (!AppUtils.checkPermissions(activity) || !status) {
-            DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_extract_fail), context.getResources().getString(R.string.dialog_extract_fail_description));
+            DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_error), context.getResources().getString(R.string.dialog_error_description));
             return false;
         }
         DialogUtils.showSnackBar(activity, String.format(context.getResources().getString(R.string.dialog_extract_success_description), packageInfo.packageName, AppUtils.getAPKFilename(packageInfo)), context.getResources().getString(R.string.button_undo), new File(App.getAppPreferences().getCustomPath() + AppUtils.getAPKFilename(packageInfo)), 1).show();
@@ -40,17 +39,17 @@ public class ActionUtils {
         Activity activity = (Activity) context;
         Boolean status = RootUtils.uninstallRoot(packageInfo.applicationInfo.sourceDir);
         if (!AppUtils.checkPermissions(activity) || !RootUtils.isRoot() || !status) {
-            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error), null, null, 0);
+            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error_description), null, null, 0);
             return false;
         }
-        DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_reboot), context.getResources().getString(R.string.button_reboot), null, 2).show();
+        DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.reboot), context.getResources().getString(R.string.button_reboot), null, 2).show();
         return true;
     }
 
     public static boolean share(Context context, PackageInfo packageInfo) {
         AppUtils.extractFile(packageInfo, context.getFilesDir().toString());
         Intent shareIntent = AppUtils.getShareIntent(new File(context.getFilesDir() + AppUtils.getAPKFilename(packageInfo)));
-        context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send_to), packageInfo.packageName)));
+        context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send), packageInfo.packageName)));
         return true;
     }
 
@@ -66,10 +65,10 @@ public class ActionUtils {
         Activity activity = (Activity) context;
         boolean status = RootUtils.disable(packageInfo.packageName, packageInfo.applicationInfo.enabled);
         if (!AppUtils.checkPermissions(activity) || !RootUtils.isRoot() || !status) {
-            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error), null, null, 0);
+            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error_description), null, null, 0);
             return false;
         }
-        DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_reboot), context.getResources().getString(R.string.button_reboot), null, 2).show();
+        DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.reboot), context.getResources().getString(R.string.button_reboot), null, 2).show();
         return true;
     }
 
@@ -77,10 +76,10 @@ public class ActionUtils {
         Activity activity = (Activity) context;
         Boolean status = RootUtils.disable(packageInfo.packageName, !packageInfo.applicationInfo.enabled);
         if (!AppUtils.checkPermissions(activity) || !RootUtils.isRoot() || !status) {
-            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error), null, null, 0);
+            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error_description), null, null, 0);
             return false;
         }
-        DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_reboot), context.getResources().getString(R.string.button_reboot), null, 2).show();
+        DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.reboot), context.getResources().getString(R.string.button_reboot), null, 2).show();
         return true;
     }
 

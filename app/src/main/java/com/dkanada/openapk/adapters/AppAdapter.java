@@ -60,8 +60,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
         final ImageView appIcon = appViewHolder.vIcon;
         final CardView cardView = appViewHolder.vCard;
 
-        btnOpen.setBackgroundColor(App.getAppPreferences().getAccentColor());
-        btnShare.setBackgroundColor(App.getAppPreferences().getAccentColor());
+        btnOpen.setTextColor(App.getAppPreferences().getAccentColor());
+        btnShare.setTextColor(App.getAppPreferences().getAccentColor());
 
         if (App.getAppPreferences().getTheme().equals("1")) {
             btnOpen.setBackgroundColor(context.getResources().getColor(R.color.white));
@@ -109,7 +109,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-                final FilterResults oReturn = new FilterResults();
+                final FilterResults filterResults = new FilterResults();
                 final List<PackageInfo> results = new ArrayList<>();
                 if (appListSearch == null) {
                     appListSearch = appList;
@@ -122,10 +122,10 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
                             }
                         }
                     }
-                    oReturn.values = results;
-                    oReturn.count = results.size();
+                    filterResults.values = results;
+                    filterResults.count = results.size();
                 }
-                return oReturn;
+                return filterResults;
             }
 
             @Override

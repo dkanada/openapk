@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:lines="2"
-                android:text="@string/search_noresults" />
+                android:text="@string/search_empty" />
 
         </LinearLayout>
 

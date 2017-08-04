@@ -19,25 +19,19 @@
     <string name="action_remove_cache">Șterge cache-ul</string>
     <string name="action_clear_data">Despre</string>
     <string name="action_hide">Ascunde</string>
-    <string name="action_unhide">Arată</string>
     <string name="action_disable">Dezactivează</string>
-    <string name="action_enable">Activează</string>
 
-    <string name="send_to">Trimite \"%s\" folosind</string>
+    <string name="send">Trimite \"%s\" folosind</string>
     <string name="deleting">Ștergere...</string>
     <string name="deleting_done">Fișiere șterse.</string>
     <string name="deleting_error">S-a produs o eroare în timpul ștergerii fișierelor.</string>
     <string name="search">Caută</string>
     <string name="search_hint">Caută după nume...</string>
-    <string name="search_noresults">Niciun rezultat nu a fost găsit la căutarea dvs.</string>
+    <string name="search_empty">Niciun rezultat nu a fost găsit la căutarea dvs.</string>
 
     <!-- dialogs -->
-    <string name="dialog_extract_progress">Se salvează %s...</string>
-    <string name="dialog_extract_progress_description">Se salvează APK-ul în folderul specificat.</string>
     <string name="dialog_extract_success">%s salvat</string>
     <string name="dialog_extract_success_description">%1$s a fost salvat în folderul specificat cu numele: %2$s.</string>
-    <string name="dialog_extract_fail">Extragere nereușită</string>
-    <string name="dialog_extract_fail_description">Nu se poate extrage acest APK.</string>
     <string name="dialog_uninstall_progress">Se dezinstalează %s...</string>
     <string name="dialog_uninstall_progress_description">Se dezinstalează această aplicație. Vă rugăm așteptați.</string>
     <string name="dialog_hide_progress">Se actualizează starea ascunderii...</string>
@@ -56,9 +50,9 @@
     <string name="dialog_permissions_description">Trebuie să acceptați permisiunile pentru a extrage și distribui APK-uri, șterge cache-ul și elimina datele aplicației.</string>
     <string name="dialog_root_required">Root este necesar</string>
     <string name="dialog_root_required_description">Dispozitivul dvs. trebuie să fie rootat pentru ca această funcție să meargă și funcțiile root să fie activate în setări.</string>
-    <string name="dialog_reboot">O repornire este necesară pentru a afișa modificările. Doriți să reporniți acum?</string>
-    <string name="dialog_no_activity">Această aplicație nu deține o interfață cu utilizatorul.</string>
-    <string name="dialog_error">A apărut o eroare și acțiunea selectată nu poate fi completată.</string>
+    <string name="reboot">O repornire este necesară pentru a afișa modificările. Doriți să reporniți acum?</string>
+    <string name="no_activity">Această aplicație nu deține o interfață cu utilizatorul.</string>
+    <string name="dialog_error_description">A apărut o eroare și acțiunea selectată nu poate fi completată.</string>
 
     <!-- buttons -->
     <string name="button_reboot">Repornește</string>
@@ -66,9 +60,8 @@
 
     <!-- layouts -->
     <string name="package_layout">Pachet</string>
-    <string name="version_layout">Versiune</string>
+    <string name="version_name_layout">Versiune</string>
     <string name="size_layout">Mărime aplicație</string>
-    <string name="cache_size_layout">Mărime cache</string>
     <string name="data_layout">Folderul cu date</string>
     <string name="install_layout">Prima instalare</string>
     <string name="update_layout">Ultima actualizare</string>
@@ -82,8 +75,6 @@
     <string name="settings_custom_path">Director</string>
     <string name="settings_custom_filename">Nume fișier</string>
     <string name="settings_sort_mode">Metodă de sortare</string>
-    <string name="settings_action">Acțiuni rapide</string>
-    <string name="settings_action_description">Setează până la trei acțiuni rapide.</string>
     <string name="settings_theme">Temă</string>
     <string name="settings_primary_color">Culoarea principală</string>
     <string name="settings_primary_color_description">Setează culoarea pentru bara de unelte și bara de navigare.</string>

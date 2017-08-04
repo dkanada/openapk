@@ -21,26 +21,21 @@
     <string name="action_remove_cache">Remove Cache</string>
     <string name="action_clear_data">Clear Data</string>
     <string name="action_hide">Hide</string>
-    <string name="action_unhide">Unhide</string>
     <string name="action_disable">Disable</string>
-    <string name="action_enable">Enable</string>
     <string name="action_system">System</string>
 
-    <string name="send_to">Send \"%s\" using</string>
+    <string name="sort">Sort</string>
+    <string name="search">Search</string>
+    <string name="send">Send</string>
     <string name="deleting">Deleting...</string>
     <string name="deleting_done">Files deleted.</string>
     <string name="deleting_error">Something went wrong removing the files.</string>
-    <string name="search">Search</string>
     <string name="search_hint">Search by name...</string>
-    <string name="search_noresults">No results were found for your search.</string>
+    <string name="search_empty">No results were found for your search.</string>
 
     <!-- dialogs -->
-    <string name="dialog_extract_progress">Saving %s...</string>
-    <string name="dialog_extract_progress_description">Saving the APK into the specified folder.</string>
     <string name="dialog_extract_success">%s saved</string>
     <string name="dialog_extract_success_description">%1$s has been saved into the specified folder with name: %2$s.</string>
-    <string name="dialog_extract_fail">Extract failed</string>
-    <string name="dialog_extract_fail_description">Unable to extract this APK.</string>
     <string name="dialog_uninstall_progress">Uninstalling %s...</string>
     <string name="dialog_uninstall_progress_description">Uninstalling this app. Please wait.</string>
     <string name="dialog_hide_progress">Updating hidden status...</string>
@@ -61,9 +56,8 @@
     <string name="dialog_permissions_description">You must accept the permissions to extract and share APKs, clean the cache, and remove app data.</string>
     <string name="dialog_root_required">Root required</string>
     <string name="dialog_root_required_description">Your device must be rooted for this feature to work and root features must be enabled in the settings.</string>
-    <string name="dialog_reboot">A reboot is necessary to display the changes. Do you want to reboot now?</string>
-    <string name="dialog_no_activity">This app does not have a user interface.</string>
-    <string name="dialog_error">There was an error and the selected action cannot be completed.</string>
+    <string name="dialog_error">Error message</string>
+    <string name="dialog_error_description">There was an error and the selected action cannot be completed.</string>
 
     <!-- buttons -->
     <string name="button_reboot">Reboot</string>
@@ -71,25 +65,24 @@
 
     <!-- layouts -->
     <string name="package_layout">Package</string>
-    <string name="version_layout">Version</string>
+    <string name="version_name_layout">Version Name</string>
+    <string name="version_code_layout">Version Code</string>
     <string name="size_layout">Size</string>
-    <string name="cache_size_layout">Cache Size</string>
     <string name="data_layout">Data</string>
+    <string name="source_layout">Source</string>
     <string name="install_layout">First Installed</string>
     <string name="update_layout">Last Updated</string>
     <string name="development_layout">In Development</string>
-    <string name="source_layout">Source</string>
     <string name="error_layout">404</string>
 
     <!-- settings -->
     <string name="settings_title_applications">Applications</string>
     <string name="settings_title_colors">Colors</string>
     <string name="settings_title_other">Other</string>
+
     <string name="settings_custom_path">Directory</string>
     <string name="settings_custom_filename">Filename</string>
     <string name="settings_sort_mode">Sort method</string>
-    <string name="settings_action">Quick actions</string>
-    <string name="settings_action_description">Set up to three quick actions.</string>
     <string name="settings_theme">Theme</string>
     <string name="settings_primary_color">Primary color</string>
     <string name="settings_primary_color_description">Set the color for the toolbar and navigation bar.</string>
@@ -101,6 +94,8 @@
     <string name="settings_double_tap_description">Press the back button twice to close the app.</string>
     <string name="settings_root_enabled">Enable root features</string>
     <string name="settings_root_enabled_description">This could break your phone but it will probably be fine.</string>
+    <string name="settings_delete_files">Clear data</string>
+    <string name="settings_delete_files_description">Delete all saved packages, hidden apps, and other data.</string>
     <string name="settings_reset">Reset preferences</string>
     <string name="settings_reset_description">Reset the preferences to their default values.</string>
 
@@ -117,5 +112,7 @@
     <!-- toasts -->
     <string name="clipboard">App name copied to clipboard.</string>
     <string name="tap_exit">Tap again to close the app.</string>
+    <string name="reboot">A reboot might be necessary to display the changes. Do you want to reboot now?</string>
+    <string name="no_activity">This app does not have a user interface.</string>
 
 </resources>
