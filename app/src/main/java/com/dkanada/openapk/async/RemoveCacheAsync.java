@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.utils.AppUtils;
+import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.RootUtils;
 
@@ -27,7 +27,7 @@ public class RemoveCacheAsync extends AsyncTask<Void, String, Boolean> {
     @Override
     protected Boolean doInBackground(Void... voids) {
         Boolean status = false;
-        if (AppUtils.checkPermissions(activity) && RootUtils.isRoot()) {
+        if (OtherUtils.checkPermissions(activity) && RootUtils.isRoot()) {
             status = RootUtils.removeCache(packageInfo.applicationInfo.dataDir + "/cache/**");
         }
         return status;
@@ -38,11 +38,11 @@ public class RemoveCacheAsync extends AsyncTask<Void, String, Boolean> {
         super.onPostExecute(status);
         dialog.dismiss();
         if (status && RootUtils.isRoot()) {
-            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_cache_success_description, packageInfo.packageName), null, null, 0).show();
+            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.remove_cache_success, packageInfo.packageName));
         } else if (!RootUtils.isRoot()) {
-            DialogUtils.showTitleContent(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
+            DialogUtils.dialogMessage(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
         } else {
-            DialogUtils.showSnackBar(activity, context.getResources().getString(R.string.dialog_error_description), null, null, 0);
+            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.dialog_error_description));
         }
     }
 }

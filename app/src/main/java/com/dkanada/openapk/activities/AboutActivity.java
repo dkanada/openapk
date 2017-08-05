@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.AppUtils;
+import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
 
 public class AboutActivity extends ThemeActivity {
@@ -32,7 +32,7 @@ public class AboutActivity extends ThemeActivity {
     private void setInitialConfiguration() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.action_about);
+        getSupportActionBar().setTitle(R.string.about);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,7 +42,7 @@ public class AboutActivity extends ThemeActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().setStatusBarColor(InterfaceUtils.dark(appPreferences.getPrimaryColor(), 0.8));
+            getWindow().setStatusBarColor(OtherUtils.dark(appPreferences.getPrimaryColor(), 0.8));
             toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
             if (appPreferences.getNavigationColor()) {
                 getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
@@ -56,7 +56,7 @@ public class AboutActivity extends ThemeActivity {
         ImageView icon = (ImageView) findViewById(R.id.about_icon);
 
         header.setBackgroundColor(appPreferences.getPrimaryColor());
-        appNameVersion.setText(getResources().getString(R.string.app_name) + " " + AppUtils.getAppVersionName(getApplicationContext()));
+        appNameVersion.setText(getResources().getString(R.string.app_name) + " " + OtherUtils.getAppVersionName(getApplicationContext()));
         if (appPreferences.getTheme().equals("1")) {
             icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
         }

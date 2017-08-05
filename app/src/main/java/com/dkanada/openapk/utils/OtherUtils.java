@@ -12,11 +12,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.models.AppInfo;
@@ -29,7 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class AppUtils {
+public class OtherUtils {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
 
     // extract file to specified directory
@@ -184,5 +187,28 @@ public class AppUtils {
             res = true;
         }
         return res;
+    }
+
+    public static int dark(int color, double factor) {
+        int a = Color.alpha(color);
+        int r = Color.red(color);
+        int g = Color.green(color);
+        int b = Color.blue(color);
+        return Color.argb(a, Math.max((int) (r * factor), 0), Math.max((int) (g * factor), 0), Math.max((int) (b * factor), 0));
+    }
+
+    // set the toolbar title with any string
+    public static void setToolbarTitle(Activity activity, String title) {
+        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+        toolbar.setTitle(title);
+    }
+
+    // update the state of the favorite icon
+    public static void updateAppFavoriteIcon(Context context, MenuItem menuItem, Boolean isFavorite) {
+        if (isFavorite) {
+            menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star));
+        } else {
+            menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star_border));
+        }
     }
 }

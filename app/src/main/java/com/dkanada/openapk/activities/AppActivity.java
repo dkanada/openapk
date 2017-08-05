@@ -29,6 +29,7 @@ import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.InterfaceUtils;
+import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.views.ButtonSwitchView;
 import com.dkanada.openapk.views.ButtonView;
 import com.dkanada.openapk.views.InformationView;
@@ -69,7 +70,7 @@ public class AppActivity extends ThemeActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().setStatusBarColor(InterfaceUtils.dark(appPreferences.getPrimaryColor(), 0.8));
+            getWindow().setStatusBarColor(OtherUtils.dark(appPreferences.getPrimaryColor(), 0.8));
             toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
             if (appPreferences.getNavigationColor()) {
                 getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
@@ -141,14 +142,16 @@ public class AppActivity extends ThemeActivity {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US);
         LinearLayout information = (LinearLayout) findViewById(R.id.information);
         InformationView packageInformation = new InformationView(context, getString(R.string.package_layout), packageInfo.packageName, true);
-        InformationView versionInformation = new InformationView(context, getString(R.string.version_name_layout), packageInfo.versionName, false);
-        InformationView sizeInformation = new InformationView(context, getString(R.string.size_layout), getString(R.string.development_layout), true);
-        InformationView dataFolderInformation = new InformationView(context, getString(R.string.data_layout), packageInfo.applicationInfo.dataDir, false);
-        InformationView sourceFolderInformation = new InformationView(context, getString(R.string.source_layout), packageInfo.applicationInfo.sourceDir, true);
-        InformationView installInformation = new InformationView(context, getString(R.string.install_layout), formatter.format(packageInfo.firstInstallTime), false);
-        InformationView updateInformation = new InformationView(context, getString(R.string.update_layout), formatter.format(packageInfo.lastUpdateTime),  true);
+        InformationView versionNameInformation = new InformationView(context, getString(R.string.version_name_layout), packageInfo.versionName, false);
+        InformationView versionCodeInformation = new InformationView(context, getString(R.string.version_code_layout), Integer.toString(packageInfo.versionCode), true);
+        InformationView sizeInformation = new InformationView(context, getString(R.string.size_layout), getString(R.string.development_layout), false);
+        InformationView dataFolderInformation = new InformationView(context, getString(R.string.data_layout), packageInfo.applicationInfo.dataDir, true);
+        InformationView sourceFolderInformation = new InformationView(context, getString(R.string.source_layout), packageInfo.applicationInfo.sourceDir, false);
+        InformationView installInformation = new InformationView(context, getString(R.string.install_layout), formatter.format(packageInfo.firstInstallTime), true);
+        InformationView updateInformation = new InformationView(context, getString(R.string.update_layout), formatter.format(packageInfo.lastUpdateTime),  false);
         information.addView(packageInformation);
-        information.addView(versionInformation);
+        information.addView(versionNameInformation);
+        information.addView(versionCodeInformation);
         information.addView(sizeInformation);
         information.addView(dataFolderInformation);
         information.addView(sourceFolderInformation);
@@ -193,7 +196,7 @@ public class AppActivity extends ThemeActivity {
         ButtonView removeCache = new ButtonView(context, getString(R.string.action_remove_cache), null, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                MaterialDialog dialog = DialogUtils.dialogProgress(context
                         , getResources().getString(R.string.dialog_cache_progress)
                         , getResources().getString(R.string.dialog_cache_progress_description));
                 new RemoveCacheAsync(context, dialog, packageInfo).execute();
@@ -202,7 +205,7 @@ public class AppActivity extends ThemeActivity {
         ButtonView clearData = new ButtonView(context, getString(R.string.action_clear_data), null, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MaterialDialog dialog = DialogUtils.showTitleContentWithProgress(context
+                MaterialDialog dialog = DialogUtils.dialogProgress(context
                         , getResources().getString(R.string.dialog_clear_data_progress)
                         , getResources().getString(R.string.dialog_clear_data_progress_description));
                 new ClearDataAsync(context, dialog, packageInfo).execute();
@@ -217,13 +220,12 @@ public class AppActivity extends ThemeActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == UNINSTALL_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Log.i("App", packageInfo.packageName + "OK");
+                Log.i("Package Uninstall : ", packageInfo.packageName + " : OK");
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                finish();
                 startActivity(intent);
             } else if (resultCode == RESULT_CANCELED) {
-                Log.i("App", packageInfo.packageName + "CANCEL");
+                Log.i("Package Uninstall : ", packageInfo.packageName + " : CANCEL");
             }
         }
     }
@@ -252,7 +254,7 @@ public class AppActivity extends ThemeActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         favorite = menu.findItem(R.id.action_favorite);
         // TODO
-        InterfaceUtils.updateAppFavoriteIcon(context, favorite, false);
+        OtherUtils.updateAppFavoriteIcon(context, favorite, false);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -265,7 +267,7 @@ public class AppActivity extends ThemeActivity {
             case R.id.action_favorite:
                 ActionUtils.favorite(context, packageInfo);
                 // TODO
-                InterfaceUtils.updateAppFavoriteIcon(context, favorite, false);
+                OtherUtils.updateAppFavoriteIcon(context, favorite, false);
                 return true;
         }
         return super.onOptionsItemSelected(item);

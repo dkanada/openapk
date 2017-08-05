@@ -6,62 +6,47 @@
     <string name="transition" translatable="false">transition</string>
 
     <!-- labels -->
-    <string name="action_installed_apps">Installed Apps</string>
-    <string name="action_system_apps">System Apps</string>
-    <string name="action_favorite_apps">Favorite Apps</string>
-    <string name="action_hidden_apps">Hidden Apps</string>
-    <string name="action_disabled_apps">Disabled Apps</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_about">About</string>
+    <string name="installed_apps">Installed Apps</string>
+    <string name="system_apps">System Apps</string>
+    <string name="favorite_apps">Favorite Apps</string>
+    <string name="hidden_apps">Hidden Apps</string>
+    <string name="disabled_apps">Disabled Apps</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
 
     <string name="action_open">Open</string>
     <string name="action_extract">Extract</string>
     <string name="action_share">Share</string>
     <string name="action_uninstall">Uninstall</string>
-    <string name="action_remove_cache">Remove Cache</string>
-    <string name="action_clear_data">Clear Data</string>
     <string name="action_hide">Hide</string>
     <string name="action_disable">Disable</string>
     <string name="action_system">System</string>
+    <string name="action_remove_cache">Remove Cache</string>
+    <string name="action_clear_data">Clear Data</string>
 
     <string name="sort">Sort</string>
     <string name="search">Search</string>
     <string name="send">Send</string>
-    <string name="deleting">Deleting...</string>
-    <string name="deleting_done">Files deleted.</string>
-    <string name="deleting_error">Something went wrong removing the files.</string>
+    <string name="reboot">Reboot</string>
+    <string name="undo">Undo</string>
     <string name="search_hint">Search by name...</string>
     <string name="search_empty">No results were found for your search.</string>
 
     <!-- dialogs -->
-    <string name="dialog_extract_success">%s saved</string>
-    <string name="dialog_extract_success_description">%1$s has been saved into the specified folder with name: %2$s.</string>
     <string name="dialog_uninstall_progress">Uninstalling %s...</string>
     <string name="dialog_uninstall_progress_description">Uninstalling this app. Please wait.</string>
-    <string name="dialog_hide_progress">Updating hidden status...</string>
-    <string name="dialog_hide_progress_description">Please wait while the hidden status is updated.</string>
-    <string name="dialog_disable_progress">Updating disabled status...</string>
-    <string name="dialog_disable_progress_description">Please wait while the disabled status is updated.</string>
     <string name="dialog_cache_progress">Deleting cache files...</string>
     <string name="dialog_cache_progress_description">Please wait while cache files are deleted.</string>
-    <string name="dialog_cache_success">Cache deleted</string>
-    <string name="dialog_cache_success_description">The cache for %s has been removed.</string>
     <string name="dialog_clear_data_progress">Deleting data...</string>
     <string name="dialog_clear_data_progress_description">Please wait while all data for the app is deleted.</string>
-    <string name="dialog_clear_data_success">Data deleted</string>
-    <string name="dialog_clear_data_success_description">All data for %s has been removed.</string>
-    <string name="dialog_system_action">This action could possibly break your phone.</string>
-    <string name="dialog_system_action_description">Are you sure you want to perform this action?</string>
+    <string name="dialog_system_action">System action</string>
+    <string name="dialog_system_action_description">This action could possibly break your phone. Are you sure you want to continue?</string>
     <string name="dialog_permissions">Permissions required</string>
-    <string name="dialog_permissions_description">You must accept the permissions to extract and share APKs, clean the cache, and remove app data.</string>
+    <string name="dialog_permissions_description">You must accept the permissions to extract and share packages, clean the cache, and remove data.</string>
     <string name="dialog_root_required">Root required</string>
     <string name="dialog_root_required_description">Your device must be rooted for this feature to work and root features must be enabled in the settings.</string>
     <string name="dialog_error">Error message</string>
     <string name="dialog_error_description">There was an error and the selected action cannot be completed.</string>
-
-    <!-- buttons -->
-    <string name="button_reboot">Reboot</string>
-    <string name="button_undo">Undo</string>
 
     <!-- layouts -->
     <string name="package_layout">Package</string>
@@ -112,7 +97,10 @@
     <!-- toasts -->
     <string name="clipboard">App name copied to clipboard.</string>
     <string name="tap_exit">Tap again to close the app.</string>
-    <string name="reboot">A reboot might be necessary to display the changes. Do you want to reboot now?</string>
+    <string name="reboot_query">A reboot might be necessary to display the changes. Do you want to reboot now?</string>
     <string name="no_activity">This app does not have a user interface.</string>
+    <string name="extract_success">%1$s has been saved into the specified folder with name: %2$s.</string>
+    <string name="remove_cache_success">The cache for %s has been removed.</string>
+    <string name="clear_data_success">All data for %s has been removed.</string>
 
 </resources>

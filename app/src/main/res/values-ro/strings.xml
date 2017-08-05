@@ -4,13 +4,13 @@
     <string name="app_description">Manager de aplicații Android modern, simplu și customizabil.</string>
 
     <!-- labels -->
-    <string name="action_installed_apps">Aplicații instalate</string>
-    <string name="action_system_apps">Aplicații de sistem</string>
-    <string name="action_favorite_apps">Aplicații favorite</string>
-    <string name="action_hidden_apps">Aplicații ascunse</string>
-    <string name="action_disabled_apps">Aplicații dezactivate</string>
-    <string name="action_settings">Setări</string>
-    <string name="action_about">Despre</string>
+    <string name="installed_apps">Aplicații instalate</string>
+    <string name="system_apps">Aplicații de sistem</string>
+    <string name="favorite_apps">Aplicații favorite</string>
+    <string name="hidden_apps">Aplicații ascunse</string>
+    <string name="disabled_apps">Aplicații dezactivate</string>
+    <string name="settings">Setări</string>
+    <string name="about">Despre</string>
 
     <string name="action_open">Deschide</string>
     <string name="action_extract">Extrage</string>
@@ -22,41 +22,31 @@
     <string name="action_disable">Dezactivează</string>
 
     <string name="send">Trimite \"%s\" folosind</string>
-    <string name="deleting">Ștergere...</string>
-    <string name="deleting_done">Fișiere șterse.</string>
-    <string name="deleting_error">S-a produs o eroare în timpul ștergerii fișierelor.</string>
     <string name="search">Caută</string>
     <string name="search_hint">Caută după nume...</string>
     <string name="search_empty">Niciun rezultat nu a fost găsit la căutarea dvs.</string>
 
     <!-- dialogs -->
-    <string name="dialog_extract_success">%s salvat</string>
-    <string name="dialog_extract_success_description">%1$s a fost salvat în folderul specificat cu numele: %2$s.</string>
+    <string name="extract_success">%1$s a fost salvat în folderul specificat cu numele: %2$s.</string>
     <string name="dialog_uninstall_progress">Se dezinstalează %s...</string>
     <string name="dialog_uninstall_progress_description">Se dezinstalează această aplicație. Vă rugăm așteptați.</string>
-    <string name="dialog_hide_progress">Se actualizează starea ascunderii...</string>
-    <string name="dialog_hide_progress_description">Vă rugăm așteptați până se actualizează starea ascunderii.</string>
-    <string name="dialog_disable_progress">Se actualizează starea dezactivării...</string>
-    <string name="dialog_disable_progress_description">Vă rugăm așteptați până se actualizează starea dezactivării.</string>
     <string name="dialog_cache_progress">Ștergere fișiere cache...</string>
     <string name="dialog_cache_progress_description">Vă rugăm așteptați până se șterg fișierele cache.</string>
-    <string name="dialog_cache_success">Cache șters</string>
-    <string name="dialog_cache_success_description">Cache-ul pentru %s a fost eliminat.</string>
+    <string name="remove_cache_success">Cache-ul pentru %s a fost eliminat.</string>
     <string name="dialog_clear_data_progress">Ștergere date...</string>
     <string name="dialog_clear_data_progress_description">Vă rugăm așteptați până se șterg toate datele aplicației.</string>
-    <string name="dialog_clear_data_success">Date șterse</string>
-    <string name="dialog_clear_data_success_description">Toate datele pentru %s au fost eliminate.</string>
+    <string name="clear_data_success">Toate datele pentru %s au fost eliminate.</string>
     <string name="dialog_permissions">Permisiuni necesare</string>
     <string name="dialog_permissions_description">Trebuie să acceptați permisiunile pentru a extrage și distribui APK-uri, șterge cache-ul și elimina datele aplicației.</string>
     <string name="dialog_root_required">Root este necesar</string>
     <string name="dialog_root_required_description">Dispozitivul dvs. trebuie să fie rootat pentru ca această funcție să meargă și funcțiile root să fie activate în setări.</string>
-    <string name="reboot">O repornire este necesară pentru a afișa modificările. Doriți să reporniți acum?</string>
+    <string name="reboot_query">O repornire este necesară pentru a afișa modificările. Doriți să reporniți acum?</string>
     <string name="no_activity">Această aplicație nu deține o interfață cu utilizatorul.</string>
     <string name="dialog_error_description">A apărut o eroare și acțiunea selectată nu poate fi completată.</string>
 
     <!-- buttons -->
-    <string name="button_reboot">Repornește</string>
-    <string name="button_undo">Anulează</string>
+    <string name="reboot">Repornește</string>
+    <string name="undo">Anulează</string>
 
     <!-- layouts -->
     <string name="package_layout">Pachet</string>

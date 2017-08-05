@@ -13,6 +13,7 @@ import com.dkanada.openapk.R;
 import com.dkanada.openapk.fragments.SettingsFragment;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.InterfaceUtils;
+import com.dkanada.openapk.utils.OtherUtils;
 
 public class SettingsActivity extends ThemeActivity {
     private AppPreferences appPreferences;
@@ -35,7 +36,7 @@ public class SettingsActivity extends ThemeActivity {
     private void setInitialConfiguration() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.action_settings);
+        getSupportActionBar().setTitle(R.string.settings);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,7 +46,7 @@ public class SettingsActivity extends ThemeActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().setStatusBarColor(InterfaceUtils.dark(appPreferences.getPrimaryColor(), 0.8));
+            getWindow().setStatusBarColor(OtherUtils.dark(appPreferences.getPrimaryColor(), 0.8));
             toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
             if (appPreferences.getNavigationColor()) {
                 getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());

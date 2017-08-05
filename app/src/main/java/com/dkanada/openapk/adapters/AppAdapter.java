@@ -130,11 +130,6 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                if (filterResults.count > 0) {
-                    MainActivity.setResultsMessage(false);
-                } else {
-                    MainActivity.setResultsMessage(true);
-                }
                 appList = (ArrayList<PackageInfo>) filterResults.values;
                 notifyDataSetChanged();
             }

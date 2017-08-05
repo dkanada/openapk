@@ -1,7 +1,6 @@
 package com.dkanada.openapk.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -58,7 +57,7 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
         prefCustomPath.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                DialogUtils.chooseDirectory(context).show();
+                DialogUtils.dialogChooseDirectory(context);
                 return true;
             }
         });
