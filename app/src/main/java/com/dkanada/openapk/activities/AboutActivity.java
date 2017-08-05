@@ -13,7 +13,6 @@ import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.OtherUtils;
-import com.dkanada.openapk.utils.InterfaceUtils;
 
 public class AboutActivity extends ThemeActivity {
     private AppPreferences appPreferences;
@@ -28,7 +27,6 @@ public class AboutActivity extends ThemeActivity {
         setScreenElements();
     }
 
-    // TODO this is the same for every activity, maybe add to themable activity
     private void setInitialConfiguration() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

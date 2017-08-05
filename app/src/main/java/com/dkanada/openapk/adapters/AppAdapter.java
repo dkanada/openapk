@@ -5,8 +5,6 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -22,13 +20,10 @@ import android.widget.TextView;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.utils.ActionUtils;
 import com.dkanada.openapk.activities.AppActivity;
-import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.activities.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> implements Filterable {
     private List<PackageInfo> appList;

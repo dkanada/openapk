@@ -12,7 +12,6 @@ import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.fragments.SettingsFragment;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.InterfaceUtils;
 import com.dkanada.openapk.utils.OtherUtils;
 
 public class SettingsActivity extends ThemeActivity {

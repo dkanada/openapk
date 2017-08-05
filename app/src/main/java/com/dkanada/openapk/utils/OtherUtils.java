@@ -7,56 +7,21 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.dkanada.openapk.App;
-import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.R;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class OtherUtils {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
-
-    // extract file to specified directory
-    public static Boolean extractFile(PackageInfo packageInfo, String directory) {
-        Boolean res = false;
-        File input = new File(packageInfo.applicationInfo.sourceDir);
-        File output = new File(directory + getAPKFilename(packageInfo));
-        createAppDir();
-        try {
-            FileUtils.copyFile(input, output);
-            res = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
-    // create app directory
-    public static void createAppDir() {
-        File appDir = new File(App.getAppPreferences().getCustomPath());
-        if (!appDir.exists()) {
-            appDir.mkdir();
-        }
-    }
 
     // get the name of the extracted app
     public static String getAPKFilename(PackageInfo packageInfo) {
@@ -73,22 +38,6 @@ public class OtherUtils {
             default:
                 return packageInfo.packageName + ".apk";
         }
-    }
-
-    // delete all extracted apps from folder
-    public static Boolean deleteAppFiles() {
-        Boolean res = false;
-        File f = new File(App.getAppPreferences().getCustomPath());
-        if (f.exists() && f.isDirectory()) {
-            File[] files = f.listFiles();
-            for (File file : files) {
-                file.delete();
-            }
-            if (f.listFiles().length == 0) {
-                res = true;
-            }
-        }
-        return res;
     }
 
     // open google play if installed otherwise open browser
@@ -138,44 +87,6 @@ public class OtherUtils {
         intent.setType("application/vnd.android.package-archive");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
-    }
-
-    // save app icon to cache folder
-    public static Boolean saveIconToCache(Context context, PackageInfo packageInfo) {
-        Boolean res = false;
-        try {
-            File fileUri = new File(context.getCacheDir(), packageInfo.packageName);
-            FileOutputStream out = new FileOutputStream(fileUri);
-            Drawable icon = context.getPackageManager().getApplicationIcon(packageInfo.applicationInfo);
-            BitmapDrawable iconBitmap = (BitmapDrawable) icon;
-            iconBitmap.getBitmap().compress(Bitmap.CompressFormat.PNG, 100, out);
-            res = true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
-    // delete app icon from cache folder
-    public static Boolean removeIconFromCache(Context context, AppInfo appInfo) {
-        // TODO
-        File file = new File(context.getCacheDir(), appInfo.getAPK());
-        return file.delete();
-    }
-
-    // get app icon from cache folder
-    public static Drawable getIconFromCache(Context context, AppInfo appInfo) {
-        // TODO
-        Drawable res;
-        try {
-            File fileUri = new File(context.getCacheDir(), appInfo.getAPK());
-            Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath());
-            res = new BitmapDrawable(context.getResources(), bitmap);
-        } catch (Exception e) {
-            e.printStackTrace();
-            res = context.getResources().getDrawable(R.drawable.ic_android);
-        }
-        return res;
     }
 
     // check app permissions

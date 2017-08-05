@@ -34,7 +34,6 @@ import com.dkanada.openapk.adapters.AppAdapter;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.utils.DialogUtils;
-import com.dkanada.openapk.utils.InterfaceUtils;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -338,7 +337,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     @Override
     public boolean onQueryTextChange(String search) {
         if (search.isEmpty()) {
-            Filter = ((AppAdapter) recyclerView.getAdapter()).getFilter().filter("");
+            ((AppAdapter) recyclerView.getAdapter()).getFilter().filter("");
         } else {
             ((AppAdapter) recyclerView.getAdapter()).getFilter().filter(search.toLowerCase());
         }

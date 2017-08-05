@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.Settings;
 import android.view.View;
 
@@ -27,7 +26,7 @@ public class ActionUtils {
 
     public static boolean extract(Context context, final PackageInfo packageInfo) {
         Activity activity = (Activity) context;
-        Boolean status = OtherUtils.extractFile(packageInfo, Environment.getExternalStorageDirectory() + "/OpenAPK/");
+        Boolean status = FileUtils.cpExternalPartition(packageInfo.applicationInfo.sourceDir, App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(packageInfo));
         if (!OtherUtils.checkPermissions(activity) || !status) {
             DialogUtils.dialogMessage(context, context.getResources().getString(R.string.dialog_error), context.getResources().getString(R.string.dialog_error_description));
             return false;
@@ -43,22 +42,22 @@ public class ActionUtils {
 
     public static boolean uninstall(Context context, PackageInfo packageInfo) {
         Activity activity = (Activity) context;
-        Boolean status = RootUtils.uninstallRoot(packageInfo.applicationInfo.sourceDir);
-        if (!OtherUtils.checkPermissions(activity) || !RootUtils.isRoot() || !status) {
+        Boolean status = SystemUtils.rmSystemPartition(packageInfo.applicationInfo.sourceDir);
+        if (!OtherUtils.checkPermissions(activity) || !SystemUtils.isRoot() || !status) {
             DialogUtils.toastMessage(activity, context.getResources().getString(R.string.dialog_error_description));
             return false;
         }
         DialogUtils.toastAction(activity, context.getResources().getString(R.string.reboot_query), context.getResources().getString(R.string.reboot), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RootUtils.rebootSystem();
+                SystemUtils.rebootSystem();
             }
         });
         return true;
     }
 
     public static boolean share(Context context, PackageInfo packageInfo) {
-        OtherUtils.extractFile(packageInfo, context.getFilesDir().toString());
+        FileUtils.cpExternalPartition(packageInfo.applicationInfo.sourceDir, App.getAppPreferences().getCustomPath() + "/" + App.getAppPreferences().getFilename());
         Intent shareIntent = OtherUtils.getShareIntent(new File(context.getFilesDir() + OtherUtils.getAPKFilename(packageInfo)));
         context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send), packageInfo.packageName)));
         return true;
@@ -74,15 +73,15 @@ public class ActionUtils {
 
     public static boolean hide(Context context, PackageInfo packageInfo) {
         Activity activity = (Activity) context;
-        boolean status = RootUtils.hide(packageInfo.packageName, packageInfo.applicationInfo.enabled);
-        if (!OtherUtils.checkPermissions(activity) || !RootUtils.isRoot() || !status) {
+        boolean status = SystemUtils.hide(packageInfo);
+        if (!OtherUtils.checkPermissions(activity) || !SystemUtils.isRoot() || !status) {
             DialogUtils.toastMessage(activity, context.getResources().getString(R.string.dialog_error_description));
             return false;
         }
         DialogUtils.toastAction(activity, context.getResources().getString(R.string.reboot_query), context.getResources().getString(R.string.reboot), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RootUtils.rebootSystem();
+                SystemUtils.rebootSystem();
             }
         });
         return true;
@@ -90,17 +89,21 @@ public class ActionUtils {
 
     public static boolean disable(Context context, PackageInfo packageInfo) {
         Activity activity = (Activity) context;
-        Boolean status = RootUtils.disable(packageInfo.packageName, !packageInfo.applicationInfo.enabled);
-        if (!OtherUtils.checkPermissions(activity) || !RootUtils.isRoot() || !status) {
+        Boolean status = SystemUtils.disable(packageInfo);
+        if (!OtherUtils.checkPermissions(activity) || !SystemUtils.isRoot() || !status) {
             DialogUtils.toastMessage(activity, context.getResources().getString(R.string.dialog_error_description));
             return false;
         }
         DialogUtils.toastAction(activity, context.getResources().getString(R.string.reboot_query), context.getResources().getString(R.string.reboot), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RootUtils.rebootSystem();
+                SystemUtils.rebootSystem();
             }
         });
+        return true;
+    }
+
+    public static boolean system(Context context, PackageInfo packageInfo) {
         return true;
     }
 

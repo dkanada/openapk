@@ -60,7 +60,7 @@ public class DialogUtils {
     }
 
     public static void toastAction(Activity activity, String text, String buttonText, View.OnClickListener onClickListener) {
-        new SnackBar(activity, text, buttonText, onClickListener);
+        new SnackBar(activity, text, buttonText, onClickListener).show();
     }
 
     public static MaterialDialog dialogFixBackground(Context context, MaterialDialog.Builder dialog) {
