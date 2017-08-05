@@ -29,13 +29,12 @@ import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.OtherUtils;
+import com.dkanada.openapk.utils.PackageStatsHandler;
 import com.dkanada.openapk.views.ButtonSwitchView;
 import com.dkanada.openapk.views.ButtonView;
 import com.dkanada.openapk.views.InformationView;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class AppActivity extends ThemeActivity {
     private int UNINSTALL_REQUEST_CODE = 1;
@@ -143,11 +142,11 @@ public class AppActivity extends ThemeActivity {
         InformationView packageInformation = new InformationView(context, getString(R.string.package_layout), packageInfo.packageName, true);
         InformationView versionNameInformation = new InformationView(context, getString(R.string.version_name_layout), packageInfo.versionName, false);
         InformationView versionCodeInformation = new InformationView(context, getString(R.string.version_code_layout), Integer.toString(packageInfo.versionCode), true);
-        InformationView sizeInformation = new InformationView(context, getString(R.string.size_layout), getString(R.string.development_layout), false);
+        InformationView sizeInformation = new InformationView(context, getString(R.string.size_layout), Integer.toString(App.getPackageStatsHandler().getPackageSize(packageInfo)), false);
         InformationView dataFolderInformation = new InformationView(context, getString(R.string.data_layout), new File(packageInfo.applicationInfo.dataDir).getParent(), true);
         InformationView sourceFolderInformation = new InformationView(context, getString(R.string.source_layout), new File(new File(packageInfo.applicationInfo.sourceDir).getParent()).getParent(), false);
-        InformationView installInformation = new InformationView(context, getString(R.string.install_layout), new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US).format(packageInfo.firstInstallTime), true);
-        InformationView updateInformation = new InformationView(context, getString(R.string.update_layout), new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US).format(packageInfo.lastUpdateTime),  false);
+        InformationView installInformation = new InformationView(context, getString(R.string.install_layout), OtherUtils.formatDate(packageInfo.firstInstallTime), true);
+        InformationView updateInformation = new InformationView(context, getString(R.string.update_layout), OtherUtils.formatDate(packageInfo.lastUpdateTime),  false);
         information.addView(packageInformation);
         information.addView(versionNameInformation);
         information.addView(versionCodeInformation);

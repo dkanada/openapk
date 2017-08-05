@@ -1,4 +1,3 @@
-
 /* //device/java/android/android/view/WindowManager.aidl
 **
 ** Copyright 2007, The Android Open Source Project

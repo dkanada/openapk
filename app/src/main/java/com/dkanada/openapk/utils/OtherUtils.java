@@ -19,6 +19,8 @@ import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class OtherUtils {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
@@ -121,5 +123,9 @@ public class OtherUtils {
         } else {
             menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star_border));
         }
+    }
+
+    public static String formatDate(long date) {
+        return new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US).format(date);
     }
 }

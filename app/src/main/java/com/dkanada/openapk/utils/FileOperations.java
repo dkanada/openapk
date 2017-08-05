@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class FileUtils {
+public class FileOperations {
     // copy files that do not require root access
     public static Boolean cpExternalPartition(String input, String output) {
         createAppDir();

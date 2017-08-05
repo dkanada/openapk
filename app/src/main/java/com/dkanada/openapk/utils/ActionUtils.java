@@ -26,7 +26,7 @@ public class ActionUtils {
 
     public static boolean extract(Context context, final PackageInfo packageInfo) {
         Activity activity = (Activity) context;
-        Boolean status = FileUtils.cpExternalPartition(packageInfo.applicationInfo.sourceDir, App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(packageInfo));
+        Boolean status = FileOperations.cpExternalPartition(packageInfo.applicationInfo.sourceDir, App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(packageInfo));
         if (!OtherUtils.checkPermissions(activity) || !status) {
             DialogUtils.dialogMessage(context, context.getResources().getString(R.string.dialog_error), context.getResources().getString(R.string.dialog_error_description));
             return false;
@@ -57,7 +57,7 @@ public class ActionUtils {
     }
 
     public static boolean share(Context context, PackageInfo packageInfo) {
-        FileUtils.cpExternalPartition(packageInfo.applicationInfo.sourceDir, App.getAppPreferences().getCustomPath() + "/" + App.getAppPreferences().getFilename());
+        FileOperations.cpExternalPartition(packageInfo.applicationInfo.sourceDir, App.getAppPreferences().getCustomPath() + "/" + App.getAppPreferences().getFilename());
         Intent shareIntent = OtherUtils.getShareIntent(new File(context.getFilesDir() + OtherUtils.getAPKFilename(packageInfo)));
         context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send), packageInfo.packageName)));
         return true;
