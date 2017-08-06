@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -15,7 +16,7 @@ import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 
 public final class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private Preference prefCustomPath;
+    private EditTextPreference prefCustomPath;
     private ListPreference prefFilename;
     private ListPreference prefSortMode;
     private ListPreference prefTheme;
@@ -33,7 +34,7 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         prefs.registerOnSharedPreferenceChangeListener(this);
 
-        prefCustomPath = findPreference("prefCustomPath");
+        prefCustomPath = (EditTextPreference) findPreference("prefCustomPath");
         prefFilename = (ListPreference) findPreference("prefFilename");
         prefSortMode = (ListPreference) findPreference("prefSortMode");
         prefTheme = (ListPreference) findPreference("prefTheme");
@@ -50,14 +51,6 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
             public boolean onPreferenceClick(Preference preference) {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 sharedPreferences.edit().clear().apply();
-                return true;
-            }
-        });
-
-        prefCustomPath.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                DialogUtils.dialogChooseDirectory(context);
                 return true;
             }
         });

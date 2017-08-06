@@ -5,34 +5,34 @@
 
     <PreferenceCategory android:title="@string/settings_title_applications">
 
-        <Preference
+        <EditTextPreference
             android:key="prefCustomPath"
             android:title="@string/settings_custom_path" />
 
         <ListPreference
-            android:defaultValue="0"
+            android:key="prefFilename"
+            android:title="@string/settings_custom_filename"
             android:entries="@array/filenameEntries"
             android:entryValues="@array/filenameValues"
-            android:key="prefFilename"
-            android:title="@string/settings_custom_filename" />
+            android:defaultValue="0" />
 
         <ListPreference
-            android:defaultValue="0"
+            android:key="prefSortMode"
+            android:title="@string/settings_sort_mode"
             android:entries="@array/sortEntries"
             android:entryValues="@array/sortValues"
-            android:key="prefSortMode"
-            android:title="@string/settings_sort_mode" />
+            android:defaultValue="0" />
 
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_title_colors">
 
         <ListPreference
-            android:defaultValue="0"
+            android:key="prefTheme"
+            android:title="@string/settings_theme"
             android:entries="@array/themeEntries"
             android:entryValues="@array/themeValues"
-            android:key="prefTheme"
-            android:title="@string/settings_theme" />
+            android:defaultValue="0" />
 
         <com.jaredrummler.android.colorpicker.ColorPreference
             android:defaultValue="@color/primary"
