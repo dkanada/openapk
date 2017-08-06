@@ -18,9 +18,9 @@
 
     <string-array name="sortEntries">
         <item>Name</item>
-        <item>Size</item>
-        <item>Installation date</item>
-        <item>Update date</item>
+        <item>Package</item>
+        <item>First Installed</item>
+        <item>Last Updated</item>
     </string-array>
 
     <string-array name="sortValues"

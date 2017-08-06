@@ -212,6 +212,15 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                 });
                 break;
             case "1":
+                // compare by package
+                Collections.sort(list, new Comparator<PackageInfo>() {
+                    @Override
+                    public int compare(PackageInfo one, PackageInfo two) {
+                        return one.packageName.compareTo(two.packageName);
+                    }
+                });
+                break;
+            case "2":
                 // compare by install date
                 Collections.sort(list, new Comparator<PackageInfo>() {
                     @Override
@@ -220,7 +229,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                     }
                 });
                 break;
-            case "2":
+            case "3":
                 // compare by last update
                 Collections.sort(list, new Comparator<PackageInfo>() {
                     @Override

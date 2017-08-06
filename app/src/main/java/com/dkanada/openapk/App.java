@@ -13,7 +13,6 @@ import com.mikepenz.iconics.Iconics;
 public class App extends Application {
     private static AppPreferences appPreferences;
     private static PackageManager packageManager;
-    private static PackageStatsHandler packageStatsHandler;
     private static int currentAdapter;
 
     @Override
@@ -23,7 +22,6 @@ public class App extends Application {
         // set fields
         appPreferences = new AppPreferences(this);
         packageManager = getPackageManager();
-        packageStatsHandler = new PackageStatsHandler(this);
         currentAdapter = 0;
 
         // register custom fonts
@@ -32,10 +30,6 @@ public class App extends Application {
 
     public static AppPreferences getAppPreferences() {
         return appPreferences;
-    }
-
-    public static PackageStatsHandler getPackageStatsHandler() {
-        return packageStatsHandler;
     }
 
     public static String getPackageName(PackageInfo packageInfo) {
