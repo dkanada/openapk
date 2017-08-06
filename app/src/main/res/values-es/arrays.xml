@@ -6,11 +6,4 @@
     <item>Source</item>
     <item>Nombre</item>
   </string-array>
-
-  <string-array name="sortEntries">
-    <item>Nombre</item>
-    <item>Tamaño</item>
-    <item>Fecha de instalación</item>
-    <item>Fecha de actualización</item>
-  </string-array>
 </resources>

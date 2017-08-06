@@ -16,11 +16,12 @@
         <item>3</item>
     </string-array>
 
-    <string-array name="sortEntries">
-        <item>Name</item>
-        <item>Package</item>
-        <item>First Installed</item>
-        <item>Last Updated</item>
+    <string-array name="sortEntries"
+        translatable="false">
+        <item>@string/name_layout</item>
+        <item>@string/package_layout</item>
+        <item>@string/install_layout</item>
+        <item>@string/update_layout</item>
     </string-array>
 
     <string-array name="sortValues"

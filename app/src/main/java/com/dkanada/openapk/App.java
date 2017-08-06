@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.PackageStatsHandler;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.Iconics;
 

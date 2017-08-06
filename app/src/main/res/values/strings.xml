@@ -49,6 +49,7 @@
     <string name="dialog_error_description">There was an error and the selected action cannot be completed.</string>
 
     <!-- layouts -->
+    <string name="name_layout">Name</string>
     <string name="package_layout">Package</string>
     <string name="version_name_layout">Version Name</string>
     <string name="version_code_layout">Version Code</string>

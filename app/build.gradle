@@ -50,4 +50,5 @@ dependencies {
     compile 'com.mikepenz:google-material-typeface:1.2.0.1@aar'
     compile 'com.jaredrummler:colorpicker:1.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.google.code.gson:gson:2.8.0'
 }

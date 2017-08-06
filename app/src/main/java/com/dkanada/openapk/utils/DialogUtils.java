@@ -33,20 +33,6 @@ public class DialogUtils {
                 .progress(true, 0));
     }
 
-    public static void dialogChooseDirectory(Context context) {
-        dialogFixBackground(context, new MaterialDialog.Builder(context)
-                .title(context.getResources().getString(R.string.settings_custom_path))
-                .positiveText(context.getResources().getString(android.R.string.ok))
-                .negativeText(context.getResources().getString(android.R.string.cancel))
-                .input(null, App.getAppPreferences().getCustomPath(), new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        App.getAppPreferences().setCustomPath(input.toString());
-                    }
-                })
-                .cancelable(true));
-    }
-
     public static void dialogSystemAction(Context context) {
         dialogFixBackground(context, new MaterialDialog.Builder(context)
                 .title(context.getResources().getString(R.string.dialog_system_action))

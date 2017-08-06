@@ -103,10 +103,6 @@ public class ActionUtils {
         return true;
     }
 
-    public static boolean system(Context context, PackageInfo packageInfo) {
-        return true;
-    }
-
     public static boolean favorite(Context context, PackageInfo packageInfo) {
         return true;
     }

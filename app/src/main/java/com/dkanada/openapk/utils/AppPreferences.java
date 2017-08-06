@@ -37,12 +37,7 @@ public class AppPreferences {
     }
 
     public String getCustomPath() {
-        return sharedPreferences.getString(KeyCustomPath, Environment.getExternalStorageDirectory() + "/OpenAPK");
-    }
-
-    public void setCustomPath(String value) {
-        editor.putString(KeyCustomPath, value);
-        editor.commit();
+        return sharedPreferences.getString(KeyCustomPath, Environment.getExternalStorageDirectory() + "/" + context.getString(R.string.app_name));
     }
 
     public String getFilename() {

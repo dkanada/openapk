@@ -8,27 +8,15 @@
         <item>Nume</item>
     </string-array>
 
-
-    <string-array name="sortEntries">
-        <item>Nume</item>
-        <item>Mărime</item>
-        <item>Data instalării</item>
-        <item>Data actualizării</item>
-    </string-array>
-
-
     <string-array name="actionEntries">
         <item>Deschide</item>
         <item>Extrage</item>
         <item>Distribuie</item>
     </string-array>
 
-
-
     <string-array name="themeEntries">
         <item>Întunecată</item>
         <item>Luminoasă</item>
     </string-array>
-
 
 </resources>

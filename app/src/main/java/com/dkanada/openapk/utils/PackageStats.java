@@ -12,18 +12,18 @@ import android.os.RemoteException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class PackageStatsHandler {
-    public PackageStatsHandler(Context context, PackageInfo packageInfo) {
+public class PackageStats {
+    public PackageStats(Context context, PackageInfo packageInfo) {
         try {
             final Activity activity = (Activity) context;
             Method getPackageSize = PackageManager.class.getMethod("getPackageSizeInfo", String.class, IPackageStatsObserver.class);
             getPackageSize.invoke(context.getPackageManager(), packageInfo.applicationInfo.packageName, new IPackageStatsObserver.Stub() {
                 @Override
-                public void onGetStatsCompleted(final PackageStats pStats, final boolean succeeded) throws RemoteException {
+                public void onGetStatsCompleted(final android.content.pm.PackageStats pStats, final boolean succeeded) throws RemoteException {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            PackageStats packageStats = pStats;
+                            android.content.pm.PackageStats packageStats = pStats;
                         }
                     });
                 }
@@ -37,7 +37,7 @@ public class PackageStatsHandler {
         }
     }
 
-    public long getPackageStatsTotal(PackageStats packageStats) {
+    public long getPackageStatsTotal(android.content.pm.PackageStats packageStats) {
         return packageStats.cacheSize + packageStats.codeSize + packageStats.dataSize
                 + packageStats.externalCacheSize + packageStats.externalCodeSize + packageStats.externalDataSize
                 + packageStats.externalObbSize + packageStats.externalMediaSize;
