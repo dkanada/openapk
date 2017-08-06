@@ -10,8 +10,10 @@ import android.view.View;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
+import com.dkanada.openapk.models.AppInfo;
 
 import java.io.File;
+import java.util.List;
 
 public class ActionUtils {
     public static boolean open(Context context, PackageInfo packageInfo) {
@@ -104,6 +106,19 @@ public class ActionUtils {
     }
 
     public static boolean favorite(Context context, PackageInfo packageInfo) {
+        ParseJson parseJson = new ParseJson(context, "favoriteData.json");
+        if (parseJson.checkAppList(packageInfo)) {
+            List<AppInfo> appList = parseJson.getAppList();
+            appList.add(new AppInfo(packageInfo));
+            parseJson.setAppList(appList);
+        } else {
+            List<AppInfo> appList = parseJson.getAppList();
+            for (AppInfo appInfo : appList) {
+                if (appInfo.getPackageName().equals(packageInfo.packageName)) {
+                    appList.remove(appInfo);
+                }
+            }
+        }
         return true;
     }
 }

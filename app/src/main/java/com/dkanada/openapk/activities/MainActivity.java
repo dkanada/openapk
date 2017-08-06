@@ -35,6 +35,7 @@ import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.utils.DialogUtils;
+import com.dkanada.openapk.utils.ParseJson;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -169,7 +170,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
             appSystemAdapter = new AppAdapter(context, appSystemList);
             appDisabledAdapter = new AppAdapter(context, appDisabledList);
 
-            List<AppInfo> appInfoList = App.getAppHiddenList(context);
+            List<AppInfo> appInfoList = new ParseJson(context, "hideData.json").getAppList();
             for (AppInfo appInfo : appInfoList) {
                 try {
                     appHiddenList.add(packageManager.getPackageInfo(appInfo.getPackageName(), 0));
@@ -178,7 +179,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                 }
             }
 
-            appInfoList = App.getAppFavoriteList(context);
+            appInfoList = new ParseJson(context, "favoriteData.json").getAppList();
             for (AppInfo appInfo : appInfoList) {
                 try {
                     appFavoriteList.add(packageManager.getPackageInfo(appInfo.getPackageName(), 0));

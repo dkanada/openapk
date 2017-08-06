@@ -29,6 +29,7 @@ import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.OtherUtils;
+import com.dkanada.openapk.utils.ParseJson;
 import com.dkanada.openapk.views.ButtonSwitchView;
 import com.dkanada.openapk.views.ButtonView;
 import com.dkanada.openapk.views.InformationView;
@@ -250,8 +251,7 @@ public class AppActivity extends ThemeActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         favorite = menu.findItem(R.id.action_favorite);
-        // TODO
-        OtherUtils.updateAppFavoriteIcon(context, favorite, false);
+        OtherUtils.updateAppFavoriteIcon(context, favorite, packageInfo);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -263,8 +263,7 @@ public class AppActivity extends ThemeActivity {
                 return true;
             case R.id.action_favorite:
                 ActionUtils.favorite(context, packageInfo);
-                // TODO
-                OtherUtils.updateAppFavoriteIcon(context, favorite, false);
+                OtherUtils.updateAppFavoriteIcon(context, favorite, packageInfo);
                 return true;
         }
         return super.onOptionsItemSelected(item);

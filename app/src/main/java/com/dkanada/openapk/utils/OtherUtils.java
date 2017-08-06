@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageStats;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
@@ -118,11 +117,11 @@ public class OtherUtils {
     }
 
     // update the state of the favorite icon
-    public static void updateAppFavoriteIcon(Context context, MenuItem menuItem, Boolean isFavorite) {
-        if (isFavorite) {
-            menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star));
+    public static void updateAppFavoriteIcon(Context context, MenuItem menuItem, PackageInfo packageInfo) {
+        if (new ParseJson(context, "favoriteData.json").checkAppList(packageInfo)) {
+            menuItem.setIcon(context.getResources().getDrawable(R.drawable.ic_star));
         } else {
-            menuItem.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_star_border));
+            menuItem.setIcon(context.getResources().getDrawable(R.drawable.ic_star_border));
         }
     }
 
