@@ -24,11 +24,10 @@ public class PackageStatsHandler {
         }
     }
 
-    public int getPackageSize(PackageInfo packageInfo) {
-        PackageStats packageStats = getPackageStats(packageInfo);
-        return (int) (packageStats.cacheSize + packageStats.codeSize + packageStats.dataSize
+    public long getPackageStatsTotal(PackageStats packageStats) {
+        return packageStats.cacheSize + packageStats.codeSize + packageStats.dataSize
                 + packageStats.externalCacheSize + packageStats.externalCodeSize + packageStats.externalDataSize
-                + packageStats.externalObbSize + packageStats.externalMediaSize);
+                + packageStats.externalObbSize + packageStats.externalMediaSize;
     }
 
     public PackageStats getPackageStats(PackageInfo packageInfo) {

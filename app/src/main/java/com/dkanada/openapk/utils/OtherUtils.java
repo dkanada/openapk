@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageStats;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
@@ -127,5 +128,20 @@ public class OtherUtils {
 
     public static String formatDate(long date) {
         return new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.US).format(date);
+    }
+
+    public static String formatSize(long size) {
+        if (size < 1024) {
+            return Long.toString(size) + "B";
+        } else if (size < 1048576) {
+            size = size / 1024;
+            return Long.toString(size) + "KB";
+        } else if (size < 1073741824) {
+            size = size / 1048576;
+            return Long.toString(size) + "MB";
+        } else {
+            size = size / 1073741824;
+            return Long.toString(size) + "GB";
+        }
     }
 }

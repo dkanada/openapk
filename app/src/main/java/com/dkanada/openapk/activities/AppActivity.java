@@ -29,7 +29,6 @@ import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.OtherUtils;
-import com.dkanada.openapk.utils.PackageStatsHandler;
 import com.dkanada.openapk.views.ButtonSwitchView;
 import com.dkanada.openapk.views.ButtonView;
 import com.dkanada.openapk.views.InformationView;
@@ -142,7 +141,7 @@ public class AppActivity extends ThemeActivity {
         InformationView packageInformation = new InformationView(context, getString(R.string.package_layout), packageInfo.packageName, true);
         InformationView versionNameInformation = new InformationView(context, getString(R.string.version_name_layout), packageInfo.versionName, false);
         InformationView versionCodeInformation = new InformationView(context, getString(R.string.version_code_layout), Integer.toString(packageInfo.versionCode), true);
-        InformationView sizeInformation = new InformationView(context, getString(R.string.size_layout), Integer.toString(App.getPackageStatsHandler().getPackageSize(packageInfo)), false);
+        InformationView sizeInformation = new InformationView(context, getString(R.string.size_layout), Integer.toString(App.getPackageStatsHandler().getPackageStatsTotal(packageInfo)), false);
         InformationView dataFolderInformation = new InformationView(context, getString(R.string.data_layout), new File(packageInfo.applicationInfo.dataDir).getParent(), true);
         InformationView sourceFolderInformation = new InformationView(context, getString(R.string.source_layout), new File(new File(packageInfo.applicationInfo.sourceDir).getParent()).getParent(), false);
         InformationView installInformation = new InformationView(context, getString(R.string.install_layout), OtherUtils.formatDate(packageInfo.firstInstallTime), true);
