@@ -21,14 +21,14 @@ public class ButtonIconView extends RelativeLayout {
         View view = inflater.inflate(R.layout.view_button_icon, null);
         addView(view);
 
-        TextView textView = (TextView) view.findViewById(R.id.text);
-        ImageView imageView = (ImageView) view.findViewById(R.id.image);
+        //TextView textView = (TextView) view.findViewById(R.id.text);
+        //ImageView imageView = (ImageView) view.findViewById(R.id.image);
 
-        textView.setText(label);
-        imageView.setImageDrawable(icon);
+        //textView.setText(label);
+        //imageView.setImageDrawable(icon);
 
-        if (App.getAppPreferences().getTheme().equals("1")) {
-            imageView.setColorFilter(ContextCompat.getColor(context, R.color.grey));
-        }
+        //if (App.getAppPreferences().getTheme().equals("1")) {
+        //    imageView.setColorFilter(ContextCompat.getColor(context, R.color.grey));
+        //}
     }
 }
