@@ -6,14 +6,13 @@ import android.content.pm.IPackageStatsObserver;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
-import android.os.AsyncTask;
 import android.os.RemoteException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class PackageStats {
-    public PackageStats(Context context, PackageInfo packageInfo) {
+public class PackageStatsHandler {
+    public PackageStatsHandler(Context context, PackageInfo packageInfo) {
         try {
             final Activity activity = (Activity) context;
             Method getPackageSize = PackageManager.class.getMethod("getPackageSizeInfo", String.class, IPackageStatsObserver.class);
@@ -23,7 +22,7 @@ public class PackageStats {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            android.content.pm.PackageStats packageStats = pStats;
+                            PackageStats packageStats = pStats;
                         }
                     });
                 }
@@ -37,7 +36,7 @@ public class PackageStats {
         }
     }
 
-    public long getPackageStatsTotal(android.content.pm.PackageStats packageStats) {
+    public long getPackageStatsTotal(PackageStats packageStats) {
         return packageStats.cacheSize + packageStats.codeSize + packageStats.dataSize
                 + packageStats.externalCacheSize + packageStats.externalCodeSize + packageStats.externalDataSize
                 + packageStats.externalObbSize + packageStats.externalMediaSize;

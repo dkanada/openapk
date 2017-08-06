@@ -5,9 +5,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
+import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.utils.AppPreferences;
+import com.dkanada.openapk.utils.FileOperations;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.Iconics;
+
+import java.util.ArrayList;
 
 public class App extends Application {
     private static AppPreferences appPreferences;

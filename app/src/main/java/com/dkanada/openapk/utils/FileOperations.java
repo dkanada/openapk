@@ -9,13 +9,41 @@ import android.graphics.drawable.Drawable;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
+import com.dkanada.openapk.models.AppInfo;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileOperations {
+    public static void writeConfigFile(Context context, List<PackageInfo> appList, String file) {
+        Gson gson = new Gson();
+        String content = gson.toJson(appList);
+        writeToFile(context, file, content);
+    }
+
+    public static List<AppInfo> readConfigFile(Context context, String file) {
+        List<AppInfo> appList = new ArrayList();
+        try {
+            JsonReader reader = new JsonReader(new InputStreamReader(context.openFileInput(file)));
+            reader.beginArray();
+            while (reader.hasNext()) {
+                Gson gson = new Gson();
+                appList.add((AppInfo) gson.fromJson(reader, AppInfo.class));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return appList;
+    }
+
     // copy files that do not require root access
     public static Boolean cpExternalPartition(String input, String output) {
         createAppDir();
@@ -88,6 +116,16 @@ public class FileOperations {
             res = context.getResources().getDrawable(R.drawable.ic_android);
         }
         return res;
+    }
+
+    public static void writeToFile(Context context, String file, String content) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(file, Context.MODE_PRIVATE));
+            outputStreamWriter.write(content);
+            outputStreamWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static long getFolderSize(String directory) {
