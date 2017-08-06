@@ -23,14 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileOperations {
-    public static void writeConfigFile(Context context, List<PackageInfo> appList, String file) {
+    public static void writeConfigFile(Context context, List<AppInfo> appList, String file) {
         Gson gson = new Gson();
         String content = gson.toJson(appList);
         writeToFile(context, file, content);
     }
 
     public static List<AppInfo> readConfigFile(Context context, String file) {
-        List<AppInfo> appList = new ArrayList();
+        List<AppInfo> appList = new ArrayList<>();
         try {
             JsonReader reader = new JsonReader(new InputStreamReader(context.openFileInput(file)));
             reader.beginArray();

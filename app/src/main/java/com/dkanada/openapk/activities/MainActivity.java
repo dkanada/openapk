@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.adapters.AppAdapter;
+import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.utils.DialogUtils;
@@ -57,8 +58,9 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     private PackageManager packageManager;
     private AppAdapter appInstalledAdapter;
     private AppAdapter appSystemAdapter;
-    private AppAdapter appFavoriteAdapter;
     private AppAdapter appDisabledAdapter;
+    private AppAdapter appHiddenAdapter;
+    private AppAdapter appFavoriteAdapter;
 
     // configuration variables
     private Boolean doubleBackToExitPressedOnce = false;
@@ -99,7 +101,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-        drawer = setNavigationDrawer(context, toolbar, recyclerView, false, appInstalledAdapter, appSystemAdapter, appFavoriteAdapter, appDisabledAdapter);
+        drawer = setNavigationDrawer(context, toolbar, recyclerView, false, appInstalledAdapter, appSystemAdapter, appDisabledAdapter, appHiddenAdapter, appFavoriteAdapter);
 
         // might be useful in the future
         if (!appPreferences.getInitialSetup()) {
@@ -142,8 +144,9 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     class getInstalledApps extends AsyncTask<Void, String, Void> {
         private List<PackageInfo> appInstalledList = new ArrayList<>();
         private List<PackageInfo> appSystemList = new ArrayList<>();
-        private List<PackageInfo> appFavoriteList = new ArrayList<>();
         private List<PackageInfo> appDisabledList = new ArrayList<>();
+        private List<PackageInfo> appHiddenList = new ArrayList<>();
+        private List<PackageInfo> appFavoriteList = new ArrayList<>();
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -160,13 +163,35 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
 
             appInstalledList = sortAdapter(appInstalledList);
             appSystemList = sortAdapter(appSystemList);
-            appFavoriteList = sortAdapter(appFavoriteList);
             appDisabledList = sortAdapter(appDisabledList);
 
             appInstalledAdapter = new AppAdapter(context, appInstalledList);
             appSystemAdapter = new AppAdapter(context, appSystemList);
-            appFavoriteAdapter = new AppAdapter(context, appFavoriteList);
             appDisabledAdapter = new AppAdapter(context, appDisabledList);
+
+            List<AppInfo> appInfoList = App.getAppHiddenList(context);
+            for (AppInfo appInfo : appInfoList) {
+                try {
+                    appHiddenList.add(packageManager.getPackageInfo(appInfo.getPackageName(), 0));
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            appInfoList = App.getAppFavoriteList(context);
+            for (AppInfo appInfo : appInfoList) {
+                try {
+                    appFavoriteList.add(packageManager.getPackageInfo(appInfo.getPackageName(), 0));
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            appHiddenList = sortAdapter(appHiddenList);
+            appHiddenAdapter = new AppAdapter(context, appHiddenList);
+
+            appFavoriteList = sortAdapter(appFavoriteList);
+            appFavoriteAdapter = new AppAdapter(context, appFavoriteList);
             return null;
         }
 
@@ -182,19 +207,23 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                     OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.system_apps));
                     break;
                 case 2:
-                    recyclerView.swapAdapter(appFavoriteAdapter, false);
-                    OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.favorite_apps));
-                    break;
-                case 3:
                     recyclerView.swapAdapter(appDisabledAdapter, false);
                     OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.disabled_apps));
+                    break;
+                case 3:
+                    recyclerView.swapAdapter(appHiddenAdapter, false);
+                    OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.hidden_apps));
+                    break;
+                case 4:
+                    recyclerView.swapAdapter(appFavoriteAdapter, false);
+                    OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.favorite_apps));
                     break;
                 default:
                     recyclerView.swapAdapter(appInstalledAdapter, false);
                     OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.installed_apps));
                     break;
             }
-            drawer = setNavigationDrawer(context, toolbar, recyclerView, true, appInstalledAdapter, appSystemAdapter, appFavoriteAdapter, appDisabledAdapter);
+            drawer = setNavigationDrawer(context, toolbar, recyclerView, true, appInstalledAdapter, appSystemAdapter, appDisabledAdapter, appHiddenAdapter, appFavoriteAdapter);
             super.onPostExecute(aVoid);
             refresh.setRefreshing(false);
         }
@@ -251,7 +280,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         return list;
     }
 
-    public static Drawer setNavigationDrawer(final Context context, final Toolbar toolbar, final RecyclerView recyclerView, boolean badge, final AppAdapter appInstalledAdapter, final AppAdapter appSystemAdapter, final AppAdapter appFavoriteAdapter, final AppAdapter appDisabledAdapter) {
+    public static Drawer setNavigationDrawer(final Context context, final Toolbar toolbar, final RecyclerView recyclerView, boolean badge, final AppAdapter appInstalledAdapter, final AppAdapter appSystemAdapter, final AppAdapter appDisabledAdapter, final AppAdapter appHiddenAdapter, final AppAdapter appFavoriteAdapter) {
         AppPreferences appPreferences = App.getAppPreferences();
         final Activity activity = (Activity) context;
         int header;
@@ -288,20 +317,22 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.installed_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(installedApps).withBadgeStyle(badgeStyle).withIdentifier(0),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withBadge(systemApps).withBadgeStyle(badgeStyle).withIdentifier(1),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.favorite_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(2),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.disabled_apps)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withBadge(disabledApps).withBadgeStyle(badgeStyle).withIdentifier(3),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.disabled_apps)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withBadge(disabledApps).withBadgeStyle(badgeStyle).withIdentifier(2),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(3),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.favorite_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(4),
                     new DividerDrawerItem(),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(4),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.about)).withIcon(GoogleMaterial.Icon.gmd_info).withSelectable(false).withIdentifier(5));
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(5),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.about)).withIcon(GoogleMaterial.Icon.gmd_info).withSelectable(false).withIdentifier(6));
         } else {
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.installed_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withIdentifier(0),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withIdentifier(1),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.favorite_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withIdentifier(2),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.disabled_apps)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withIdentifier(3),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.disabled_apps)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withIdentifier(2),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withIdentifier(3),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.favorite_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withIdentifier(4),
                     new DividerDrawerItem(),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(4),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.about)).withIcon(GoogleMaterial.Icon.gmd_info).withSelectable(false).withIdentifier(5));
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(5),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.about)).withIcon(GoogleMaterial.Icon.gmd_info).withSelectable(false).withIdentifier(6));
         }
 
         drawerBuilder.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -319,19 +350,24 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                         OtherUtils.setToolbarTitle(activity, context.getResources().getString(R.string.system_apps));
                         break;
                     case 2:
-                        recyclerView.setAdapter(appFavoriteAdapter);
-                        App.setCurrentAdapter(2);
-                        OtherUtils.setToolbarTitle(activity, context.getResources().getString(R.string.favorite_apps));
-                        break;
-                    case 3:
                         recyclerView.setAdapter(appDisabledAdapter);
-                        App.setCurrentAdapter(3);
+                        App.setCurrentAdapter(2);
                         OtherUtils.setToolbarTitle(activity, context.getResources().getString(R.string.disabled_apps));
                         break;
+                    case 3:
+                        recyclerView.setAdapter(appHiddenAdapter);
+                        App.setCurrentAdapter(3);
+                        OtherUtils.setToolbarTitle(activity, context.getResources().getString(R.string.hidden_apps));
+                        break;
                     case 4:
-                        context.startActivity(new Intent(context, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        recyclerView.setAdapter(appFavoriteAdapter);
+                        App.setCurrentAdapter(4);
+                        OtherUtils.setToolbarTitle(activity, context.getResources().getString(R.string.favorite_apps));
                         break;
                     case 5:
+                        context.startActivity(new Intent(context, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        break;
+                    case 6:
                         context.startActivity(new Intent(context, AboutActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         break;
                     default:
