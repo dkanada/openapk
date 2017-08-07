@@ -94,7 +94,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         noResults = (LinearLayout) findViewById(R.id.no_results);
 
         icon = (ImageView) findViewById(R.id.no_results_icon);
-        if (appPreferences.getTheme().equals("1")) {
+        if (appPreferences.getTheme().equals("0")) {
             icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
         }
 
@@ -169,24 +169,6 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
             appInstalledAdapter = new AppAdapter(context, appInstalledList);
             appSystemAdapter = new AppAdapter(context, appSystemList);
             appDisabledAdapter = new AppAdapter(context, appDisabledList);
-
-            List<AppInfo> appInfoList = new ParseJson(context, "hideData.json").getAppList();
-            for (AppInfo appInfo : appInfoList) {
-                try {
-                    appHiddenList.add(packageManager.getPackageInfo(appInfo.getPackageName(), 0));
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            appInfoList = new ParseJson(context, "favoriteData.json").getAppList();
-            for (AppInfo appInfo : appInfoList) {
-                try {
-                    appFavoriteList.add(packageManager.getPackageInfo(appInfo.getPackageName(), 0));
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
 
             appHiddenList = sortAdapter(appHiddenList);
             appHiddenAdapter = new AppAdapter(context, appHiddenList);
@@ -289,7 +271,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         // check for dark theme
         Integer badgeColor;
         BadgeStyle badgeStyle;
-        if (appPreferences.getTheme().equals("1")) {
+        if (appPreferences.getTheme().equals("0")) {
             badgeColor = ContextCompat.getColor(context, R.color.badge_light);
             badgeStyle = new BadgeStyle(badgeColor, badgeColor).withTextColor(context.getResources().getColor(R.color.text_light));
             header = R.drawable.header_day;

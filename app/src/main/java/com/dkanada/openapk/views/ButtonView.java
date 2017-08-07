@@ -28,7 +28,7 @@ public class ButtonView extends RelativeLayout {
         }
 
         View divider = findViewById(R.id.divider);
-        if (App.getAppPreferences().getTheme().equals("1")) {
+        if (App.getAppPreferences().getTheme().equals("0")) {
             divider.setBackgroundColor(getResources().getColor(R.color.grey_light));
         } else {
             divider.setBackgroundColor(getResources().getColor(R.color.grey_dark));

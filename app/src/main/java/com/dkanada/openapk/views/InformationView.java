@@ -23,9 +23,9 @@ public class InformationView extends RelativeLayout {
         summaryView.setText(summary);
 
         if (App.getAppPreferences().getTheme().equals("0") && alternate) {
-            setBackgroundColor(getResources().getColor(R.color.grey_dark));
-        } else if (alternate) {
             setBackgroundColor(getResources().getColor(R.color.grey_light));
+        } else if (alternate) {
+            setBackgroundColor(getResources().getColor(R.color.grey_dark));
         }
     }
 }

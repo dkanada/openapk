@@ -58,7 +58,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
         btnOpen.setTextColor(App.getAppPreferences().getAccentColor());
         btnShare.setTextColor(App.getAppPreferences().getAccentColor());
 
-        if (App.getAppPreferences().getTheme().equals("1")) {
+        if (App.getAppPreferences().getTheme().equals("0")) {
             btnOpen.setBackgroundColor(context.getResources().getColor(R.color.white));
             btnShare.setBackgroundColor(context.getResources().getColor(R.color.white));
         } else {

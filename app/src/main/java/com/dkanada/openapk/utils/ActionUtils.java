@@ -106,18 +106,14 @@ public class ActionUtils {
     }
 
     public static boolean favorite(Context context, PackageInfo packageInfo) {
-        ParseJson parseJson = new ParseJson(context, "favoriteData.json");
-        if (parseJson.checkAppList(packageInfo)) {
-            List<AppInfo> appList = parseJson.getAppList();
-            appList.add(new AppInfo(packageInfo));
-            parseJson.setAppList(appList);
+        if (App.getAppPreferences().getFavoriteList().contains(packageInfo.packageName)) {
+            List<String> list = App.getAppPreferences().getFavoriteList();
+            list.remove(packageInfo.packageName);
+            App.getAppPreferences().setFavoriteList(list);
         } else {
-            List<AppInfo> appList = parseJson.getAppList();
-            for (AppInfo appInfo : appList) {
-                if (appInfo.getPackageName().equals(packageInfo.packageName)) {
-                    appList.remove(appInfo);
-                }
-            }
+            List<String> list = App.getAppPreferences().getFavoriteList();
+            list.add(packageInfo.packageName);
+            App.getAppPreferences().setFavoriteList(list);
         }
         return true;
     }

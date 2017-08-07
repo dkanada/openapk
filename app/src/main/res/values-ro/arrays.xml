@@ -14,9 +14,4 @@
         <item>Distribuie</item>
     </string-array>
 
-    <string-array name="themeEntries">
-        <item>Întunecată</item>
-        <item>Luminoasă</item>
-    </string-array>
-
 </resources>

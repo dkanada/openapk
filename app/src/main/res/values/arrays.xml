@@ -51,9 +51,10 @@
         <item>2</item>
     </string-array>
 
-    <string-array name="themeEntries">
-        <item>Dark</item>
-        <item>Light</item>
+    <string-array name="themeEntries"
+        translatable="false">
+        <item>@string/light</item>
+        <item>@string/dark</item>
     </string-array>
 
     <string-array name="themeValues"

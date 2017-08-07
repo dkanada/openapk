@@ -51,7 +51,7 @@ public class DialogUtils {
     }
 
     public static MaterialDialog dialogFixBackground(Context context, MaterialDialog.Builder dialog) {
-        if (App.getAppPreferences().getTheme().equals("0")) {
+        if (App.getAppPreferences().getTheme().equals("1")) {
             dialog.backgroundColor(context.getResources().getColor(R.color.grey_dark));
         }
         return dialog.show();

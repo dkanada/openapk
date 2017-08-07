@@ -6,18 +6,18 @@
     <PreferenceCategory android:title="@string/settings_title_applications">
 
         <EditTextPreference
-            android:key="prefCustomPath"
+            android:key="@string/pref_custom_path"
             android:title="@string/settings_custom_path" />
 
         <ListPreference
-            android:key="prefFilename"
+            android:key="@string/pref_custom_file"
             android:title="@string/settings_custom_filename"
             android:entries="@array/filenameEntries"
             android:entryValues="@array/filenameValues"
             android:defaultValue="0" />
 
         <ListPreference
-            android:key="prefSortMode"
+            android:key="@string/pref_sort_method"
             android:title="@string/settings_sort_mode"
             android:entries="@array/sortEntries"
             android:entryValues="@array/sortValues"
@@ -28,15 +28,15 @@
     <PreferenceCategory android:title="@string/settings_title_colors">
 
         <ListPreference
-            android:key="prefTheme"
+            android:key="@string/pref_theme"
             android:title="@string/settings_theme"
             android:entries="@array/themeEntries"
             android:entryValues="@array/themeValues"
-            android:defaultValue="0" />
+            android:defaultValue="1" />
 
         <com.jaredrummler.android.colorpicker.ColorPreference
             android:defaultValue="@color/primary"
-            android:key="prefPrimaryColor"
+            android:key="@string/pref_primary_color"
             android:summary="@string/settings_primary_color_description"
             android:title="@string/settings_primary_color"
             app:cpv_dialogTitle="@string/settings_primary_color"
@@ -44,7 +44,7 @@
 
         <com.jaredrummler.android.colorpicker.ColorPreference
             android:defaultValue="@color/accent"
-            android:key="prefAccentColor"
+            android:key="@string/pref_accent_color"
             android:summary="@string/settings_accent_color_description"
             android:title="@string/settings_accent_color"
             app:cpv_dialogTitle="@string/settings_accent_color"
@@ -52,7 +52,7 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="prefNavigationColor"
+            android:key="@string/pref_navigation_color"
             android:summary="@string/settings_navigation_color_description"
             android:title="@string/settings_navigation_color" />
 
@@ -62,18 +62,18 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="prefDoubleTap"
+            android:key="@string/pref_double_tap"
             android:summary="@string/settings_double_tap_description"
             android:title="@string/settings_double_tap" />
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="prefRootEnabled"
+            android:key="@string/pref_enable_root"
             android:summary="@string/settings_root_enabled_description"
             android:title="@string/settings_root_enabled" />
 
         <Preference
-            android:key="prefReset"
+            android:key="@string/pref_reset"
             android:summary="@string/settings_reset_description"
             android:title="@string/settings_reset" />
 

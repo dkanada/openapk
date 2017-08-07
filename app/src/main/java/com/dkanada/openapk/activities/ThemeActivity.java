@@ -17,7 +17,7 @@ public abstract class ThemeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         appPreferences = App.getAppPreferences();
         currentTheme = appPreferences.getTheme();
-        if (appPreferences.getTheme().equals("1")) {
+        if (appPreferences.getTheme().equals("0")) {
             setTheme(R.style.Light);
         } else {
             setTheme(R.style.Dark);

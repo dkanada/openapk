@@ -104,4 +104,24 @@
     <string name="remove_cache_success">The cache for %s has been removed.</string>
     <string name="clear_data_success">All data for %s has been removed.</string>
 
+    <!-- other -->
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+
+    <!-- preferences -->
+    <string name="pref_custom_path" translatable="false">pref_custom_path</string>
+    <string name="pref_custom_file" translatable="false">pref_custom_file</string>
+    <string name="pref_sort_method" translatable="false">pref_sort_method</string>
+    <string name="pref_theme" translatable="false">pref_theme</string>
+    <string name="pref_primary_color" translatable="false">pref_primary_color</string>
+    <string name="pref_accent_color" translatable="false">pref_accent_color</string>
+    <string name="pref_navigation_color" translatable="false">pref_navigation_color</string>
+    <string name="pref_double_tap" translatable="false">pref_double_tap</string>
+    <string name="pref_enable_root" translatable="false">pref_enable_root</string>
+    <string name="pref_initial_setup" translatable="false">pref_initial_setup</string>
+    <string name="pref_root" translatable="false">pref_root</string>
+    <string name="pref_reset" translatable="false">pref_reset</string>
+    <string name="pref_hidden_list" translatable="false">pref_hidden_list</string>
+    <string name="pref_favorite_list" translatable="false">pref_favorite_list</string>
+
 </resources>

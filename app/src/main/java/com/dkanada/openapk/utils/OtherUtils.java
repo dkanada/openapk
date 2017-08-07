@@ -118,7 +118,7 @@ public class OtherUtils {
 
     // update the state of the favorite icon
     public static void updateAppFavoriteIcon(Context context, MenuItem menuItem, PackageInfo packageInfo) {
-        if (new ParseJson(context, "favoriteData.json").checkAppList(packageInfo)) {
+        if (App.getAppPreferences().getFavoriteList().contains(packageInfo.packageName)) {
             menuItem.setIcon(context.getResources().getDrawable(R.drawable.ic_star));
         } else {
             menuItem.setIcon(context.getResources().getDrawable(R.drawable.ic_star_border));

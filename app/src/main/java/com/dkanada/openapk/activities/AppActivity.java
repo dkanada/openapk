@@ -92,7 +92,7 @@ public class AppActivity extends ThemeActivity {
         ImageView share = (ImageView) findViewById(R.id.share);
         ImageView settings = (ImageView) findViewById(R.id.settings);
 
-        if (App.getAppPreferences().getTheme().equals("1")) {
+        if (App.getAppPreferences().getTheme().equals("0")) {
             open.setColorFilter(getResources().getColor(R.color.grey));
             extract.setColorFilter(getResources().getColor(R.color.grey));
             uninstall.setColorFilter(getResources().getColor(R.color.grey));

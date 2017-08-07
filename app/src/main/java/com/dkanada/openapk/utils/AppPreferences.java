@@ -7,28 +7,14 @@ import android.preference.PreferenceManager;
 
 import com.dkanada.openapk.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class AppPreferences {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Context context;
-
-    private static final String KeyCustomPath = "prefCustomPath";
-    private static final String KeyFilename = "prefFilename";
-    private static final String KeySortMode = "prefSortMode";
-    private static final String KeyTheme = "prefTheme";
-    private static final String KeyPrimaryColor = "prefPrimaryColor";
-    private static final String KeyAccentColor = "prefAccentColor";
-    private static final String KeyNavigationColor = "prefNavigationColor";
-    private static final String KeyDoubleTap = "prefDoubleTap";
-    private static final String KeyRootEnabled = "prefRootEnabled";
-
-    // internal preferences
-    private static final String KeyInitialSetup = "prefInitialSetup";
-    private static final String KeyIsRooted = "prefIsRooted";
 
     public AppPreferences(Context context) {
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -37,57 +23,93 @@ public class AppPreferences {
     }
 
     public String getCustomPath() {
-        return sharedPreferences.getString(KeyCustomPath, Environment.getExternalStorageDirectory() + "/" + context.getString(R.string.app_name));
+        return sharedPreferences.getString(context.getString(R.string.pref_custom_path), Environment.getExternalStorageDirectory() + "/" + context.getString(R.string.app_name));
     }
 
     public String getFilename() {
-        return sharedPreferences.getString(KeyFilename, "0");
+        return sharedPreferences.getString(context.getString(R.string.pref_custom_file), "0");
     }
 
     public String getSortMode() {
-        return sharedPreferences.getString(KeySortMode, "0");
+        return sharedPreferences.getString(context.getString(R.string.pref_sort_method), "0");
     }
 
     public String getTheme() {
-        return sharedPreferences.getString(KeyTheme, "0");
+        return sharedPreferences.getString(context.getString(R.string.pref_theme), "1");
     }
 
     public int getPrimaryColor() {
-        return sharedPreferences.getInt(KeyPrimaryColor, context.getResources().getColor(R.color.primary));
+        return sharedPreferences.getInt(context.getString(R.string.pref_primary_color), context.getResources().getColor(R.color.primary));
     }
 
     public int getAccentColor() {
-        return sharedPreferences.getInt(KeyAccentColor, context.getResources().getColor(R.color.accent));
+        return sharedPreferences.getInt(context.getString(R.string.pref_accent_color), context.getResources().getColor(R.color.accent));
     }
 
     public Boolean getNavigationColor() {
-        return sharedPreferences.getBoolean(KeyNavigationColor, false);
+        return sharedPreferences.getBoolean(context.getString(R.string.pref_navigation_color), false);
     }
 
     public Boolean getDoubleTap() {
-        return sharedPreferences.getBoolean(KeyDoubleTap, false);
+        return sharedPreferences.getBoolean(context.getString(R.string.pref_double_tap), false);
     }
 
     public Boolean getRootEnabled() {
-        return sharedPreferences.getBoolean(KeyRootEnabled, false);
+        return sharedPreferences.getBoolean(context.getString(R.string.pref_enable_root), false);
     }
 
     // internal preferences
     public boolean getInitialSetup() {
-        return sharedPreferences.getBoolean(KeyInitialSetup, false);
+        return sharedPreferences.getBoolean(context.getString(R.string.pref_initial_setup), false);
     }
 
     public void setInitialSetup(boolean value) {
-        editor.putBoolean(KeyInitialSetup, value);
+        editor.putBoolean(context.getString(R.string.pref_initial_setup), value);
         editor.commit();
     }
 
     public int getRootStatus() {
-        return sharedPreferences.getInt(KeyIsRooted, 0);
+        return sharedPreferences.getInt(context.getString(R.string.pref_root), 0);
     }
 
     public void setRootStatus(int value) {
-        editor.putInt(KeyIsRooted, value);
+        editor.putInt(context.getString(R.string.pref_root), value);
+        editor.commit();
+    }
+
+    public List<String> getHiddenList() {
+        String list = sharedPreferences.getString(context.getString(R.string.pref_hidden_list), "");
+        if (list.equals("")) {
+            return new ArrayList<>();
+        } else {
+            return Arrays.asList(list.split(","));
+        }
+    }
+
+    public void setHiddenList(List<String> list) {
+        String stringList = "";
+        for (String string : list) {
+            stringList += string + ",";
+        }
+        editor.putString(context.getString(R.string.pref_hidden_list), stringList);
+        editor.commit();
+    }
+
+    public List<String> getFavoriteList() {
+        String list = sharedPreferences.getString(context.getString(R.string.pref_favorite_list), "");
+        if (list.equals("")) {
+            return new ArrayList<>();
+        } else {
+            return Arrays.asList(list.split(","));
+        }
+    }
+
+    public void setFavoriteList(List<String> list) {
+        String stringList = "";
+        for (String string : list) {
+            stringList += string + ",";
+        }
+        editor.putString(context.getString(R.string.pref_favorite_list), stringList);
         editor.commit();
     }
 }

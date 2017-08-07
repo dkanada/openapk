@@ -13,12 +13,11 @@ import android.preference.PreferenceManager;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.DialogUtils;
 
 public final class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     private EditTextPreference prefCustomPath;
-    private ListPreference prefFilename;
-    private ListPreference prefSortMode;
+    private ListPreference prefCustomFile;
+    private ListPreference prefSortMethod;
     private ListPreference prefTheme;
 
     AppPreferences appPreferences;
@@ -34,18 +33,18 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         prefs.registerOnSharedPreferenceChangeListener(this);
 
-        prefCustomPath = (EditTextPreference) findPreference("prefCustomPath");
-        prefFilename = (ListPreference) findPreference("prefFilename");
-        prefSortMode = (ListPreference) findPreference("prefSortMode");
-        prefTheme = (ListPreference) findPreference("prefTheme");
+        prefCustomPath = (EditTextPreference) findPreference(getString(R.string.pref_custom_path));
+        prefCustomFile = (ListPreference) findPreference(getString(R.string.pref_custom_file));
+        prefSortMethod = (ListPreference) findPreference(getString(R.string.pref_sort_method));
+        prefTheme = (ListPreference) findPreference(getString(R.string.pref_theme));
 
         // removes settings that wont work on lower versions
-        Preference prefNavigationColor = findPreference("prefNavigationColor");
+        Preference prefNavigationColor = findPreference(getString(R.string.pref_navigation_color));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             prefNavigationColor.setEnabled(false);
         }
 
-        Preference prefReset = findPreference("prefReset");
+        Preference prefReset = findPreference(getString(R.string.pref_reset));
         prefReset.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -67,12 +66,12 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
 
     private void setFilenameSummary() {
         int filenameValue = Integer.valueOf(appPreferences.getFilename());
-        prefFilename.setSummary(getResources().getStringArray(R.array.filenameEntries)[filenameValue]);
+        prefCustomFile.setSummary(getResources().getStringArray(R.array.filenameEntries)[filenameValue]);
     }
 
     private void setSortModeSummary() {
         int sortValue = Integer.valueOf(appPreferences.getSortMode());
-        prefSortMode.setSummary(getResources().getStringArray(R.array.sortEntries)[sortValue]);
+        prefSortMethod.setSummary(getResources().getStringArray(R.array.sortEntries)[sortValue]);
     }
 
     private void setThemeSummary() {
@@ -86,9 +85,9 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
             Preference pref = findPreference(key);
             if (pref == prefCustomPath) {
                 setCustomPathSummary();
-            } else if (pref == prefFilename) {
+            } else if (pref == prefCustomFile) {
                 setFilenameSummary();
-            } else if (pref == prefSortMode) {
+            } else if (pref == prefSortMethod) {
                 setSortModeSummary();
             } else if (pref == prefTheme) {
                 setThemeSummary();
