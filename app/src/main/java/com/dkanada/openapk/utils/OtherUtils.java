@@ -30,12 +30,8 @@ public class OtherUtils {
         AppPreferences appPreferences = App.getAppPreferences();
         switch (appPreferences.getFilename()) {
             case "0":
-                return packageInfo.packageName + "-" + packageInfo.versionName + ".apk";
-            case "1":
-                return App.getPackageName(packageInfo) + "-" + packageInfo.versionCode + ".apk";
-            case "2":
                 return packageInfo.packageName + ".apk";
-            case "3":
+            case "1":
                 return App.getPackageName(packageInfo) + ".apk";
             default:
                 return packageInfo.packageName + ".apk";

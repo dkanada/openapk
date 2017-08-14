@@ -25,41 +25,35 @@
     <string name="action_clear_data">Clear Data</string>
 
     <string name="sort">Sort</string>
-    <string name="search">Search</string>
     <string name="send">Send</string>
     <string name="reboot">Reboot</string>
     <string name="undo">Undo</string>
+    <string name="search">Search</string>
     <string name="search_hint">Search by name...</string>
     <string name="search_empty">No results were found for your search.</string>
 
     <!-- dialogs -->
-    <string name="dialog_uninstall_progress">Uninstalling %s...</string>
-    <string name="dialog_uninstall_progress_description">Uninstalling this app. Please wait.</string>
-    <string name="dialog_cache_progress">Deleting cache files...</string>
-    <string name="dialog_cache_progress_description">Please wait while cache files are deleted.</string>
-    <string name="dialog_clear_data_progress">Deleting data...</string>
-    <string name="dialog_clear_data_progress_description">Please wait while all data for the app is deleted.</string>
+    <string name="dialog_progress">Performing action</string>
+    <string name="dialog_progress_description">Waiting for some tasks to finish executing.</string>
     <string name="dialog_system_action">System action</string>
     <string name="dialog_system_action_description">This action could possibly break your phone. Are you sure you want to continue?</string>
     <string name="dialog_permissions">Permissions required</string>
     <string name="dialog_permissions_description">You must accept the permissions to extract and share packages, clean the cache, and remove data.</string>
     <string name="dialog_root_required">Root required</string>
     <string name="dialog_root_required_description">Your device must be rooted for this feature to work and root features must be enabled in the settings.</string>
-    <string name="dialog_error">Error message</string>
-    <string name="dialog_error_description">There was an error and the selected action cannot be completed.</string>
 
     <!-- layouts -->
-    <string name="name_layout">Name</string>
-    <string name="package_layout">Package</string>
-    <string name="version_name_layout">Version Name</string>
-    <string name="version_code_layout">Version Code</string>
-    <string name="size_layout">Size</string>
-    <string name="data_layout">Data</string>
-    <string name="source_layout">Source</string>
-    <string name="install_layout">First Installed</string>
-    <string name="update_layout">Last Updated</string>
-    <string name="development_layout">In Development</string>
-    <string name="error_layout">404</string>
+    <string name="layout_label">Label</string>
+    <string name="layout_package">Package</string>
+    <string name="layout_version_name">Version Name</string>
+    <string name="layout_version_code">Version Code</string>
+    <string name="layout_size">Size</string>
+    <string name="layout_data">Data</string>
+    <string name="layout_source">Source</string>
+    <string name="layout_install">First Installed</string>
+    <string name="layout_update">Last Updated</string>
+    <string name="layout_development">In Development</string>
+    <string name="layout_error">404</string>
 
     <!-- settings -->
     <string name="settings_title_applications">Applications</string>
@@ -68,7 +62,7 @@
 
     <string name="settings_custom_path">Directory</string>
     <string name="settings_custom_filename">Filename</string>
-    <string name="settings_sort_mode">Sort method</string>
+    <string name="settings_sort_method">Sort method</string>
     <string name="settings_theme">Theme</string>
     <string name="settings_primary_color">Primary color</string>
     <string name="settings_primary_color_description">Set the color for the toolbar and navigation bar.</string>
@@ -99,10 +93,11 @@
     <string name="clipboard">App name copied to clipboard.</string>
     <string name="tap_exit">Tap again to close the app.</string>
     <string name="reboot_query">A reboot might be necessary to display the changes. Do you want to reboot now?</string>
-    <string name="no_activity">This app does not have a user interface.</string>
-    <string name="extract_success">%1$s has been saved into the specified folder with name: %2$s.</string>
-    <string name="remove_cache_success">The cache for %s has been removed.</string>
-    <string name="clear_data_success">All data for %s has been removed.</string>
+    <string name="error_generic">There was an error and the selected action was not successfully completed.</string>
+    <string name="error_open">This app does not have a user interface.</string>
+    <string name="success_extract">%1$s has been saved into the specified folder with name: %2$s.</string>
+    <string name="success_remove_cache">The cache for %s has been removed.</string>
+    <string name="success_clear_data">All data for %s has been removed.</string>
 
     <!-- other -->
     <string name="light">Light</string>

@@ -29,7 +29,6 @@ import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.OtherUtils;
-import com.dkanada.openapk.utils.ParseJson;
 import com.dkanada.openapk.views.ButtonSwitchView;
 import com.dkanada.openapk.views.ButtonView;
 import com.dkanada.openapk.views.InformationView;
@@ -139,18 +138,18 @@ public class AppActivity extends ThemeActivity {
         });
 
         LinearLayout information = (LinearLayout) findViewById(R.id.information);
-        InformationView packageInformation = new InformationView(context, getString(R.string.package_layout), packageInfo.packageName, true);
-        InformationView versionNameInformation = new InformationView(context, getString(R.string.version_name_layout), packageInfo.versionName, false);
-        InformationView versionCodeInformation = new InformationView(context, getString(R.string.version_code_layout), Integer.toString(packageInfo.versionCode), true);
-        InformationView sizeInformation = new InformationView(context, getString(R.string.size_layout), getString(R.string.development_layout), false);
-        InformationView dataFolderInformation = new InformationView(context, getString(R.string.data_layout), new File(packageInfo.applicationInfo.dataDir).getParent(), true);
-        InformationView sourceFolderInformation = new InformationView(context, getString(R.string.source_layout), new File(new File(packageInfo.applicationInfo.sourceDir).getParent()).getParent(), false);
-        InformationView installInformation = new InformationView(context, getString(R.string.install_layout), OtherUtils.formatDate(packageInfo.firstInstallTime), true);
-        InformationView updateInformation = new InformationView(context, getString(R.string.update_layout), OtherUtils.formatDate(packageInfo.lastUpdateTime),  false);
+        InformationView packageInformation = new InformationView(context, getString(R.string.layout_package), packageInfo.packageName, true);
+        InformationView versionNameInformation = new InformationView(context, getString(R.string.layout_version_name), packageInfo.versionName, false);
+        InformationView versionCodeInformation = new InformationView(context, getString(R.string.layout_version_code), Integer.toString(packageInfo.versionCode), true);
+        //InformationView sizeInformation = new InformationView(context, getString(R.string.layout_size), getString(R.string.layout_development), false);
+        InformationView dataFolderInformation = new InformationView(context, getString(R.string.layout_data), new File(packageInfo.applicationInfo.dataDir).getParent(), false);
+        InformationView sourceFolderInformation = new InformationView(context, getString(R.string.layout_source), new File(new File(packageInfo.applicationInfo.sourceDir).getParent()).getParent(), true);
+        InformationView installInformation = new InformationView(context, getString(R.string.layout_install), OtherUtils.formatDate(packageInfo.firstInstallTime), false);
+        InformationView updateInformation = new InformationView(context, getString(R.string.layout_update), OtherUtils.formatDate(packageInfo.lastUpdateTime),  true);
         information.addView(packageInformation);
         information.addView(versionNameInformation);
         information.addView(versionCodeInformation);
-        information.addView(sizeInformation);
+        //information.addView(sizeInformation);
         information.addView(dataFolderInformation);
         information.addView(sourceFolderInformation);
         information.addView(installInformation);
@@ -190,8 +189,8 @@ public class AppActivity extends ThemeActivity {
             @Override
             public void onClick(View v) {
                 MaterialDialog dialog = DialogUtils.dialogProgress(context
-                        , getResources().getString(R.string.dialog_cache_progress)
-                        , getResources().getString(R.string.dialog_cache_progress_description));
+                        , getResources().getString(R.string.dialog_progress)
+                        , getResources().getString(R.string.dialog_progress_description));
                 new RemoveCacheAsync(context, dialog, packageInfo).execute();
             }
         });
@@ -199,8 +198,8 @@ public class AppActivity extends ThemeActivity {
             @Override
             public void onClick(View v) {
                 MaterialDialog dialog = DialogUtils.dialogProgress(context
-                        , getResources().getString(R.string.dialog_clear_data_progress)
-                        , getResources().getString(R.string.dialog_clear_data_progress_description));
+                        , getResources().getString(R.string.dialog_progress)
+                        , getResources().getString(R.string.dialog_progress_description));
                 new ClearDataAsync(context, dialog, packageInfo).execute();
             }
         });

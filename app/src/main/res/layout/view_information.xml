@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="@string/error_layout"
+        android:text="@string/layout_error"
         android:textSize="16sp" />
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_centerVertical="true"
         android:paddingStart="80dp"
         android:gravity="center|end"
-        android:text="@string/error_layout"
+        android:text="@string/layout_error"
         android:textSize="16sp"
         android:ellipsize="end"
         android:maxLines="1" />

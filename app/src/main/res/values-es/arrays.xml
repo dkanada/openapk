@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string-array name="filenameEntries">
-    <item>Source + Versión</item>
-    <item>Nombre + Versión</item>
-    <item>Source</item>
-    <item>Nombre</item>
-  </string-array>
-</resources>

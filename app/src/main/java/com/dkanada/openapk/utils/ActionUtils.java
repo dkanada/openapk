@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
 import android.view.View;
@@ -21,7 +20,7 @@ public class ActionUtils {
         if (intent != null) {
             context.startActivity(intent);
         } else {
-            DialogUtils.toastMessage((Activity) context, context.getResources().getString(R.string.no_activity));
+            DialogUtils.toastMessage((Activity) context, context.getResources().getString(R.string.error_open));
         }
         return true;
     }
@@ -30,10 +29,10 @@ public class ActionUtils {
         Activity activity = (Activity) context;
         Boolean status = FileOperations.cpExternalPartition(packageInfo.applicationInfo.sourceDir, App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(packageInfo));
         if (!OtherUtils.checkPermissions(activity) || !status) {
-            DialogUtils.dialogMessage(context, context.getResources().getString(R.string.dialog_error), context.getResources().getString(R.string.dialog_error_description));
+            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.error_generic));
             return false;
         }
-        DialogUtils.toastAction(activity, String.format(context.getResources().getString(R.string.extract_success), packageInfo.packageName, OtherUtils.getAPKFilename(packageInfo)), context.getResources().getString(R.string.undo), new View.OnClickListener() {
+        DialogUtils.toastAction(activity, String.format(context.getResources().getString(R.string.success_extract), packageInfo.packageName, OtherUtils.getAPKFilename(packageInfo)), context.getResources().getString(R.string.undo), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new File(App.getAppPreferences().getCustomPath() + OtherUtils.getAPKFilename(packageInfo)).delete();
@@ -46,7 +45,7 @@ public class ActionUtils {
         Activity activity = (Activity) context;
         Boolean status = SystemUtils.rmSystemPartition(packageInfo.applicationInfo.sourceDir);
         if (!OtherUtils.checkPermissions(activity) || !SystemUtils.isRoot() || !status) {
-            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.dialog_error_description));
+            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.error_generic));
             return false;
         }
         DialogUtils.toastAction(activity, context.getResources().getString(R.string.reboot_query), context.getResources().getString(R.string.reboot), new View.OnClickListener() {
@@ -77,7 +76,7 @@ public class ActionUtils {
         Activity activity = (Activity) context;
         Boolean status = SystemUtils.disable(packageInfo);
         if (!OtherUtils.checkPermissions(activity) || !SystemUtils.isRoot() || !status) {
-            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.dialog_error_description));
+            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.error_generic));
             return false;
         }
         DialogUtils.toastAction(activity, context.getResources().getString(R.string.reboot_query), context.getResources().getString(R.string.reboot), new View.OnClickListener() {
@@ -93,7 +92,7 @@ public class ActionUtils {
         Activity activity = (Activity) context;
         boolean status = SystemUtils.hide(packageInfo);
         if (!OtherUtils.checkPermissions(activity) || !SystemUtils.isRoot() || !status) {
-            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.dialog_error_description));
+            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.error_generic));
             return false;
         }
         DialogUtils.toastAction(activity, context.getResources().getString(R.string.reboot_query), context.getResources().getString(R.string.reboot), new View.OnClickListener() {

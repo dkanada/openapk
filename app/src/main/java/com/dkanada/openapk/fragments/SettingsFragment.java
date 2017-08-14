@@ -70,7 +70,7 @@ public final class SettingsFragment extends PreferenceFragment implements Shared
     }
 
     private void setSortModeSummary() {
-        int sortValue = Integer.valueOf(appPreferences.getSortMode());
+        int sortValue = Integer.valueOf(appPreferences.getSortMethod());
         prefSortMethod.setSummary(getResources().getStringArray(R.array.sortEntries)[sortValue]);
     }
 

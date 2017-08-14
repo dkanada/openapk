@@ -31,12 +31,9 @@ import android.widget.Toast;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.adapters.AppAdapter;
-import com.dkanada.openapk.models.AppInfo;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.utils.DialogUtils;
-import com.dkanada.openapk.utils.ParseJson;
-import com.dkanada.openapk.utils.SystemUtils;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -223,7 +220,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     }
 
     public List<PackageInfo> sortAdapter(List<PackageInfo> list) {
-        switch (appPreferences.getSortMode()) {
+        switch (appPreferences.getSortMethod()) {
             case "0":
                 // compare by name
                 Collections.sort(list, new Comparator<PackageInfo>() {
@@ -312,7 +309,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.installed_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(installedApps).withBadgeStyle(badgeStyle).withIdentifier(0),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withBadge(systemApps).withBadgeStyle(badgeStyle).withIdentifier(1),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.disabled_apps)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withBadge(disabledApps).withBadgeStyle(badgeStyle).withIdentifier(2),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(hiddenApps).withBadgeStyle(badgeStyle).withIdentifier(3),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_visibility_off).withBadge(hiddenApps).withBadgeStyle(badgeStyle).withIdentifier(3),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.favorite_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(4),
                     new DividerDrawerItem(),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(5),
@@ -322,7 +319,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.installed_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withIdentifier(0),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withIdentifier(1),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.disabled_apps)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withIdentifier(2),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withIdentifier(3),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_visibility_off).withIdentifier(3),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.favorite_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withIdentifier(4),
                     new DividerDrawerItem(),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(5),

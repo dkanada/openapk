@@ -30,7 +30,7 @@ public class AppPreferences {
         return sharedPreferences.getString(context.getString(R.string.pref_custom_file), "0");
     }
 
-    public String getSortMode() {
+    public String getSortMethod() {
         return sharedPreferences.getString(context.getString(R.string.pref_sort_method), "0");
     }
 

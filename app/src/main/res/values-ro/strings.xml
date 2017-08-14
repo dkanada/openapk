@@ -27,36 +27,30 @@
     <string name="search_empty">Niciun rezultat nu a fost găsit la căutarea dvs.</string>
 
     <!-- dialogs -->
-    <string name="extract_success">%1$s a fost salvat în folderul specificat cu numele: %2$s.</string>
-    <string name="dialog_uninstall_progress">Se dezinstalează %s...</string>
-    <string name="dialog_uninstall_progress_description">Se dezinstalează această aplicație. Vă rugăm așteptați.</string>
-    <string name="dialog_cache_progress">Ștergere fișiere cache...</string>
-    <string name="dialog_cache_progress_description">Vă rugăm așteptați până se șterg fișierele cache.</string>
-    <string name="remove_cache_success">Cache-ul pentru %s a fost eliminat.</string>
-    <string name="dialog_clear_data_progress">Ștergere date...</string>
-    <string name="dialog_clear_data_progress_description">Vă rugăm așteptați până se șterg toate datele aplicației.</string>
-    <string name="clear_data_success">Toate datele pentru %s au fost eliminate.</string>
+    <string name="success_extract">%1$s a fost salvat în folderul specificat cu numele: %2$s.</string>
+    <string name="success_remove_cache">Cache-ul pentru %s a fost eliminat.</string>
+    <string name="success_clear_data">Toate datele pentru %s au fost eliminate.</string>
     <string name="dialog_permissions">Permisiuni necesare</string>
     <string name="dialog_permissions_description">Trebuie să acceptați permisiunile pentru a extrage și distribui APK-uri, șterge cache-ul și elimina datele aplicației.</string>
     <string name="dialog_root_required">Root este necesar</string>
     <string name="dialog_root_required_description">Dispozitivul dvs. trebuie să fie rootat pentru ca această funcție să meargă și funcțiile root să fie activate în setări.</string>
     <string name="reboot_query">O repornire este necesară pentru a afișa modificările. Doriți să reporniți acum?</string>
-    <string name="no_activity">Această aplicație nu deține o interfață cu utilizatorul.</string>
-    <string name="dialog_error_description">A apărut o eroare și acțiunea selectată nu poate fi completată.</string>
+    <string name="error_open">Această aplicație nu deține o interfață cu utilizatorul.</string>
+    <string name="error_generic">A apărut o eroare și acțiunea selectată nu poate fi completată.</string>
 
     <!-- buttons -->
     <string name="reboot">Repornește</string>
     <string name="undo">Anulează</string>
 
     <!-- layouts -->
-    <string name="package_layout">Pachet</string>
-    <string name="version_name_layout">Versiune</string>
-    <string name="size_layout">Mărime aplicație</string>
-    <string name="data_layout">Folderul cu date</string>
-    <string name="install_layout">Prima instalare</string>
-    <string name="update_layout">Ultima actualizare</string>
-    <string name="development_layout">În lucru</string>
-    <string name="error_layout">404</string>
+    <string name="layout_package">Pachet</string>
+    <string name="layout_version_name">Versiune</string>
+    <string name="layout_size">Mărime aplicație</string>
+    <string name="layout_data">Folderul cu date</string>
+    <string name="layout_install">Prima instalare</string>
+    <string name="layout_update">Ultima actualizare</string>
+    <string name="layout_development">În lucru</string>
+    <string name="layout_error">404</string>
 
     <!-- settings -->
     <string name="settings_title_applications">Aplicații</string>
@@ -64,7 +58,7 @@
     <string name="settings_title_other">Altele</string>
     <string name="settings_custom_path">Director</string>
     <string name="settings_custom_filename">Nume fișier</string>
-    <string name="settings_sort_mode">Metodă de sortare</string>
+    <string name="settings_sort_method">Metodă de sortare</string>
     <string name="settings_theme">Temă</string>
     <string name="settings_primary_color">Culoarea principală</string>
     <string name="settings_primary_color_description">Setează culoarea pentru bara de unelte și bara de navigare.</string>

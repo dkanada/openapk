@@ -18,7 +18,7 @@
 
         <ListPreference
             android:key="@string/pref_sort_method"
-            android:title="@string/settings_sort_mode"
+            android:title="@string/settings_sort_method"
             android:entries="@array/sortEntries"
             android:entryValues="@array/sortValues"
             android:defaultValue="0" />

@@ -49,7 +49,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="@string/error_layout"
+                    android:text="@string/layout_error"
                     android:textColor="@color/white"
                     android:textSize="22sp"/>
 

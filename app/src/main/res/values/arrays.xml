@@ -1,64 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="filenameEntries">
-        <item>Package + Version</item>
-        <item>Name + Version</item>
-        <item>Package</item>
-        <item>Name</item>
+    <string-array name="filenameEntries" translatable="false">
+        <item>@string/layout_package</item>
+        <item>@string/layout_label</item>
     </string-array>
 
-    <string-array name="filenameValues"
-        translatable="false">
+    <string-array name="filenameValues" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="sortEntries" translatable="false">
+        <item>@string/layout_label</item>
+        <item>@string/layout_package</item>
+        <item>@string/layout_install</item>
+        <item>@string/layout_update</item>
+    </string-array>
+
+    <string-array name="sortValues" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
     </string-array>
 
-    <string-array name="sortEntries"
-        translatable="false">
-        <item>@string/name_layout</item>
-        <item>@string/package_layout</item>
-        <item>@string/install_layout</item>
-        <item>@string/update_layout</item>
-    </string-array>
-
-    <string-array name="sortValues"
-        translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="actionEntries">
-        <item>Open</item>
-        <item>Extract</item>
-        <item>Share</item>
-    </string-array>
-
-    <string-array name="actionValues"
-        translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-
-    <string-array name="actionDefault"
-        translatable="false">
-        <item>0</item>
-        <item>2</item>
-    </string-array>
-
-    <string-array name="themeEntries"
-        translatable="false">
+    <string-array name="themeEntries" translatable="false">
         <item>@string/light</item>
         <item>@string/dark</item>
     </string-array>
 
-    <string-array name="themeValues"
-        translatable="false">
+    <string-array name="themeValues" translatable="false">
         <item>0</item>
         <item>1</item>
     </string-array>

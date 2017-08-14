@@ -38,11 +38,11 @@ public class RemoveCacheAsync extends AsyncTask<Void, String, Boolean> {
         super.onPostExecute(status);
         dialog.dismiss();
         if (status && SystemUtils.isRoot()) {
-            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.remove_cache_success, packageInfo.packageName));
+            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.success_remove_cache, packageInfo.packageName));
         } else if (!SystemUtils.isRoot()) {
             DialogUtils.dialogMessage(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
         } else {
-            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.dialog_error_description));
+            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.error_generic));
         }
     }
 }
