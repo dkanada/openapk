@@ -82,7 +82,7 @@ public class AppPreferences {
         if (list.equals("")) {
             return new ArrayList<>();
         } else {
-            return Arrays.asList(list.split(","));
+            return new ArrayList<>(Arrays.asList(list.split(",")));
         }
     }
 
@@ -100,7 +100,7 @@ public class AppPreferences {
         if (list.equals("")) {
             return new ArrayList<>();
         } else {
-            return Arrays.asList(list.split(","));
+            return new ArrayList<>(Arrays.asList(list.split(",")));
         }
     }
 

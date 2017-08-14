@@ -89,20 +89,6 @@ public class SystemUtils {
         return false;
     }
 
-    // use package manager to hide a package
-    public static boolean hide(PackageInfo packageInfo) {
-        String[] command;
-        if (!packageInfo.applicationInfo.enabled) {
-            command = new String[]{"su", "-c", "pm unhide " + packageInfo.packageName};
-        } else {
-            command = new String[]{"su", "-c", "pm hide " + packageInfo.packageName};
-        }
-        if (executeCommand(command) == 0) {
-            return true;
-        }
-        return false;
-    }
-
     // use package manager to disable a package
     public static boolean disable(PackageInfo packageInfo) {
         String[] command;
@@ -110,6 +96,20 @@ public class SystemUtils {
             command = new String[]{"su", "-c", "pm enable " + packageInfo.packageName};
         } else {
             command = new String[]{"su", "-c", "pm disable " + packageInfo.packageName};
+        }
+        if (executeCommand(command) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    // use package manager to hide a package
+    public static boolean hide(PackageInfo packageInfo) {
+        String[] command;
+        if (!packageInfo.applicationInfo.enabled) {
+            command = new String[]{"su", "-c", "pm unhide " + packageInfo.packageName};
+        } else {
+            command = new String[]{"su", "-c", "pm hide " + packageInfo.packageName};
         }
         if (executeCommand(command) == 0) {
             return true;

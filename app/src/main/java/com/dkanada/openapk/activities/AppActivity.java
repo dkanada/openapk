@@ -179,11 +179,6 @@ public class AppActivity extends ThemeActivity {
         Switch systemSwitch = new Switch(context);
         systemSwitch.setClickable(false);
         systemSwitch.setAlpha(0.5f);
-        systemSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            }
-        });
         ButtonSwitchView hide = new ButtonSwitchView(context, getResources().getString(R.string.action_hide), null, hideSwitch);
         ButtonSwitchView disable = new ButtonSwitchView(context, getResources().getString(R.string.action_disable), null, disableSwitch);
         ButtonSwitchView system = new ButtonSwitchView(context, getResources().getString(R.string.action_system), null, systemSwitch);
@@ -262,7 +257,7 @@ public class AppActivity extends ThemeActivity {
                 finish();
                 return true;
             case R.id.action_favorite:
-                ActionUtils.favorite(context, packageInfo);
+                ActionUtils.favorite(packageInfo);
                 OtherUtils.updateAppFavoriteIcon(context, favorite, packageInfo);
                 return true;
         }

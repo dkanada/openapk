@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
 import android.view.View;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.models.AppInfo;
 
 import java.io.File;
 import java.util.List;
@@ -59,8 +59,8 @@ public class ActionUtils {
     }
 
     public static boolean share(Context context, PackageInfo packageInfo) {
-        FileOperations.cpExternalPartition(packageInfo.applicationInfo.sourceDir, App.getAppPreferences().getCustomPath() + "/" + App.getAppPreferences().getFilename());
-        Intent shareIntent = OtherUtils.getShareIntent(new File(context.getFilesDir() + OtherUtils.getAPKFilename(packageInfo)));
+        FileOperations.cpExternalPartition(packageInfo.applicationInfo.sourceDir, App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(packageInfo));
+        Intent shareIntent = OtherUtils.getShareIntent(new File(App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(packageInfo)));
         context.startActivity(Intent.createChooser(shareIntent, String.format(context.getResources().getString(R.string.send), packageInfo.packageName)));
         return true;
     }
@@ -70,22 +70,6 @@ public class ActionUtils {
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + packageInfo.packageName));
         context.startActivity(intent);
-        return true;
-    }
-
-    public static boolean hide(Context context, PackageInfo packageInfo) {
-        Activity activity = (Activity) context;
-        boolean status = SystemUtils.hide(packageInfo);
-        if (!OtherUtils.checkPermissions(activity) || !SystemUtils.isRoot() || !status) {
-            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.dialog_error_description));
-            return false;
-        }
-        DialogUtils.toastAction(activity, context.getResources().getString(R.string.reboot_query), context.getResources().getString(R.string.reboot), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SystemUtils.rebootSystem();
-            }
-        });
         return true;
     }
 
@@ -105,7 +89,23 @@ public class ActionUtils {
         return true;
     }
 
-    public static boolean favorite(Context context, PackageInfo packageInfo) {
+    public static boolean hide(Context context, PackageInfo packageInfo) {
+        Activity activity = (Activity) context;
+        boolean status = SystemUtils.hide(packageInfo);
+        if (!OtherUtils.checkPermissions(activity) || !SystemUtils.isRoot() || !status) {
+            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.dialog_error_description));
+            return false;
+        }
+        DialogUtils.toastAction(activity, context.getResources().getString(R.string.reboot_query), context.getResources().getString(R.string.reboot), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SystemUtils.rebootSystem();
+            }
+        });
+        return true;
+    }
+
+    public static boolean favorite(PackageInfo packageInfo) {
         if (App.getAppPreferences().getFavoriteList().contains(packageInfo.packageName)) {
             List<String> list = App.getAppPreferences().getFavoriteList();
             list.remove(packageInfo.packageName);
