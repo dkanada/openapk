@@ -21,11 +21,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.dkanada.openapk.async.DeleteFileAsync;
 import com.dkanada.openapk.utils.ActionUtils;
-import com.dkanada.openapk.async.ClearDataAsync;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.async.RemoveCacheAsync;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.OtherUtils;
@@ -191,7 +190,7 @@ public class AppActivity extends ThemeActivity {
                 MaterialDialog dialog = DialogUtils.dialogProgress(context
                         , getResources().getString(R.string.dialog_progress)
                         , getResources().getString(R.string.dialog_progress_description));
-                new RemoveCacheAsync(context, dialog, packageInfo).execute();
+                new DeleteFileAsync(context, dialog, packageInfo.applicationInfo.dataDir + "/cache").execute();
             }
         });
         ButtonView clearData = new ButtonView(context, getString(R.string.action_clear_data), null, new View.OnClickListener() {
@@ -200,7 +199,7 @@ public class AppActivity extends ThemeActivity {
                 MaterialDialog dialog = DialogUtils.dialogProgress(context
                         , getResources().getString(R.string.dialog_progress)
                         , getResources().getString(R.string.dialog_progress_description));
-                new ClearDataAsync(context, dialog, packageInfo).execute();
+                new DeleteFileAsync(context, dialog, packageInfo.applicationInfo.dataDir).execute();
             }
         });
         buttons.addView(removeCache);
