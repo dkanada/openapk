@@ -12,13 +12,11 @@ import com.dkanada.openapk.utils.SystemUtils;
 
 public class DeleteFileAsync extends AsyncTask<Void, String, Boolean> {
     private Context context;
-    private Activity activity;
     private MaterialDialog dialog;
     private String file;
 
     public DeleteFileAsync(Context context, MaterialDialog dialog, String file) {
         this.context = context;
-        this.activity = (Activity) context;
         this.dialog = dialog;
         this.file = file;
     }
@@ -26,7 +24,7 @@ public class DeleteFileAsync extends AsyncTask<Void, String, Boolean> {
     @Override
     protected Boolean doInBackground(Void... voids) {
         Boolean status = false;
-        if (OtherUtils.checkPermissions(activity) && SystemUtils.isRoot()) {
+        if (OtherUtils.checkPermissions(context) && SystemUtils.isRoot()) {
             status = SystemUtils.rmDataPartition(file);
         }
         return status;
@@ -39,7 +37,7 @@ public class DeleteFileAsync extends AsyncTask<Void, String, Boolean> {
         if (!SystemUtils.isRoot()) {
             DialogUtils.dialogMessage(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
         } else if (!status) {
-            DialogUtils.toastMessage(activity, context.getResources().getString(R.string.error_generic));
+            DialogUtils.toastMessage(context, context.getResources().getString(R.string.error_generic));
         }
     }
 }

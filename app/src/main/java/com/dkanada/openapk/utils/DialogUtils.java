@@ -42,12 +42,12 @@ public class DialogUtils {
                 .cancelable(false));
     }
 
-    public static void toastMessage(Activity activity, String text) {
-        new SnackBar(activity, text, null, null).show();
+    public static void toastMessage(Context context, String text) {
+        new SnackBar((Activity) context, text, null, null).show();
     }
 
-    public static void toastAction(Activity activity, String text, String buttonText, View.OnClickListener onClickListener) {
-        new SnackBar(activity, text, buttonText, onClickListener).show();
+    public static void toastAction(Context context, String text, String buttonText, View.OnClickListener onClickListener) {
+        new SnackBar((Activity) context, text, buttonText, onClickListener).show();
     }
 
     public static MaterialDialog dialogFixBackground(Context context, MaterialDialog.Builder dialog) {
