@@ -5,6 +5,14 @@
     android:layout_height="wrap_content"
     android:minHeight="60dp">
 
+    <View
+        android:id="@+id/divider_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <LinearLayout
         android:id="@+id/text"
         android:layout_width="match_parent"
@@ -30,9 +38,9 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/divider"
+        android:id="@+id/divider_bottom"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

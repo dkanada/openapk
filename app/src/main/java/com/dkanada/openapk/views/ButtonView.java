@@ -27,11 +27,14 @@ public class ButtonView extends RelativeLayout {
             summaryView.setText(summary);
         }
 
-        View divider = findViewById(R.id.divider);
+        View dividerTop = findViewById(R.id.divider_top);
+        View dividerBottom = findViewById(R.id.divider_bottom);
         if (App.getAppPreferences().getTheme().equals("0")) {
-            divider.setBackgroundColor(getResources().getColor(R.color.grey_light));
+            dividerTop.setBackgroundColor(getResources().getColor(R.color.grey_light));
+            dividerBottom.setBackgroundColor(getResources().getColor(R.color.grey_light));
         } else {
-            divider.setBackgroundColor(getResources().getColor(R.color.grey_dark));
+            dividerTop.setBackgroundColor(getResources().getColor(R.color.grey_dark));
+            dividerBottom.setBackgroundColor(getResources().getColor(R.color.grey_dark));
         }
     }
 }

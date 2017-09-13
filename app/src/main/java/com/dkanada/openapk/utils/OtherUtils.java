@@ -88,7 +88,8 @@ public class OtherUtils {
     }
 
     // check app permissions
-    public static Boolean checkPermissions(Activity activity) {
+    public static Boolean checkPermissions(Context context) {
+        Activity activity = (Activity) context;
         Boolean res = false;
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_WRITE_READ);
@@ -107,7 +108,8 @@ public class OtherUtils {
     }
 
     // set the toolbar title with any string
-    public static void setToolbarTitle(Activity activity, String title) {
+    public static void setToolbarTitle(Context context, String title) {
+        Activity activity = (Activity) context;
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         toolbar.setTitle(title);
     }

@@ -99,7 +99,7 @@
     <string name="error_open">This app does not have a user interface.</string>
     <string name="success_extract">%1$s has been saved into the specified folder with name: %2$s.</string>
     <string name="success_remove_cache">The cache for %s has been removed.</string>
-    <string name="success_clear_data">All data for %s has been removed.</string>
+    <string name="success_clear_data">The data for %s has been removed.</string>
 
     <!-- other -->
     <string name="light">Light</string>

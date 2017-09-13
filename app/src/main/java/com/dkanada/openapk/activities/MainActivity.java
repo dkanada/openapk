@@ -86,7 +86,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         packageManager = getPackageManager();
 
         setInitialConfiguration();
-        OtherUtils.checkPermissions(activity);
+        OtherUtils.checkPermissions(context);
 
         recyclerView = (RecyclerView) findViewById(R.id.app_list);
         refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
@@ -193,27 +193,27 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
             switch (App.getCurrentAdapter()) {
                 case 0:
                     recyclerView.swapAdapter(appInstalledAdapter, false);
-                    OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.installed_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.installed_apps));
                     break;
                 case 1:
                     recyclerView.swapAdapter(appSystemAdapter, false);
-                    OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.system_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.system_apps));
                     break;
                 case 2:
                     recyclerView.swapAdapter(appDisabledAdapter, false);
-                    OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.disabled_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.disabled_apps));
                     break;
                 case 3:
                     recyclerView.swapAdapter(appHiddenAdapter, false);
-                    OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.hidden_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.hidden_apps));
                     break;
                 case 4:
                     recyclerView.swapAdapter(appFavoriteAdapter, false);
-                    OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.favorite_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.favorite_apps));
                     break;
                 default:
                     recyclerView.swapAdapter(appInstalledAdapter, false);
-                    OtherUtils.setToolbarTitle(activity, getResources().getString(R.string.installed_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.installed_apps));
                     break;
             }
             drawer = setNavigationDrawer(context, toolbar, recyclerView, true, appInstalledAdapter, appSystemAdapter, appDisabledAdapter, appHiddenAdapter, appFavoriteAdapter);
@@ -336,27 +336,27 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                     case 0:
                         recyclerView.setAdapter(appInstalledAdapter);
                         App.setCurrentAdapter(0);
-                        OtherUtils.setToolbarTitle(activity, context.getResources().getString(R.string.installed_apps));
+                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.installed_apps));
                         break;
                     case 1:
                         recyclerView.setAdapter(appSystemAdapter);
                         App.setCurrentAdapter(1);
-                        OtherUtils.setToolbarTitle(activity, context.getResources().getString(R.string.system_apps));
+                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.system_apps));
                         break;
                     case 2:
                         recyclerView.setAdapter(appDisabledAdapter);
                         App.setCurrentAdapter(2);
-                        OtherUtils.setToolbarTitle(activity, context.getResources().getString(R.string.disabled_apps));
+                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.disabled_apps));
                         break;
                     case 3:
                         recyclerView.setAdapter(appHiddenAdapter);
                         App.setCurrentAdapter(3);
-                        OtherUtils.setToolbarTitle(activity, context.getResources().getString(R.string.hidden_apps));
+                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.hidden_apps));
                         break;
                     case 4:
                         recyclerView.setAdapter(appFavoriteAdapter);
                         App.setCurrentAdapter(4);
-                        OtherUtils.setToolbarTitle(activity, context.getResources().getString(R.string.favorite_apps));
+                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.favorite_apps));
                         break;
                     case 5:
                         context.startActivity(new Intent(context, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
