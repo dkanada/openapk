@@ -46,6 +46,10 @@ public class AppPreferences {
         return sharedPreferences.getInt(context.getString(R.string.pref_accent_color), context.getResources().getColor(R.color.accent));
     }
 
+    public Boolean getStatusColor() {
+        return sharedPreferences.getBoolean(context.getString(R.string.pref_status_color), false);
+    }
+
     public Boolean getNavigationColor() {
         return sharedPreferences.getBoolean(context.getString(R.string.pref_navigation_color), false);
     }

@@ -74,7 +74,12 @@ public class ActionUtils {
 
     public static boolean disable(Context context, PackageInfo packageInfo) {
         Activity activity = (Activity) context;
-        Boolean status = SystemUtils.disable(packageInfo);
+        Boolean status;
+        if (packageInfo.applicationInfo.enabled) {
+            status = SystemUtils.disable(packageInfo);
+        } else {
+            status = SystemUtils.enable(packageInfo);
+        }
         if (!OtherUtils.checkPermissions(activity) || !SystemUtils.isRoot() || !status) {
             DialogUtils.toastMessage(activity, context.getResources().getString(R.string.error_generic));
             return false;
@@ -90,7 +95,12 @@ public class ActionUtils {
 
     public static boolean hide(Context context, PackageInfo packageInfo) {
         Activity activity = (Activity) context;
-        boolean status = SystemUtils.hide(packageInfo);
+        boolean status;
+        if (SystemUtils.checkHidden(context, packageInfo.packageName) != null) {
+            status = SystemUtils.unhide(packageInfo);
+        } else {
+            status = SystemUtils.hide(packageInfo);
+        }
         if (!OtherUtils.checkPermissions(activity) || !SystemUtils.isRoot() || !status) {
             DialogUtils.toastMessage(activity, context.getResources().getString(R.string.error_generic));
             return false;

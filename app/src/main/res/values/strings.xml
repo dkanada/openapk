@@ -62,21 +62,23 @@
 
     <string name="settings_custom_path">Directory</string>
     <string name="settings_custom_filename">Filename</string>
-    <string name="settings_sort_method">Sort method</string>
+    <string name="settings_sort_method">Sort Method</string>
     <string name="settings_theme">Theme</string>
-    <string name="settings_primary_color">Primary color</string>
+    <string name="settings_primary_color">Primary Color</string>
     <string name="settings_primary_color_description">Set the color for the toolbar and navigation bar.</string>
-    <string name="settings_accent_color">Accent color</string>
+    <string name="settings_accent_color">Accent Color</string>
     <string name="settings_accent_color_description">Set the accent color for the quick actions and other elements.</string>
-    <string name="settings_navigation_color">Color the navigation bar</string>
+    <string name="settings_status_color">Colorful Status Bar</string>
+    <string name="settings_status_color_description">Use the primary color for the status bar.</string>
+    <string name="settings_navigation_color">Colorful Navigation Bar</string>
     <string name="settings_navigation_color_description">Use the primary color for the navigation bar.</string>
-    <string name="settings_double_tap">Press back to exit</string>
+    <string name="settings_double_tap">Press Back to Exit</string>
     <string name="settings_double_tap_description">Press the back button twice to close the app.</string>
-    <string name="settings_root_enabled">Enable root features</string>
+    <string name="settings_root_enabled">Enable Root Features</string>
     <string name="settings_root_enabled_description">This could break your phone but it will probably be fine.</string>
-    <string name="settings_delete_files">Clear data</string>
+    <string name="settings_delete_files">Clear Data</string>
     <string name="settings_delete_files_description">Delete all saved packages, hidden apps, and other data.</string>
-    <string name="settings_reset">Reset preferences</string>
+    <string name="settings_reset">Reset Preferences</string>
     <string name="settings_reset_description">Reset the preferences to their default values.</string>
 
     <!-- about -->
@@ -110,6 +112,7 @@
     <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_primary_color" translatable="false">pref_primary_color</string>
     <string name="pref_accent_color" translatable="false">pref_accent_color</string>
+    <string name="pref_status_color" translatable="false">pref_status_color</string>
     <string name="pref_navigation_color" translatable="false">pref_navigation_color</string>
     <string name="pref_double_tap" translatable="false">pref_double_tap</string>
     <string name="pref_enable_root" translatable="false">pref_enable_root</string>

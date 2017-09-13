@@ -34,6 +34,7 @@ import com.dkanada.openapk.adapters.AppAdapter;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.utils.DialogUtils;
+import com.dkanada.openapk.utils.SystemUtils;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -132,8 +133,10 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().setStatusBarColor(OtherUtils.dark(appPreferences.getPrimaryColor(), 0.8));
             toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
+            if (appPreferences.getStatusColor()) {
+                getWindow().setStatusBarColor(OtherUtils.dark(appPreferences.getPrimaryColor(), 0.8));
+            }
             if (appPreferences.getNavigationColor()) {
                 getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
             }
@@ -173,9 +176,9 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
 
             List<String> appList = App.getAppPreferences().getFavoriteList();
             for (String app : appList) {
-                try {
-                    appFavoriteList.add(packageManager.getPackageInfo(app, 0));
-                } catch (PackageManager.NameNotFoundException e) {
+                if (SystemUtils.checkHidden(context, app) != null) {
+                    appFavoriteList.add(SystemUtils.checkHidden(context, app));
+                } else {
                     appList.remove(app);
                     App.getAppPreferences().setFavoriteList(appList);
                 }
@@ -414,6 +417,13 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                 }
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        refresh.setRefreshing(true);
+        new getInstalledApps().execute();
+        super.onResume();
     }
 
     @Override

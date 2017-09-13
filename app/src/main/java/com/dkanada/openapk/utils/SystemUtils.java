@@ -1,6 +1,8 @@
 package com.dkanada.openapk.utils;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 
 import com.dkanada.openapk.App;
@@ -91,12 +93,16 @@ public class SystemUtils {
 
     // use package manager to disable a package
     public static boolean disable(PackageInfo packageInfo) {
-        String[] command;
-        if (!packageInfo.applicationInfo.enabled) {
-            command = new String[]{"su", "-c", "pm enable " + packageInfo.packageName};
-        } else {
-            command = new String[]{"su", "-c", "pm disable " + packageInfo.packageName};
+        String[] command = new String[]{"su", "-c", "pm disable " + packageInfo.packageName};
+        if (executeCommand(command) == 0) {
+            return true;
         }
+        return false;
+    }
+
+    // use package manager to enable a package
+    public static boolean enable(PackageInfo packageInfo) {
+        String[] command = new String[]{"su", "-c", "pm enable " + packageInfo.packageName};
         if (executeCommand(command) == 0) {
             return true;
         }
@@ -105,16 +111,33 @@ public class SystemUtils {
 
     // use package manager to hide a package
     public static boolean hide(PackageInfo packageInfo) {
-        String[] command;
-        if (!packageInfo.applicationInfo.enabled) {
-            command = new String[]{"su", "-c", "pm unhide " + packageInfo.packageName};
-        } else {
-            command = new String[]{"su", "-c", "pm hide " + packageInfo.packageName};
-        }
+        String[] command = new String[]{"su", "-c", "pm hide " + packageInfo.packageName};
         if (executeCommand(command) == 0) {
             return true;
         }
         return false;
+    }
+
+    // use package manager to unhide a package
+    public static boolean unhide(PackageInfo packageInfo) {
+        String[] command = new String[]{"su", "-c", "pm unhide " + packageInfo.packageName};
+        if (executeCommand(command) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    // check if package is hidden
+    public static PackageInfo checkHidden(Context context, String packageName) {
+        String[] command = new String[]{"su", "-c", "pm unhide " + packageName};
+        if (executeCommand(command) == 0) {
+            try {
+                return context.getPackageManager().getPackageInfo(packageName, 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                // log this later
+            }
+        }
+        return null;
     }
 
     public static boolean rebootSystem() {
