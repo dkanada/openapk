@@ -9,22 +9,24 @@ import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.utils.SystemUtils;
 
-public class DeleteFileAsync extends AsyncTask<Void, String, Boolean> {
+public class CopyFileAsync extends AsyncTask<Void, String, Boolean> {
     private Context context;
     private MaterialDialog dialog;
     private String source;
+    private String destination;
 
-    public DeleteFileAsync(Context context, MaterialDialog dialog, String source) {
+    public CopyFileAsync(Context context, MaterialDialog dialog, String source, String destination) {
         this.context = context;
         this.dialog = dialog;
         this.source = source;
+        this.destination = destination;
     }
 
     @Override
     protected Boolean doInBackground(Void... voids) {
         Boolean status = false;
         if (OtherUtils.checkPermissions(context) && SystemUtils.isRoot()) {
-            status = SystemUtils.rmDataPartition(source);
+            status = SystemUtils.cpDataPartition(source, destination);
         }
         return status;
     }

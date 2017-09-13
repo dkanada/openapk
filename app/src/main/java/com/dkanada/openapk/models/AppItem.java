@@ -4,7 +4,7 @@ import android.content.pm.PackageInfo;
 
 import com.dkanada.openapk.App;
 
-public class AppInfo {
+public class AppItem {
     private String packageLabel;
     private String packageName;
     private String versionName;
@@ -14,7 +14,7 @@ public class AppInfo {
     private String install;
     private String update;
 
-    public AppInfo(PackageInfo packageInfo) {
+    public AppItem(PackageInfo packageInfo) {
         packageLabel = App.getPackageName(packageInfo);
         packageName = packageInfo.packageName;
         versionName = packageInfo.versionName;
@@ -25,7 +25,7 @@ public class AppInfo {
         update = Long.toString(packageInfo.lastUpdateTime);
     }
 
-    public AppInfo(String packageLabel, String packageName, String versionName, String versionCode, String data, String source, String install, String update) {
+    public AppItem(String packageLabel, String packageName, String versionName, String versionCode, String data, String source, String install, String update) {
         this.packageLabel = packageLabel;
         this.packageName = packageName;
         this.versionName = versionName;

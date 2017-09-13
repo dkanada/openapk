@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.models.AppInfo;
+import com.dkanada.openapk.models.AppItem;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -23,20 +23,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileOperations {
-    public static void writeConfigFile(Context context, List<AppInfo> appList, String file) {
+    public static void writeConfigFile(Context context, List<AppItem> appList, String file) {
         Gson gson = new Gson();
         String content = gson.toJson(appList);
         writeToFile(context, file, content);
     }
 
-    public static List<AppInfo> readConfigFile(Context context, String file) {
-        List<AppInfo> appList = new ArrayList<>();
+    public static List<AppItem> readConfigFile(Context context, String file) {
+        List<AppItem> appList = new ArrayList<>();
         try {
             JsonReader reader = new JsonReader(new InputStreamReader(context.openFileInput(file)));
             reader.beginArray();
             while (reader.hasNext()) {
                 Gson gson = new Gson();
-                appList.add((AppInfo) gson.fromJson(reader, AppInfo.class));
+                appList.add((AppItem) gson.fromJson(reader, AppItem.class));
             }
         } catch (IOException e) {
             e.printStackTrace();
