@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageStats;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dkanada.openapk.async.DeleteFileAsync;
+import com.dkanada.openapk.interfaces.PackageStatsListener;
 import com.dkanada.openapk.utils.ActionUtils;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
@@ -34,7 +36,7 @@ import com.dkanada.openapk.views.InformationView;
 
 import java.io.File;
 
-public class AppActivity extends ThemeActivity {
+public class AppActivity extends ThemeActivity implements PackageStatsListener {
     private int UNINSTALL_REQUEST_CODE = 1;
 
     private AppPreferences appPreferences;
@@ -262,5 +264,9 @@ public class AppActivity extends ThemeActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPackageStats(PackageStats packageStats) {
     }
 }
