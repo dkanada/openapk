@@ -1,0 +1,101 @@
+<resources>
+
+  <!-- miscellaneous -->
+  <string name="app_description">Современный, лёгкий и настраиваемый диспетчер приложений для Android.</string>
+
+  <!-- labels -->
+  <string name="installed_apps">Установленные приложения</string>
+  <string name="system_apps">Системные приложения</string>
+  <string name="favorite_apps">Избранные приложения</string>
+  <string name="hidden_apps">Скрытые приложения</string>
+  <string name="disabled_apps">Отключенные приложения</string>
+  <string name="settings">Настройки</string>
+  <string name="about">О программе</string>
+
+  <string name="action_open">Открыть</string>
+  <string name="action_extract">Извлечь</string>
+  <string name="action_share">Поделиться</string>
+  <string name="action_uninstall">Деинсталлировать</string>
+  <string name="action_hide">Спрятать</string>
+  <string name="action_disable">Отключить</string>
+  <string name="action_system">Система</string>
+  <string name="action_remove_cache">Очистить кэш</string>
+  <string name="action_clear_data">Очистить данные</string>
+
+  <string name="sort">Сортировка</string>
+  <string name="send">Отправить</string>
+  <string name="reboot">Перезагрузка</string>
+  <string name="undo">Откат</string>
+  <string name="search">Поиск</string>
+  <string name="search_hint">Поиск по названию...</string>
+  <string name="search_empty">Ничего не найдено.</string>
+
+  <!-- dialogs -->
+  <string name="dialog_progress">Выполняю</string>
+  <string name="dialog_progress_description">Ожидаем завершения фоновых задач.</string>
+  <string name="dialog_system_action">Системное действие</string>
+  <string name="dialog_system_action_description">Эта операция может нарушить работоспособность телефона. Уверены?</string>
+  <string name="dialog_permissions">Требуется разрешение</string>
+  <string name="dialog_permissions_description">Вы должны принять разрешения на очистку кэша, удаление данных, извлечение и передачу пакетов.</string>
+  <string name="dialog_root_required">Требуется root</string>
+  <string name="dialog_root_required_description">Устройство должно иметь права root, и они должны быть включены в настройках.</string>
+
+  <!-- layouts -->
+  <string name="layout_label">Метка</string>
+  <string name="layout_package">Пакет</string>
+  <string name="layout_version_name">Имя версии</string>
+  <string name="layout_version_code">Код версии</string>
+  <string name="layout_size">Размер</string>
+  <string name="layout_data">Дата</string>
+  <string name="layout_source">Источник</string>
+  <string name="layout_install">Впервые установлено</string>
+  <string name="layout_update">Последнее обновление</string>
+  <string name="layout_development">В разработке</string>
+  <string name="layout_error">404</string>
+
+  <!-- settings -->
+  <string name="settings_title_applications">Приложения</string>
+  <string name="settings_title_colors">Цвета</string>
+  <string name="settings_title_other">Прочее</string>
+
+  <string name="settings_custom_path">Каталог</string>
+  <string name="settings_custom_filename">Имя файла</string>
+  <string name="settings_sort_method">Способ сортировки</string>
+  <string name="settings_theme">Тема</string>
+  <string name="settings_primary_color">Основной цвет</string>
+  <string name="settings_primary_color_description">Установите цвет для панели инструментов и полосы навигации.</string>
+  <string name="settings_accent_color">Цвет выделения</string>
+  <string name="settings_accent_color_description">Установите цвет выделения для быстрых действий и других элементов.</string>
+  <string name="settings_status_color">Цветная строка статуса</string>
+  <string name="settings_status_color_description">Использовать основной цвет для строки статуса.</string>
+  <string name="settings_navigation_color">Цветная полоса статуса</string>
+  <string name="settings_navigation_color_description">Использовать основной цвет для полосы навигации.</string>
+  <string name="settings_double_tap">Нажмите Назад для выхода</string>
+  <string name="settings_double_tap_description">Нажмите Назад дважды для выхода из приложения.</string>
+  <string name="settings_root_enabled">Использовать функции root</string>
+  <string name="settings_root_enabled_description">Это может сломать телефон, но, возможно, будет прекрасно.</string>
+  <string name="settings_delete_files">Очистить данные</string>
+  <string name="settings_delete_files_description">Удалить все сохранённые пакеты, скрытые приложения и прочие данные.</string>
+  <string name="settings_reset">Сброс настроек</string>
+  <string name="settings_reset_description">Сбросить настройки на исходные.</string>
+
+  <!-- about -->
+  <string name="about_description_one">Разработка</string>
+  <string name="about_description_two">Автор оригинала</string>
+  <string name="about_description_three">Дизайн иконок</string>
+
+  <!-- toasts -->
+  <string name="clipboard">Название программы скопировано в буфер обмена.</string>
+  <string name="tap_exit">Нажмите снова для выхода из приложения.</string>
+  <string name="reboot_query">Для принятия изменений устройство должно быть перезагружено. Перезагрузить сейчас?</string>
+  <string name="error_generic">Произошла ошибка и выбранное действие не может быть выполнено.</string>
+  <string name="error_open">У этого приложения нет интерфейса.</string>
+  <string name="success_extract">%1$s сохранено в указанное место под названием %2$s.</string>
+  <string name="success_remove_cache">Кэш %s очищен.</string>
+  <string name="success_clear_data">Данные %s уничтожены.</string>
+
+  <!-- other -->
+  <string name="light">Светлая</string>
+  <string name="dark">Тёмная</string>
+
+</resources>
