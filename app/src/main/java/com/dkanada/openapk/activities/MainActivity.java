@@ -193,27 +193,27 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
             switch (App.getCurrentAdapter()) {
                 case 0:
                     recyclerView.swapAdapter(appInstalledAdapter, false);
-                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.installed_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.apps_installed));
                     break;
                 case 1:
                     recyclerView.swapAdapter(appSystemAdapter, false);
-                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.system_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.apps_system));
                     break;
                 case 2:
                     recyclerView.swapAdapter(appDisabledAdapter, false);
-                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.disabled_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.apps_disabled));
                     break;
                 case 3:
                     recyclerView.swapAdapter(appHiddenAdapter, false);
-                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.hidden_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.apps_hidden));
                     break;
                 case 4:
                     recyclerView.swapAdapter(appFavoriteAdapter, false);
-                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.favorite_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.apps_favorite));
                     break;
                 default:
                     recyclerView.swapAdapter(appInstalledAdapter, false);
-                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.installed_apps));
+                    OtherUtils.setToolbarTitle(context, getResources().getString(R.string.apps_installed));
                     break;
             }
             drawer = setNavigationDrawer(context, toolbar, recyclerView, true, appInstalledAdapter, appSystemAdapter, appDisabledAdapter, appHiddenAdapter, appFavoriteAdapter);
@@ -309,21 +309,21 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
             String hiddenApps = Integer.toString(appHiddenAdapter.getItemCount());
             String favoriteApps = Integer.toString(appFavoriteAdapter.getItemCount());
             drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.installed_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(installedApps).withBadgeStyle(badgeStyle).withIdentifier(0),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withBadge(systemApps).withBadgeStyle(badgeStyle).withIdentifier(1),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.disabled_apps)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withBadge(disabledApps).withBadgeStyle(badgeStyle).withIdentifier(2),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_visibility_off).withBadge(hiddenApps).withBadgeStyle(badgeStyle).withIdentifier(3),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.favorite_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(4),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.apps_installed)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withBadge(installedApps).withBadgeStyle(badgeStyle).withIdentifier(0),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.apps_system)).withIcon(GoogleMaterial.Icon.gmd_android).withBadge(systemApps).withBadgeStyle(badgeStyle).withIdentifier(1),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.apps_disabled)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withBadge(disabledApps).withBadgeStyle(badgeStyle).withIdentifier(2),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.apps_hidden)).withIcon(GoogleMaterial.Icon.gmd_visibility_off).withBadge(hiddenApps).withBadgeStyle(badgeStyle).withIdentifier(3),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.apps_favorite)).withIcon(GoogleMaterial.Icon.gmd_star).withBadge(favoriteApps).withBadgeStyle(badgeStyle).withIdentifier(4),
                     new DividerDrawerItem(),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(5),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.about)).withIcon(GoogleMaterial.Icon.gmd_info).withSelectable(false).withIdentifier(6));
         } else {
             drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.installed_apps)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withIdentifier(0),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.system_apps)).withIcon(GoogleMaterial.Icon.gmd_android).withIdentifier(1),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.disabled_apps)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withIdentifier(2),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.hidden_apps)).withIcon(GoogleMaterial.Icon.gmd_visibility_off).withIdentifier(3),
-                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.favorite_apps)).withIcon(GoogleMaterial.Icon.gmd_star).withIdentifier(4),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.apps_installed)).withIcon(GoogleMaterial.Icon.gmd_phone_android).withIdentifier(0),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.apps_system)).withIcon(GoogleMaterial.Icon.gmd_android).withIdentifier(1),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.apps_disabled)).withIcon(GoogleMaterial.Icon.gmd_remove_circle_outline).withIdentifier(2),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.apps_hidden)).withIcon(GoogleMaterial.Icon.gmd_visibility_off).withIdentifier(3),
+                    new PrimaryDrawerItem().withName(context.getResources().getString(R.string.apps_favorite)).withIcon(GoogleMaterial.Icon.gmd_star).withIdentifier(4),
                     new DividerDrawerItem(),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.settings)).withIcon(GoogleMaterial.Icon.gmd_settings).withSelectable(false).withIdentifier(5),
                     new PrimaryDrawerItem().withName(context.getResources().getString(R.string.about)).withIcon(GoogleMaterial.Icon.gmd_info).withSelectable(false).withIdentifier(6));
@@ -336,27 +336,27 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                     case 0:
                         recyclerView.setAdapter(appInstalledAdapter);
                         App.setCurrentAdapter(0);
-                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.installed_apps));
+                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.apps_installed));
                         break;
                     case 1:
                         recyclerView.setAdapter(appSystemAdapter);
                         App.setCurrentAdapter(1);
-                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.system_apps));
+                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.apps_system));
                         break;
                     case 2:
                         recyclerView.setAdapter(appDisabledAdapter);
                         App.setCurrentAdapter(2);
-                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.disabled_apps));
+                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.apps_disabled));
                         break;
                     case 3:
                         recyclerView.setAdapter(appHiddenAdapter);
                         App.setCurrentAdapter(3);
-                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.hidden_apps));
+                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.apps_hidden));
                         break;
                     case 4:
                         recyclerView.setAdapter(appFavoriteAdapter);
                         App.setCurrentAdapter(4);
-                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.favorite_apps));
+                        OtherUtils.setToolbarTitle(context, context.getResources().getString(R.string.apps_favorite));
                         break;
                     case 5:
                         context.startActivity(new Intent(context, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));

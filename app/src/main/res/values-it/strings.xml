@@ -4,10 +4,10 @@
   <string name="settings">Impostazioni</string>
   <string name="about">Info</string>
   <string name="action_share">Condividi</string>
-  <string name="installed_apps">Applicazioni installate</string>
-  <string name="system_apps">Applicazioni di sistema</string>
-  <string name="favorite_apps">Preferiti</string>
-  <string name="hidden_apps">Applicazioni nascoste</string>
+  <string name="apps_installed">Applicazioni installate</string>
+  <string name="apps_system">Applicazioni di sistema</string>
+  <string name="apps_favorite">Preferiti</string>
+  <string name="apps_hidden">Applicazioni nascoste</string>
   <string name="action_hide">Nascondi</string>
     <string name="send">Invia utilizzando \"%s\"</string>
   <string name="search">Cerca</string>
@@ -18,7 +18,7 @@
     <string name="action_open">Apri</string>
   <string name="action_remove_cache">Rimuovi cache</string>
   <string name="success_remove_cache">Le cache di %s sono state eliminate</string>
-  <string name="action_clear_data">Elimina i dati</string>
+  <string name="action_remove_data">Elimina i dati</string>
   <string name="success_clear_data">Tutti i dati di %s sono stati rimossi</string>
   <string name="dialog_root_required">Necessario il Root</string>
   <string name="dialog_root_required_description">Il dispositivo deve disporre dei permessi di root. Se non sono stati concessi, utilizza l\'app SuperUser per concedere l\'accesso a ML Manager.</string>

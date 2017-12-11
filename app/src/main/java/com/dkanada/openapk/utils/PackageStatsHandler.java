@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class PackageStatsHandler {
-    public static void PackageStatsHandler(Context context, PackageInfo packageInfo, final PackageStatsListener packageStatsListener) {
+    public static void getPackageStats(Context context, PackageInfo packageInfo, final PackageStatsListener packageStatsListener) {
         try {
             final Activity activity = (Activity) context;
             Method getPackageSize = PackageManager.class.getMethod("getPackageSizeInfo", String.class, IPackageStatsObserver.class);

@@ -4,10 +4,10 @@
   <string name="settings">Ajustes</string>
   <string name="about">Acerca de</string>
   <string name="action_share">Compartir</string>
-  <string name="installed_apps">Aplicaciones Instaladas</string>
-  <string name="system_apps">Aplicaciones del Sistema</string>
-  <string name="favorite_apps">Favoritas</string>
-  <string name="hidden_apps">Aplicaciones Ocultas</string>
+  <string name="apps_installed">Aplicaciones Instaladas</string>
+  <string name="apps_system">Aplicaciones del Sistema</string>
+  <string name="apps_favorite">Favoritas</string>
+  <string name="apps_hidden">Aplicaciones Ocultas</string>
   <string name="action_hide">Ocultar</string>
     <string name="send">Enviar \"%s\" usando</string>
   <string name="search">Buscar</string>
@@ -18,7 +18,7 @@
   <string name="action_open">Iniciar</string>
   <string name="action_remove_cache">Eliminar caché</string>
   <string name="success_remove_cache">La caché de %s ha sido eliminada</string>
-  <string name="action_clear_data">Limpiar datos</string>
+  <string name="action_remove_data">Limpiar datos</string>
   <string name="success_clear_data">Todos los datos de %s han sido eliminados</string>
   <string name="dialog_root_required">Acceso Root necesario</string>
   <string name="dialog_root_required_description">Para eliminar datos del dispositivo necesitas root con los permisos dados. Si has rechazado el acceso una vez: dirígete a la app SuperUser para dar acceso a ML Manager.</string>

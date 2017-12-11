@@ -4,10 +4,10 @@
   <string name="settings">設定</string>
   <string name="about">アプリについて</string>
   <string name="action_share">共有</string>
-  <string name="installed_apps">インストール済みのアプリ</string>
-  <string name="system_apps">システムアプリ</string>
-  <string name="favorite_apps">お気に入り</string>
-  <string name="hidden_apps">非表示にするアプリ</string>
+  <string name="apps_installed">インストール済みのアプリ</string>
+  <string name="apps_system">システムアプリ</string>
+  <string name="apps_favorite">お気に入り</string>
+  <string name="apps_hidden">非表示にするアプリ</string>
   <string name="action_hide">非表示にする</string>
     <string name="send">次を使用して \"%s\" を送信</string>
   <string name="search">検索</string>
@@ -18,7 +18,7 @@
   <string name="action_open">開く</string>
   <string name="action_remove_cache">キャッシュの削除</string>
   <string name="success_remove_cache">%s のキャッシュを削除しました</string>
-  <string name="action_clear_data">データの削除</string>
+  <string name="action_remove_data">データの削除</string>
   <string name="success_clear_data">%s のデータをすべて削除しました</string>
   <string name="dialog_root_required">root が必要です</string>
   <string name="dialog_root_required_description">お使いのデバイスを root 化して、root 権限が必要です。アクセスが拒否された場合、SuperUser アプリで ML Manager にアクセス許可を与えてください。</string>

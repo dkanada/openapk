@@ -6,11 +6,11 @@
     <string name="transition" translatable="false">transition</string>
 
     <!-- labels -->
-    <string name="installed_apps">Installed Apps</string>
-    <string name="system_apps">System Apps</string>
-    <string name="favorite_apps">Favorite Apps</string>
-    <string name="hidden_apps">Hidden Apps</string>
-    <string name="disabled_apps">Disabled Apps</string>
+    <string name="apps_installed">Installed Apps</string>
+    <string name="apps_system">System Apps</string>
+    <string name="apps_favorite">Favorite Apps</string>
+    <string name="apps_hidden">Hidden Apps</string>
+    <string name="apps_disabled">Disabled Apps</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
 
@@ -22,8 +22,16 @@
     <string name="action_disable">Disable</string>
     <string name="action_system">System</string>
     <string name="action_remove_cache">Remove Cache</string>
-    <string name="action_clear_data">Clear Data</string>
+    <string name="action_remove_data">Remove Data</string>
 
+    <string name="storage">Storage</string>
+    <string name="internal">Internal</string>
+    <string name="external">External</string>
+    <string name="code">Code</string>
+    <string name="data">Data</string>
+    <string name="cache">Cache</string>
+    <string name="obb">Obb</string>
+    <string name="media">Media</string>
     <string name="sort">Sort</string>
     <string name="send">Send</string>
     <string name="reboot">Reboot</string>
@@ -53,6 +61,7 @@
     <string name="layout_install">First Installed</string>
     <string name="layout_update">Last Updated</string>
     <string name="layout_development">In Development</string>
+    <string name="layout_loading">...</string>
     <string name="layout_error">404</string>
 
     <!-- settings -->

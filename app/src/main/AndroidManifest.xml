@@ -37,6 +37,8 @@
 
         <activity android:name="com.dkanada.openapk.activities.AppActivity" />
 
+        <activity android:name="com.dkanada.openapk.activities.StorageActivity" />
+
         <activity android:name="com.dkanada.openapk.activities.SettingsActivity" />
 
         <activity android:name="com.dkanada.openapk.activities.AboutActivity" />

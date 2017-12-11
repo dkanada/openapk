@@ -4,11 +4,11 @@
     <string name="app_description">Manager de aplicații Android modern, simplu și customizabil.</string>
 
     <!-- labels -->
-    <string name="installed_apps">Aplicații instalate</string>
-    <string name="system_apps">Aplicații de sistem</string>
-    <string name="favorite_apps">Aplicații favorite</string>
-    <string name="hidden_apps">Aplicații ascunse</string>
-    <string name="disabled_apps">Aplicații dezactivate</string>
+    <string name="apps_installed">Aplicații instalate</string>
+    <string name="apps_system">Aplicații de sistem</string>
+    <string name="apps_favorite">Aplicații favorite</string>
+    <string name="apps_hidden">Aplicații ascunse</string>
+    <string name="apps_disabled">Aplicații dezactivate</string>
     <string name="settings">Setări</string>
     <string name="about">Despre</string>
 
@@ -17,7 +17,7 @@
     <string name="action_share">Distribuie</string>
     <string name="action_uninstall">Dezinstalează</string>
     <string name="action_remove_cache">Șterge cache-ul</string>
-    <string name="action_clear_data">Despre</string>
+    <string name="action_remove_data">Despre</string>
     <string name="action_hide">Ascunde</string>
     <string name="action_disable">Dezactivează</string>
 

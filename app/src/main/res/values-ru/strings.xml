@@ -4,11 +4,11 @@
   <string name="app_description">Современный, лёгкий и настраиваемый диспетчер приложений для Android.</string>
 
   <!-- labels -->
-  <string name="installed_apps">Установленные приложения</string>
-  <string name="system_apps">Системные приложения</string>
-  <string name="favorite_apps">Избранные приложения</string>
-  <string name="hidden_apps">Скрытые приложения</string>
-  <string name="disabled_apps">Отключенные приложения</string>
+  <string name="apps_installed">Установленные приложения</string>
+  <string name="apps_system">Системные приложения</string>
+  <string name="apps_favorite">Избранные приложения</string>
+  <string name="apps_hidden">Скрытые приложения</string>
+  <string name="apps_disabled">Отключенные приложения</string>
   <string name="settings">Настройки</string>
   <string name="about">О программе</string>
 
@@ -20,7 +20,7 @@
   <string name="action_disable">Отключить</string>
   <string name="action_system">Система</string>
   <string name="action_remove_cache">Очистить кэш</string>
-  <string name="action_clear_data">Очистить данные</string>
+  <string name="action_remove_data">Очистить данные</string>
 
   <string name="sort">Сортировка</string>
   <string name="send">Отправить</string>

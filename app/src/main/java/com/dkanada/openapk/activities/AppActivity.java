@@ -1,11 +1,12 @@
 package com.dkanada.openapk.activities;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageStats;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,7 +24,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dkanada.openapk.async.DeleteFileAsync;
-import com.dkanada.openapk.interfaces.PackageStatsListener;
 import com.dkanada.openapk.utils.ActionUtils;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
@@ -36,7 +36,7 @@ import com.dkanada.openapk.views.InformationView;
 
 import java.io.File;
 
-public class AppActivity extends ThemeActivity implements PackageStatsListener {
+public class AppActivity extends ThemeActivity {
     private int UNINSTALL_REQUEST_CODE = 1;
 
     private AppPreferences appPreferences;
@@ -60,6 +60,7 @@ public class AppActivity extends ThemeActivity implements PackageStatsListener {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,7 +145,6 @@ public class AppActivity extends ThemeActivity implements PackageStatsListener {
         InformationView packageInformation = new InformationView(context, getString(R.string.layout_package), packageInfo.packageName, true);
         InformationView versionNameInformation = new InformationView(context, getString(R.string.layout_version_name), packageInfo.versionName, false);
         InformationView versionCodeInformation = new InformationView(context, getString(R.string.layout_version_code), Integer.toString(packageInfo.versionCode), true);
-        //InformationView sizeInformation = new InformationView(context, getString(R.string.layout_size), getString(R.string.layout_development), false);
         InformationView dataFolderInformation = new InformationView(context, getString(R.string.layout_data), new File(packageInfo.applicationInfo.dataDir).getParent(), false);
         InformationView sourceFolderInformation = new InformationView(context, getString(R.string.layout_source), new File(new File(packageInfo.applicationInfo.sourceDir).getParent()).getParent(), true);
         InformationView installInformation = new InformationView(context, getString(R.string.layout_install), OtherUtils.formatDate(packageInfo.firstInstallTime), false);
@@ -152,7 +152,6 @@ public class AppActivity extends ThemeActivity implements PackageStatsListener {
         information.addView(packageInformation);
         information.addView(versionNameInformation);
         information.addView(versionCodeInformation);
-        //information.addView(sizeInformation);
         information.addView(dataFolderInformation);
         information.addView(sourceFolderInformation);
         information.addView(installInformation);
@@ -188,6 +187,14 @@ public class AppActivity extends ThemeActivity implements PackageStatsListener {
         buttons.addView(disable);
         buttons.addView(system);
 
+        ButtonView storage = new ButtonView(context, getString(R.string.storage), null, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, StorageActivity.class);
+                intent.putExtra("package", packageInfo.packageName);
+                context.startActivity(intent);
+            }
+        });
         ButtonView removeCache = new ButtonView(context, getString(R.string.action_remove_cache), null, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,7 +204,7 @@ public class AppActivity extends ThemeActivity implements PackageStatsListener {
                 new DeleteFileAsync(context, dialog, packageInfo.applicationInfo.dataDir + "/cache").execute();
             }
         });
-        ButtonView clearData = new ButtonView(context, getString(R.string.action_clear_data), null, new View.OnClickListener() {
+        ButtonView removeData = new ButtonView(context, getString(R.string.action_remove_data), null, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MaterialDialog dialog = DialogUtils.dialogProgress(context
@@ -206,8 +213,9 @@ public class AppActivity extends ThemeActivity implements PackageStatsListener {
                 new DeleteFileAsync(context, dialog, packageInfo.applicationInfo.dataDir).execute();
             }
         });
+        buttons.addView(storage);
         buttons.addView(removeCache);
-        buttons.addView(clearData);
+        buttons.addView(removeData);
     }
 
     @Override
@@ -264,9 +272,5 @@ public class AppActivity extends ThemeActivity implements PackageStatsListener {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onPackageStats(PackageStats packageStats) {
     }
 }

@@ -4,10 +4,10 @@
   <string name="settings">Ustawienia</string>
   <string name="about">O</string>
   <string name="action_share">Udostępnij</string>
-  <string name="installed_apps">Zainstalowane aplikacje</string>
-  <string name="system_apps">Aplikacje systemowe</string>
-  <string name="favorite_apps">Ulubione</string>
-  <string name="hidden_apps">Ukryte aplikacje</string>
+  <string name="apps_installed">Zainstalowane aplikacje</string>
+  <string name="apps_system">Aplikacje systemowe</string>
+  <string name="apps_favorite">Ulubione</string>
+  <string name="apps_hidden">Ukryte aplikacje</string>
   <string name="action_hide">Ukryj</string>
     <string name="send">Wyślij \"%s\" używając</string>
   <string name="search">Szukaj</string>
@@ -17,7 +17,7 @@
     <string name="action_open">Otwórz</string>
     <string name="action_remove_cache">Usuń cache</string>
   <string name="success_remove_cache">Pliki cache %s zostały usunięte</string>
-  <string name="action_clear_data">Wyczyść dane</string>
+  <string name="action_remove_data">Wyczyść dane</string>
   <string name="success_clear_data">Wszystkie dane aplikacji %s zostały usunięte</string>
   <string name="reboot_query">Musisz uruchomić ponownie swoje urządzenie, aby zmiany zostały pokazane. Czy chcesz teraz uruchomić ponownie swoje urządzenie?</string>
   <string name="undo">Cofnij</string>
