@@ -28,6 +28,7 @@ Currently supported languages:
 * Portuguese
 * Italian
 * Polish
+* Russian
 
 ## Third Party Libraries
 * [Material Design Library](https://github.com/navasmdc/MaterialDesignLibrary)

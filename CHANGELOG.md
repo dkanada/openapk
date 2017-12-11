@@ -1,4 +1,17 @@
-### 1.1.4
+### 1.2.1
+###### Released: December 10, 2017
+* add russian translation
+* main activity updates on resume
+* fix sd card install issue
+* add detailed storage view
+
+### 1.2
+###### Released: August 14, 2017
+* fix extract filenames
+* add sort by package name
+* lots of changes behind the scenes
+
+### 1.1.5
 ###### Released: July 26, 2017
 * add button to go to app settings
 * changes to the app activity for new features
