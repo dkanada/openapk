@@ -86,7 +86,7 @@ public class FileOperations {
     public static Boolean saveIconToCache(Context context, PackageInfo packageInfo) {
         Boolean res = false;
         try {
-            File fileUri = new File(context.getCacheDir(), packageInfo.packageName);
+            File fileUri = new File(context.getCacheDir(), packageInfo.packageName + ".png");
             FileOutputStream out = new FileOutputStream(fileUri);
             Drawable icon = context.getPackageManager().getApplicationIcon(packageInfo.applicationInfo);
             BitmapDrawable iconBitmap = (BitmapDrawable) icon;
@@ -100,7 +100,7 @@ public class FileOperations {
 
     // delete app icon from cache folder
     public static Boolean removeIconFromCache(Context context, PackageInfo packageInfo) {
-        File file = new File(context.getCacheDir(), packageInfo.packageName);
+        File file = new File(context.getCacheDir(), packageInfo.packageName + ".png");
         return file.delete();
     }
 
@@ -108,7 +108,7 @@ public class FileOperations {
     public static Drawable getIconFromCache(Context context, PackageInfo packageInfo) {
         Drawable res;
         try {
-            File fileUri = new File(context.getCacheDir(), packageInfo.packageName);
+            File fileUri = new File(context.getCacheDir(), packageInfo.packageName + ".png");
             Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath());
             res = new BitmapDrawable(context.getResources(), bitmap);
         } catch (Exception e) {
@@ -126,22 +126,5 @@ public class FileOperations {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static long getFolderSize(String directory) {
-        File dir = new File(directory);
-        if (dir.exists()) {
-            long result = 0;
-            File[] fileList = dir.listFiles();
-            for(int i = 0; i < fileList.length; i++) {
-                if(fileList[i].isDirectory()) {
-                    result += getFolderSize(fileList[i].toString());
-                } else {
-                    result += fileList[i].length();
-                }
-            }
-            return result;
-        }
-        return 0;
     }
 }

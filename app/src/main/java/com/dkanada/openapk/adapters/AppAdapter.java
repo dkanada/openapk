@@ -62,8 +62,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
             btnOpen.setBackgroundColor(context.getResources().getColor(R.color.white));
             btnShare.setBackgroundColor(context.getResources().getColor(R.color.white));
         } else {
-            btnOpen.setBackgroundColor(context.getResources().getColor(R.color.grey_dark));
-            btnShare.setBackgroundColor(context.getResources().getColor(R.color.grey_dark));
+            btnOpen.setBackgroundColor(context.getResources().getColor(R.color.grey_three));
+            btnShare.setBackgroundColor(context.getResources().getColor(R.color.grey_three));
         }
 
         btnOpen.setText(context.getString(R.string.action_open));

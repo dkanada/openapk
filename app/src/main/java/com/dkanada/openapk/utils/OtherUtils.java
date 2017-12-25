@@ -23,8 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class OtherUtils {
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
-
     // get the name of the extracted app
     public static String getAPKFilename(PackageInfo packageInfo) {
         AppPreferences appPreferences = App.getAppPreferences();
@@ -50,14 +48,15 @@ public class OtherUtils {
     // save app name to clipboard
     public static void saveClipboard(Context context, PackageInfo packageInfo) {
         ClipData clipData;
-        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         clipData = ClipData.newPlainText("text", packageInfo.packageName);
+
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         clipboardManager.setPrimaryClip(clipData);
     }
 
     // get version number for this app
     public static String getAppVersionName(Context context) {
-        String res = "0.0.0.0";
+        String res = "0.0.0";
         try {
             res = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
         } catch (Exception e) {
@@ -87,16 +86,16 @@ public class OtherUtils {
         return intent;
     }
 
-    // check app permissions
-    public static Boolean checkPermissions(Context context) {
+    public static boolean checkPermissions(Context context) {
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static void requestPermissions(Context context) {
         Activity activity = (Activity) context;
-        Boolean res = false;
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_WRITE_READ);
-        } else {
-            res = true;
+        if (!checkPermissions(context)) {
+            activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
         }
-        return res;
     }
 
     public static int dark(int color, double factor) {

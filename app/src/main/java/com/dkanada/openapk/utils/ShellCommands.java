@@ -9,7 +9,7 @@ import com.dkanada.openapk.App;
 
 import java.io.File;
 
-public class SystemUtils {
+public class ShellCommands {
     private static final int ROOT_STATUS_NOT_CHECKED = 0;
     private static final int ROOT_STATUS_ROOTED = 1;
     private static final int ROOT_STATUS_NOT_ROOTED = 2;

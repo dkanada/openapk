@@ -13,7 +13,7 @@ import com.dkanada.openapk.interfaces.PackageStatsListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class PackageStatsHandler {
+public class PackageStatsHelper {
     public static void getPackageStats(Context context, PackageInfo packageInfo, final PackageStatsListener packageStatsListener) {
         try {
             final Activity activity = (Activity) context;

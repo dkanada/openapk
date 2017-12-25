@@ -1,42 +1,23 @@
 package com.dkanada.openapk.activities;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
-import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
-import com.dkanada.openapk.async.DeleteFileAsync;
 import com.dkanada.openapk.interfaces.PackageStatsListener;
-import com.dkanada.openapk.utils.ActionUtils;
 import com.dkanada.openapk.utils.AppPreferences;
-import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.OtherUtils;
-import com.dkanada.openapk.utils.PackageStatsHandler;
-import com.dkanada.openapk.views.ButtonSwitchView;
-import com.dkanada.openapk.views.ButtonView;
+import com.dkanada.openapk.utils.PackageStatsHelper;
 import com.dkanada.openapk.views.InformationView;
-import com.mikepenz.iconics.utils.Utils;
-
-import java.io.File;
 
 public class StorageActivity extends ThemeActivity implements PackageStatsListener {
     private AppPreferences appPreferences;
@@ -83,7 +64,7 @@ public class StorageActivity extends ThemeActivity implements PackageStatsListen
     }
 
     private void setScreenElements() {
-        PackageStatsHandler.getPackageStats(context, packageInfo, this);
+        PackageStatsHelper.getPackageStats(context, packageInfo, this);
 
         internal = (LinearLayout) findViewById(R.id.internal);
         InformationView internalCode = new InformationView(context, getString(R.string.code), getString(R.string.layout_loading), true);

@@ -2,19 +2,12 @@ package com.dkanada.openapk.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.Theme;
 import com.dkanada.openapk.App;
-import com.gc.materialdesign.views.Button;
 import com.gc.materialdesign.widgets.SnackBar;
 import com.dkanada.openapk.R;
-import com.mikepenz.materialize.color.Material;
-
-import java.io.File;
 
 public class DialogUtils {
     public static MaterialDialog dialogMessage(Context context, String title, String content) {
@@ -52,7 +45,7 @@ public class DialogUtils {
 
     public static MaterialDialog dialogFixBackground(Context context, MaterialDialog.Builder dialog) {
         if (App.getAppPreferences().getTheme().equals("1")) {
-            dialog.backgroundColor(context.getResources().getColor(R.color.grey_dark));
+            dialog.backgroundColor(context.getResources().getColor(R.color.grey_three));
         }
         return dialog.show();
     }

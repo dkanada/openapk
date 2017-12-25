@@ -7,7 +7,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.utils.DialogUtils;
 import com.dkanada.openapk.utils.OtherUtils;
-import com.dkanada.openapk.utils.SystemUtils;
+import com.dkanada.openapk.utils.ShellCommands;
 
 public class DeleteFileAsync extends AsyncTask<Void, String, Boolean> {
     private Context context;
@@ -23,8 +23,8 @@ public class DeleteFileAsync extends AsyncTask<Void, String, Boolean> {
     @Override
     protected Boolean doInBackground(Void... voids) {
         Boolean status = false;
-        if (OtherUtils.checkPermissions(context) && SystemUtils.isRoot()) {
-            status = SystemUtils.rmDataPartition(source);
+        if (OtherUtils.checkPermissions(context) && ShellCommands.isRoot()) {
+            status = ShellCommands.rmDataPartition(source);
         }
         return status;
     }
@@ -33,7 +33,7 @@ public class DeleteFileAsync extends AsyncTask<Void, String, Boolean> {
     protected void onPostExecute(Boolean status) {
         super.onPostExecute(status);
         dialog.dismiss();
-        if (!SystemUtils.isRoot()) {
+        if (!ShellCommands.isRoot()) {
             DialogUtils.dialogMessage(context, context.getResources().getString(R.string.dialog_root_required), context.getResources().getString(R.string.dialog_root_required_description));
         } else if (!status) {
             DialogUtils.toastMessage(context, context.getResources().getString(R.string.error_generic));

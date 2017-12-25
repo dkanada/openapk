@@ -32,9 +32,9 @@ public class ButtonSwitchView extends ConstraintLayout {
 
         View divider = findViewById(R.id.divider);
         if (App.getAppPreferences().getTheme().equals("0")) {
-            divider.setBackgroundColor(getResources().getColor(R.color.grey_light));
+            divider.setBackgroundColor(getResources().getColor(R.color.grey_one));
         } else {
-            divider.setBackgroundColor(getResources().getColor(R.color.grey_dark));
+            divider.setBackgroundColor(getResources().getColor(R.color.grey_three));
         }
     }
 }

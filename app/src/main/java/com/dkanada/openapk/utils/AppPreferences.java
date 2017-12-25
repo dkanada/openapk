@@ -22,6 +22,10 @@ public class AppPreferences {
         this.context = context;
     }
 
+    public static AppPreferences get(Context context) {
+        return new AppPreferences(context);
+    }
+
     public String getCustomPath() {
         return sharedPreferences.getString(context.getString(R.string.pref_custom_path), Environment.getExternalStorageDirectory() + "/" + context.getString(R.string.app_name));
     }
@@ -62,7 +66,6 @@ public class AppPreferences {
         return sharedPreferences.getBoolean(context.getString(R.string.pref_enable_root), false);
     }
 
-    // internal preferences
     public boolean getInitialSetup() {
         return sharedPreferences.getBoolean(context.getString(R.string.pref_initial_setup), false);
     }

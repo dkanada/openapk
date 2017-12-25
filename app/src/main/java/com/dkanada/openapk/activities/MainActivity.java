@@ -34,7 +34,7 @@ import com.dkanada.openapk.adapters.AppAdapter;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.utils.DialogUtils;
-import com.dkanada.openapk.utils.SystemUtils;
+import com.dkanada.openapk.utils.ShellCommands;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -86,7 +86,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         packageManager = getPackageManager();
 
         setInitialConfiguration();
-        OtherUtils.checkPermissions(context);
+        OtherUtils.requestPermissions(context);
 
         recyclerView = (RecyclerView) findViewById(R.id.app_list);
         refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
@@ -94,7 +94,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
 
         icon = (ImageView) findViewById(R.id.no_results_icon);
         if (appPreferences.getTheme().equals("0")) {
-            icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+            icon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.grey_two));
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -176,8 +176,8 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
 
             List<String> appList = App.getAppPreferences().getFavoriteList();
             for (String app : appList) {
-                if (SystemUtils.checkHidden(context, app) != null) {
-                    appFavoriteList.add(SystemUtils.checkHidden(context, app));
+                if (ShellCommands.checkHidden(context, app) != null) {
+                    appFavoriteList.add(ShellCommands.checkHidden(context, app));
                 } else {
                     appList.remove(app);
                     App.getAppPreferences().setFavoriteList(appList);

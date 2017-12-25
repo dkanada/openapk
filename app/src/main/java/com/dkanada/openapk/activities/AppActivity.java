@@ -1,7 +1,5 @@
 package com.dkanada.openapk.activities;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -96,11 +94,11 @@ public class AppActivity extends ThemeActivity {
         ImageView settings = (ImageView) findViewById(R.id.settings);
 
         if (App.getAppPreferences().getTheme().equals("0")) {
-            open.setColorFilter(getResources().getColor(R.color.grey));
-            extract.setColorFilter(getResources().getColor(R.color.grey));
-            uninstall.setColorFilter(getResources().getColor(R.color.grey));
-            share.setColorFilter(getResources().getColor(R.color.grey));
-            settings.setColorFilter(getResources().getColor(R.color.grey));
+            open.setColorFilter(getResources().getColor(R.color.grey_two));
+            extract.setColorFilter(getResources().getColor(R.color.grey_two));
+            uninstall.setColorFilter(getResources().getColor(R.color.grey_two));
+            share.setColorFilter(getResources().getColor(R.color.grey_two));
+            settings.setColorFilter(getResources().getColor(R.color.grey_two));
         }
 
         open.setOnClickListener(new View.OnClickListener() {

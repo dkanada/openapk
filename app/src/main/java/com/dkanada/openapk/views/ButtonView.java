@@ -30,11 +30,11 @@ public class ButtonView extends RelativeLayout {
         View dividerTop = findViewById(R.id.divider_top);
         View dividerBottom = findViewById(R.id.divider_bottom);
         if (App.getAppPreferences().getTheme().equals("0")) {
-            dividerTop.setBackgroundColor(getResources().getColor(R.color.grey_light));
-            dividerBottom.setBackgroundColor(getResources().getColor(R.color.grey_light));
+            dividerTop.setBackgroundColor(getResources().getColor(R.color.grey_one));
+            dividerBottom.setBackgroundColor(getResources().getColor(R.color.grey_one));
         } else {
-            dividerTop.setBackgroundColor(getResources().getColor(R.color.grey_dark));
-            dividerBottom.setBackgroundColor(getResources().getColor(R.color.grey_dark));
+            dividerTop.setBackgroundColor(getResources().getColor(R.color.grey_three));
+            dividerBottom.setBackgroundColor(getResources().getColor(R.color.grey_three));
         }
     }
 }
