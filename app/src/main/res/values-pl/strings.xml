@@ -9,7 +9,7 @@
   <string name="apps_favorite">Ulubione</string>
   <string name="apps_hidden">Ukryte aplikacje</string>
   <string name="action_hide">Ukryj</string>
-    <string name="send">Wyślij \"%s\" używając</string>
+    <string name="send">Wyślij</string>
   <string name="search">Szukaj</string>
   <string name="search_hint">Szukaj według nazwy&#8230;</string>
   <string name="search_empty">Nic nie znaleziono</string>

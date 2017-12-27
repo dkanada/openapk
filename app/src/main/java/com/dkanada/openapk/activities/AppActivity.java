@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dkanada.openapk.async.DeleteFileAsync;
-import com.dkanada.openapk.utils.ActionUtils;
+import com.dkanada.openapk.utils.Actions;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.utils.AppPreferences;
@@ -104,20 +104,20 @@ public class AppActivity extends ThemeActivity {
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.open(context, packageInfo);
+                Actions.open(context, packageInfo);
             }
         });
         extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.extract(context, packageInfo);
+                Actions.extract(context, packageInfo);
             }
         });
         uninstall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 1) {
-                    ActionUtils.uninstall(context, packageInfo);
+                    Actions.uninstall(context, packageInfo);
                 } else {
                     Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
                     intent.setData(Uri.parse("package:" + packageInfo.packageName));
@@ -129,13 +129,13 @@ public class AppActivity extends ThemeActivity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.share(context, packageInfo);
+                Actions.share(context, packageInfo);
             }
         });
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.settings(context, packageInfo);
+                Actions.settings(context, packageInfo);
             }
         });
 
@@ -162,7 +162,7 @@ public class AppActivity extends ThemeActivity {
         hideSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ActionUtils.hide(context, packageInfo);
+                Actions.hide(context, packageInfo);
             }
         });
         Switch disableSwitch = new Switch(context);
@@ -172,7 +172,7 @@ public class AppActivity extends ThemeActivity {
         disableSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ActionUtils.disable(context, packageInfo);
+                Actions.disable(context, packageInfo);
             }
         });
         Switch systemSwitch = new Switch(context);
@@ -265,7 +265,7 @@ public class AppActivity extends ThemeActivity {
                 finish();
                 return true;
             case R.id.action_favorite:
-                ActionUtils.favorite(packageInfo);
+                Actions.favorite(packageInfo);
                 OtherUtils.updateAppFavoriteIcon(context, favorite, packageInfo);
                 return true;
         }

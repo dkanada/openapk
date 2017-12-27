@@ -21,7 +21,7 @@
     <string name="action_hide">Ascunde</string>
     <string name="action_disable">Dezactivează</string>
 
-    <string name="send">Trimite \"%s\" folosind</string>
+    <string name="send">Trimite</string>
     <string name="search">Caută</string>
     <string name="search_hint">Caută după nume...</string>
     <string name="search_empty">Niciun rezultat nu a fost găsit la căutarea dvs.</string>

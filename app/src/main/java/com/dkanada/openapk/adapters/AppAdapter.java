@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dkanada.openapk.App;
-import com.dkanada.openapk.utils.ActionUtils;
+import com.dkanada.openapk.utils.Actions;
 import com.dkanada.openapk.activities.AppActivity;
 import com.dkanada.openapk.R;
 
@@ -70,14 +70,14 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> i
         btnOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.open(context, packageInfo);
+                Actions.open(context, packageInfo);
             }
         });
         btnShare.setText(context.getString(R.string.action_share));
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionUtils.share(context, packageInfo);
+                Actions.share(context, packageInfo);
             }
         });
 

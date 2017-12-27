@@ -9,7 +9,7 @@
   <string name="apps_favorite">お気に入り</string>
   <string name="apps_hidden">非表示にするアプリ</string>
   <string name="action_hide">非表示にする</string>
-    <string name="send">次を使用して \"%s\" を送信</string>
+    <string name="send">次を使用して</string>
   <string name="search">検索</string>
   <string name="search_hint">名前で検索&#8230;</string>
   <string name="search_empty">検索条件に一致する結果が見つかりませんでした</string>

@@ -9,7 +9,7 @@
   <string name="apps_favorite">Favoritas</string>
   <string name="apps_hidden">Aplicações ocultas</string>
   <string name="action_hide">Ocultar</string>
-    <string name="send">Enviar \"%s\" por</string>
+    <string name="send">Enviar</string>
   <string name="search">Pesquisar</string>
   <string name="search_hint">Pesquisar por nome&#8230;</string>
   <string name="search_empty">Não foram encontrados resultados.</string>

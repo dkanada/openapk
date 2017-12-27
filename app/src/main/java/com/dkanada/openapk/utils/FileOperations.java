@@ -23,29 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileOperations {
-    public static void writeConfigFile(Context context, List<AppItem> appList, String file) {
-        Gson gson = new Gson();
-        String content = gson.toJson(appList);
-        writeToFile(context, file, content);
-    }
-
-    public static List<AppItem> readConfigFile(Context context, String file) {
-        List<AppItem> appList = new ArrayList<>();
-        try {
-            JsonReader reader = new JsonReader(new InputStreamReader(context.openFileInput(file)));
-            reader.beginArray();
-            while (reader.hasNext()) {
-                Gson gson = new Gson();
-                appList.add((AppItem) gson.fromJson(reader, AppItem.class));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return appList;
-    }
-
     // copy files that do not require root access
-    public static Boolean cpExternalPartition(String input, String output) {
+    public static boolean cpExternalPartition(String input, String output) {
         createAppDir();
         File inputFile = new File(input);
         File outputFile = new File(output);
@@ -67,7 +46,7 @@ public class FileOperations {
     }
 
     // delete all extracted apps from folder
-    public static Boolean deleteAppFiles() {
+    public static boolean deleteAppFiles() {
         Boolean res = false;
         File f = new File(App.getAppPreferences().getCustomPath());
         if (f.exists() && f.isDirectory()) {
@@ -83,7 +62,7 @@ public class FileOperations {
     }
 
     // save app icon to cache folder
-    public static Boolean saveIconToCache(Context context, PackageInfo packageInfo) {
+    public static boolean saveIconToCache(Context context, PackageInfo packageInfo) {
         Boolean res = false;
         try {
             File fileUri = new File(context.getCacheDir(), packageInfo.packageName + ".png");
@@ -99,7 +78,7 @@ public class FileOperations {
     }
 
     // delete app icon from cache folder
-    public static Boolean removeIconFromCache(Context context, PackageInfo packageInfo) {
+    public static boolean removeIconFromCache(Context context, PackageInfo packageInfo) {
         File file = new File(context.getCacheDir(), packageInfo.packageName + ".png");
         return file.delete();
     }
