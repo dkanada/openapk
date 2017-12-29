@@ -60,7 +60,7 @@ public class AppActivity extends ThemeActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.about);
+        getSupportActionBar().setTitle("");
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         getWindow().setStatusBarColor(OtherUtils.dark(AppPreferences.get(context).getPrimaryColor(), 0.8));

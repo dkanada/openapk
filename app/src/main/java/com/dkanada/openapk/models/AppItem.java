@@ -36,6 +36,7 @@ public class AppItem implements Parcelable {
     }
 
     public AppItem(Parcel parcel) {
+        icon = parcel.readParcelable(getClass().getClassLoader());
         packageLabel = parcel.readString();
         packageName = parcel.readString();
         versionName = parcel.readString();
@@ -104,6 +105,7 @@ public class AppItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeParcelable(icon, flags);
         parcel.writeString(packageLabel);
         parcel.writeString(packageName);
         parcel.writeString(versionName);

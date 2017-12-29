@@ -123,7 +123,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     }
 
     private void setInitialConfiguration() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
 
         setSupportActionBar(toolbar);
