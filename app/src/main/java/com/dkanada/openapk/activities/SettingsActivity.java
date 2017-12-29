@@ -15,11 +15,8 @@ import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.OtherUtils;
 
 public class SettingsActivity extends ThemeActivity {
-    private AppPreferences appPreferences;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        appPreferences = App.getAppPreferences();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
@@ -34,25 +31,20 @@ public class SettingsActivity extends ThemeActivity {
 
     private void setInitialConfiguration() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.settings);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
+        toolbar.setBackgroundColor(AppPreferences.get(this).getPrimaryColor());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
-            if (appPreferences.getStatusColor()) {
-                getWindow().setStatusBarColor(OtherUtils.dark(appPreferences.getPrimaryColor(), 0.8));
-            }
-            if (appPreferences.getNavigationColor()) {
-                getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
-            }
-        }
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.settings);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        getWindow().setStatusBarColor(OtherUtils.dark(AppPreferences.get(this).getPrimaryColor(), 0.8));
+        getWindow().setNavigationBarColor(AppPreferences.get(this).getPrimaryColor());
     }
 }

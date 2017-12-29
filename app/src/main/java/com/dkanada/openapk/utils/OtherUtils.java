@@ -9,7 +9,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +20,7 @@ import android.view.MenuItem;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
+import com.dkanada.openapk.models.AppItem;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -24,15 +28,15 @@ import java.util.Locale;
 
 public class OtherUtils {
     // get the name of the extracted app
-    public static String getAPKFilename(PackageInfo packageInfo) {
+    public static String getAPKFilename(AppItem appItem) {
         AppPreferences appPreferences = App.getAppPreferences();
         switch (appPreferences.getFilename()) {
             case "0":
-                return packageInfo.packageName + ".apk";
+                return appItem.getPackageName() + ".apk";
             case "1":
-                return App.getPackageName(packageInfo) + ".apk";
+                return appItem.getPackageLabel() + ".apk";
             default:
-                return packageInfo.packageName + ".apk";
+                return appItem.getPackageName() + ".apk";
         }
     }
 
@@ -94,7 +98,7 @@ public class OtherUtils {
     public static void requestPermissions(Context context) {
         Activity activity = (Activity) context;
         if (!checkPermissions(context)) {
-            activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+            activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, AppPreferences.CODE_PERMISSION);
         }
     }
 
@@ -115,11 +119,19 @@ public class OtherUtils {
 
     // update the state of the favorite icon
     public static void updateAppFavoriteIcon(Context context, MenuItem menuItem, PackageInfo packageInfo) {
-        if (App.getAppPreferences().getFavoriteList().contains(packageInfo.packageName)) {
+        /*if (App.getAppPreferences().getFavoriteList().contains(packageInfo.packageName)) {
             menuItem.setIcon(context.getResources().getDrawable(R.drawable.ic_star));
         } else {
             menuItem.setIcon(context.getResources().getDrawable(R.drawable.ic_star_border));
-        }
+        }*/
+    }
+
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 
     public static String formatDate(long date) {

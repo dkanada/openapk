@@ -13,12 +13,13 @@ import java.util.List;
 
 public class AppPreferences {
     private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
     private Context context;
+
+    public static final int CODE_PERMISSION = 10;
+    public static final int CODE_UNINSTALL = 11;
 
     public AppPreferences(Context context) {
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        this.editor = sharedPreferences.edit();
         this.context = context;
     }
 
@@ -71,8 +72,9 @@ public class AppPreferences {
     }
 
     public void setInitialSetup(boolean value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(context.getString(R.string.pref_initial_setup), value);
-        editor.commit();
+        editor.apply();
     }
 
     public int getRootStatus() {
@@ -80,43 +82,8 @@ public class AppPreferences {
     }
 
     public void setRootStatus(int value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(context.getString(R.string.pref_root), value);
-        editor.commit();
-    }
-
-    public List<String> getHiddenList() {
-        String list = sharedPreferences.getString(context.getString(R.string.pref_hidden_list), "");
-        if (list.equals("")) {
-            return new ArrayList<>();
-        } else {
-            return new ArrayList<>(Arrays.asList(list.split(",")));
-        }
-    }
-
-    public void setHiddenList(List<String> list) {
-        String stringList = "";
-        for (String string : list) {
-            stringList += string + ",";
-        }
-        editor.putString(context.getString(R.string.pref_hidden_list), stringList);
-        editor.commit();
-    }
-
-    public List<String> getFavoriteList() {
-        String list = sharedPreferences.getString(context.getString(R.string.pref_favorite_list), "");
-        if (list.equals("")) {
-            return new ArrayList<>();
-        } else {
-            return new ArrayList<>(Arrays.asList(list.split(",")));
-        }
-    }
-
-    public void setFavoriteList(List<String> list) {
-        String stringList = "";
-        for (String string : list) {
-            stringList += string + ",";
-        }
-        editor.putString(context.getString(R.string.pref_favorite_list), stringList);
-        editor.commit();
+        editor.apply();
     }
 }

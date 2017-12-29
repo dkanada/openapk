@@ -2,11 +2,8 @@ package com.dkanada.openapk.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,6 +19,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dkanada.openapk.async.DeleteFileAsync;
+import com.dkanada.openapk.models.AppItem;
 import com.dkanada.openapk.utils.Actions;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
@@ -35,47 +33,38 @@ import com.dkanada.openapk.views.InformationView;
 import java.io.File;
 
 public class AppActivity extends ThemeActivity {
-    private int UNINSTALL_REQUEST_CODE = 1;
-
-    private AppPreferences appPreferences;
     private Context context;
+    private AppItem appItem;
     private MenuItem favorite;
-    private PackageInfo packageInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        appPreferences = App.getAppPreferences();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
+        appItem = getIntent().getParcelableExtra("appItem");
         context = this;
 
-        getInitialConfiguration();
         setInitialConfiguration();
         setScreenElements();
     }
 
     private void setInitialConfiguration() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
+        toolbar.setBackgroundColor(AppPreferences.get(context).getPrimaryColor());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
-            if (appPreferences.getStatusColor()) {
-                getWindow().setStatusBarColor(OtherUtils.dark(appPreferences.getPrimaryColor(), 0.8));
-            }
-            if (appPreferences.getNavigationColor()) {
-                getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
-            }
-        }
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.about);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        getWindow().setStatusBarColor(OtherUtils.dark(AppPreferences.get(context).getPrimaryColor(), 0.8));
+        getWindow().setNavigationBarColor(AppPreferences.get(context).getPrimaryColor());
     }
 
     private void setScreenElements() {
@@ -83,9 +72,9 @@ public class AppActivity extends ThemeActivity {
         ImageView icon = (ImageView) findViewById(R.id.app_icon);
         TextView name = (TextView) findViewById(R.id.app_name);
 
-        header.setBackgroundColor(appPreferences.getPrimaryColor());
-        icon.setImageDrawable(App.getPackageIcon(packageInfo));
-        name.setText(App.getPackageName(packageInfo));
+        header.setBackgroundColor(AppPreferences.get(context).getPrimaryColor());
+        icon.setImageDrawable(new BitmapDrawable(getResources(), appItem.getIcon()));
+        name.setText(appItem.getPackageLabel());
 
         ImageView open = (ImageView) findViewById(R.id.open);
         ImageView extract = (ImageView) findViewById(R.id.extract);
@@ -104,49 +93,49 @@ public class AppActivity extends ThemeActivity {
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Actions.open(context, packageInfo);
+                Actions.open(context, appItem);
             }
         });
         extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Actions.extract(context, packageInfo);
+                Actions.extract(context, appItem);
             }
         });
         uninstall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 1) {
-                    Actions.uninstall(context, packageInfo);
+                if (appItem.system) {
+                    Actions.uninstall(context, appItem);
                 } else {
                     Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
-                    intent.setData(Uri.parse("package:" + packageInfo.packageName));
+                    intent.setData(Uri.parse("package:" + appItem.getPackageName()));
                     intent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
-                    startActivityForResult(intent, UNINSTALL_REQUEST_CODE);
+                    startActivityForResult(intent, AppPreferences.CODE_UNINSTALL);
                 }
             }
         });
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Actions.share(context, packageInfo);
+                Actions.share(context, appItem);
             }
         });
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Actions.settings(context, packageInfo);
+                Actions.settings(context, appItem);
             }
         });
 
         LinearLayout information = (LinearLayout) findViewById(R.id.information);
-        InformationView packageInformation = new InformationView(context, getString(R.string.layout_package), packageInfo.packageName, true);
-        InformationView versionNameInformation = new InformationView(context, getString(R.string.layout_version_name), packageInfo.versionName, false);
-        InformationView versionCodeInformation = new InformationView(context, getString(R.string.layout_version_code), Integer.toString(packageInfo.versionCode), true);
-        InformationView dataFolderInformation = new InformationView(context, getString(R.string.layout_data), new File(packageInfo.applicationInfo.dataDir).getParent(), false);
-        InformationView sourceFolderInformation = new InformationView(context, getString(R.string.layout_source), new File(new File(packageInfo.applicationInfo.sourceDir).getParent()).getParent(), true);
-        InformationView installInformation = new InformationView(context, getString(R.string.layout_install), OtherUtils.formatDate(packageInfo.firstInstallTime), false);
-        InformationView updateInformation = new InformationView(context, getString(R.string.layout_update), OtherUtils.formatDate(packageInfo.lastUpdateTime),  true);
+        InformationView packageInformation = new InformationView(context, getString(R.string.layout_package), appItem.getPackageName(), true);
+        InformationView versionNameInformation = new InformationView(context, getString(R.string.layout_version_name), appItem.getVersionName(), false);
+        InformationView versionCodeInformation = new InformationView(context, getString(R.string.layout_version_code), appItem.getVersionCode(), true);
+        InformationView dataFolderInformation = new InformationView(context, getString(R.string.layout_data), new File(appItem.getData()).getParent(), false);
+        InformationView sourceFolderInformation = new InformationView(context, getString(R.string.layout_source), new File(new File(appItem.getSource()).getParent()).getParent(), true);
+        InformationView installInformation = new InformationView(context, getString(R.string.layout_install), OtherUtils.formatDate(Long.valueOf(appItem.getInstall())), false);
+        InformationView updateInformation = new InformationView(context, getString(R.string.layout_update), OtherUtils.formatDate(Long.valueOf(appItem.getUpdate())),  true);
         information.addView(packageInformation);
         information.addView(versionNameInformation);
         information.addView(versionCodeInformation);
@@ -157,27 +146,23 @@ public class AppActivity extends ThemeActivity {
 
         LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
         Switch hideSwitch = new Switch(context);
-        hideSwitch.setClickable(false);
-        hideSwitch.setAlpha(0.5f);
         hideSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Actions.hide(context, packageInfo);
+                Actions.hide(context, appItem);
             }
         });
         Switch disableSwitch = new Switch(context);
-        if (!packageInfo.applicationInfo.enabled) {
+        if (appItem.disable) {
             disableSwitch.setChecked(true);
         }
         disableSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Actions.disable(context, packageInfo);
+                Actions.disable(context, appItem);
             }
         });
         Switch systemSwitch = new Switch(context);
-        systemSwitch.setClickable(false);
-        systemSwitch.setAlpha(0.5f);
         ButtonSwitchView hide = new ButtonSwitchView(context, getResources().getString(R.string.action_hide), null, hideSwitch);
         ButtonSwitchView disable = new ButtonSwitchView(context, getResources().getString(R.string.action_disable), null, disableSwitch);
         ButtonSwitchView system = new ButtonSwitchView(context, getResources().getString(R.string.action_system), null, systemSwitch);
@@ -189,7 +174,7 @@ public class AppActivity extends ThemeActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, StorageActivity.class);
-                intent.putExtra("package", packageInfo.packageName);
+                intent.putExtra("appItem", appItem);
                 context.startActivity(intent);
             }
         });
@@ -199,7 +184,7 @@ public class AppActivity extends ThemeActivity {
                 MaterialDialog dialog = DialogUtils.dialogProgress(context
                         , getResources().getString(R.string.dialog_progress)
                         , getResources().getString(R.string.dialog_progress_description));
-                new DeleteFileAsync(context, dialog, packageInfo.applicationInfo.dataDir + "/cache").execute();
+                new DeleteFileAsync(context, dialog, appItem.getData() + "/cache").execute();
             }
         });
         ButtonView removeData = new ButtonView(context, getString(R.string.action_remove_data), null, new View.OnClickListener() {
@@ -208,7 +193,7 @@ public class AppActivity extends ThemeActivity {
                 MaterialDialog dialog = DialogUtils.dialogProgress(context
                         , getResources().getString(R.string.dialog_progress)
                         , getResources().getString(R.string.dialog_progress_description));
-                new DeleteFileAsync(context, dialog, packageInfo.applicationInfo.dataDir).execute();
+                new DeleteFileAsync(context, dialog, appItem.getData()).execute();
             }
         });
         buttons.addView(storage);
@@ -219,30 +204,16 @@ public class AppActivity extends ThemeActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == UNINSTALL_REQUEST_CODE) {
+        if (requestCode == AppPreferences.CODE_UNINSTALL) {
             if (resultCode == RESULT_OK) {
-                Log.i("Package Uninstall : ", packageInfo.packageName + " : OK");
+                Log.i("UNINSTALL: ", appItem.getPackageName() + " SUCCESS");
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             } else if (resultCode == RESULT_CANCELED) {
-                Log.i("Package Uninstall : ", packageInfo.packageName + " : CANCEL");
+                Log.i("UNINSTALL: ", appItem.getPackageName() + " FAILURE");
             }
         }
-    }
-
-    private void getInitialConfiguration() {
-        String packageName = getIntent().getStringExtra("package");
-        try {
-            packageInfo = getPackageManager().getPackageInfo(packageName, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 
     @Override
@@ -254,7 +225,7 @@ public class AppActivity extends ThemeActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         favorite = menu.findItem(R.id.action_favorite);
-        OtherUtils.updateAppFavoriteIcon(context, favorite, packageInfo);
+        //OtherUtils.updateAppFavoriteIcon(context, favorite, packageInfo);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -265,8 +236,8 @@ public class AppActivity extends ThemeActivity {
                 finish();
                 return true;
             case R.id.action_favorite:
-                Actions.favorite(packageInfo);
-                OtherUtils.updateAppFavoriteIcon(context, favorite, packageInfo);
+                //Actions.favorite(packageInfo);
+                //OtherUtils.updateAppFavoriteIcon(context, favorite, packageInfo);
                 return true;
         }
         return super.onOptionsItemSelected(item);

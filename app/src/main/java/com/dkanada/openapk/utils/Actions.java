@@ -1,6 +1,5 @@
 package com.dkanada.openapk.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -10,13 +9,14 @@ import android.view.View;
 
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
+import com.dkanada.openapk.models.AppItem;
 
 import java.io.File;
 import java.util.List;
 
 public class Actions {
-    public static void open(Context context, PackageInfo packageInfo) {
-        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageInfo.packageName);
+    public static void open(Context context, AppItem appItem) {
+        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(appItem.getPackageName());
         if (intent != null) {
             context.startActivity(intent);
         } else {
@@ -24,24 +24,24 @@ public class Actions {
         }
     }
 
-    public static void extract(Context context, final PackageInfo packageInfo) {
-        boolean status = FileOperations.cpExternalPartition(packageInfo.applicationInfo.sourceDir, App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(packageInfo));
+    public static void extract(Context context, final AppItem appItem) {
+        boolean status = FileOperations.cpExternalPartition(appItem.getSource(), App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(appItem));
         if (!status && !OtherUtils.checkPermissions(context)) {
             DialogUtils.toastMessage(context, context.getResources().getString(R.string.dialog_permissions));
         } else if (!status) {
             DialogUtils.toastMessage(context, context.getResources().getString(R.string.error_generic));
         } else {
-            DialogUtils.toastAction(context, String.format(context.getResources().getString(R.string.success_extract), packageInfo.packageName, OtherUtils.getAPKFilename(packageInfo)), context.getResources().getString(R.string.undo), new View.OnClickListener() {
+            DialogUtils.toastAction(context, String.format(context.getResources().getString(R.string.success_extract), appItem.getPackageName(), OtherUtils.getAPKFilename(appItem)), context.getResources().getString(R.string.undo), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new File(App.getAppPreferences().getCustomPath() + OtherUtils.getAPKFilename(packageInfo)).delete();
+                    new File(App.getAppPreferences().getCustomPath() + OtherUtils.getAPKFilename(appItem)).delete();
                 }
             });
         }
     }
 
-    public static void uninstall(Context context, PackageInfo packageInfo) {
-        boolean status = ShellCommands.rmSystemPartition(packageInfo.applicationInfo.sourceDir);
+    public static void uninstall(Context context, AppItem appItem) {
+        boolean status = ShellCommands.rmSystemPartition(appItem.getSource());
         if (!status && !ShellCommands.isRoot()) {
             DialogUtils.toastMessage(context, context.getResources().getString(R.string.dialog_root_required_description));
         } else if (!status) {
@@ -56,31 +56,31 @@ public class Actions {
         }
     }
 
-    public static void share(Context context, PackageInfo packageInfo) {
-        boolean status = FileOperations.cpExternalPartition(packageInfo.applicationInfo.sourceDir, App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(packageInfo));
+    public static void share(Context context, AppItem appItem) {
+        boolean status = FileOperations.cpExternalPartition(appItem.getSource(), App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(appItem));
         if (!status && !OtherUtils.checkPermissions(context)) {
             DialogUtils.toastMessage(context, context.getResources().getString(R.string.dialog_permissions_description));
         } else if (!status) {
             DialogUtils.toastMessage(context, context.getResources().getString(R.string.error_generic));
         } else {
-            Intent shareIntent = OtherUtils.getShareIntent(new File(App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(packageInfo)));
+            Intent shareIntent = OtherUtils.getShareIntent(new File(App.getAppPreferences().getCustomPath() + "/" + OtherUtils.getAPKFilename(appItem)));
             context.startActivity(Intent.createChooser(shareIntent, context.getResources().getString(R.string.send)));
         }
     }
 
-    public static void settings(Context context, PackageInfo packageInfo) {
+    public static void settings(Context context, AppItem appItem) {
         Intent intent = new Intent();
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.parse("package:" + packageInfo.packageName));
+        intent.setData(Uri.parse("package:" + appItem.getPackageName()));
         context.startActivity(intent);
     }
 
-    public static void disable(Context context, PackageInfo packageInfo) {
+    public static void disable(Context context, AppItem appItem) {
         boolean status;
-        if (packageInfo.applicationInfo.enabled) {
-            status = ShellCommands.disable(packageInfo);
+        if (!appItem.disable) {
+            status = ShellCommands.disable(appItem);
         } else {
-            status = ShellCommands.enable(packageInfo);
+            status = ShellCommands.enable(appItem);
         }
         if (!status && !ShellCommands.isRoot()) {
             DialogUtils.toastMessage(context, context.getResources().getString(R.string.dialog_root_required_description));
@@ -96,13 +96,18 @@ public class Actions {
         }
     }
 
-    public static void hide(Context context, PackageInfo packageInfo) {
+    public static void hide(Context context, AppItem appItem) {
         boolean status;
-        if (ShellCommands.checkHidden(context, packageInfo.packageName) != null) {
-            status = ShellCommands.unhide(packageInfo);
+        ParseJson parseJson = new ParseJson(context);
+        List<AppItem> appList = parseJson.getHiddenList();
+        if (!appItem.hide) {
+            status = ShellCommands.hide(appItem);
+            appList.add(appItem);
         } else {
-            status = ShellCommands.hide(packageInfo);
+            status = ShellCommands.unhide(appItem);
+            appList.remove(appItem);
         }
+        parseJson.setHiddenList(appList);
         if (!status && !ShellCommands.isRoot()) {
             DialogUtils.toastMessage(context, context.getResources().getString(R.string.dialog_root_required_description));
         } else if (!status) {
@@ -118,7 +123,7 @@ public class Actions {
     }
 
     public static void favorite(PackageInfo packageInfo) {
-        if (App.getAppPreferences().getFavoriteList().contains(packageInfo.packageName)) {
+        /*if (App.getAppPreferences().getFavoriteList().contains(packageInfo.packageName)) {
             List<String> list = App.getAppPreferences().getFavoriteList();
             list.remove(packageInfo.packageName);
             App.getAppPreferences().setFavoriteList(list);
@@ -126,6 +131,6 @@ public class Actions {
             List<String> list = App.getAppPreferences().getFavoriteList();
             list.add(packageInfo.packageName);
             App.getAppPreferences().setFavoriteList(list);
-        }
+        }*/
     }
 }

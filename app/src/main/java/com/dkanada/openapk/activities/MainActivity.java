@@ -8,7 +8,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -31,10 +30,11 @@ import android.widget.Toast;
 import com.dkanada.openapk.App;
 import com.dkanada.openapk.R;
 import com.dkanada.openapk.adapters.AppAdapter;
+import com.dkanada.openapk.models.AppItem;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.utils.DialogUtils;
-import com.dkanada.openapk.utils.ShellCommands;
+import com.dkanada.openapk.utils.ParseJson;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -51,8 +51,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends ThemeActivity implements SearchView.OnQueryTextListener {
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_READ = 1;
-
     // settings
     private AppPreferences appPreferences;
     private PackageManager packageManager;
@@ -63,9 +61,8 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     private AppAdapter appFavoriteAdapter;
 
     // configuration variables
-    private Boolean doubleBackToExitPressedOnce = false;
+    private Boolean doubleTapFlag = false;
     private Toolbar toolbar;
-    private Activity activity;
     private Context context;
     private RecyclerView recyclerView;
     private Drawer drawer;
@@ -79,7 +76,6 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.activity = this;
         this.context = this;
 
         appPreferences = App.getAppPreferences();
@@ -127,39 +123,37 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     }
 
     private void setInitialConfiguration() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.app_name);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            toolbar.setBackgroundColor(appPreferences.getPrimaryColor());
-            if (appPreferences.getStatusColor()) {
-                getWindow().setStatusBarColor(OtherUtils.dark(appPreferences.getPrimaryColor(), 0.8));
-            }
-            if (appPreferences.getNavigationColor()) {
-                getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
-            }
-        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        getWindow().setStatusBarColor(OtherUtils.dark(appPreferences.getPrimaryColor(), 0.8));
+        getWindow().setNavigationBarColor(appPreferences.getPrimaryColor());
     }
 
     class getInstalledApps extends AsyncTask<Void, String, Void> {
-        private List<PackageInfo> appInstalledList = new ArrayList<>();
-        private List<PackageInfo> appSystemList = new ArrayList<>();
-        private List<PackageInfo> appDisabledList = new ArrayList<>();
-        private List<PackageInfo> appHiddenList = new ArrayList<>();
-        private List<PackageInfo> appFavoriteList = new ArrayList<>();
+        private List<AppItem> appInstalledList = new ArrayList<>();
+        private List<AppItem> appSystemList = new ArrayList<>();
+        private List<AppItem> appDisabledList = new ArrayList<>();
+        private List<AppItem> appHiddenList = new ArrayList<>();
+        private List<AppItem> appFavoriteList = new ArrayList<>();
 
         @Override
         protected Void doInBackground(Void... params) {
             List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
             for (PackageInfo packageInfo : packages) {
+                AppItem appItem = new AppItem(packageInfo);
                 if (!packageInfo.applicationInfo.enabled) {
-                    appDisabledList.add(packageInfo);
+                    appItem.disable = true;
+                    appDisabledList.add(appItem);
                 } else if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 1) {
-                    appSystemList.add(packageInfo);
+                    appItem.system = true;
+                    appSystemList.add(appItem);
                 } else {
-                    appInstalledList.add(packageInfo);
+                    appInstalledList.add(appItem);
                 }
             }
 
@@ -174,16 +168,8 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
             appHiddenList = sortAdapter(appHiddenList);
             appHiddenAdapter = new AppAdapter(context, appHiddenList);
 
-            List<String> appList = App.getAppPreferences().getFavoriteList();
-            for (String app : appList) {
-                if (ShellCommands.checkHidden(context, app) != null) {
-                    appFavoriteList.add(ShellCommands.checkHidden(context, app));
-                } else {
-                    appList.remove(app);
-                    App.getAppPreferences().setFavoriteList(appList);
-                }
-            }
-            appFavoriteList = sortAdapter(appFavoriteList);
+            ParseJson parseJson = new ParseJson(context);
+            appFavoriteList = sortAdapter(parseJson.getHiddenList());
             appFavoriteAdapter = new AppAdapter(context, appFavoriteList);
             return null;
         }
@@ -222,54 +208,24 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         }
     }
 
-    public List<PackageInfo> sortAdapter(List<PackageInfo> list) {
-        switch (appPreferences.getSortMethod()) {
-            case "0":
-                // compare by name
-                Collections.sort(list, new Comparator<PackageInfo>() {
-                    @Override
-                    public int compare(PackageInfo one, PackageInfo two) {
-                        return App.getPackageName(one).compareTo(App.getPackageName(two));
-                    }
-                });
-                break;
-            case "1":
-                // compare by package
-                Collections.sort(list, new Comparator<PackageInfo>() {
-                    @Override
-                    public int compare(PackageInfo one, PackageInfo two) {
-                        return one.packageName.compareTo(two.packageName);
-                    }
-                });
-                break;
-            case "2":
-                // compare by install date
-                Collections.sort(list, new Comparator<PackageInfo>() {
-                    @Override
-                    public int compare(PackageInfo one, PackageInfo two) {
-                        return Long.toString(two.firstInstallTime).compareTo(Long.toString(one.firstInstallTime));
-                    }
-                });
-                break;
-            case "3":
-                // compare by last update
-                Collections.sort(list, new Comparator<PackageInfo>() {
-                    @Override
-                    public int compare(PackageInfo one, PackageInfo two) {
-                        return Long.toString(two.lastUpdateTime).compareTo(Long.toString(one.lastUpdateTime));
-                    }
-                });
-                break;
-            default:
-                // compare by name
-                Collections.sort(list, new Comparator<PackageInfo>() {
-                    @Override
-                    public int compare(PackageInfo one, PackageInfo two) {
-                        return App.getPackageName(one).compareTo(App.getPackageName(two));
-                    }
-                });
-                break;
-        }
+    public List<AppItem> sortAdapter(List<AppItem> list) {
+        Collections.sort(list, new Comparator<AppItem>() {
+            @Override
+            public int compare(AppItem one, AppItem two) {
+                switch (appPreferences.getSortMethod()) {
+                    case "0":
+                        return one.getPackageLabel().compareTo(two.getPackageLabel());
+                    case "1":
+                        return one.getPackageName().compareTo(two.getPackageName());
+                    case "2":
+                        return one.getInstall().compareTo(two.getInstall());
+                    case "3":
+                        return one.getUpdate().compareTo(one.getUpdate());
+                    default:
+                        return one.getPackageLabel().compareTo(two.getPackageLabel());
+                }
+            }
+        });
         return list;
     }
 
@@ -411,7 +367,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_WRITE_READ: {
+            case AppPreferences.CODE_PERMISSION: {
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     DialogUtils.dialogMessage(context, getResources().getString(R.string.dialog_permissions), getResources().getString(R.string.dialog_permissions_description));
                 }
@@ -433,16 +389,16 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
         } else if (searchItem.isVisible() && !searchView.isIconified()) {
             searchView.onActionViewCollapsed();
         } else if (appPreferences.getDoubleTap()) {
-            if (doubleBackToExitPressedOnce) {
+            if (doubleTapFlag) {
                 super.onBackPressed();
                 return;
             }
-            this.doubleBackToExitPressedOnce = true;
+            this.doubleTapFlag = true;
             Toast.makeText(this, R.string.tap_exit, Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    doubleBackToExitPressedOnce = false;
+                    doubleTapFlag = false;
                 }
             }, 2000);
         } else {
