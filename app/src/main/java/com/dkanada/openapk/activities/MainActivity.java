@@ -34,7 +34,6 @@ import com.dkanada.openapk.models.AppItem;
 import com.dkanada.openapk.utils.AppPreferences;
 import com.dkanada.openapk.utils.OtherUtils;
 import com.dkanada.openapk.utils.DialogUtils;
-import com.dkanada.openapk.utils.ParseJson;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -168,8 +167,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
             appHiddenList = sortAdapter(appHiddenList);
             appHiddenAdapter = new AppAdapter(context, appHiddenList);
 
-            ParseJson parseJson = new ParseJson(context);
-            appFavoriteList = sortAdapter(parseJson.getHiddenList());
+            appFavoriteList = sortAdapter(appFavoriteList);
             appFavoriteAdapter = new AppAdapter(context, appFavoriteList);
             return null;
         }
@@ -220,7 +218,7 @@ public class MainActivity extends ThemeActivity implements SearchView.OnQueryTex
                     case "2":
                         return one.getInstall().compareTo(two.getInstall());
                     case "3":
-                        return one.getUpdate().compareTo(one.getUpdate());
+                        return one.getUpdate().compareTo(two.getUpdate());
                     default:
                         return one.getPackageLabel().compareTo(two.getPackageLabel());
                 }

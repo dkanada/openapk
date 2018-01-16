@@ -6,31 +6,33 @@ import com.dkanada.openapk.models.AppItem;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParseJson {
+public class PackageList {
     private Context context;
 
-    public ParseJson(Context context) {
+    public PackageList(Context context) {
         this.context = context;
     }
 
     public List<AppItem> getHiddenList() {
-        return getAppList(context.getCacheDir().toString() + "/hide.json");
+        return getAppList(context.getCacheDir().toString() + "/hidden");
     }
 
     public void setHiddenList(List<AppItem> appList) {
-        setAppList(context.getCacheDir().toString() + "/hide.json", appList);
+        setAppList(context.getCacheDir().toString() + "/hidden", appList);
     }
 
-    public List<AppItem> getAppList(String file) {
+    public List<AppItem> getAppList(String folder) {
         List<AppItem> appList = new ArrayList<>();
-        try {
-            JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(file)));
+        File file = new File(folder);
+        /*try {
+            JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(folder)));
             reader.beginArray();
             while (reader.hasNext()) {
                 Gson gson = new Gson();
@@ -38,7 +40,7 @@ public class ParseJson {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         return appList;
     }
 

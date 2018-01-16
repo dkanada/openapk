@@ -98,8 +98,8 @@ public class Actions {
 
     public static void hide(Context context, AppItem appItem) {
         boolean status;
-        ParseJson parseJson = new ParseJson(context);
-        List<AppItem> appList = parseJson.getHiddenList();
+        PackageList packageList = new PackageList(context);
+        List<AppItem> appList = packageList.getHiddenList();
         if (!appItem.hide) {
             status = ShellCommands.hide(appItem);
             appList.add(appItem);
@@ -107,12 +107,12 @@ public class Actions {
             status = ShellCommands.unhide(appItem);
             appList.remove(appItem);
         }
-        parseJson.setHiddenList(appList);
         if (!status && !ShellCommands.isRoot()) {
             DialogUtils.toastMessage(context, context.getResources().getString(R.string.dialog_root_required_description));
         } else if (!status) {
             DialogUtils.toastMessage(context, context.getResources().getString(R.string.error_generic));
         } else {
+            packageList.setHiddenList(appList);
             DialogUtils.toastAction(context, context.getResources().getString(R.string.reboot_query), context.getResources().getString(R.string.reboot), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

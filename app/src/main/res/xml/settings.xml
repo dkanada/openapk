@@ -50,12 +50,6 @@
             app:cpv_dialogTitle="@string/settings_accent_color"
             app:cpv_showAlphaSlider="true" />
 
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/pref_navigation_color"
-            android:summary="@string/settings_navigation_color_description"
-            android:title="@string/settings_navigation_color" />
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_title_other">
