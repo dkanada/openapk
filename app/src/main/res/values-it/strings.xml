@@ -1,46 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_description">Un app manager semplice, moderno e personalizzabile</string>
-  <string name="settings">Impostazioni</string>
-  <string name="about">Info</string>
-  <string name="action_share">Condividi</string>
-  <string name="apps_installed">Applicazioni installate</string>
-  <string name="apps_system">Applicazioni di sistema</string>
-  <string name="apps_favorite">Preferiti</string>
-  <string name="apps_hidden">Applicazioni nascoste</string>
-  <string name="action_hide">Nascondi</string>
-    <string name="send">Invia</string>
-  <string name="search">Cerca</string>
-  <string name="search_hint">Cerca per nome&#8230;</string>
-  <string name="search_empty">Nessun risultato in seguito alla ricerca</string>
-  <string name="clipboard">Copiato negli appunti</string>
-  <string name="success_extract">APK \"%1$s\" salvato nella cartella \"MLManager\" con il nome: %2$s</string>
+  
+    <string name="app_description">Un\'app manager semplice, moderno e personalizzabile</string>
+  
+    <!-- labels -->
+    <string name="apps_installed">App installate</string>
+    <string name="apps_system">App di sistema</string>
+    <string name="apps_favorite">Preferiti</string>
+    <string name="apps_hidden">App nascoste</string>
+    <string name="apps_disabled">App disattivate</string>
+    <string name="settings">Impostazioni</string>
+    <string name="about">Info</string>
+  
     <string name="action_open">Apri</string>
-  <string name="action_remove_cache">Rimuovi cache</string>
-  <string name="success_remove_cache">Le cache di %s sono state eliminate</string>
-  <string name="action_remove_data">Elimina i dati</string>
-  <string name="success_clear_data">Tutti i dati di %s sono stati rimossi</string>
-  <string name="dialog_root_required">Necessario il Root</string>
-  <string name="dialog_root_required_description">Il dispositivo deve disporre dei permessi di root. Se non sono stati concessi, utilizza l\'app SuperUser per concedere l\'accesso a ML Manager.</string>
-  <string name="reboot_query">Per visualizzare i cambiamenti è necessario riavviare il dispositivo. Riavviare adesso ?</string>
-  <string name="dialog_system_action">Sei sicuro di voler disinstallare ?</string>
-  <string name="dialog_system_action_description">Stai per rimuovere un\'applicazione di sistema. Non rimuovere niente se non sei sicuro di quello che fai; il dispositivo potrebbe subire dei danni.</string>
-  <string name="action_extract">Estrai</string>
-  <string name="undo">Ripristina</string>
-  <string name="reboot">Riavvia</string>
-  <string name="action_uninstall">Disinstalla</string>
-  <string name="settings_custom_path">Cartella personalizzata per gli APK</string>
-  <string name="settings_custom_filename">Nome predefinito per gli APK estratti</string>
-  <string name="settings_sort_method">Ordina le app in per&#8230;</string>
-  <string name="settings_title_colors">Personalizzazione</string>
-  <string name="settings_primary_color">Colore principale</string>
-  <string name="settings_primary_color_description">Imposta il colore principale per la barra di navigazione e per quella degli strumenti. Richiede Android 5.0+</string>
-  <string name="settings_accent_color">Colore del Floating Button</string>
-  <string name="settings_accent_color_description">Imposta il colore del Floating Action Button (FAB)</string>
-  <string name="settings_navigation_color">Mostra la barra di navigazione in nero</string>
-  <string name="settings_navigation_color_description">Non utilizzare un colore personalizzato per la barra di navigazione.</string>
-  <string name="settings_reset_description">Fatta con il \u2665 dalla Spagna</string>
-  <string name="about_description_one">Sviluppatore App</string>
-  <string name="about_description_two">Designer</string>
-  <string name="tap_exit">Tocca ancora per chiudere l\'app</string>
+    <string name="action_extract">Estrai</string>
+    <string name="action_share">Condividi</string>
+    <string name="action_uninstall">Disinstalla</string>
+    <string name="action_hide">Nascondi</string>
+    <string name="action_disable">Disattiva</string>
+    <string name="action_system">Sistema</string>
+    <string name="action_remove_cache">Cancella Cache</string>
+    <string name="action_remove_data">Cancella dati</string>
+
+    <string name="storage">Memoria</string>
+    <string name="internal">Interna</string>
+    <string name="external">Esterna</string>
+    <string name="code">Code</string>
+    <string name="data">Data</string>
+    <string name="cache">Cache</string>
+    <string name="obb">Obb</string>
+    <string name="media">Media</string>
+    <string name="sort">Ordina</string>
+    <string name="send">Invia</string>
+    <string name="reboot">Riavvia</string>
+    <string name="undo">Annulla</string>
+    <string name="search">Cerca</string>
+    <string name="search_hint">Cerca per nome...</string>
+    <string name="search_empty">Nessun risultato in seguito alla ricerca.</string>
+
+    <!-- dialogs -->
+    <string name="dialog_progress">Performing action</string>
+    <string name="dialog_progress_description">Waiting for some tasks to finish executing.</string>
+    <string name="dialog_system_action">Sei sicuro di voler disinstallare?</string>
+    <string name="dialog_system_action_description">Stai per rimuovere un\'applicazione di sistema. Non rimuovere niente se non sei sicuro di quello che fai; il dispositivo potrebbe subire dei danni.</string>
+    <string name="dialog_permissions">Autorizzazione necessaria</string>
+    <string name="dialog_permissions_description">Devi accettare l\'autorizzazione per estrarre e condividere i pacchetti, pulire la cache ed eliminare i dati.</string>
+    <string name="dialog_root_required">Root necessario</string>
+    <string name="dialog_root_required_description">Il dispositivo deve disporre dei permessi di root. Se non sono stati concessi, utilizza l\'app SuperUser per concedere l\'accesso a ML Manager.</string>
+
+    <!-- layouts -->
+    <string name="layout_label">Etichetta</string>
+    <string name="layout_package">Pacchetto</string>
+    <string name="layout_version_name">Versione</string>
+    <string name="layout_version_code">Version Codice</string>
+    <string name="layout_size">Dimensione</string>
+    <string name="layout_data">Dati</string>
+    <string name="layout_source">Source</string>
+    <string name="layout_install">Installazione</string>
+    <string name="layout_update">Ultimo aggiornamento</string>
+    <string name="layout_development">In sviluppo</string>
+    <string name="layout_loading">...</string>
+    <string name="layout_error">404</string>
+
+    <!-- settings -->
+    <string name="settings_title_applications">Applicazioni</string>
+    <string name="settings_title_colors">Personalizzazione</string>
+    <string name="settings_title_other">Altro</string>
+
+    <string name="settings_custom_path">Cartella predefinita per gli APK estratti</string>
+    <string name="settings_custom_filename">Nome predefinito per gli APK estratti</string>
+    <string name="settings_sort_method">Ordina le app per...</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_primary_color">Colore primario</string>
+    <string name="settings_primary_color_description">Imposta il colore principale per la barra di navigazione e per quella degli strumenti. Richiede Android 5.0+</string>
+    <string name="settings_accent_color">Colore del Floating Button</string>
+    <string name="settings_accent_color_description">Imposta il colore del Floating Action Button.</string>
+    <string name="settings_status_color">Colorful Status Bar</string>
+    <string name="settings_status_color_description">Use the primary color for the status bar.</string>
+    <string name="settings_navigation_color">Mostra la barra di navigazione in nero</string>
+    <string name="settings_navigation_color_description">Non utilizzare un colore personalizzato per la barra di navigazione.</string>
+    <string name="settings_double_tap">Premi indietro per uscire</string>
+    <string name="settings_double_tap_description">Premi due volte indietro per uscire dall\'app.</string>
+    <string name="settings_root_enabled">Abilita funzioni Root</string>
+    <string name="settings_root_enabled_description">Può danneggiare il dispositivo ma forse andrà tutto bene.</string>
+    <string name="settings_delete_files">Clear Data</string>
+    <string name="settings_delete_files_description">Delete all saved packages, hidden apps, and other data.</string>
+    <string name="settings_reset">Ripristina impostazioni predefinite</string>
+    <string name="settings_reset_description">Ripristina le preferenze ai loro valori predefiniti.</string>
+
+    <!-- about -->
+    <string name="about_one">dkanada</string>
+    <string name="about_two">Javier Santos</string>
+    <string name="about_three">Javier Toro</string>
+    <string name="about_four">Lucian Sipos</string>
+    <string name="about_five">TykTak</string>
+    <string name="about_description_one">App Maintainer</string>
+    <string name="about_description_two">Original Developer</string>
+    <string name="about_description_three">Icon Designer</string>
+
+    <!-- toasts -->
+    <string name="clipboard">Nome app copiato negli appunti.</string>
+    <string name="tap_exit">Tocca ancora per chiudere l\'app.</string>
+    <string name="reboot_query">Per visualizzare i cambiamenti è necessario riavviare il dispositivo. Riavviare adesso?</string>
+    <string name="error_generic">There was an error and the selected action was not successfully completed.</string>
+    <string name="error_open">Quest\'app non ha un\'interfaccia grafica.</string>
+    <string name="success_extract">APK \"%1$s\" salvato nella cartella \"MLManager\" con il nome: %2$s.</string>
+    <string name="success_remove_cache">Le cache di %s sono state eliminate.</string>
+    <string name="success_clear_data">Tutti i dati di %s sono stati rimossi.</string>
+
+    <!-- other -->
+    <string name="light">Chiaro</string>
+    <string name="dark">Scuro</string>
+
 </resources>
