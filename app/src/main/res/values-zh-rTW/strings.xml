@@ -1,0 +1,104 @@
+<resources>
+
+    <!-- miscellaneous -->
+    <string name="app_description">為Android打造，現代，簡單，可自訂的應用程式管理員</string>
+
+    <!-- labels -->
+    <string name="apps_installed">已安裝的App</string>
+    <string name="apps_system">系統應用程式</string>
+    <string name="apps_favorite">最愛的App</string>
+    <string name="apps_hidden">隱藏的App</string>
+    <string name="apps_disabled">已停用的App</string>
+    <string name="settings">設定</string>
+    <string name="about">關於</string>
+
+    <string name="action_open">開啟</string>
+    <string name="action_extract">提取</string>
+    <string name="action_share">分享</string>
+    <string name="action_uninstall">解除安裝</string>
+    <string name="action_hide">隱藏</string>
+    <string name="action_disable">停用</string>
+    <string name="action_system">系統</string>
+    <string name="action_remove_cache">清除快取</string>
+    <string name="action_remove_data">清除資料</string>
+
+    <string name="storage">儲存空間</string>
+    <string name="internal">內部</string>
+    <string name="external">外部</string>
+    <string name="code">代碼</string>
+    <string name="data">資料</string>
+    <string name="cache">快取</string>
+    <string name="media">媒體</string>
+    <string name="sort">排序</string>
+    <string name="send">傳送</string>
+    <string name="reboot">重新開機</string>
+    <string name="undo">上一步</string>
+    <string name="search">搜尋</string>
+    <string name="search_hint">依名稱搜尋...</string>
+    <string name="search_empty">沒有搜尋到任何結果</string>
+
+    <!-- dialogs -->
+    <string name="dialog_progress">執行動作</string>
+    <string name="dialog_progress_description">等待一些程序以完成動作</string>
+    <string name="dialog_system_action">系統動作</string>
+    <string name="dialog_system_action_description">這個動作可能損壞你的手機。你確定要繼續?</string>
+    <string name="dialog_permissions">需要權限</string>
+    <string name="dialog_permissions_description">你必須允許權限來提取和分享安裝包，清除快取，還有清除資料。</string>
+    <string name="dialog_root_required">需要root</string>
+    <string name="dialog_root_required_description">要讓這個功能運作您必須root您的裝置且在設定裡啟用root功能。</string>
+
+    <!-- layouts -->
+    <string name="layout_label">標籤</string>
+    <string name="layout_package">安裝包</string>
+    <string name="layout_version_name">版本名稱</string>
+    <string name="layout_version_code">版本號碼</string>
+    <string name="layout_size">大小</string>
+    <string name="layout_data">資料</string>
+    <string name="layout_source">來源</string>
+    <string name="layout_install">第一次安裝</string>
+    <string name="layout_update">上一次更新</string>
+    <string name="layout_development">開發中</string>
+
+    <!-- settings -->
+    <string name="settings_title_applications">應用程式</string>
+    <string name="settings_title_colors">色彩</string>
+    <string name="settings_title_other">其他</string>
+
+    <string name="settings_custom_path">資料夾</string>
+    <string name="settings_custom_filename">檔案名稱</string>
+    <string name="settings_sort_method">排序方式</string>
+    <string name="settings_theme">主體</string>
+    <string name="settings_primary_color">主顏色</string>
+    <string name="settings_status_color">彩色狀態欄</string>
+    <string name="settings_status_color_description">把主色彩套用至狀態欄</string>
+    <string name="settings_double_tap">按下返回離開</string>
+    <string name="settings_double_tap_description">按下返回兩次關閉本程式</string>
+    <string name="settings_root_enabled">啟用root功能</string>
+    <string name="settings_root_enabled_description">這可能會損壞你的手機但也可能沒事。</string>
+    <string name="settings_delete_files">清除資料</string>
+    <string name="settings_delete_files_description">刪除所有已儲存的安裝包，隱藏的應用程式還有其他資料。</string>
+    <string name="settings_reset">重設偏好設定</string>
+    <string name="settings_reset_description">還原偏好設定為預設值</string>
+
+    <!-- about -->
+    <string name="about_description_one">App維護者</string>
+    <string name="about_description_two">最初開發者</string>
+    <string name="about_description_three">Icon設計師</string>
+
+    <!-- toasts -->
+    <string name="clipboard">應用程式名稱已複製到剪貼簿。</string>
+    <string name="tap_exit">再按一次返回即可離開</string>
+    <string name="reboot_query">可能需要重新開機以顯示改變。你想現在重新開機嗎？</string>
+    <string name="error_generic">發生錯誤且選擇的行動未完成</string>
+    <string name="error_open">這個應用程式沒有使用者介面</string>
+    <string name="success_extract">%1$s 已被另存為 %2$s 到特定的資料夾</string>
+    <string name="success_remove_cache">%s快取已清除</string>
+    <string name="success_clear_data">%s 資料已被移除</string>
+
+    <!-- other -->
+    <string name="light">明亮</string>
+    <string name="dark">黑暗</string>
+
+    <!-- preferences -->
+
+</resources>
